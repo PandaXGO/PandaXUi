@@ -1,0 +1,59 @@
+{
+	"name": "PandaUi",
+	"version": "1.1.1",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"lint-fix": "eslint --fix --ext .js --ext .jsx --ext .vue src/"
+	},
+	"dependencies": {
+		"axios": "^0.21.4",
+		"countup.js": "^2.0.8",
+		"cropperjs": "^1.5.12",
+		"echarts": "^5.2.1",
+		"echarts-gl": "^2.0.8",
+		"echarts-wordcloud": "^2.0.0",
+		"element-plus": "^1.1.0-beta.16",
+		"jsplumb": "^2.15.6",
+		"mitt": "^3.0.0",
+		"nprogress": "^0.2.0",
+		"print-js": "^1.6.0",
+		"qrcodejs2-fixes": "^0.0.2",
+		"screenfull": "^5.1.0",
+		"sortablejs": "^1.14.0",
+		"splitpanes": "^3.0.4",
+		"vue": "^3.2.6",
+		"vue-clipboard3": "^1.0.1",
+		"vue-grid-layout": "^3.0.0-beta1",
+		"vue-i18n": "^9.1.7",
+		"vue-router": "^4.0.11",
+		"vue-web-screen-shot": "^1.2.0",
+		"vuex": "^4.0.2",
+		"wangeditor": "^4.7.8"
+	},
+	"devDependencies": {
+		"@types/axios": "^0.14.0",
+		"@types/clipboard": "^2.0.1",
+		"@types/node": "^16.9.6",
+		"@types/nprogress": "^0.2.0",
+		"@types/sortablejs": "^1.10.7",
+		"@typescript-eslint/eslint-plugin": "^4.31.2",
+		"@typescript-eslint/parser": "^4.31.2",
+		"@vitejs/plugin-vue": "^1.9.2",
+		"@vue/compiler-sfc": "^3.2.18",
+		"dotenv": "^10.0.0",
+		"eslint": "^7.32.0",
+		"eslint-plugin-vue": "^7.18.0",
+		"prettier": "^2.4.1",
+		"sass": "^1.42.1",
+		"sass-loader": "^12.1.0",
+		"typescript": "^4.4.3",
+		"vite": "^2.5.10",
+		"vue-eslint-parser": "^7.11.0"
+	},
+	"browserslist": [
+		"> 1%",
+		"last 2 versions",
+		"not dead"
+	]
+}

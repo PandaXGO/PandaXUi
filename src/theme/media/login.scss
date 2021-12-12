@@ -1,0 +1,37 @@
+@import './index.scss';
+
+/* 页面宽度小于576px
+------------------------------- */
+@media screen and (max-width: $xs) {
+	.login-container {
+		background: none !important;
+		.login-logo {
+			display: none;
+		}
+		.login-content {
+			width: 100% !important;
+			height: 100% !important;
+			padding: 20px 0 !important;
+			border-radius: 0 !important;
+			box-shadow: unset !important;
+			border: none !important;
+		}
+		.login-copyright {
+			display: none !important;
+		}
+		.el-form-item {
+			display: flex !important;
+		}
+	}
+}
+
+/* 页面宽度小于375px
+------------------------------- */
+@media screen and (max-width: 376px) {
+	.login-container {
+		.login-content-title {
+			font-size: 18px !important;
+			transition: all 0.3s ease;
+		}
+	}
+}

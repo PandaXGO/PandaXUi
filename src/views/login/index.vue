@@ -6,7 +6,7 @@
 		<div class="login-content" :class="{ 'login-content-mobile': state.tabsActiveName === 'mobile' }">
 			<div class="login-content-main">
 				<h4 class="login-content-title">{{ getThemeConfig.globalTitle }}后台模板</h4>
-				<div v-if="!isScan">
+				<div v-if="!state.isScan">
 					<el-tabs v-model="state.tabsActiveName" @tab-click="onTabsClick">
 						<el-tab-pane :label="$t('message.label.one1')" name="account" :disabled="state.tabsActiveName === 'account'">
 							<transition name="el-zoom-in-center">
@@ -20,7 +20,7 @@
 						</el-tab-pane>
 					</el-tabs>
 					<el-divider>其他登录方式</el-divider>
-					<div class="mt10">
+					<div>
 						<el-button style="font-size: 20px" class="fa fa-qq mr20" circle></el-button>
 						<el-button style="font-size: 20px" class="fa fa-github" circle></el-button>
 					</div>

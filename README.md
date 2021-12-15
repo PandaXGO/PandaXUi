@@ -122,9 +122,6 @@
 * :clipboard: 大屏系统
 * :clipboard: 报表系统
 
-## 平台官网
-
-  www.pandax.vip
   
 ## ❤特别鸣谢
 

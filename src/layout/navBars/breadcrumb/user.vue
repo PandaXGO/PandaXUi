@@ -2,7 +2,7 @@
 	<div class="layout-navbars-breadcrumb-user" :style="{ flex: layoutUserFlexNum }">
 		<el-dropdown :show-timeout="70" :hide-timeout="50" trigger="click" @command="onComponentSizeChange">
 			<div class="layout-navbars-breadcrumb-user-icon">
-				<i class="iconfont icon-ziti" :title="$t('message.user.title0')"></i>
+				<i class="iconfont icon-ziti" style="font-size: 18px;" :title="$t('message.user.title0')"></i>
 			</div>
 			<template #dropdown>
 				<el-dropdown-menu>
@@ -15,7 +15,7 @@
 		</el-dropdown>
 		<el-dropdown :show-timeout="70" :hide-timeout="50" trigger="click" @command="onLanguageChange">
 			<div class="layout-navbars-breadcrumb-user-icon">
-				<i class="iconfont" :class="disabledI18n === 'en' ? 'icon-fuhao-yingwen' : 'icon-fuhao-zhongwen'" :title="$t('message.user.title1')"></i>
+				<i class="iconfont" style="font-size: 18px;" :class="disabledI18n === 'en' ? 'icon-fuhao-yingwen' : 'icon-fuhao-zhongwen'" :title="$t('message.user.title1')"></i>
 			</div>
 			<template #dropdown>
 				<el-dropdown-menu>
@@ -270,6 +270,9 @@ export default {
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
+	.layout-navbars-breadcrumb-user-icon{
+		font-size: 18px;
+	};
 	&-link {
 		height: 100%;
 		display: flex;

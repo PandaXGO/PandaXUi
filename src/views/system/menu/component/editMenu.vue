@@ -296,6 +296,7 @@
                     menuType: "",
                     parentId: 0, // 父菜单ID
                     component: "", // 组件地址
+                    path: "",
                     sort: 1, // 菜单排序
                     status: "", //菜单状态
                     title: "", // 菜单名称
@@ -438,6 +439,7 @@
                 state.ruleForm.menuType = "";
                 state.ruleForm.parentId = 0; // 父菜单ID
                 state.ruleForm.component = ""; // 组件地址
+                state.ruleForm.path = ""; // 路由地址
                 state.ruleForm.sort = 1; // 菜单排序
                 state.ruleForm.status = ""; //菜单状态
                 state.ruleForm.title = ""; // 菜单名称

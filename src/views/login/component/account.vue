@@ -146,9 +146,11 @@ const login = () => {
 // 登录
 const onSignIn = async () => {
 	state.loading.signIn = true;
-	//let loginRespon: any;
-	let loginRespon:any = await signIn(state.loginForm)
-	if (loginRespon.code != 200){
+	let loginRespon;
+	try {
+		loginRespon = await signIn(state.loginForm)
+	} catch (e) {
+		console.log(loginRespon)
 		state.isPassingFour = false;
 		state.loading.signIn = false;
 		state.loginForm.captcha = '';

@@ -121,7 +121,7 @@ export default {
 	},
 	noAccess: {
 		accessTitle: '您未被授权，没有操作权限~',
-		accessMsg: '联系方式：加QQ群探讨 665452019',
+		accessMsg: '联系方式：加QQ群探讨 2417920382',
 		accessBtn: '重新授权',
 	},
 	layout: {

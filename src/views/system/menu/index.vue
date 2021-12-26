@@ -78,7 +78,6 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        style="width: "
                         prop="sort"
                         label="排序"
                         width="60"

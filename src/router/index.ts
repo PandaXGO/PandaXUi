@@ -86,6 +86,8 @@ export function initBackEndControlRoutes() {
 	drs[0].children = drs[0].children?.concat(backEndRouterConverter(menuRoute))
 	// @ts-ignore
 	drs[0].children?.push( staticPageRoutes[0] );
+
+	console.log(drs[0])
 	// 添加404界面
 	router.addRoute(pathMatch);
 	// 添加动态路由

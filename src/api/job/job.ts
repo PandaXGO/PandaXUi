@@ -44,13 +44,9 @@ export function delJob(jobId:any) {
 }
 
 // 任务状态修改
-export function changeJobStatus(jobId:any, status:any) {
-	const data = {
-		jobId,
-		status
-	}
+export function changeJobStatus(data:any) {
 	return request({
-		url: '/monitor/job/changeStatus',
+		url: '/job/changeStatus',
 		method: 'put',
 		data: data
 	})

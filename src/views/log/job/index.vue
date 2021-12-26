@@ -1,5 +1,6 @@
 <template>
     <div class="app-container">
+        <el-card shadow="always">
         <!-- 查询 -->
         <el-form
                 :model="queryParams"
@@ -14,7 +15,7 @@
                         size="small"
                         @keyup.enter="handleQuery"
                         style="width: 240px"
-                        v-model="queryParams.jobName"
+                        v-model="queryParams.name"
                 />
             </el-form-item>
             <el-form-item label="任务组名" prop="jobGroup">
@@ -75,16 +76,6 @@
                 >清空</el-button
                 >
             </el-col>
-            <el-col :span="1.5">
-                <el-button
-                        type="warning"
-                        plain
-                        icon="el-icon-download"
-                        size="mini"
-                        @click="handleExport"
-                >导出</el-button
-                >
-            </el-col>
         </el-row>
         <!--数据表格-->
         <el-table
@@ -97,12 +88,12 @@
                     label="日志编号"
                     width="80"
                     align="center"
-                    prop="jobLogId"
+                    prop="logId"
             />
             <el-table-column
                     label="任务名称"
                     align="center"
-                    prop="jobName"
+                    prop="name"
                     :show-overflow-tooltip="true"
             />
             <el-table-column
@@ -113,7 +104,7 @@
                     :show-overflow-tooltip="true"
             />
             <el-table-column
-                    label="调用目标字符串"
+                    label="调用目标"
                     align="center"
                     prop="invokeTarget"
                     :show-overflow-tooltip="true"
@@ -121,23 +112,30 @@
             <el-table-column
                     label="日志信息"
                     align="center"
-                    prop="jobMessage"
+                    prop="logInfo"
                     :show-overflow-tooltip="true"
             />
             <el-table-column
                     label="执行状态"
                     align="center"
                     prop="status"
-                    :formatter="statusFormat"
-            />
+            >
+                <template #default="scope">
+                    <el-tag
+                            :type="scope.row.status === '0' ? 'success': 'warning'"
+                            disable-transitions
+                    >{{ statusFormat(scope.row) || '-- --' }}
+                    </el-tag>
+                </template>
+            </el-table-column>
             <el-table-column
                     label="执行时间"
                     align="center"
-                    prop="createTime"
+                    prop="create_time"
                     width="180"
             >
                 <template #default="scope">
-                    <span>{{ parseTime(scope.row.createTime) }}</span>
+                    <span>{{ dateStrFormat(scope.row.create_time) }}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -158,17 +156,20 @@
         </el-table>
 
         <!-- 分页设置-->
-        <el-pagination
-                v-show="total > 0"
-                :total="total"
-                :current-page="queryParams.pageNo"
-                :page-sizes="[10, 20, 30, 40]"
-                :page-size="queryParams.pageSize"
-                layout="total, sizes, prev, pager, next, jumper"
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-        />
+        <div v-show="total > 0">
+            <el-divider></el-divider>
+            <el-pagination
+                    background
+                    :total="total"
+                    :current-page="queryParams.pageNum"
+                    :page-size="queryParams.pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+            />
+        </div>
 
+        </el-card>
         <!-- 调度日志详细 -->
         <el-dialog title="调度日志详细" v-model="open" width="700px" append-to-body>
             <el-form
@@ -179,29 +180,25 @@
             >
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="日志序号：">{{
-                            modelForm.jobLogId
-                            }}</el-form-item>
-                        <el-form-item label="任务名称：">{{
-                            modelForm.jobName
-                            }}</el-form-item>
+                        <el-form-item label="日志序号：">{{ modelForm.logId }}</el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="任务分组：">{{
-                            modelForm.jobGroup
-                            }}</el-form-item>
-                        <el-form-item label="执行时间：">{{
-                            modelForm.createTime
-                            }}</el-form-item>
+                        <el-form-item label="任务分组：">{{ modelForm.jobGroup}}</el-form-item>
                     </el-col>
-                    <el-col :span="24">
+                    <el-col :span="12">
+                        <el-form-item label="任务名称：">{{ modelForm.name }}</el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="执行时间：">{{ modelForm.create_time }}</el-form-item>
+                    </el-col>
+                    <el-col :span="12">
                         <el-form-item label="调用方法：">{{
                             modelForm.invokeTarget
                             }}</el-form-item>
                     </el-col>
-                    <el-col :span="24">
+                    <el-col :span="12">
                         <el-form-item label="日志信息：">{{
-                            modelForm.jobMessage
+                            modelForm.logInfo
                             }}</el-form-item>
                     </el-col>
                     <el-col :span="24">
@@ -209,11 +206,6 @@
                             <div v-if="modelForm.status == 0">正常</div>
                             <div v-else-if="modelForm.status == 1">失败</div>
                         </el-form-item>
-                    </el-col>
-                    <el-col :span="24">
-                        <el-form-item label="异常信息：" v-if="modelForm.status == 1">{{
-                            form.exceptionInfo
-                            }}</el-form-item>
                     </el-col>
                 </el-row>
             </el-form>
@@ -238,9 +230,8 @@
     import {
         listJobLog,
         delJobLog,
-        exportJobLog,
         cleanJobLog,
-    } from "@/api/monitor/jobLog";
+    } from "/@/api/log/job";
     import { ElMessageBox, ElMessage } from "element-plus";
 
     export default {
@@ -274,13 +265,11 @@
                 JobOptions: [],
                 // 状态字典
                 statusOptions: [],
-                // 日期范围
-                dateRange: [],
                 // 查询参数
                 queryParams: {
-                    pageNo: 1,
+                    pageNum: 1,
                     pageSize: 10,
-                    jobName: undefined,
+                    name: undefined,
                     jobGroup: undefined,
                     status: undefined,
                 },
@@ -290,7 +279,7 @@
             // 定义方法
             /** 重置按钮操作 */
             const resetQuery = () => {
-                state.queryParams.jobName = undefined;
+                state.queryParams.name = undefined;
                 state.queryParams.jobGroup = undefined;
                 state.queryParams.status = undefined;
                 handleQuery();
@@ -298,9 +287,8 @@
             /** 查询定时任务列表 */
             const handleQuery = () => {
                 state.loading = true;
-                listJobLog(proxy.addDateRange(state.queryParams, state.dateRange)).then(
-                    (response) => {
-                        state.tableData = response.data.records;
+                listJobLog(state.queryParams).then((response) => {
+                        state.tableData = response.data.data;
                         state.total = response.data.total;
                         state.loading = false;
                     }
@@ -309,16 +297,16 @@
 
             /** 删除按钮操作 */
             const onTabelRowDel = (row: any) => {
-                const jobLogIds = row.jobLogId || state.ids;
+                const logIds = row.logId || state.ids;
                 ElMessageBox({
-                    message: '是否确认删除定时任务编号为"' + jobLogIds + '"的数据项?',
+                    message: '是否确认删除定时任务编号为"' + logIds + '"的数据项?',
                     title: "警告",
                     showCancelButton: true,
                     confirmButtonText: "确定",
                     cancelButtonText: "取消",
                     type: "warning",
                 }).then(function () {
-                    return delJobLog(jobLogIds).then(() => {
+                    return delJobLog(logIds).then(() => {
                         handleQuery();
                         ElMessage.success("删除成功");
                     });
@@ -344,7 +332,7 @@
             };
             // 多选框选中数据
             const handleSelectionChange = (selection: any) => {
-                state.ids = selection.map((item: any) => item.jobLogId);
+                state.ids = selection.map((item: any) => item.logId);
                 state.single = selection.length != 1;
                 state.multiple = !selection.length;
             };
@@ -356,7 +344,7 @@
             };
             //当前页码发生变化
             const handleCurrentChange = (val: any) => {
-                state.queryParams.pageNo = val;
+                state.queryParams.pageNum = val;
                 handleQuery();
             };
             // 定时任务状态定时任务翻译
@@ -365,7 +353,7 @@
             };
             // 任务组名字典翻译
             const jobGroupFormat = (row: any, column: any) => {
-                return proxy.selectDictLabel(state.jobGroupOptions, row.status);
+                return proxy.selectDictLabel(state.jobGroupOptions, row.jobGroup);
             };
             /** 详细按钮操作 */
             const handleView = (row: any) => {
@@ -374,36 +362,14 @@
             };
             // 页面加载时调用
             onMounted(() => {
-                //   proxy.mittBus.on("onEditPostModule", (res: any) => {
-                //     handleQuery();
-                //   });
-                // 查询列表数据信息
                 handleQuery();
-                proxy.getDicts("sys_job_status").then((response: any) => {
+                proxy.getDicts("sys_normal_disable").then((response: any) => {
                     state.statusOptions = response.data;
                 });
                 proxy.getDicts("sys_job_group").then((response: any) => {
                     state.jobGroupOptions = response.data;
                 });
             });
-            /** 导出按钮操作 */
-            const handleExport = () => {
-                const queryParams = state.queryParams;
-                ElMessageBox({
-                    message: "是否确认导出所有调度日志数据项?",
-                    title: "警告",
-                    confirmButtonText: "确定",
-                    cancelButtonText: "取消",
-                    type: "warning",
-                })
-                    .then(function () {
-                        return exportJobLog(queryParams);
-                    })
-                    .then((response) => {
-                        console.log("导出按钮操作", response);
-                        proxy.download(response.data);
-                    });
-            };
 
             // 页面卸载时
             onUnmounted(() => {
@@ -412,7 +378,6 @@
 
             return {
                 ruleFormRef,
-                handleExport,
                 resetQuery,
                 handleQuery,
                 handleClean,

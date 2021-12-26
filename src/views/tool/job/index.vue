@@ -138,7 +138,7 @@
                 <template #default="scope">
                     <el-button size="mini" type="text" icon="el-icon-caret-right" @click="handleRun(scope.row)">{{ scope.row.entryId > 0 ? "停止":"启动"}}</el-button>
                     <el-button size="mini" type="text" icon="el-icon-view" @click="onOpenEditModule(scope.row)">编辑</el-button>
-                    <el-button size="mini" type="text" icon="el-icon-view" @click="handleView(scope.row)">删除</el-button>
+                    <el-button size="mini" type="text" icon="el-icon-view" @click="onTabelRowDel(scope.row)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -310,7 +310,7 @@
                     type: "warning",
                 })
                     .then(function () {
-                        return changeJobStatus(row.jobId, row.status);
+                        return changeJobStatus({jobId: row.jobId,status: row.status});
                     })
                     .then(() => {
                         ElMessage({

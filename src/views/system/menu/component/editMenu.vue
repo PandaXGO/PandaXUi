@@ -119,7 +119,7 @@
                                 </el-form-item>
                             </el-col>
                             <el-col :span="2">
-                                <el-tooltip content="菜单对应的具体vue页面文件路径views的下级路径/system/user/index" placement="top">
+                                <el-tooltip content="菜单对应的具体vue页面文件路径views的下级路径/system/user/index,外链请填写/layout/routerView/link，内链请填写/layout/routerView/iframes" placement="top">
                                     <i class="el-icon-info ml10 mt10"></i>
                                 </el-tooltip>
                             </el-col>
@@ -211,8 +211,8 @@
                     </el-col>
 
                     <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20" v-if="ruleForm.menuType != 'F'">
-                        <el-form-item label="是否外链">
-                            <el-radio-group v-model="ruleForm.isFrame">
+                        <el-form-item label="是否内嵌">
+                            <el-radio-group v-model="ruleForm.isIframe">
                                 <el-radio
                                         v-for="dict in yesOrNoOptions"
                                         :key="dict.dictValue"
@@ -305,7 +305,7 @@
                     isKeepAlive: "", // 是否缓存
                     isAffix: "", // 是否固定
                     isLink: "", // 是否外链，开启外链条件，`1、isLink:true 2、链接地址不为空`
-                    isFrame: "", // 是否内嵌，开启条件，`1、isFrame:true 2、链接地址不为空`
+                    isIframe: "", // 是否内嵌，开启条件，`1、isIframe:true 2、链接地址不为空`
                     permission: "", // 路由权限标识（多个请用逗号隔开），最后转成数组格式
                     remark: "", // 备注
                 },
@@ -340,6 +340,7 @@
             });
             // 打开弹窗
             const openDialog = (row: any) => {
+                console.log(row)
                 if (row.menuId && row.menuId != undefined && row.menuId != 0) {
                     state.ruleForm = row;
                 } else {
@@ -448,7 +449,7 @@
                 state.ruleForm.isKeepAlive = ""; // 是否缓存
                 state.ruleForm.isAffix = ""; // 是否固定
                 state.ruleForm.isLink = ""; // 是否外链，开启外链条件，`1、isLink:true 2、链接地址不为空`
-                state.ruleForm.isFrame = ""; // 是否内嵌，开启条件，`1、isFrame:true 2、链接地址不为空`
+                state.ruleForm.isIframe = ""; // 是否内嵌，开启条件，`1、isFrame:true 2、链接地址不为空`
                 state.ruleForm.permission = ""; // 路由权限标识（多个请用逗号隔开），最后转成数组格式
                 state.ruleForm.remark = ""; // 备注
             };

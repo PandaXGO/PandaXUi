@@ -7,11 +7,9 @@
 		<div class="content-box">
 			<template v-if="newsList.length > 0">
 				<div class="content-box-item" v-for="(v, k) in newsList" :key="k">
-					<div>{{ v.label }}</div>
-					<div class="content-box-msg">
-						{{ v.value }}
-					</div>
-					<div class="content-box-time">{{ v.time }}</div>
+					<div>{{ v.title }}</div>
+
+					<div class="content-box-time">发布时间：{{ dateStrFormat(v.create_time) }}</div>
 				</div>
 			</template>
 			<el-empty :description="$t('message.user.newDesc')" v-else></el-empty>
@@ -21,32 +19,33 @@
 </template>
 
 <script lang="ts">
-import { reactive, toRefs } from 'vue';
+import { reactive, toRefs,onMounted,onUnmounted, } from 'vue';
+import {listNotice,} from "/@/api/system/notice";
+import {useRouter} from "vue-router";
 export default {
 	name: 'layoutBreadcrumbUserNews',
 	setup() {
+		const router = useRouter();
 		const state = reactive({
-			newsList: [
-				{
-					label: '关于版本发布的通知',
-					value: 'PandaUi，基于 vue3 + CompositionAPI + typescript + vite + element plus，正式发布时间：2021年02月28日！',
-					time: '2020-12-08',
-				},
-				{
-					label: '关于学习交流的通知',
-					value: 'QQ号码 2417920382，欢迎小伙伴入群学习交流探讨！',
-					time: '2020-12-08',
-				},
-			],
+			newsList: [],
 		});
+		const handleQuery = () => {
+			listNotice({pageNum: 1,pageSize: 3}).then((response) => {
+						state.newsList = response.data.data;
+					}
+			);
+		};
 		// 全部已读点击
 		const onAllReadClick = () => {
 			state.newsList = [];
 		};
 		// 前往通知中心点击
 		const onGoToGiteeClick = () => {
-			window.open('https://gitee.com/PandaAdmin/PandaX');
+			router.push("/tool/notice")
 		};
+		onMounted(() => {
+			handleQuery()
+		})
 		return {
 			onAllReadClick,
 			onGoToGiteeClick,

@@ -1,24 +1,29 @@
 <template>
 	<el-form ref="loginFormRef" :model="state.loginForm" :rules="state.rules" class="login-content-form">
-		<el-form-item>
+		<el-form-item class="login-animation-one">
 			<el-input
-				type="text"
-				:placeholder="$t('message.account.accountPlaceholder1')"
-				prefix-icon="el-icon-user"
-				v-model="state.loginForm.username"
-				clearable
-				autocomplete="off"
+					type="text"
+					:placeholder="$t('message.account.accountPlaceholder1')"
+					prefix-icon="el-icon-user"
+					v-model="state.loginForm.username"
+					clearable
+					autocomplete="off"
 			>
+				<template #prefix>
+					<el-icon class="el-input__icon"><elementUser /></el-icon>
+				</template>
 			</el-input>
 		</el-form-item>
-		<el-form-item>
+		<el-form-item class="login-animation-two">
 			<el-input
 				:type="state.isShowPassword ? 'text' : 'password'"
 				:placeholder="$t('message.account.accountPlaceholder2')"
-				prefix-icon="el-icon-lock"
 				v-model="state.loginForm.password"
 				autocomplete="off"
 			>
+				<template #prefix>
+					<el-icon class="el-input__icon"><elementUnlock /></el-icon>
+				</template>
 				<template #suffix>
 					<i
 						class="iconfont el-input__icon login-content-password"
@@ -29,18 +34,21 @@
 				</template>
 			</el-input>
 		</el-form-item>
-		<el-form-item>
+		<el-form-item class="login-animation-three">
 			<el-row :gutter="15">
 				<el-col :span="16">
 					<el-input
 						type="text"
 						maxlength="6"
 						:placeholder="$t('message.account.accountPlaceholder3')"
-						prefix-icon="el-icon-position"
 						v-model="state.loginForm.captcha"
 						clearable
 						autocomplete="off"
-					></el-input>
+					>
+						<template #prefix>
+							<el-icon class="el-input__icon"><elementPosition /></el-icon>
+						</template>
+					</el-input>
 				</el-col>
 				<el-col :span="8">
 					<div class="login-content-code">
@@ -56,7 +64,7 @@
 				</el-col>
 			</el-row>
 		</el-form-item>
-		<el-form-item>
+		<el-form-item class="login-animation-four">
 			<el-button type="primary" class="login-content-submit" round @click="openVerify" :loading="state.loading.signIn">
 				<span>{{ $t('message.account.accountBtnText') }}</span>
 			</el-button>
@@ -67,11 +75,10 @@
 		<DragVerifyImgRotate
 				:imgsrc="state.imgThree"
 				v-model:isPassing="state.isPassingFour"
-
 				text="请按住滑块拖动"
 				successText="验证通过"
-				handlerIcon="el-icon-d-arrow-right"
-				successIcon="el-icon-circle-check"
+				handlerIcon="fa fa-angle-double-right"
+				successIcon="fa fa-hand-peace-o"
 				@passcallback="passVerify"
 		/>
 	</el-dialog>
@@ -234,6 +241,29 @@ const signInSuccess = () => {
 <style scoped lang="scss">
 .login-content-form {
 	margin-top: 20px;
+	.login-animation-one,
+	.login-animation-two,
+	.login-animation-three,
+	.login-animation-four {
+		opacity: 0;
+		animation-name: error-num;
+		animation-duration: 0.5s;
+		animation-fill-mode: forwards;
+	}
+	.login-animation-one {
+		animation-delay: 0.1s;
+	}
+	.login-animation-two {
+		animation-delay: 0.2s;
+	}
+	.login-animation-three {
+		animation-delay: 0.3s;
+	}
+	.login-animation-four {
+		animation-delay: 0.4s;
+		margin-bottom: 5px;
+	}
+
 	.login-content-password {
 		display: inline-block;
 		width: 25px;

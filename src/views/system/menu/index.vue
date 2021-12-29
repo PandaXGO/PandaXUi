@@ -37,25 +37,25 @@
                 <el-form-item>
                     <el-button
                             type="primary"
-                            icon="el-icon-search"
                             size="mini"
                             @click="handleQuery"
-                    >搜索
-                    </el-button
                     >
-                    <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
-                    >重置
-                    </el-button
-                    >
-                    <el-button
-                            type="primary"
-                            size="mini"
-                            plain
-                            icon="el-icon-plus"
-                            @click="onOpenAddMenu"
-                    >新增
+                        <SvgIcon name="elementSearch" />
+                        搜索</el-button>
+                    <el-button size="mini" @click="resetQuery">
+                        <SvgIcon name="elementRefresh" />
+                        重置
+                    </el-button>
+                    <el-button type="primary"
+                               plain
+                               size="mini"
+                               v-auth="'system:dept:add'"
+                               @click="onOpenAddMenu">
+                        <SvgIcon name="elementPlus" />
+                        新增
                     </el-button>
                 </el-form-item>
+                <el-form-item></el-form-item>
             </el-form>
 
             <!--数据表格-->
@@ -74,7 +74,7 @@
                 ></el-table-column>
                 <el-table-column prop="icon" label="图标" align="center" width="100">
                     <template #default="scope">
-                        <i :class="scope.row.icon"></i>
+                        <SvgIcon :name="scope.row.icon"></SvgIcon>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -138,22 +138,19 @@
                                 type="text"
                                 icon="el-icon-edit"
                                 @click="onOpenEditMenu(scope.row)"
-                        >修改
-                        </el-button>
+                        ><SvgIcon name="elementEdit" />修改</el-button>
                         <el-button
                                 size="mini"
                                 type="text"
                                 icon="el-icon-plus"
                                 @click="onOpenAddMenu(scope.row)"
-                        >新增
-                        </el-button>
+                        ><SvgIcon name="elementPlus" />新增</el-button>
                         <el-button
                                 size="mini"
                                 type="text"
                                 icon="el-icon-delete"
                                 @click="handleDelete(scope.row)"
-                        >删除
-                        </el-button>
+                        ><SvgIcon name="elementDelete" />删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>

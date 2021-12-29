@@ -5,19 +5,19 @@
 				<template v-for="val in menuLists">
 					<el-sub-menu :index="val.path" v-if="val.children && val.children.length > 0" :key="val.path">
 						<template #title>
-							<i :class="val.meta.icon ? val.meta.icon : ''"></i>
+							<SvgIcon :name="val.meta.icon" />
 							<span>{{ $t(val.meta.title) }}</span>
 						</template>
 						<SubItem :chil="val.children" />
 					</el-sub-menu>
 					<el-menu-item :index="val.path" :key="val.path" v-else>
 						<template #title v-if="!val.meta.isLink || (val.meta.isLink && val.meta.isIframe)">
-							<i :class="val.meta.icon ? val.meta.icon : ''"></i>
+							<SvgIcon :name="val.meta.icon" />
 							{{ $t(val.meta.title) }}
 						</template>
 						<template #title v-else>
 							<a :href="val.meta.isLink" target="_blank" rel="opener">
-								<i :class="val.meta.icon ? val.meta.icon : ''"></i>
+								<SvgIcon :name="val.meta.icon" />
 								{{ $t(val.meta.title) }}
 							</a>
 						</template>
@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { toRefs, reactive, computed, defineComponent, getCurrentInstance, onMounted, nextTick } from 'vue';
+import { toRefs, reactive, computed, defineComponent, getCurrentInstance, onMounted, nextTick,onBeforeMount  } from 'vue';
 import { useRoute, onBeforeRouteUpdate } from 'vue-router';
 import { useStore } from '/@/store/index';
 import SubItem from '/@/layout/navMenu/subItem.vue';
@@ -46,7 +46,7 @@ export default defineComponent({
 		const { proxy } = getCurrentInstance() as any;
 		const route = useRoute();
 		const store = useStore();
-		const state: any = reactive({
+		const state = reactive({
 			defaultActive: null,
 		});
 		// 获取父级菜单数据
@@ -101,10 +101,13 @@ export default defineComponent({
 				else state.defaultActive = path;
 			}
 		};
+		// 页面加载前
+		onBeforeMount(() => {
+			setCurrentRouterHighlight(route);
+		});
 		// 页面加载时
 		onMounted(() => {
 			initElMenuOffsetLeft();
-			setCurrentRouterHighlight(route);
 		});
 		// 路由更新时
 		onBeforeRouteUpdate((to) => {

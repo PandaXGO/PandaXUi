@@ -51,16 +51,14 @@
               <el-form-item>
                 <el-button
                   type="primary"
-                  icon="el-icon-search"
                   @click="handleQuery"
                   size="mini"
-                  >搜索</el-button
+                  ><SvgIcon name="elementSearch" />搜索</el-button
                 >
                 <el-button
-                  icon="el-icon-refresh"
                   size="mini"
                   @click="resetQuery"
-                  >重置</el-button
+                  ><SvgIcon name="elementRefresh" />重置</el-button
                 >
               </el-form-item>
             </el-col>
@@ -73,7 +71,7 @@
                 type="primary"
                 v-auth="'system:dictD:add'"
                 @click="onOpenAddModule"
-                >新增</el-button
+                ><SvgIcon name="elementPlus" />新增</el-button
               >
             </el-col>
           </el-row>
@@ -122,6 +120,7 @@
           <el-table-column
             label="操作"
             align="center"
+            width="150"
             class-name="medium-padding fixed-width"
           >
             <template #default="scope">
@@ -131,15 +130,14 @@
                 icon="el-icon-edit"
                 v-auth="'system:dictD:edit'"
                 @click="onOpenEditModule(scope.row)"
-                >修改</el-button
+                ><SvgIcon name="elementEdit" />修改</el-button
               >
               <el-button
                 size="mini"
                 type="text"
                 v-auth="'system:dictD:delete'"
-                icon="el-icon-delete"
                 @click="onTabelRowDel(scope.row)"
-                >删除</el-button
+                ><SvgIcon name="elementDelete" />删除</el-button
               >
             </template>
           </el-table-column>

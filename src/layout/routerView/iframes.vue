@@ -1,5 +1,5 @@
 <template>
-	<div class="layout-view-bg-white flex" :style="{ height: `calc(100vh - ${setIframeHeight}`, border: 'none' }" v-loading="iframeLoading">
+	<div class="layout-view-bg-white flex mt1" :style="{ height: `calc(100vh - ${setIframeHeight}`, border: 'none' }" v-loading="iframeLoading">
 		<iframe :src="iframeUrl" frameborder="0" height="100%" width="100%" id="iframe" v-show="!iframeLoading"></iframe>
 	</div>
 </template>
@@ -34,10 +34,10 @@ export default defineComponent({
 			let { isTagsview } = store.state.themeConfig.themeConfig;
 			let { isTagsViewCurrenFull } = store.state.tagsViewRoutes;
 			if (isTagsViewCurrenFull) {
-				return `0px`;
+				return `1px`;
 			} else {
-				if (isTagsview) return `84px`;
-				else return `50px`;
+				if (isTagsview) return `85px`;
+				else return `51px`;
 			}
 		});
 		// 页面加载时

@@ -53,7 +53,7 @@
         </el-row>
         <el-col :span="24">
           <el-form-item label="通知内容" prop="content">
-            <Wangeditor v-on:getWangEditorValue=getWangEditorValue :contentItem="ruleForm.content"></Wangeditor>
+            <Editor v-model="ruleForm.content"></Editor>
           </el-form-item>
         </el-col>
       </el-form>
@@ -72,13 +72,12 @@ import { reactive, toRefs, ref, unref, getCurrentInstance } from "vue";
 import { addNotice, updateNotice } from "/@/api/system/notice";
 import { ElMessage } from "element-plus";
 import {treeselect} from "/@/api/system/dept";
-import Wangeditor from "/@/components/editor/editor.vue";
-import WangEditor from "wangeditor";
+import Editor from '/@/components/editor/index.vue';
 
 export default {
   name: "editMenu",
   components: {
-    Wangeditor,
+    Editor,
   },
   props: {
     // 弹窗标题

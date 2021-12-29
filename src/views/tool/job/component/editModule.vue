@@ -34,7 +34,7 @@
                 <template #content>
                  使用示例：cronHandle 方法后端实现逻辑, 接口类型直接填写接口
                 </template>
-                <i class="el-icon-question"></i>
+                <i class="fa fa-exclamation-circle"></i>
               </el-tooltip>
             </span>
           </template>
@@ -51,7 +51,7 @@
                 <template #content>
                  使用示例：类型string
                 </template>
-                <i class="el-icon-question"></i>
+                <i class="fa fa-exclamation-circle"></i>
               </el-tooltip>
             </span>
           </template>

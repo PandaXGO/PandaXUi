@@ -94,7 +94,7 @@
                             </el-col>
                             <el-col :span="2">
                                 <el-tooltip content="路由权限标识（多个请用逗号隔开）" placement="top">
-                                    <i class="el-icon-info ml10 mt10"></i>
+                                    <i class="fa fa-exclamation-circle ml10 mt10"></i>
                                 </el-tooltip>
                             </el-col>
                         </el-row>
@@ -120,7 +120,7 @@
                             </el-col>
                             <el-col :span="2">
                                 <el-tooltip content="菜单对应的具体vue页面文件路径views的下级路径/system/user/index,外链请填写/layout/routerView/link，内链请填写/layout/routerView/iframes" placement="top">
-                                    <i class="el-icon-info ml10 mt10"></i>
+                                    <i class="fa fa-exclamation-circle ml10 mt10"></i>
                                 </el-tooltip>
                             </el-col>
                         </el-row>
@@ -146,7 +146,7 @@
                             </el-col>
                             <el-col :span="2">
                                 <el-tooltip content="要和页面name保持一致:例如 /system/role" placement="top">
-                                    <i class="el-icon-info ml10 mt10"></i>
+                                    <i class="fa fa-exclamation-circle ml10 mt10"></i>
                                 </el-tooltip>
                             </el-col>
                         </el-row>
@@ -203,7 +203,7 @@
                             </el-col>
                             <el-col :span="2">
                                 <el-tooltip content="是否要固定到tag头部" placement="top" v-if="ruleForm.menuType != 'F'">
-                                    <i class="el-icon-info ml10 mt10"></i>
+                                    <i class="fa fa-exclamation-circle ml10 mt10"></i>
                                 </el-tooltip>
                             </el-col>
                         </el-row>

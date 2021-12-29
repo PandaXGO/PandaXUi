@@ -32,11 +32,17 @@
                 <el-form-item>
                     <el-button
                             type="primary"
-                            icon="el-icon-search"
                             size="mini"
-                            @click="handleQuery">搜索</el-button>
-                    <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+                            @click="handleQuery"
+                    >
+                        <SvgIcon name="elementSearch" />
+                        搜索</el-button>
+                    <el-button size="mini" @click="resetQuery">
+                        <SvgIcon name="elementRefresh" />
+                        重置
+                    </el-button>
                 </el-form-item>
+                <el-form-item></el-form-item>
             </el-form>
 
             <!-- 操作按钮 -->
@@ -45,21 +51,18 @@
                     <el-button
                             type="primary"
                             plain
-                            icon="el-icon-plus"
                             size="mini"
                             @click="onOpenAddModule"
-                    >新增</el-button
-                    >
+                    ><SvgIcon name="elementPlus" />新增</el-button>
                 </el-col>
                 <el-col :span="1.5">
                     <el-button
                             type="danger"
                             plain
-                            icon="el-icon-delete"
                             size="mini"
                             :disabled="multiple"
                             @click="onTabelRowDel"
-                    >删除</el-button>
+                    ><SvgIcon name="elementDelete" />删除</el-button>
                 </el-col>
             </el-row>
 
@@ -106,9 +109,9 @@
                         class-name="small-padding fixed-width"
                 >
                     <template #default="scope">
-                        <el-button size="mini" type="text" icon="el-icon-caret-right" @click="handleRun(scope.row)">查看</el-button>
-                        <el-button size="mini" type="text" icon="el-icon-view" @click="onOpenEditModule(scope.row)">编辑</el-button>
-                        <el-button size="mini" type="text" icon="el-icon-view" @click="onTabelRowDel(scope.row)">删除</el-button>
+                        <el-button size="mini" type="text" @click="handleRun(scope.row)"><SvgIcon name="elementView" />查看</el-button>
+                        <el-button size="mini" type="text"  @click="onOpenEditModule(scope.row)"><SvgIcon name="elementEdit" />编辑</el-button>
+                        <el-button size="mini" type="text"  @click="onTabelRowDel(scope.row)"><SvgIcon name="elementDelete" />删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>

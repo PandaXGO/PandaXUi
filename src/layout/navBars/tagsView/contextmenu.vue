@@ -19,18 +19,18 @@
 						v-if="!v.affix"
 						@click="onCurrentContextmenuClick(v.contextMenuClickId)"
 					>
-						<i :class="v.icon"></i>
+						<SvgIcon :name="v.icon" />
 						<span>{{ $t(v.txt) }}</span>
 					</li>
 				</template>
 			</ul>
-			<div class="el-popper__arrow" style="left: 10px"></div>
+			<div class="el-popper__arrow" :style="{ left: `${arrowLeft}px` }"></div>
 		</div>
 	</transition>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs, onMounted, onUnmounted } from 'vue';
+import { computed, defineComponent, reactive, toRefs, onMounted, onUnmounted, watch } from 'vue';
 export default defineComponent({
 	name: 'layoutTagsViewContextmenu',
 	props: {
@@ -42,10 +42,10 @@ export default defineComponent({
 		const state = reactive({
 			isShow: false,
 			dropdownList: [
-				{ contextMenuClickId: 0, txt: 'message.tagsView.refresh', affix: false, icon: 'el-icon-refresh-right' },
-				{ contextMenuClickId: 1, txt: 'message.tagsView.close', affix: false, icon: 'el-icon-close' },
-				{ contextMenuClickId: 2, txt: 'message.tagsView.closeOther', affix: false, icon: 'el-icon-circle-close' },
-				{ contextMenuClickId: 3, txt: 'message.tagsView.closeAll', affix: false, icon: 'el-icon-folder-delete' },
+				{ contextMenuClickId: 0, txt: 'message.tagsView.refresh', affix: false, icon: 'elementRefreshRight' },
+				{ contextMenuClickId: 1, txt: 'message.tagsView.close', affix: false, icon: 'elementClose' },
+				{ contextMenuClickId: 2, txt: 'message.tagsView.closeOther', affix: false, icon: 'elementCircleClose' },
+				{ contextMenuClickId: 3, txt: 'message.tagsView.closeAll', affix: false, icon: 'elementFolderDelete' },
 				{
 					contextMenuClickId: 4,
 					txt: 'message.tagsView.fullscreen',
@@ -54,10 +54,18 @@ export default defineComponent({
 				},
 			],
 			item: {},
+			arrowLeft: 10,
 		});
 		// 父级传过来的坐标 x,y 值
 		const dropdowns = computed(() => {
-			return props.dropdown;
+			if (props.dropdown.x + 117 > document.documentElement.clientWidth) {
+				return {
+					x: document.documentElement.clientWidth - 117 - 5,
+					y: props.dropdown.y,
+				};
+			} else {
+				return props.dropdown;
+			}
 		});
 		// 当前项菜单点击
 		const onCurrentContextmenuClick = (contextMenuClickId: number) => {
@@ -76,6 +84,17 @@ export default defineComponent({
 		const closeContextmenu = () => {
 			state.isShow = false;
 		};
+		// 监听下拉菜单位置
+		watch(
+				() => props.dropdown,
+				({ x }) => {
+					if (x + 117 > document.documentElement.clientWidth) state.arrowLeft = 117 - (document.documentElement.clientWidth - x);
+					else state.arrowLeft = 10;
+				},
+				{
+					deep: true,
+				}
+		);
 		// 监听页面监听进行右键菜单的关闭
 		onMounted(() => {
 			document.body.addEventListener('click', closeContextmenu);
@@ -106,6 +125,11 @@ export default defineComponent({
 		i {
 			font-size: 12px !important;
 		}
+	}
+}
+.el-dropdown-menu-arrow {
+	&::before {
+		content: '';
 	}
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-card shadow="always">
     <!-- 查询 -->
-    <el-form
+      <el-form
       :model="queryParams"
       ref="queryForm"
       :inline="true"
@@ -44,54 +44,53 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item>
-        <el-button
-          type="primary"
-          icon="el-icon-search"
-          size="mini"
-          @click="handleQuery"
-          >搜索</el-button
-        >
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
-          >重置</el-button
-        >
-      </el-form-item>
+        <el-form-item>
+          <el-button
+                  type="primary"
+                  size="mini"
+                  @click="handleQuery"
+          >
+            <SvgIcon name="elementSearch" />
+            搜索</el-button>
+          <el-button size="mini" @click="resetQuery">
+            <SvgIcon name="elementRefresh" />
+            重置
+          </el-button>
+        </el-form-item>
+        <el-form-item></el-form-item>
+      <el-form-item></el-form-item>
     </el-form>
-
     <!-- 操作按钮 -->
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
           type="primary"
           plain
-          icon="el-icon-plus"
           size="mini"
           v-auth="'system:post:add'"
           @click="onOpenAddModule"
-          >新增</el-button
+          ><SvgIcon name="elementPlus" />新增</el-button
         >
       </el-col>
       <el-col :span="1.5">
         <el-button
           type="danger"
           plain
-          icon="el-icon-delete"
           size="mini"
           v-auth="'system:post:delete'"
           :disabled="multiple"
           @click="onTabelRowDel"
-          >删除</el-button
+          ><SvgIcon name="elementDelete" />删除</el-button
         >
       </el-col>
       <el-col :span="1.5">
         <el-button
           type="warning"
           plain
-          icon="el-icon-download"
           size="mini"
           v-auth="'system:post:export'"
           @click="onTabelRowDel"
-          >导出</el-button
+          ><SvgIcon name="elementDownload" />导出</el-button
         >
       </el-col>
     </el-row>
@@ -128,20 +127,16 @@
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-edit"
             v-auth="'system:post:edit'"
             @click="onOpenEditModule(scope.row)"
-            >修改</el-button
-          >
+            ><SvgIcon name="elementEdit" />修改</el-button>
           <el-button
             v-if="scope.row.parentId != 0"
             size="mini"
             type="text"
-            icon="el-icon-delete"
             v-auth="'system:post:delete'"
             @click="onTabelRowDel(scope.row)"
-            >删除</el-button
-          >
+            ><SvgIcon name="elementDelete" />删除</el-button>
         </template>
       </el-table-column>
     </el-table>

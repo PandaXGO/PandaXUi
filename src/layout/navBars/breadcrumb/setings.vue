@@ -272,10 +272,10 @@
 						<el-switch v-model="getThemeConfig.isCacheTagsView" @change="setLocalThemeConfig"></el-switch>
 					</div>
 				</div>
-				<div class="layout-breadcrumb-seting-bar-flex mt15">
+				<div class="layout-breadcrumb-seting-bar-flex mt15" :style="{ opacity: isMobile ? 0.5 : 1 }">
 					<div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fourIsSortableTagsView') }}</div>
 					<div class="layout-breadcrumb-seting-bar-flex-value">
-						<el-switch v-model="getThemeConfig.isSortableTagsView" @change="onSortableTagsViewChange"></el-switch>
+						<el-switch v-model="getThemeConfig.isSortableTagsView" :disabled="isMobile ? true : false" @change="onSortableTagsViewChange"></el-switch>
 					</div>
 				</div>
 				<div class="layout-breadcrumb-seting-bar-flex mt15">
@@ -365,17 +365,17 @@
 
 				<div class="copy-config">
 					<el-alert :title="$t('message.layout.tipText')" type="warning" :closable="false"> </el-alert>
-					<el-button
-						size="small"
-						class="copy-config-btn"
-						icon="el-icon-document-copy"
-						type="primary"
-						ref="copyConfigBtnRef"
-						@click="onCopyConfigClick"
-						>{{ $t('message.layout.copyText') }}
+					<el-button size="small" class="copy-config-btn" type="primary" ref="copyConfigBtnRef" @click="onCopyConfigClick">
+						<el-icon>
+							<elementCopyDocument />
+						</el-icon>
+						{{ $t('message.layout.copyText') }}
 					</el-button>
-					<el-button size="small" class="copy-config-btn-reset" icon="el-icon-refresh-right" type="info" @click="onResetConfigClick"
-						>{{ $t('message.layout.resetText') }}
+					<el-button size="small" class="copy-config-btn-reset" type="info" @click="onResetConfigClick">
+						<el-icon>
+							<elementRefreshRight />
+						</el-icon>
+						{{ $t('message.layout.resetText') }}
 					</el-button>
 				</div>
 			</el-scrollbar>
@@ -384,19 +384,23 @@
 </template>
 
 <script lang="ts">
-import { nextTick, onUnmounted, onMounted, getCurrentInstance, defineComponent, computed } from 'vue';
+	import { nextTick, onUnmounted, onMounted, getCurrentInstance, defineComponent, computed, reactive, toRefs } from 'vue';
 import { useStore } from '/@/store/index';
 import { getLightColor } from '/@/utils/theme';
 import { verifyAndSpace } from '/@/utils/toolsValidate';
 import { Local } from '/@/utils/storage';
 import Watermark from '/@/utils/wartermark';
 import commonFunction from '/@/utils/commonFunction';
+import other from '/@/utils/other';
 export default defineComponent({
 	name: 'layoutBreadcrumbSeting',
 	setup() {
 		const { proxy } = getCurrentInstance() as any;
 		const store = useStore();
 		const { copyText } = commonFunction();
+		const state = reactive({
+			isMobile: false,
+		});
 		// 获取布局配置信息
 		const getThemeConfig = computed(() => {
 			return store.state.themeConfig.themeConfig;
@@ -616,6 +620,7 @@ export default defineComponent({
 					getThemeConfig.value.isDrawer = false;
 					initLayoutChangeFun();
 					onMenuBarHighlightChange();
+					state.isMobile = other.isMobile();
 				});
 				setTimeout(() => {
 					// 修复防止退出登录再进入界面时，需要刷新样式才生效的问题，初始化布局样式等(登录的时候触发，目前方案)
@@ -664,6 +669,7 @@ export default defineComponent({
 			onShareTagsViewChange,
 			onCopyConfigClick,
 			onResetConfigClick,
+			...toRefs(state),
 		};
 	},
 });

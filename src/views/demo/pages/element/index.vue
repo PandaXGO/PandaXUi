@@ -6,7 +6,7 @@
 					<div class="iconfont-warp">
 						<div class="flex-margin">
 							<div class="iconfont-warp-value">
-								<i :class="v"></i>
+								<SvgIcon :name="v" />
 							</div>
 							<div class="iconfont-warp-label mt10">{{ v }}</div>
 						</div>
@@ -28,7 +28,9 @@ export default {
 		});
 		// 初始化获取 css 样式，获取 element plus 自带图标
 		const initGetStyleSheets = () => {
-			initIconfont.ele().then((res: any) => (state.sheetsIconList = res));
+			initIconfont.ele().then((res: any) => {
+				state.sheetsIconList = res;
+			});
 		};
 		// 页面加载时
 		onMounted(() => {

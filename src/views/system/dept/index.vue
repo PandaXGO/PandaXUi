@@ -28,26 +28,27 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button
-          type="primary"
-          icon="el-icon-search"
-          size="mini"
-          @click="handleQuery"
-          >搜索</el-button
-        >
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
-          >重置</el-button
-        >
-        <el-button
-                type="primary"
-                plain
-                icon="el-icon-plus"
-                size="mini"
-                v-auth="'system:dept:add'"
-                @click="onOpenAddModule"
-        >新增
-        </el-button>
-      </el-form-item>
+          <el-button
+                  type="primary"
+                  size="mini"
+                  @click="handleQuery"
+          >
+            <SvgIcon name="elementSearch" />
+            搜索</el-button>
+          <el-button size="mini" @click="resetQuery">
+            <SvgIcon name="elementRefresh" />
+            重置
+          </el-button>
+          <el-button type="primary"
+                     plain
+                     size="mini"
+                     v-auth="'system:dept:add'"
+                     @click="onOpenAddModule">
+            <SvgIcon name="elementPlus" />
+            新增
+          </el-button>
+        </el-form-item>
+        <el-form-item></el-form-item>
     </el-form>
 
       <!--数据表格-->
@@ -101,27 +102,23 @@
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-edit"
             v-auth="'system:dept:edit'"
             @click="onOpenEditModule(scope.row)"
-            >修改</el-button
-          >
+            ><SvgIcon name="elementEdit" />修改</el-button>
           <el-button
             size="mini"
             type="text"
             v-auth="'system:dept:add'"
-            icon="el-icon-plus"
             @click="onOpenAddModule(scope.row)"
-            >新增</el-button
+            ><SvgIcon name="elementPlus" />新增</el-button
           >
           <el-button
             v-if="scope.row.parentId != 0"
             size="mini"
             type="text"
             v-auth="'system:dept:delete'"
-            icon="el-icon-delete"
             @click="onTabelRowDel(scope.row)"
-            >删除</el-button
+            ><SvgIcon name="elementDelete" />删除</el-button
           >
         </template>
       </el-table-column>

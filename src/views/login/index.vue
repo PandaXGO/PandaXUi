@@ -3,20 +3,16 @@
 		<div class="login-logo">
 			<span>{{ getThemeConfig.globalViceTitle }}</span>
 		</div>
-		<div class="login-content" :class="{ 'login-content-mobile': state.tabsActiveName === 'mobile' }">
+		<div class="login-content">
 			<div class="login-content-main">
 				<h4 class="login-content-title">{{ getThemeConfig.globalTitle }}后台模板</h4>
 				<div v-if="!state.isScan">
-					<el-tabs v-model="state.tabsActiveName" @tab-click="onTabsClick">
-						<el-tab-pane :label="$t('message.label.one1')" name="account" :disabled="state.tabsActiveName === 'account'">
-							<transition name="el-zoom-in-center">
-								<Account v-show="state.isTabPaneShow" />
-							</transition>
+					<el-tabs v-model="state.tabsActiveName">
+						<el-tab-pane :label="$t('message.label.one1')" name="account">
+							<Account />
 						</el-tab-pane>
-						<el-tab-pane :label="$t('message.label.two2')" name="mobile" :disabled="state.tabsActiveName === 'mobile'">
-							<transition name="el-zoom-in-center">
-								<Mobile v-show="!state.isTabPaneShow" />
-							</transition>
+						<el-tab-pane :label="$t('message.label.two2')" name="mobile">
+							<Mobile />
 						</el-tab-pane>
 					</el-tabs>
 					<el-divider>其他登录方式</el-divider>
@@ -25,7 +21,7 @@
 						<el-button style="font-size: 20px" class="fa fa-github" circle></el-button>
 					</div>
 				</div>
-				<Scan v-else />
+				<Scan v-if="state.isScan" />
 				<div class="login-content-main-sacn" @click="state.isScan = !state.isScan">
 					<i class="iconfont" :class="state.isScan ? 'icon-diannao1' : 'icon-barcode-qr'"></i>
 					<div class="login-content-main-sacn-delta"></div>
@@ -93,6 +89,7 @@ const onTabsClick = () => {
 		transition: height 0.2s linear;
 		height: 520px;
 		overflow: hidden;
+		transition: all 0.3s ease;
 		z-index: 1;
 		.login-content-main {
 			margin: 0 auto;

@@ -6,7 +6,7 @@
 					v-for="(v, k) in tagsViewList"
 					:key="k"
 					class="layout-navbars-tagsview-ul-li"
-					:data-name="v.name"
+					:data-url="v.url"
 					:class="{ 'is-active': isActive(v) }"
 					@contextmenu.prevent="onContextmenu(v, $event)"
 					@click="onTagsClick(v, k)"
@@ -17,21 +17,23 @@
 					"
 				>
 					<i class="iconfont icon-webicon318 layout-navbars-tagsview-ul-li-iconfont font14" v-if="isActive(v)"></i>
-					<i class="layout-navbars-tagsview-ul-li-iconfont" :class="v.meta.icon" v-if="!isActive(v) && getThemeConfig.isTagsviewIcon"></i>
+					<SvgIcon :name="v.meta.icon" class="layout-navbars-tagsview-ul-li-iconfont" v-if="!isActive(v) && getThemeConfig.isTagsviewIcon" />
 					<span>{{ $t(v.meta.title) }}</span>
 					<template v-if="isActive(v)">
-						<i class="el-icon-refresh-right ml5" @click.stop="refreshCurrentTagsView($route.fullPath)"></i>
-						<i
-							class="el-icon-close layout-navbars-tagsview-ul-li-icon layout-icon-active"
+						<SvgIcon name="elementRefreshRight" class="ml5" @click.stop="refreshCurrentTagsView($route.fullPath)" />
+						<SvgIcon
+								name="elementClose"
+								class="layout-navbars-tagsview-ul-li-icon layout-icon-active"
+								v-if="!v.meta.isAffix"
+								@click.stop="closeCurrentTagsView(getThemeConfig.isShareTagsView ? v.path : v.url)"
+							/>
+					</template>
+					<SvgIcon
+							name="elementClose"
+							class="layout-navbars-tagsview-ul-li-icon layout-icon-three"
 							v-if="!v.meta.isAffix"
 							@click.stop="closeCurrentTagsView(getThemeConfig.isShareTagsView ? v.path : v.url)"
-						></i>
-					</template>
-					<i
-						class="el-icon-close layout-navbars-tagsview-ul-li-icon layout-icon-three"
-						v-if="!v.meta.isAffix"
-						@click.stop="closeCurrentTagsView(getThemeConfig.isShareTagsView ? v.path : v.url)"
-					></i>
+						/>
 				</li>
 			</ul>
 		</el-scrollbar>
@@ -48,6 +50,7 @@ import { useStore } from '/@/store/index';
 import { Session } from '/@/utils/storage';
 import { isObjectValueEqual } from '/@/utils/arrayOperation';
 import Contextmenu from '/@/layout/navBars/tagsView/contextmenu.vue';
+import other from '/@/utils/other';
 export default {
 	name: 'layoutTagsView',
 	components: { Contextmenu },
@@ -82,7 +85,7 @@ export default {
 			if (getThemeConfig.value.isShareTagsView) {
 				return v.path === state.routePath;
 			} else {
-				return v.url === state.routeActive;
+				return v.url ? v.url === state.routeActive : v.path === state.routeActive;
 			}
 		};
 		// 存储 tagsViewList 到浏览器临时缓存中，页面刷新时，保留记录
@@ -194,10 +197,12 @@ export default {
 								// 最后一个且高亮时
 								if (arr[arr.length - 1].meta.isDynamic) {
 									// 动态路由（xxx/:id/:name"）
-									router.push({ name: arr[arr.length - 1].name, params: arr[arr.length - 1].params });
+									if (k !== arr.length) router.push({ name: arr[k].name, params: arr[k].params });
+									else router.push({ name: arr[arr.length - 1].name, params: arr[arr.length - 1].params });
 								} else {
 									// 普通路由
-									router.push({ path: arr[arr.length - 1].path, query: arr[arr.length - 1].query });
+									if (k !== arr.length) router.push({ path: arr[k].path, query: arr[k].query });
+									else router.push({ path: arr[arr.length - 1].path, query: arr[arr.length - 1].query });
 								}
 							} else {
 								// 非最后一个且高亮时，跳转到下一个
@@ -322,7 +327,7 @@ export default {
 		};
 		// 鼠标滚轮滚动
 		const onHandleScroll = (e: any) => {
-			proxy.$refs.scrollbarRef.$refs.wrap.scrollLeft += e.wheelDelta / 4;
+			proxy.$refs.scrollbarRef.$refs.wrap$.scrollLeft += e.wheelDelta / 4;
 		};
 		// tagsView 横向滚动
 		const tagsViewmoveToCurrentTag = () => {
@@ -339,7 +344,7 @@ export default {
 				// 最后 li
 				let liLast: any = tagsRefs.value[tagsRefs.value.length - 1];
 				// 当前滚动条的值
-				let scrollRefs = proxy.$refs.scrollbarRef.$refs.wrap;
+				let scrollRefs = proxy.$refs.scrollbarRef.$refs.wrap$;
 				// 当前滚动条滚动宽度
 				let scrollS = scrollRefs.scrollWidth;
 				// 当前滚动条偏移宽度
@@ -393,19 +398,19 @@ export default {
 			});
 		};
 		// 设置 tagsView 可以进行拖拽
-		const initSortable = () => {
+		const initSortable = async () => {
 			const el = document.querySelector('.layout-navbars-tagsview-ul') as HTMLElement;
 			if (!el) return false;
-			state.sortable && state.sortable.destroy();
+			state.sortable.el && state.sortable.destroy();
 			state.sortable = Sortable.create(el, {
 				animation: 300,
-				dataIdAttr: 'data-name',
+				dataIdAttr: 'data-url',
 				disabled: getThemeConfig.value.isSortableTagsView ? false : true,
 				onEnd: () => {
 					const sortEndList: any = [];
 					state.sortable.toArray().map((val: any) => {
 						state.tagsViewList.map((v: any) => {
-							if (v.name === val) sortEndList.push({ ...v });
+							if (v.url === val) sortEndList.push({ ...v });
 						});
 					});
 					addBrowserSetSession(sortEndList);
@@ -413,11 +418,9 @@ export default {
 			});
 		};
 		// 拖动问题，https://gitee.com/PandaAdmin/PandaX/issues/I3ZRRI
-		const onSortableResize = () => {
-			const clientWidth = document.body.clientWidth;
-			if (clientWidth < 1000) getThemeConfig.value.isSortableTagsView = false;
-			else getThemeConfig.value.isSortableTagsView = true;
-			initSortable();
+		const onSortableResize = async () => {
+			await initSortable();
+			if (other.isMobile()) state.sortable.el && state.sortable.destroy();
 		};
 		// 页面加载前
 		onBeforeMount(() => {
@@ -503,9 +506,10 @@ export default {
 
 <style scoped lang="scss">
 .layout-navbars-tagsview {
-	flex: 1;
 	background-color: var(--el-color-white);
 	border-bottom: 1px solid #f1f2f3;
+	z-index: 4;
+	position: relative;
 	::v-deep(.el-scrollbar__wrap) {
 		overflow-x: auto !important;
 	}
@@ -567,6 +571,7 @@ export default {
 			color: var(--color-whites);
 			background: var(--color-primary);
 			border-color: var(--color-primary);
+			transition: border-color 3s ease;
 		}
 	}
 	// 风格2

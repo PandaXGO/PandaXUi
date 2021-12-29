@@ -49,9 +49,19 @@
                 </el-select>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-                <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+                <el-button
+                        type="primary"
+                        size="mini"
+                        @click="handleQuery"
+                >
+                    <SvgIcon name="elementSearch" />
+                    搜索</el-button>
+                <el-button size="mini" @click="resetQuery">
+                    <SvgIcon name="elementRefresh" />
+                    重置
+                </el-button>
             </el-form-item>
+            <el-form-item></el-form-item>
         </el-form>
         <!-- 操作按钮 -->
         <el-row :gutter="10" class="mb8">
@@ -59,21 +69,19 @@
                 <el-button
                         type="danger"
                         plain
-                        icon="el-icon-delete"
                         size="mini"
                         :disabled="multiple"
                         @click="onTabelRowDel"
-                >删除</el-button
+                ><SvgIcon name="elementDelete" />删除</el-button
                 >
             </el-col>
             <el-col :span="1.5">
                 <el-button
                         type="danger"
                         plain
-                        icon="el-icon-delete"
                         size="mini"
                         @click="handleClean"
-                >清空</el-button
+                ><SvgIcon name="elementDelete" />清空</el-button
                 >
             </el-col>
         </el-row>
@@ -147,9 +155,8 @@
                     <el-button
                             size="mini"
                             type="text"
-                            icon="el-icon-view"
                             @click="handleView(scope.row)"
-                    >详细</el-button
+                    ><SvgIcon name="elementView" />详细</el-button
                     >
                 </template>
             </el-table-column>

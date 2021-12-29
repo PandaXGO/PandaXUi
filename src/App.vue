@@ -11,8 +11,8 @@
 import { computed, ref, getCurrentInstance, onBeforeMount, onMounted, onUnmounted, nextTick, defineComponent, watch, reactive, toRefs } from 'vue';
 import { useRoute } from 'vue-router';
 import { useStore } from '/@/store/index';
-import { useTitle } from '/@/utils/setWebTitle';
-import { Local } from '/@/utils/storage';
+import other from '/@/utils/other';
+import { Local,Session  } from '/@/utils/storage';
 import setIntroduction from '/@/utils/setIconfont';
 import LockScreen from '/@/layout/lockScreen/index.vue';
 import Setings from '/@/layout/navBars/breadcrumb/setings.vue';
@@ -25,7 +25,6 @@ export default defineComponent({
 		const setingsRef = ref();
 		const route = useRoute();
 		const store = useStore();
-		const title = useTitle();
 		const state = reactive({
 			i18nLocale: null,
 		});
@@ -60,6 +59,10 @@ export default defineComponent({
 					store.dispatch('themeConfig/setThemeConfig', Local.get('themeConfig'));
 					document.documentElement.style.cssText = Local.get('themeConfigStyle');
 				}
+				// 获取缓存中的全屏配置
+				if (Session.get('isTagsViewCurrenFull')) {
+					store.dispatch('tagsViewRoutes/setCurrenFullscreen', Session.get('isTagsViewCurrenFull'));
+				}
 			});
 		});
 		// 页面销毁时，关闭监听布局配置/i18n监听
@@ -71,7 +74,7 @@ export default defineComponent({
 		watch(
 			() => route.path,
 			() => {
-				title();
+				other.useTitle();
 			}
 		);
 		return {

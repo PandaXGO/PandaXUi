@@ -4,4 +4,5 @@ declare module '*.jpg';
 declare module '*.scss';
 declare module '*.ts';
 declare module '*.js';
-declare module 'giantgo-render';
+declare module '@form-create/element-ui';
+

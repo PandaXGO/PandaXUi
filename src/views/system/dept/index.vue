@@ -48,7 +48,7 @@
             新增
           </el-button>
         </el-form-item>
-        <el-form-item></el-form-item>
+
     </el-form>
 
       <!--数据表格-->

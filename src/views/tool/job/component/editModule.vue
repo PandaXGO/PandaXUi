@@ -6,7 +6,6 @@
       </template>
       <el-form
         :model="ruleForm"
-        size="small"
         :rules="ruleRules"
         ref="ruleFormRef"
         label-width="100px"

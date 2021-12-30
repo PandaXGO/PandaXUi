@@ -6,13 +6,12 @@
             </template>
             <el-form
                     :model="ruleForm"
-                    size="small"
                     :rules="ruleRules"
                     ref="ruleFormRef"
                     label-width="80px"
             >
                 <el-row :gutter="35">
-                    <el-col :span="24" class="mb20">
+                    <el-col :span="24" >
                         <el-form-item label="上级菜单" prop="parentId">
                             <el-cascader
                                     v-model="ruleForm.parentId"
@@ -32,7 +31,7 @@
                             ></el-cascader>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="24" class="mb20">
+                    <el-col :span="24" >
                         <el-form-item label="菜单类型" prop="menuType">
                             <el-radio-group v-model="ruleForm.menuType">
                                 <el-radio
@@ -44,7 +43,7 @@
                             </el-radio-group>
                         </el-form-item>
                     </el-col>
-                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
                         <el-form-item label="菜单名称" prop="menuName">
                             <el-input
                                     v-model="ruleForm.menuName"
@@ -53,7 +52,7 @@
                             ></el-input>
                         </el-form-item>
                     </el-col>
-                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
                         <el-form-item label="菜单排序" prop="sort">
                             <el-input-number
                                     v-model="ruleForm.sort"
@@ -69,7 +68,7 @@
                             :md="12"
                             :lg="12"
                             :xl="12"
-                            class="mb20"
+                            
                             v-if="ruleForm.menuType != 'F'"
                     >
                         <el-form-item label="菜单图标" prop="icon">
@@ -80,7 +79,7 @@
                             />
                         </el-form-item>
                     </el-col>
-                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
                         <el-row :gutter="8">
                             <el-col :span="22">
                                 <el-form-item label="权限标识" prop="permission">
@@ -105,7 +104,7 @@
                             :md="12"
                             :lg="12"
                             :xl="12"
-                            class="mb20"
+                            
                             v-if="ruleForm.menuType != 'F'"
                     >
                         <el-row :gutter="8">
@@ -131,7 +130,7 @@
                             :md="12"
                             :lg="12"
                             :xl="12"
-                            class="mb20"
+                            
                             v-if="ruleForm.menuType != 'F'"
                     >
                         <el-row :gutter="8">
@@ -151,7 +150,7 @@
                             </el-col>
                         </el-row>
                     </el-col>
-                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
                         <el-form-item label="菜单状态" prop="status">
                             <el-radio-group v-model="ruleForm.status">
                                 <el-radio
@@ -163,7 +162,7 @@
                             </el-radio-group>
                         </el-form-item>
                     </el-col>
-                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20" v-if="ruleForm.menuType != 'F'">
+                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12"  v-if="ruleForm.menuType != 'F'">
                         <el-form-item label="是否隐藏">
                             <el-radio-group v-model="ruleForm.isHide">
                                 <el-radio
@@ -175,7 +174,7 @@
                             </el-radio-group>
                         </el-form-item>
                     </el-col>
-                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20" v-if="ruleForm.menuType != 'F'">
+                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12"  v-if="ruleForm.menuType != 'F'">
                         <el-form-item label="是否缓存">
                             <el-radio-group v-model="ruleForm.isKeepAlive">
                                 <el-radio
@@ -187,7 +186,7 @@
                             </el-radio-group>
                         </el-form-item>
                     </el-col>
-                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20" v-if="ruleForm.menuType != 'F'">
+                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12"  v-if="ruleForm.menuType != 'F'">
                         <el-row :gutter="8">
                             <el-col :span="22">
                                 <el-form-item label="是否固定">
@@ -210,7 +209,7 @@
 
                     </el-col>
 
-                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20" v-if="ruleForm.menuType != 'F'">
+                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12"  v-if="ruleForm.menuType != 'F'">
                         <el-form-item label="是否内嵌">
                             <el-radio-group v-model="ruleForm.isIframe">
                                 <el-radio
@@ -222,7 +221,7 @@
                             </el-radio-group>
                         </el-form-item>
                     </el-col>
-                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20" v-if="ruleForm.menuType != 'F'">
+                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12"  v-if="ruleForm.menuType != 'F'">
                         <el-form-item label="链接地址">
                             <el-input
                                     v-model="ruleForm.isLink"
@@ -233,7 +232,7 @@
                         </el-form-item>
                     </el-col>
 
-                    <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
+                    <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" >
                         <el-form-item label="备注">
                             <el-input
                                     v-model="ruleForm.remark"

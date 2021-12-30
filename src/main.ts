@@ -10,7 +10,7 @@ import { getDicts } from "/@/api/system/dict/data"
 import { dateStrFormat } from "/@/utils/formatTime"
 
 import ElementPlus from 'element-plus';
-import GiantgoRender from 'giantgo-render';
+import FormCreate from '@form-create/element-ui'
 import 'element-plus/dist/index.css';
 import 'giantgo-render/dist/style.css'
 import '/@/theme/index.scss';
@@ -27,7 +27,7 @@ app
 	.use(router)
 	.use(store, key)
 	.use(ElementPlus, { i18n: i18n.global.t, size: other.globalComponentSize })
-	.use(GiantgoRender)
+	.use(FormCreate)
 	.use(i18n)
 	.use(screenShort, { enableWebRtc: false })
 	.use(VueGridLayout)

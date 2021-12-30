@@ -6,13 +6,12 @@
       </template>
       <el-form
         :model="ruleForm"
-        size="small"
         :rules="ruleRules"
         ref="ruleFormRef"
         label-width="80px"
       >
         <el-row :gutter="30">
-          <el-col :span="24" class="mb20">
+          <el-col :span="24" >
             <el-form-item label="上级部门" prop="parentId">
               <el-cascader
                 v-model="ruleForm.parentId"
@@ -31,7 +30,7 @@
               ></el-cascader>
             </el-form-item>
           </el-col>
-          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
             <el-form-item label="部门名称" prop="deptName">
               <el-input
                 v-model="ruleForm.deptName"
@@ -41,7 +40,7 @@
             </el-form-item>
           </el-col>
 
-          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
             <el-form-item label="负责人">
               <el-input
                 v-model="ruleForm.leader"
@@ -50,7 +49,7 @@
               ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
             <el-form-item label="联系电话" prop="phone">
               <el-input
                 v-model="ruleForm.phone"
@@ -59,7 +58,7 @@
               ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
             <el-form-item label="联系邮箱" prop="email">
               <el-input
                 v-model="ruleForm.email"
@@ -69,7 +68,7 @@
             </el-form-item>
           </el-col>
 
-          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
             <el-form-item label="部门状态" prop="status">
               <el-radio-group v-model="ruleForm.status">
                 <el-radio
@@ -81,7 +80,7 @@
               </el-radio-group>
             </el-form-item>
           </el-col>
-          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
             <el-form-item label="部门排序" prop="sort">
               <el-input-number
                 v-model="ruleForm.sort"

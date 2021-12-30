@@ -6,13 +6,12 @@
       </template>
       <el-form
         :model="ruleForm"
-        size="small"
         :rules="ruleRules"
         ref="ruleFormRef"
         label-width="80px"
       >
         <el-row :gutter="35">
-          <el-col :span="24" class="mb20">
+          <el-col :span="24" >
             <el-form-item label="岗位名称" prop="postName">
               <el-input
                 v-model="ruleForm.postName"
@@ -20,7 +19,7 @@
               />
             </el-form-item>
           </el-col>
-          <el-col :span="24" class="mb20">
+          <el-col :span="24" >
             <el-form-item label="岗位编码" prop="postCode">
               <el-input
                 v-model="ruleForm.postCode"
@@ -29,7 +28,7 @@
             </el-form-item>
           </el-col>
 
-          <el-col :span="24" class="mb20">
+          <el-col :span="24" >
             <el-form-item label="岗位顺序" prop="sort">
               <el-input-number
                 v-model="ruleForm.sort"
@@ -38,7 +37,7 @@
               />
             </el-form-item>
           </el-col>
-          <el-col :span="24" class="mb20">
+          <el-col :span="24" >
             <el-form-item label="岗位状态" prop="status">
               <el-radio-group v-model="ruleForm.status">
                 <el-radio
@@ -50,7 +49,7 @@
               </el-radio-group>
             </el-form-item>
           </el-col>
-          <el-col :span="24" class="mb20">
+          <el-col :span="24" >
             <el-form-item label="备注" prop="remark">
               <el-input
                 v-model="ruleForm.remark"

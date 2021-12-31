@@ -110,7 +110,7 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 							isAffix: false,
 							isIframe: false,
 							auth: ['base'],
-							icon: 'el-icon-thumb',
+							icon: 'elementThumb',
 						},
 					},
 					{
@@ -125,7 +125,7 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 							isAffix: false,
 							isIframe: false,
 							auth: ['base'],
-							icon: 'el-icon-odometer',
+							icon: 'elementOdometer',
 						},
 					},
 					{
@@ -140,7 +140,7 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 							isAffix: false,
 							isIframe: false,
 							auth: ['base'],
-							icon: 'el-icon-connection',
+							icon: 'elementConnection',
 						},
 					},
 					{
@@ -170,7 +170,7 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 							isAffix: false,
 							isIframe: false,
 							auth: ['base'],
-							icon: 'el-icon-bell',
+							icon: 'elementBell',
 						},
 					},
 					{
@@ -245,7 +245,7 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 							isAffix: false,
 							isIframe: false,
 							auth: ['base'],
-							icon: 'el-icon-printer',
+							icon: 'elementPrinter',
 						},
 					},
 					{
@@ -260,7 +260,7 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 							isAffix: false,
 							isIframe: false,
 							auth: ['base'],
-							icon: 'el-icon-document-copy',
+							icon: 'elementDocumentCopy',
 						},
 					},
 					{
@@ -275,7 +275,7 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 							isAffix: false,
 							isIframe: false,
 							auth: ['base'],
-							icon: 'el-icon-crop',
+							icon: 'elementCrop',
 						},
 					},
 					{
@@ -320,7 +320,7 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 							isAffix: false,
 							isIframe: false,
 							auth: ['base'],
-							icon: 'el-icon-s-promotion',
+							icon: 'elementPromotion',
 						},
 					},
 				],
@@ -353,7 +353,7 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 							isAffix: false,
 							isIframe: false,
 							auth: ['base'],
-							icon: 'el-icon-sell',
+							icon: 'elementSell',
 						},
 						/**
 						 * 注意此处详情写法：
@@ -374,7 +374,7 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 									isAffix: false,
 									isIframe: false,
 									auth: ['base'],
-									icon: 'el-icon-s-order',
+									icon: 'elementShoppingBag',
 								},
 							},
 						],
@@ -391,7 +391,7 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 							isAffix: false,
 							isIframe: false,
 							auth: ['base'],
-							icon: 'el-icon-s-order',
+							icon: 'elementShoppingBag',
 						},
 					},
 					{
@@ -406,7 +406,7 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 							isAffix: false,
 							isIframe: false,
 							auth: ['base'],
-							icon: 'el-icon-present',
+							icon: 'elementPresent',
 						},
 					},
 					{
@@ -421,7 +421,7 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 							isAffix: false,
 							isIframe: false,
 							auth: ['base'],
-							icon: 'el-icon-platform-eleme',
+							icon: 'elementPlatform',
 						},
 					},
 					{
@@ -436,7 +436,7 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 							isAffix: false,
 							isIframe: false,
 							auth: ['base'],
-							icon: 'el-icon-set-up',
+							icon: 'elementSetUp',
 						},
 					},
 					{
@@ -601,7 +601,7 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 							isAffix: false,
 							isIframe: false,
 							auth: ['base'],
-							icon: 'el-icon-thumb',
+							icon: 'elementThumb',
 						},
 					},
 					{
@@ -616,7 +616,7 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 							isAffix: false,
 							isIframe: false,
 							auth: ['base'],
-							icon: 'el-icon-picture-outline',
+							icon: 'elementPicture',
 						},
 					},
 					{
@@ -646,7 +646,7 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 							isAffix: false,
 							isIframe: false,
 							auth: ['base'],
-							icon: 'el-icon-connection',
+							icon: 'elementPicture',
 						},
 					},
 				],
@@ -664,7 +664,7 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 					isAffix: false,
 					isIframe: false,
 					auth: ['base'],
-					icon: 'el-icon-data-line',
+					icon: 'elementDataLine',
 				},
 				children: [
 					{

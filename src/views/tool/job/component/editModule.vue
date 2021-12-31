@@ -1,6 +1,6 @@
 <template>
   <div class="system-job-container">
-    <el-dialog v-model="isShowDialog" width="600px">
+    <el-dialog v-model="isShowDialog" width="769px">
       <template #title>
         <div style="font-size: large" v-drag="['.system-job-container .el-dialog', '.system-job-container .el-dialog__header']">{{title}}</div>
       </template>

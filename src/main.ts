@@ -12,7 +12,6 @@ import { dateStrFormat } from "/@/utils/formatTime"
 import ElementPlus from 'element-plus';
 import FormCreate from '@form-create/element-ui'
 import 'element-plus/dist/index.css';
-import 'giantgo-render/dist/style.css'
 import '/@/theme/index.scss';
 import mitt from 'mitt';
 import screenShort from 'vue-web-screen-shot';

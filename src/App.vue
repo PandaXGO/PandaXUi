@@ -25,7 +25,7 @@ export default defineComponent({
 		const setingsRef = ref();
 		const route = useRoute();
 		const store = useStore();
-		const state = reactive({
+		const state:any = reactive({
 			i18nLocale: null,
 		});
 		// 获取布局配置信息

@@ -1,13 +1,424 @@
 <template>
-    <div>开发中。。</div>
+    <div class="app-container">
+        <el-card shadow="always">
+            <!-- 查询 -->
+            <el-form
+                    :model="queryParams"
+                    ref="queryForm"
+                    :inline="true"
+                    label-width="68px"
+            >
+                <el-form-item label="表名称" prop="tableName">
+                    <el-input
+                            placeholder="请输入表名称模糊查询"
+                            clearable
+                            size="small"
+                            @keyup.enter="handleQuery"
+                            style="width: 240px"
+                            v-model="queryParams.tableName"
+                    />
+                </el-form-item>
+                <el-form-item label="表描述" prop="tableComment">
+                    <el-input
+                            placeholder="请输入表描述模糊查询"
+                            clearable
+                            size="small"
+                            @keyup.enter="handleQuery"
+                            style="width: 240px"
+                            v-model="queryParams.tableComment"
+                    />
+                </el-form-item>
+                <el-form-item>
+                    <el-button
+                            type="primary"
+                            size="mini"
+                            @click="handleQuery"
+                    >
+                        <SvgIcon name="elementSearch" />
+                        搜索</el-button>
+                    <el-button size="mini" @click="resetQuery">
+                        <SvgIcon name="elementRefresh" />
+                        重置
+                    </el-button>
+                </el-form-item>
+
+
+            </el-form>
+            <!-- 操作按钮 -->
+            <el-row :gutter="10" class="mb8">
+                <el-col :span="1.5">
+                    <el-button
+                            type="primary"
+                            plain
+                            size="mini"
+                            @click="onOpenAddModule"
+                    ><SvgIcon name="elementDownload" />导入</el-button
+                    >
+                </el-col>
+                <el-col :span="1.5">
+                    <el-button
+                            type="danger"
+                            plain
+                            size="mini"
+                            :disabled="multiple"
+                            @click="onTabelRowDel"
+                    ><SvgIcon name="elementDelete" />删除</el-button
+                    >
+                </el-col>
+            </el-row>
+
+            <!--数据表格-->
+            <el-table
+                    v-loading="loading"
+                    :data="tableData"
+                    @selection-change="handleSelectionChange"
+            >
+                <el-table-column type="selection" width="55" align="center" />
+                <el-table-column label="序号" align="center" prop="tableId" />
+                <el-table-column label="表名称" align="center" prop="tableName"  :show-overflow-tooltip="true" width="130"/>
+                <el-table-column label="表描述" align="center" prop="tableComment"  :show-overflow-tooltip="true" width="130"/>
+                <el-table-column label="模型名称" align="center" prop="className" :show-overflow-tooltip="true" width="130"/>
+                <el-table-column label="创建时间" align="center" prop="create_time" width="165">
+                    <template slot-scope="scope">
+                        <span>{{ dateStrFormat(scope.row.create_time) }}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        label="操作"
+                        align="center"
+                        class-name="small-padding fixed-width"
+                >
+                    <template #default="scope">
+                        <el-button
+                                size="mini"
+                                type="text"
+                                @click="handleEditTable(scope.row)"
+                        ><SvgIcon name="elementEdit" />修改</el-button>
+                        <el-button
+                                type="text"
+                                size="small"
+                                @click="handlePreview(scope.row)"
+                        ><SvgIcon name="elementView" />预览</el-button>
+                        <el-button
+                                slot="reference"
+                                type="text"
+                                size="small"
+                                @click="handleToProject(scope.row)"
+                        ><SvgIcon name="elementDownload" />代码生成</el-button>
+                        <el-button
+                                slot="reference"
+                                type="text"
+                                size="small"
+                                @click="handleToDB(scope.row)"
+                        ><SvgIcon name="elementView" />生成配置</el-button>
+                        <el-button
+                                v-if="scope.row.parentId != 0"
+                                size="mini"
+                                type="text"
+                                @click="onTabelRowDel(scope.row)"
+                        ><SvgIcon name="elementDelete" />删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <!-- 分页设置-->
+            <div v-show="total > 0">
+                <el-divider></el-divider>
+                <el-pagination
+                        background
+                        :total="total"
+                        :current-page="queryParams.pageNum"
+                        :page-size="queryParams.pageSize"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                />
+            </div>
+        </el-card>
+        <!-- 添加或修改岗位对话框 -->
+        <EditModule ref="editModuleRef" :title="title" />
+
+
+        <el-dialog class="preview" :title="preview.title" :visible.sync="preview.open" fullscreen>
+            <div class="el-dialog-container">
+                <div class="tag-group">
+                    <!-- eslint-disable-next-line vue/valid-v-for -->
+                    <el-tag v-for="(value, key) in preview.data" @click="codeChange(key)">
+                        <template>
+                            {{ key.substring(key.lastIndexOf('/')+1,key.indexOf('.go.template')) }}
+                        </template>
+                    </el-tag>
+                </div>
+                <div id="codemirror">
+                    <Codemirror ref="cmEditor" :value="codestr" border :options="cmOptions" @change="change" />
+                </div>
+            </div>
+        </el-dialog>
+    </div>
 </template>
 
-<script>
+<script lang="ts">
+    import {
+        ref,
+        toRefs,
+        reactive,
+        onMounted,
+        getCurrentInstance,
+        onUnmounted,
+    } from "vue";
+    import { ElMessageBox, ElMessage } from "element-plus";
+    import { getTableList, deleteTable } from "/@/api/gen/table";
+    import { preview, code, menuAndApi } from "/@/api/gen/gen";
+    import EditModule from "./component/editModule.vue";
+    import { downLoadFile } from '/@/utils/zipdownload'
+    import Codemirror from "codemirror-editor-vue3";
+    import "codemirror/mode/javascript/javascript.js";
+    import "codemirror/theme/dracula.css";
+    import 'codemirror/mode/go/go.js'
+    import 'codemirror/mode/vue/vue.js'
+    import { useRouter} from "vue-router";
+
     export default {
-        name: "index"
-    }
+        name: "index",
+        components: { EditModule,Codemirror  },
+        setup() {
+            const { proxy } = getCurrentInstance() as any;
+            const router = useRouter();
+            const editModuleRef = ref();
+            const state:any = reactive({
+                cmOptions: {
+                    tabSize: 4,
+                    theme: 'dracula',
+                    mode: 'text/x-go',
+                    lineNumbers: true,
+                    line: true,
+                    styleActiveLine: true,
+                },
+                codestr: '',
+                // 遮罩层
+                loading: true,
+                // 唯一标识符
+                uniqueId: '',
+                // 选中数组
+                ids: [],
+                // 选中表数组
+                tableNames: [],
+                // 非单个禁用
+                single: true,
+                // 非多个禁用
+                multiple: true,
+                // 总条数
+                total: 0,
+                // 表数据
+                tableList: [],
+                // 查询参数
+                queryParams: {
+                    pageNum: 1,
+                    pageSize: 10,
+                    tableName: undefined,
+                    tableComment: undefined
+                },
+                // 预览参数
+                preview: {
+                    open: false,
+                    title: '代码预览',
+                    data: {},
+                    activeName: 'api.go'
+                }
+            });
+
+            /** 查询岗位列表 */
+            const handleQuery = () => {
+                state.loading = true;
+                getTableList(state.queryParams).then(response => {
+                    state.tableList = response.data.data
+                    state.total = response.data.total
+                    state.loading = false
+                    }
+                )
+            };
+
+            const codeChange = (e:any) => {
+                if (e.indexOf('js') > -1) {
+                    state.cmOptions.mode = 'text/javascript'
+                }
+                if (e.indexOf('entity') > -1 || e.indexOf('router') > -1 || e.indexOf('api') > -1 || e.indexOf('service') > -1 || e.indexOf('dto') > -1) {
+                    state.cmOptions.mode = 'text/x-go'
+                }
+                if (e.indexOf('vue') > -1) {
+                    state.cmOptions.mode = 'text/x-vue'
+                }
+                    state.codestr = state.preview.data[e]
+            };
+
+            /** 重置按钮操作 */
+            const resetQuery = () => {
+                state.queryParams.tableName = undefined;
+                state.queryParams.tableComment = undefined;
+                handleQuery();
+            };
+
+            const handleCurrentChange = (val:number) => {
+                state.queryParams.pageNum = val
+                handleQuery()
+            }
+            const handleSizeChange = (val:number) => {
+                state.queryParams.pageSize = val
+                handleQuery()
+            }
+
+            const handleGenTable = (row:any) => {
+                const ids = row.tableId || state.ids
+                    ElMessageBox({
+                        message: '是否确认生成编号为"' + ids + '"的代码?',
+                        title: "警告",
+                        showCancelButton: true,
+                        confirmButtonText: "确定",
+                        cancelButtonText: "取消",
+                        type: "warning",
+                    }).then(function () {
+                        downLoadFile('/develop/code/gen/code/' + ids)
+                    });
+
+            };
+
+
+            // 打开新增table弹窗
+            const onOpenAddModule = (row: object) => {
+                row = [];
+                state.title = "导入表";
+                editModuleRef.value.openDialog(row);
+            };
+
+            // 预览
+            const handlePreview = (row:any) => {
+                    preview(row.tableId).then(response => {
+                    state.preview.data = response.data
+                    state.preview.open = true
+                    state.codeChange('template/entity.template')
+                })
+            };
+            // 代码生成
+            const handleToProject = (row:any) => {
+                ElMessageBox({
+                    message: '是否确认生成编号为"' + row.tableId + '"的代码?',
+                    title: "警告",
+                    showCancelButton: true,
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    type: "warning",
+                }).then(function () {
+                    code(row.tableId).then((response:any) => {
+                        ElMessage.success("代码生成成功");
+                    }).catch(function() {})
+                });
+            };
+            // 生成配置
+            const handleToDB = (row:any) => {
+                menuAndApi(row.tableId).then((response) => {
+                    ElMessage.success("菜单API生成成功");
+                }).catch(function() {})
+            };
+            /** 删除按钮操作 */
+            const onTabelRowDel = (row: any) => {
+                const postIds = row.postId || state.ids;
+                ElMessageBox({
+                    message: '是否确认删除TABLE编号为"' + postIds + '"的数据项?',
+                    title: "警告",
+                    showCancelButton: true,
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    type: "warning",
+                }).then(function () {
+                    return deleteTable(postIds).then(() => {
+                        handleQuery();
+                        ElMessage.success("删除成功");
+                    });
+                });
+            };
+
+            /** 修改按钮操作 */
+            const handleEditTable = (row:any) => {
+                const tableId = row.tableId || state.ids[0]
+                    router.push({ path: '/dev-tools/editTable', query: { tableId: tableId }})
+            };
+            // 多选框选中数据
+            const handleSelectionChange = (selection: any) => {
+                state.ids = selection.map((item: any) => item.postId);
+                state.single = selection.length != 1;
+                state.multiple = !selection.length;
+            };
+            // 页面加载时
+            onMounted(() => {
+                // 查询表信息
+                handleQuery();
+                proxy.mittBus.on("onEditTableModule", (res: any) => {
+                    handleQuery();
+                });
+            });
+            // 页面卸载时
+            onUnmounted(() => {
+                proxy.mittBus.off("onEditTableModule");
+            });
+            return {
+                editModuleRef,
+                handleSelectionChange,
+                handleQuery,
+                handleCurrentChange,
+                handleSizeChange,
+                resetQuery,
+                onOpenAddModule,
+                handleGenTable,
+                codeChange,
+                onTabelRowDel,
+                handleEditTable,
+                handleToDB,
+                handleToProject,
+                handlePreview,
+                ...toRefs(state),
+            };
+        },
+    };
 </script>
+<style lang="scss" scoped>
+    .el-dialog-container ::v-deep{
+        overflow: hidden;
+        .el-scrollbar__view{
+            height: 100%;
+        }
+        .pre{
+            height: 546px;
+            overflow: hidden;
+            .el-scrollbar{
+                height: 100%;
+            }
+        }
+        .el-scrollbar__wrap::-webkit-scrollbar{
+            display: none;
+        }
+    }
+    ::v-deep .el-dialog__body{
+        padding: 0 20px;
+        margin:0;
+    }
+    .tag-group {
+        margin: 0 0 10px -10px;
+    }
+    .tag-group .el-tag{
+        margin-left: 10px;
+    }
+    .el-tag {
+        cursor: pointer;
+    }
+</style>
 
-<style scoped>
-
+<style lang="scss">
+    #codemirror {
+        height: auto;
+        margin: 0;
+        overflow: auto;
+    }
+    .CodeMirror {
+        border: 1px solid #eee;
+        height: 600px;
+    }
 </style>

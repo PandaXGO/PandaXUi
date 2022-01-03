@@ -17,6 +17,8 @@ import mitt from 'mitt';
 import screenShort from 'vue-web-screen-shot';
 import VueGridLayout from 'vue-grid-layout';
 
+import Codemirror from "codemirror-editor-vue3";
+
 const app = createApp(App);
 
 directive(app);
@@ -27,6 +29,7 @@ app
 	.use(store, key)
 	.use(ElementPlus, { i18n: i18n.global.t, size: other.globalComponentSize })
 	.use(FormCreate)
+	.use(Codemirror)
 	.use(i18n)
 	.use(screenShort, { enableWebRtc: false })
 	.use(VueGridLayout)

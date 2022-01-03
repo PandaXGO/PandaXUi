@@ -73,6 +73,7 @@
 
 	<el-dialog v-model="state.dialogVerifyVisible" title="旋转验证码" width="300px" center>
 		<DragVerifyImgRotate
+				ref="dragRef"
 				:imgsrc="state.imgThree"
 				v-model:isPassing="state.isPassingFour"
 				text="请按住滑块拖动"
@@ -101,6 +102,7 @@ import DragVerifyImgRotate from '/@/components/dragVerify/dragVerifyImgRotate.vu
 const { t } = useI18n();
 const { proxy } = getCurrentInstance() as any;
 const loginFormRef: any = ref(null);
+const dragRef:any =  ref(null);
 const store = useStore();
 const route = useRoute();
 const router = useRouter();
@@ -157,7 +159,7 @@ const onSignIn = async () => {
 	try {
 		loginRespon = await signIn(state.loginForm)
 	} catch (e) {
-		console.log(loginRespon)
+		dragRef.value.reset()
 		state.isPassingFour = false;
 		state.loading.signIn = false;
 		state.loginForm.captcha = '';

@@ -204,7 +204,6 @@ export default {
 			var maxDegree = this.maxDegree;
 			var ranRotate = Math.floor(minDegree + Math.random() * (maxDegree - minDegree)); //生成随机角度
 			this.ranRotate = ranRotate;
-			console.log('旋转' + ranRotate);
 			this.imgStyle = {
 				transform: `rotateZ(${ranRotate}deg)`,
 			};

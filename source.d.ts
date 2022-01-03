@@ -5,4 +5,5 @@ declare module '*.scss';
 declare module '*.ts';
 declare module '*.js';
 declare module '@form-create/element-ui';
+declare module 'codemirror-editor-vue3';
 

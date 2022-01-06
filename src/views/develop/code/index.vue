@@ -70,22 +70,28 @@
             <!--数据表格-->
             <el-table
                     v-loading="loading"
-                    :data="tableData"
+                    :data="tableList"
                     @selection-change="handleSelectionChange"
             >
                 <el-table-column type="selection" width="55" align="center" />
-                <el-table-column label="序号" align="center" prop="tableId" />
-                <el-table-column label="表名称" align="center" prop="tableName"  :show-overflow-tooltip="true" width="130"/>
-                <el-table-column label="表描述" align="center" prop="tableComment"  :show-overflow-tooltip="true" width="130"/>
-                <el-table-column label="模型名称" align="center" prop="className" :show-overflow-tooltip="true" width="130"/>
-                <el-table-column label="创建时间" align="center" prop="create_time" width="165">
-                    <template slot-scope="scope">
+                <el-table-column label="序号"  width="55" align="center" prop="tableId" />
+                <el-table-column label="表名称" align="center" prop="tableName"  :show-overflow-tooltip="true"/>
+                <el-table-column label="表描述" align="center" prop="tableComment"  :show-overflow-tooltip="true" />
+                <el-table-column label="模型名称" align="center" prop="className" :show-overflow-tooltip="true" />
+                <el-table-column label="创建时间" align="center" prop="create_time">
+                    <template #default="scope">
                         <span>{{ dateStrFormat(scope.row.create_time) }}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column label="更新时间" align="center" prop="update_time">
+                    <template #default="scope">
+                        <span>{{ dateStrFormat(scope.row.update_time) }}</span>
                     </template>
                 </el-table-column>
                 <el-table-column
                         label="操作"
                         align="center"
+                        width="300"
                         class-name="small-padding fixed-width"
                 >
                     <template #default="scope">
@@ -105,12 +111,20 @@
                                 size="small"
                                 @click="handleToProject(scope.row)"
                         ><SvgIcon name="elementDownload" />代码生成</el-button>
-                        <el-button
-                                slot="reference"
-                                type="text"
-                                size="small"
-                                @click="handleToDB(scope.row)"
-                        ><SvgIcon name="elementView" />生成配置</el-button>
+                        <el-tooltip
+                                class="box-item"
+                                effect="dark"
+                                content="自动生成菜单和API"
+                                placement="top"
+                        >
+                            <el-button
+                                    slot="reference"
+                                    type="text"
+                                    size="small"
+                                    @click="handleToDB(scope.row)"
+                            ><SvgIcon name="elementView" />生成配置</el-button>
+                        </el-tooltip>
+
                         <el-button
                                 v-if="scope.row.parentId != 0"
                                 size="mini"
@@ -138,7 +152,7 @@
         <EditModule ref="editModuleRef" :title="title" />
 
 
-        <el-dialog class="preview" :title="preview.title" :visible.sync="preview.open" fullscreen>
+        <el-dialog class="preview" :title="preview.title" v-model="preview.open" fullscreen>
             <div class="el-dialog-container">
                 <div class="tag-group">
                     <!-- eslint-disable-next-line vue/valid-v-for -->
@@ -222,7 +236,7 @@
                     open: false,
                     title: '代码预览',
                     data: {},
-                    activeName: 'api.go'
+                    activeName: 'entity.go'
                 }
             });
 
@@ -247,7 +261,7 @@
                 if (e.indexOf('vue') > -1) {
                     state.cmOptions.mode = 'text/x-vue'
                 }
-                    state.codestr = state.preview.data[e]
+                state.codestr = state.preview.data[e]
             };
 
             /** 重置按钮操作 */
@@ -291,10 +305,10 @@
 
             // 预览
             const handlePreview = (row:any) => {
-                    preview(row.tableId).then(response => {
+                 preview(row.tableId).then(response => {
                     state.preview.data = response.data
                     state.preview.open = true
-                    state.codeChange('template/entity.template')
+                    codeChange('template/entity.template')
                 })
             };
             // 代码生成

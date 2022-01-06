@@ -4,48 +4,60 @@
       <template #title>
         <div style="font-size: large" v-drag="['.system-menu-container .el-dialog', '.system-menu-container .el-dialog__header']">{{title}}</div>
       </template>
-      <el-form
-        :model="queryParams"
-        :inline="true"
-        label-width="80px"
-      >
-        <el-form-item label="表名称" prop="tableName">
-          <el-input
-                  v-model="queryParams.tableName"
-                  placeholder="请输入表名称"
-                  clearable
-                  size="small"
-                  @keyup.enter.native="handleQuery"
-          />
-        </el-form-item>
-        <el-form-item label="表描述" prop="tableComment">
-          <el-input
-                  v-model="queryParams.tableComment"
-                  placeholder="请输入表描述"
-                  clearable
-                  size="small"
-                  @keyup.enter.native="handleQuery"
-          />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" size="mini" @click="handleQuery"><SvgIcon name="elementSearch" />搜索</el-button>
-          <el-button size="mini" @click="resetQuery"> <SvgIcon name="elementRefresh" />重置</el-button>
-        </el-form-item>
-      </el-form>
+      <el-row>
+
+
+
+        <el-form
+                :model="queryParams"
+                :inline="true"
+                label-width="80px"
+        >
+          <el-col :span="9">
+            <el-form-item label="表名称" prop="tableName">
+              <el-input
+                      v-model="queryParams.tableName"
+                      placeholder="请输入表名称"
+                      clearable
+                      size="small"
+                      @keyup.enter.native="handleQuery"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="9">
+            <el-form-item label="表描述" prop="tableComment">
+              <el-input
+                      v-model="queryParams.tableComment"
+                      placeholder="请输入表描述"
+                      clearable
+                      size="small"
+                      @keyup.enter.native="handleQuery"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item>
+              <el-button type="primary" size="mini" @click="handleQuery"><SvgIcon name="elementSearch" />搜索</el-button>
+              <el-button size="mini" @click="resetQuery"> <SvgIcon name="elementRefresh" />重置</el-button>
+            </el-form-item>
+          </el-col>
+        </el-form>
+      </el-row>
+
       <el-row>
         <el-table v-loading="loading" ref="table" :data="dbTableList" height="260px" @row-click="clickRow" @selection-change="handleSelectionChange">
           <el-table-column type="selection" width="55" />
           <el-table-column prop="tableName" label="表名称" />
           <el-table-column prop="tableComment" label="表描述" />
           <el-table-column prop="createTime" label="创建时间" >
-<!--            <template slot-scope="scope">-->
-<!--              <span>{{ dateStrFormat(scope.row.createTime) }}</span>-->
-<!--            </template>-->
+            <template #default="scope">
+              <span>{{ dateStrFormat(scope.row.createTime) }}</span>
+            </template>
           </el-table-column>
           <el-table-column prop="updateTime" label="更新时间">
-<!--            <template slot-scope="scope">-->
-<!--              <span>{{ dateStrFormat(scope.row.updateTime) }}</span>-->
-<!--            </template>-->
+            <template #default="scope">
+              <span>{{ dateStrFormat(scope.row.updateTime) }}</span>
+            </template>
           </el-table-column>
         </el-table>
         <pagination

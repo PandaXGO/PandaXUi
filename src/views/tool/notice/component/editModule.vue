@@ -166,7 +166,7 @@ export default {
               closeDialog(state.ruleForm); // 关闭弹窗
             });
           } else {
-            addNotice(state.ruleForm).then((response) => {
+            addNotice(state.ruleForm).then((responseya) => {
               ElMessage.success("新增成功");
               closeDialog(state.ruleForm); // 关闭弹窗
             });

@@ -157,5 +157,9 @@ export function dateFormat(fmt: string, date: Date) {
 }
 
 export function dateStrFormat(dateStr: string) {
-	return dateFormat('yyyy-MM-dd HH:mm:ss', new Date(dateStr));
+	if (dateStr==""){
+		return dateFormat('yyyy-MM-dd HH:mm:ss', new Date());
+	}else {
+		return dateFormat('yyyy-MM-dd HH:mm:ss', new Date(dateStr));
+	}
 }

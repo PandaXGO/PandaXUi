@@ -96,34 +96,34 @@
                 >
                     <template #default="scope">
                         <el-button
-                                size="mini"
-                                type="text"
-                                @click="handleEditTable(scope.row)"
-                        ><SvgIcon name="elementEdit" />修改</el-button>
-                        <el-button
                                 type="text"
                                 size="small"
                                 @click="handlePreview(scope.row)"
                         ><SvgIcon name="elementView" />预览</el-button>
+                        <el-button
+                                size="mini"
+                                type="text"
+                                @click="onOpenEditModule(scope.row)"
+                        ><SvgIcon name="elementEdit" />修改</el-button>
                         <el-button
                                 slot="reference"
                                 type="text"
                                 size="small"
                                 @click="handleToProject(scope.row)"
                         ><SvgIcon name="elementDownload" />代码生成</el-button>
-                        <el-tooltip
-                                class="box-item"
-                                effect="dark"
-                                content="自动生成菜单和API"
-                                placement="top"
-                        >
-                            <el-button
-                                    slot="reference"
-                                    type="text"
-                                    size="small"
-                                    @click="handleToDB(scope.row)"
-                            ><SvgIcon name="elementView" />生成配置</el-button>
-                        </el-tooltip>
+<!--                        <el-tooltip-->
+<!--                                class="box-item"-->
+<!--                                effect="dark"-->
+<!--                                content="自动生成菜单和API"-->
+<!--                                placement="top"-->
+<!--                        >-->
+<!--                            <el-button-->
+<!--                                    slot="reference"-->
+<!--                                    type="text"-->
+<!--                                    size="small"-->
+<!--                                    @click="handleToDB(scope.row)"-->
+<!--                            ><SvgIcon name="elementView" />生成配置</el-button>-->
+<!--                        </el-tooltip>-->
 
                         <el-button
                                 v-if="scope.row.parentId != 0"
@@ -149,16 +149,15 @@
             </div>
         </el-card>
         <!-- 添加或修改岗位对话框 -->
-        <EditModule ref="editModuleRef" :title="title" />
+        <ImportTable ref="importTableRef" :title="title" />
+        <EditTable ref="editModelRef"/>
 
-
-        <el-dialog class="preview" :title="preview.title" v-model="preview.open" fullscreen>
+        <el-dialog class="preview" :title="preview.title" v-model="preview.open" width="80%" center>
             <div class="el-dialog-container">
                 <div class="tag-group">
-                    <!-- eslint-disable-next-line vue/valid-v-for -->
                     <el-tag v-for="(value, key) in preview.data" @click="codeChange(key)">
-                        <template>
-                            {{ key.substring(key.lastIndexOf('/')+1,key.indexOf('.go.template')) }}
+                        <template #>
+                            {{ key.substring(key.lastIndexOf('/')+1,key.indexOf('.template')) }}
                         </template>
                     </el-tag>
                 </div>
@@ -166,6 +165,11 @@
                     <Codemirror ref="cmEditor" :value="codestr" border :options="cmOptions" @change="change" />
                 </div>
             </div>
+            <template #footer>
+                <span class="dialog-footer">
+                  <el-button type="primary" @click="preview.open = false" size="small">确 定</el-button>
+                </span>
+            </template>
         </el-dialog>
     </div>
 </template>
@@ -182,7 +186,8 @@
     import { ElMessageBox, ElMessage } from "element-plus";
     import { getTableList, deleteTable } from "/@/api/gen/table";
     import { preview, code, menuAndApi } from "/@/api/gen/gen";
-    import EditModule from "./component/editModule.vue";
+    import ImportTable from "./component/importTable.vue";
+    import EditTable from "./component/editTable.vue";
     import { downLoadFile } from '/@/utils/zipdownload'
     import Codemirror from "codemirror-editor-vue3";
     import "codemirror/mode/javascript/javascript.js";
@@ -193,11 +198,12 @@
 
     export default {
         name: "index",
-        components: { EditModule,Codemirror  },
+        components: { ImportTable,EditTable,Codemirror},
         setup() {
             const { proxy } = getCurrentInstance() as any;
             const router = useRouter();
-            const editModuleRef = ref();
+            const importTableRef = ref();
+            const editModelRef = ref();
             const state:any = reactive({
                 cmOptions: {
                     tabSize: 4,
@@ -300,7 +306,11 @@
             const onOpenAddModule = (row: object) => {
                 row = [];
                 state.title = "导入表";
-                editModuleRef.value.openDialog(row);
+                importTableRef.value.openDialog(row);
+            };
+            /** 修改按钮操作 */
+            const onOpenEditModule = (row: object) => {
+                editModelRef.value.openDialog(row);
             };
 
             // 预览
@@ -334,33 +344,29 @@
             };
             /** 删除按钮操作 */
             const onTabelRowDel = (row: any) => {
-                const postIds = row.postId || state.ids;
+                const tableIds = row.tableId || state.ids;
                 ElMessageBox({
-                    message: '是否确认删除TABLE编号为"' + postIds + '"的数据项?',
+                    message: '是否确认删除TABLE编号为"' + tableIds + '"的数据项?',
                     title: "警告",
                     showCancelButton: true,
                     confirmButtonText: "确定",
                     cancelButtonText: "取消",
                     type: "warning",
                 }).then(function () {
-                    return deleteTable(postIds).then(() => {
-                        handleQuery();
+                    return deleteTable(tableIds).then(() => {
                         ElMessage.success("删除成功");
+                        handleQuery();
                     });
                 });
             };
 
-            /** 修改按钮操作 */
-            const handleEditTable = (row:any) => {
-                const tableId = row.tableId || state.ids[0]
-                    router.push({ path: '/dev-tools/editTable', query: { tableId: tableId }})
-            };
             // 多选框选中数据
             const handleSelectionChange = (selection: any) => {
                 state.ids = selection.map((item: any) => item.postId);
                 state.single = selection.length != 1;
                 state.multiple = !selection.length;
             };
+
             // 页面加载时
             onMounted(() => {
                 // 查询表信息
@@ -374,17 +380,18 @@
                 proxy.mittBus.off("onEditTableModule");
             });
             return {
-                editModuleRef,
+                importTableRef,
+                editModelRef,
                 handleSelectionChange,
                 handleQuery,
                 handleCurrentChange,
                 handleSizeChange,
                 resetQuery,
                 onOpenAddModule,
+                onOpenEditModule,
                 handleGenTable,
                 codeChange,
                 onTabelRowDel,
-                handleEditTable,
                 handleToDB,
                 handleToProject,
                 handlePreview,
@@ -394,7 +401,7 @@
     };
 </script>
 <style lang="scss" scoped>
-    .el-dialog-container ::v-deep{
+    .el-dialog-container{
         overflow: hidden;
         .el-scrollbar__view{
             height: 100%;
@@ -410,7 +417,7 @@
             display: none;
         }
     }
-    ::v-deep .el-dialog__body{
+    .el-dialog__body{
         padding: 0 20px;
         margin:0;
     }

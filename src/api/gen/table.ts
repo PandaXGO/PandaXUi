@@ -34,7 +34,7 @@ export function getTableInfoByName(query:any) {
     })
 }
 // 获取表树信息
-export function tableTree(tableId:any) {
+export function getTableTree() {
     return request({
         url: '/develop/code/table/tableTree',
         method: 'get',

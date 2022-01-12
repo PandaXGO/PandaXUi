@@ -5,9 +5,6 @@
         <div style="font-size: large" v-drag="['.system-menu-container .el-dialog', '.system-menu-container .el-dialog__header']">{{title}}</div>
       </template>
       <el-row>
-
-
-
         <el-form
                 :model="queryParams"
                 :inline="true"
@@ -86,7 +83,7 @@ import {getDbList, insertTable} from '/@/api/gen/table'
 import { ElMessage } from "element-plus";
 
 export default {
-  name: "editMenu",
+  name: "importTable",
   props: {
     // 弹窗标题
     title: {

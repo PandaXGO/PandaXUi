@@ -121,7 +121,7 @@ export default {
     });
     // 打开弹窗
     const openDialog = (row: any) => {
-      if (row.postId && row.postId != undefined && row.postId != "") {
+      if (row.postId && row.postId != undefined && row.postId != 0) {
         state.ruleForm = row;
         state.ruleForm.postId=row.postId; // 岗位ID
         state.ruleForm.postName=row.postName; // 岗位名称

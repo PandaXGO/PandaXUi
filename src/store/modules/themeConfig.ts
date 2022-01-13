@@ -18,7 +18,7 @@ const themeConfigModule: Module<ThemeConfigState, RootStateTypes> = {
 			 * 全局主题
 			 */
 			// 默认 primary 颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
-			primary: '#D29BED',
+			primary: '#D49BEF',
 			// 默认 success 颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
 			success: '#67c23a',
 			// 默认 info 颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
@@ -37,7 +37,7 @@ const themeConfigModule: Module<ThemeConfigState, RootStateTypes> = {
 			// 默认顶栏导航背景颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
 			topBar: '#182A3B',
 			// 默认菜单导航背景颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
-			menuBar: '#182A3B',
+			menuBar: '#191a23',
 			// 默认分栏菜单背景颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
 			columnsMenuBar: '#545c64',
 			// 默认顶栏导航字体颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
@@ -85,7 +85,7 @@ const themeConfigModule: Module<ThemeConfigState, RootStateTypes> = {
 			// 是否开启 Tagsview
 			isTagsview: true,
 			// 是否开启 Breadcrumb 图标
-			isBreadcrumbIcon: false,
+			isBreadcrumbIcon: true,
 			// 是否开启 Tagsview 图标
 			isTagsviewIcon: false,
 			// 是否开启 TagsView 缓存

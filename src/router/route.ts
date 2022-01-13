@@ -73,13 +73,13 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 		component: () => import('/@/layout/routerView/parent.vue'),
 		redirect: '/fun/tagsView',
 		meta: {
+			icon: 'iconfont icon-diannao',
 			title: 'message.router.demo',
 			isLink: '',
 			isHide: false,
 			isKeepAlive: true,
 			isAffix: true,
 			isIframe: false,
-			icon: 'iconfont icon-diannao',
 		},
 		children: [
 			{
@@ -601,7 +601,7 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 							isAffix: false,
 							isIframe: false,
 							auth: ['base'],
-							icon: 'elementThumb',
+							icon: 'iconfont icon-shuxingtu',
 						},
 					},
 					{

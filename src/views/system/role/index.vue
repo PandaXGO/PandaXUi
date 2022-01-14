@@ -330,10 +330,10 @@
                 </el-form-item>
             </el-form>
             <template #footer>
-        <span class="dialog-footer">
-         <el-button type="primary" size="small" @click="submitDataScope">确 定</el-button>
-        <el-button size="small" @click="cancelDataScope">取 消</el-button>
-        </span>
+                <span class="dialog-footer">
+                 <el-button type="primary" size="small" @click="submitDataScope">确 定</el-button>
+                <el-button size="small" @click="cancelDataScope">取 消</el-button>
+                </span>
             </template>
         </el-dialog>
     </div>

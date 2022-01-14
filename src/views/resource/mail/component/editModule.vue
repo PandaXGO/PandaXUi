@@ -8,14 +8,14 @@
                     :model="ruleForm"
                     :rules="ruleRules"
                     ref="ruleFormRef"
-                    label-width="100px"
+                    label-width="80px"
             >
                 <el-row :gutter="35">
                     <el-col :span="24" >
-                        <el-form-item label="Oss分类" prop="category">
+                        <el-form-item label="Mail分类" prop="category">
                             <el-radio-group v-model="ruleForm.category">
                                 <el-radio
-                                        v-for="dict in ossOptions"
+                                        v-for="dict in mailOptions"
                                         :key="dict.dictValue"
                                         :label="dict.dictValue"
                                 >{{ dict.dictLabel }}
@@ -24,62 +24,42 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="24" >
-                        <el-form-item label="资源编号" prop="ossCode">
+                        <el-form-item label="用户名称" prop="from">
                             <el-input
-                                    v-model="ruleForm.ossCode"
-                                    placeholder="请输入资源编号"
+                                    v-model="ruleForm.from"
+                                    placeholder="请输入用户名"
                             />
                         </el-form-item>
                     </el-col>
                     <el-col :span="24" >
-                        <el-form-item label="资源地址" prop="endpoint">
+                        <el-form-item label="密码" prop="secret">
                             <el-input
-                                    v-model="ruleForm.endpoint"
-                                    placeholder="请输入资源地址"
+                                    v-model="ruleForm.secret"
+                                    placeholder="请输入密码"
                             />
                         </el-form-item>
                     </el-col>
                     <el-col :span="24" >
-                        <el-form-item label="空间名" prop="bucketName">
+                        <el-form-item label="主机地址" prop="host">
                             <el-input
-                                    v-model="ruleForm.bucketName"
-                                    placeholder="请输入空间名"
+                                    v-model="ruleForm.host"
+                                    placeholder="请输入主机地址"
                             />
                         </el-form-item>
                     </el-col>
                     <el-col :span="24" >
-                        <el-form-item label="accessKey" prop="accessKey">
-                            <el-input
-                                    v-model="ruleForm.accessKey"
-                                    placeholder="请输入accessKey"
-                            />
+                        <el-form-item label="端口" prop="port">
+                            <el-input-number v-model="ruleForm.port" :min="10" />
                         </el-form-item>
                     </el-col>
                     <el-col :span="24" >
-                        <el-form-item label="secretKey" prop="secretKey">
+                        <el-form-item label="发件人" prop="nickname">
                             <el-input
-                                    v-model="ruleForm.secretKey"
-                                    placeholder="请输入secretKey"
+                                    v-model="ruleForm.nickname"
+                                    placeholder="请输入发件人"
                             />
                         </el-form-item>
                     </el-col>
-                    <el-col :span="24" v-if="ruleForm.category == '2'">
-                        <el-form-item label="appId" prop="appId">
-                            <el-input
-                                    v-model="ruleForm.appId"
-                                    placeholder="请输入appId"
-                            />
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="24" v-if="ruleForm.category == '2'">
-                        <el-form-item label="region" prop="region">
-                            <el-input
-                                    v-model="ruleForm.region"
-                                    placeholder="请输入岗位名称"
-                            />
-                        </el-form-item>
-                    </el-col>
-
                     <el-col :span="24" >
                         <el-form-item label="状态" prop="status">
                             <el-radio-group v-model="ruleForm.status">
@@ -90,16 +70,6 @@
                                 >{{ dict.dictLabel }}
                                 </el-radio>
                             </el-radio-group>
-                        </el-form-item>
-                    </el-col>
-
-                    <el-col :span="24" >
-                        <el-form-item label="备注" prop="remark">
-                            <el-input
-                                    v-model="ruleForm.remark"
-                                    type="textarea"
-                                    placeholder="请输入内容"
-                            />
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -118,7 +88,7 @@
 
 <script lang="ts">
     import { reactive, toRefs, ref, unref, getCurrentInstance } from "vue";
-    import { updateResOsses, addResOsses } from "/@/api/resource/oss";
+    import { updateResEmails, addResEmails } from "/@/api/resource/email";
     import { ElMessage } from "element-plus";
 
     export default {
@@ -136,66 +106,51 @@
             const state = reactive({
                 // 是否显示弹出层
                 isShowDialog: false,
-
-                // 岗位对象
                 ruleForm: {
-                    ossId: 0, // ID
+                    mailId: 0, // ID
                     category: "",
-                    appId: "",
-                    accessKey: "",
-                    secretKey: "",
-                    bucketName: "",     // 空间名
-                    endpoint: "",
-                    ossCode: "",
-                    region: "",
-                    remark: "",     //备注
-                    status: "0",  //状态
+                    host: "",
+                    port: 0,
+                    from: "",
+                    nickname: "",
+                    secret: "",
+                    isSsl: false,
+                    status: "0"  //状态
                 },
                 // 状态数据字典
                 statusOptions: [],
-                // oss字典
-                ossOptions: [],
+                // mail字典
+                mailOptions: [],
                 // 表单校验
                 ruleRules: {
-                    category: [
-                        { required: true, message: "分类不能为空", trigger: "blur" }
+                    host: [
+                        { required: true, message: "邮件服务器不能为空", trigger: "blur" }
                     ],
-                    ossCode: [
-                        { required: true, message: "资源编号不能为空", trigger: "blur" }
+                    port: [
+                        { required: true, message: "端口号不能为空", trigger: "blur" }
                     ],
-                    appId: [
-                        { required: true, message: "appId不能为空", trigger: "blur" }
+                    from: [
+                        { required: true, message: "账号不能为空", trigger: "blur" }
                     ],
-                    accessKey: [
-                        { required: true, message: "accessKey不能为空", trigger: "blur" }
+                    secret: [
+                        { required: true, message: "密码不能为空", trigger: "blur" }
                     ],
-                    secretKey: [
-                        { required: true, message: "secretKey不能为空", trigger: "blur" }
-                    ],
-                    bucketName: [
-                        { required: true, message: "空间名称不能为空", trigger: "blur" }
-                    ],
-                    endpoint: [
-                        { required: true, message: "oss地址不能为空", trigger: "blur" }
-                    ]
                 },
             });
             // 打开弹窗
             const openDialog = (row: any) => {
-                if (row.ossId && row.ossId != undefined && row.ossId != 0) {
+                if (row.mailId && row.mailId != undefined && row.mailId != 0) {
                     state.ruleForm = row;
-                    state.ruleForm.ossId=row.ossId; // ID
-                    state.ruleForm.category=row.category;
-                    state.ruleForm.appId=row.appId;
-                    state.ruleForm.accessKey=row.accessKey;
-                    state.ruleForm.secretKey=row.secretKey;
-                    state.ruleForm.bucketName=row.bucketName;
-                    state.ruleForm.remark=row.remark;
-                    state.ruleForm.endpoint=row.endpoint;
-                    state.ruleForm.ossCode=row.ossCode;
-                    state.ruleForm.region=row.region;
-                    state.ruleForm.status=row.status;
+                    state.ruleForm.mailId=row.mailId; // ID
                     // 更多参数
+                    state.ruleForm.category=row.category;
+                    state.ruleForm.host=row.host;
+                    state.ruleForm.port=row.port;
+                    state.ruleForm.from=row.from;
+                    state.ruleForm.nickname=row.nickname;
+                    state.ruleForm.secret=row.secret;
+                    state.ruleForm.isSsl=row.isSsl;
+                    state.ruleForm.status=row.status;
                 } else {
                     initForm();
                 }
@@ -205,15 +160,15 @@
                 proxy.getDicts("sys_normal_disable").then((response: any) => {
                     state.statusOptions = response.data;
                 });
-                // 查询oss分类数据字典
-                proxy.getDicts("res_oss_category").then((response: any) => {
-                    state.ossOptions = response.data;
+                // 查询状态数据字典
+                proxy.getDicts("res_mail_category").then((response: any) => {
+                    state.mailOptions = response.data;
                 });
             };
 
             // 关闭弹窗
             const closeDialog = (row?: object) => {
-                proxy.mittBus.emit("onEditResOssesModule", row);
+                proxy.mittBus.emit("onEditResEmailsModule", row);
                 state.isShowDialog = false;
             };
             // 取消
@@ -228,15 +183,15 @@
                 formWrap.validate((valid: boolean) => {
                     if (valid) {
                         if (
-                            state.ruleForm.ossId != undefined &&
-                            state.ruleForm.ossId != 0
+                            state.ruleForm.mailId != undefined &&
+                            state.ruleForm.mailId != 0
                         ) {
-                            updateResOsses(state.ruleForm).then((response:any) => {
+                            updateResEmails(state.ruleForm).then((response) => {
                                 ElMessage.success("修改成功");
                                 closeDialog(state.ruleForm); // 关闭弹窗
                             });
                         } else {
-                            addResOsses(state.ruleForm).then((response:any) => {
+                            addResEmails(state.ruleForm).then((response) => {
                                 ElMessage.success("新增成功");
                                 closeDialog(state.ruleForm); // 关闭弹窗
                             });
@@ -246,17 +201,15 @@
             };
             // 表单初始化，方法：`resetFields()` 无法使用
             const initForm = () => {
-                state.ruleForm.ossId = 0; // ID
+                state.ruleForm.mailId = 0; // ID
                 // 更多参数初始化
                 state.ruleForm.category="";
-                state.ruleForm.appId="";
-                state.ruleForm.accessKey="";
-                state.ruleForm.secretKey="";
-                state.ruleForm.bucketName="";
-                state.ruleForm.remark="";
-                state.ruleForm.endpoint="";
-                state.ruleForm.ossCode="";
-                state.ruleForm.region="";
+                state.ruleForm.host="";
+                state.ruleForm.port=0;
+                state.ruleForm.from="";
+                state.ruleForm.nickname="";
+                state.ruleForm.secret="";
+                state.ruleForm.isSsl=false;
                 state.ruleForm.status="0";
             };
 

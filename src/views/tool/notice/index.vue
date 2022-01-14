@@ -52,6 +52,7 @@
                             plain
                             size="mini"
                             @click="onOpenAddModule"
+                            v-auth="'tool:notice:add'"
                     ><SvgIcon name="elementPlus" />新增</el-button>
                 </el-col>
                 <el-col :span="1.5">
@@ -61,6 +62,7 @@
                             size="mini"
                             :disabled="multiple"
                             @click="onTabelRowDel"
+                            v-auth="'tool:notice:delete'"
                     ><SvgIcon name="elementDelete" />删除</el-button>
                 </el-col>
             </el-row>
@@ -108,9 +110,9 @@
                         class-name="small-padding fixed-width"
                 >
                     <template #default="scope">
-                        <el-button size="mini" type="text" @click="handleRun(scope.row)"><SvgIcon name="elementView" />查看</el-button>
-                        <el-button size="mini" type="text"  @click="onOpenEditModule(scope.row)"><SvgIcon name="elementEdit" />编辑</el-button>
-                        <el-button size="mini" type="text"  @click="onTabelRowDel(scope.row)"><SvgIcon name="elementDelete" />删除</el-button>
+                        <el-button size="mini" type="text" v-auth="'tool:notice:view'" @click="handleRun(scope.row)"><SvgIcon name="elementView" />查看</el-button>
+                        <el-button size="mini" type="text"  v-auth="'tool:notice:edit'" @click="onOpenEditModule(scope.row)"><SvgIcon name="elementEdit" />编辑</el-button>
+                        <el-button size="mini" type="text"  v-auth="'tool:notice:delete'" @click="onTabelRowDel(scope.row)"><SvgIcon name="elementDelete" />删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>

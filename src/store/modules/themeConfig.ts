@@ -35,13 +35,13 @@ const themeConfigModule: Module<ThemeConfigState, RootStateTypes> = {
 			 * 代码位置：/@/layout/navBars/breadcrumb/setings.vue
 			 */
 			// 默认顶栏导航背景颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
-			topBar: '#182A3B',
+			topBar: '#191A23',
 			// 默认菜单导航背景颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
-			menuBar: '#191a23',
+			menuBar: '#191A23',
 			// 默认分栏菜单背景颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
 			columnsMenuBar: '#545c64',
 			// 默认顶栏导航字体颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
-			topBarColor: '#606266',
+			topBarColor: '#F4F6F8',
 			// 默认菜单导航字体颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
 			menuBarColor: '#eaeaea',
 			// 默认分栏菜单字体颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
@@ -53,7 +53,7 @@ const themeConfigModule: Module<ThemeConfigState, RootStateTypes> = {
 			// 是否开启分栏菜单背景颜色渐变
 			isColumnsMenuBarColorGradual: false,
 			// 是否开启菜单字体背景高亮
-			isMenuBarColorHighlight: false,
+			isMenuBarColorHighlight: true,
 
 			/**
 			 * 界面设置

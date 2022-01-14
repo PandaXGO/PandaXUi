@@ -130,7 +130,6 @@
                             :md="12"
                             :lg="12"
                             :xl="12"
-                            
                             v-if="ruleForm.menuType != 'F'"
                     >
                         <el-row :gutter="8">

@@ -68,6 +68,7 @@
                             size="mini"
                             :disabled="multiple"
                             @click="onTabelRowDel"
+                            v-auth="'log:operation:delete'"
                     ><SvgIcon name="elementDelete" />删除</el-button
                     >
                 </el-col>
@@ -77,6 +78,7 @@
                             plain
                             size="mini"
                             @click="handleClean"
+                            v-auth="'log:operation:clean'"
                     ><SvgIcon name="elementDelete" />清空</el-button
                     >
                 </el-col>

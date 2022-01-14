@@ -83,8 +83,7 @@
                             size="mini"
                             :disabled="multiple"
                             @click="onTabelRowDel"
-                    ><SvgIcon name="elementDelete" />删除</el-button
-                    >
+                    ><SvgIcon name="elementDelete" />删除</el-button>
                 </el-col>
             </el-row>
 
@@ -136,16 +135,17 @@
                                 @click="onOpenEditModule(scope.row)"
                         ><SvgIcon name="elementEdit" />修改</el-button>
                         <el-button
-                                size="mini"
-                                type="text"
-                                @click="onOpenDebugModule(scope.row)"
-                        ><SvgIcon name="elementEdit" />调试</el-button>
-                        <el-button
                                 v-if="scope.row.parentId != 0"
                                 size="mini"
                                 type="text"
                                 @click="onTabelRowDel(scope.row)"
                         ><SvgIcon name="elementDelete" />删除</el-button>
+                        <el-button
+                                type="text"
+                                size="mini"
+                                @click="onOpenDebugModule(scope.row)"
+                        ><SvgIcon name="elementUploadFilled" />调试</el-button>
+
                     </template>
                 </el-table-column>
             </el-table>
@@ -165,6 +165,30 @@
         </el-card>
         <!-- 添加或修改岗位对话框 -->
         <EditModule ref="editModuleRef" :title="title" />
+
+        <el-dialog title="测试文件上传"  v-model="debugOpen" width="769px" center>
+            <el-form label-width="80px">
+                <el-form-item label="资源编号">
+                    <el-input v-model="debugForm.ossCode" :disabled="true"/>
+                </el-form-item>
+                <el-form-item label="上传文件">
+                    <el-upload
+                            drag
+                            :action="url"
+                            :headers="headers"
+                            :auto-upload="true"
+                            :on-exceed="handleLimit"
+                            :on-success="handleUplaodSuccess"
+                    >
+                        <SvgIcon name="elementPlus" />
+                        <div class="el-upload__text">
+                            拖拽文件到这或 <em>点击文件上传</em>
+                        </div>
+                    </el-upload>
+                </el-form-item>
+            </el-form>
+        </el-dialog>
+
     </div>
 </template>
 
@@ -180,6 +204,7 @@
     import { ElMessageBox, ElMessage } from "element-plus";
     import { listResOsses, delResOsses,changeOssStatus } from "/@/api/resource/oss";
     import EditModule from "./component/editModule.vue";
+    import {Session} from "/@/utils/storage";
 
     export default {
         name: "index",
@@ -187,9 +212,14 @@
         setup() {
             const { proxy } = getCurrentInstance() as any;
             const editModuleRef = ref();
-            const state = reactive({
+
+            const baseURL = import.meta.env.VITE_API_URL
+            const state:any = reactive({
                 // 遮罩层
                 loading: true,
+                debugOpen: false,
+                url: '',
+                headers: {},
                 // 选中数组
                 ids: [],
                 // 非单个禁用
@@ -206,6 +236,7 @@
                 statusOptions: [],
                 // oss分类数据字典
                 ossOptions: [],
+                debugForm: {},
                 // 查询参数
                 queryParams: {
                     // 页码
@@ -265,14 +296,17 @@
                 editModuleRef.value.openDialog(row);
             };
             // 打开调试弹窗
-            const onOpenDebugModule = (row: object) => {
-                console.log(row)
+            const onOpenDebugModule = (row: any) => {
+                state.debugOpen = true
+                state.debugForm = row
+                state.url = baseURL + '/resource/oss/uploadFile?ossCode='+ row.ossCode
+                state.headers = {'X-TOKEN': `${Session.get('token')}`}
             };
             // 状态修改
             const handleStatusChange = (row: any) => {
                 let text = row.status === "0" ? "启用" : "停用";
                 ElMessageBox({
-                    message: '确认要"' + text + '""' + row.jobName + '"Oss吗?',
+                    message: '确认要"' + text + '""' + row.ossCode + '"Oss吗?',
                     title: "警告",
                     showCancelButton: true,
                     confirmButtonText: "确定",
@@ -315,6 +349,18 @@
                 state.single = selection.length != 1;
                 state.multiple = !selection.length;
             };
+            const handleLimit = (e:any) => {
+                if (e.length > state.limit) {
+                    ElMessage.warning(`最大单次只可上传${state.limit}条`);
+                }
+            };
+            const handleUplaodSuccess = (res: any, file: any) => {
+                if (res.code == 200) {
+                    ElMessage.success(`文件上传成功，路径为${res.data}`);
+                }else {
+                    ElMessage.error(`文件上传失败`);
+                }
+            }
             // 页面加载时
             onMounted(() => {
                 // 查询岗位信息
@@ -348,6 +394,8 @@
                 onOpenDebugModule,
                 handleStatusChange,
                 onTabelRowDel,
+                handleLimit,
+                handleUplaodSuccess,
                 ...toRefs(state),
             };
         },

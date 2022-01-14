@@ -52,6 +52,7 @@
                             plain
                             size="mini"
                             @click="onOpenAddModule"
+                            v-auth="'develop:code:add'"
                     ><SvgIcon name="elementDownload" />导入</el-button
                     >
                 </el-col>
@@ -62,6 +63,7 @@
                             size="mini"
                             :disabled="multiple"
                             @click="onTabelRowDel"
+                            v-auth="'develop:code:delete'"
                     ><SvgIcon name="elementDelete" />删除</el-button
                     >
                 </el-col>
@@ -98,17 +100,20 @@
                         <el-button
                                 type="text"
                                 size="small"
+                                v-auth="'develop:code:view'"
                                 @click="handlePreview(scope.row)"
                         ><SvgIcon name="elementView" />预览</el-button>
                         <el-button
                                 size="mini"
                                 type="text"
+                                v-auth="'develop:code:edit'"
                                 @click="onOpenEditModule(scope.row)"
                         ><SvgIcon name="elementEdit" />修改</el-button>
                         <el-button
                                 slot="reference"
                                 type="text"
                                 size="small"
+                                v-auth="'develop:code:code'"
                                 @click="handleToProject(scope.row)"
                         ><SvgIcon name="elementDownload" />代码生成</el-button>
 <!--                        <el-tooltip-->
@@ -129,6 +134,7 @@
                                 v-if="scope.row.parentId != 0"
                                 size="mini"
                                 type="text"
+                                v-auth="'develop:code:delete'"
                                 @click="onTabelRowDel(scope.row)"
                         ><SvgIcon name="elementDelete" />删除</el-button>
                     </template>

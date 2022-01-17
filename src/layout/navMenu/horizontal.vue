@@ -5,7 +5,7 @@
 				<template v-for="val in menuLists">
 					<el-sub-menu :index="val.path" v-if="val.children && val.children.length > 0" :key="val.path">
 						<template #title>
-							<SvgIcon :name="val.meta.icon" />
+							<SvgIcon :name="val.meta.icon"/>
 							<span>{{ $t(val.meta.title) }}</span>
 						</template>
 						<SubItem :chil="val.children" />
@@ -46,7 +46,7 @@ export default defineComponent({
 		const { proxy } = getCurrentInstance() as any;
 		const route = useRoute();
 		const store = useStore();
-		const state = reactive({
+		const state:any = reactive({
 			defaultActive: null,
 		});
 		// 获取父级菜单数据

@@ -288,7 +288,7 @@
             };
             const handleChangeConfig = (row, index) => {
                 state.tableTree.filter(function(item) {
-                    if (item.tableName === row.fkTableName) {
+                    if (item.tableName === row.linkTableName) {
                         row.fkCol = item.columns
                     }
                 })

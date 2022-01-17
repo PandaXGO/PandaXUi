@@ -132,6 +132,7 @@
         </el-card>
         <!-- 添加或修改定时任务对话框 -->
         <EditModule ref="editModuleRef" :title="title" />
+        <ViewModule ref="viewModuleRef" />
     </div>
 </template>
 
@@ -150,13 +151,14 @@
         delNotice,
     } from "/@/api/system/notice";
     import EditModule from "./component/editModule.vue";
-
+    import ViewModule from "./component/viewModule.vue";
     export default {
         name: "Notice",
-        components: { EditModule },
+        components: { EditModule,ViewModule },
         setup() {
             const { proxy } = getCurrentInstance() as any;
             const editModuleRef = ref();
+            const viewModuleRef = ref();
             const ruleFormRef = ref<HTMLElement | null>(null);
             const state = reactive({
                 // 遮罩层
@@ -223,6 +225,9 @@
                 state.title = "修改公告";
                 editModuleRef.value.openDialog(row);
             };
+            const handleRun = (row: any) => {
+                viewModuleRef.value.openDialog(row);
+            };
             /** 删除按钮操作 */
             const onTabelRowDel = (row: any) => {
                 const noticeIds = row.noticeId || state.ids;
@@ -274,6 +279,7 @@
                 proxy.mittBus.off("onEditNoticeModule");
             });
             return {
+                viewModuleRef,
                 editModuleRef,
                 ruleFormRef,
                 handleSelectionChange,
@@ -281,6 +287,7 @@
                 handleCurrentChange,
                 handleQuery,
                 resetQuery,
+                handleRun,
                 onOpenAddModule,
                 onOpenEditModule,
                 noticeTypeFormat,
@@ -290,3 +297,14 @@
         },
     };
 </script>
+
+<style scoped lang="scss">
+    .el-descriptions {
+        margin-top: 20px;
+    }
+    .cell-item {
+        width: 100px;
+        display: flex;
+        align-items: center;
+    }
+</style>

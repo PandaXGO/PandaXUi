@@ -63,6 +63,7 @@
                             plain
                             size="mini"
                             @click="onOpenAddModule"
+                            v-auth="'resource:mail:add'"
                     ><SvgIcon name="elementPlus" />新增</el-button
                     >
                 </el-col>
@@ -73,6 +74,7 @@
                             size="mini"
                             :disabled="multiple"
                             @click="onTabelRowDel"
+                            v-auth="'resource:mail:delete'"
                     ><SvgIcon name="elementDelete" />删除</el-button
                     >
                 </el-col>
@@ -123,17 +125,20 @@
                                 size="mini"
                                 type="text"
                                 @click="onOpenEditModule(scope.row)"
+                                v-auth="'resource:mail:edit'"
                         ><SvgIcon name="elementEdit" />修改</el-button>
                         <el-button
                                 v-if="scope.row.parentId != 0"
                                 size="mini"
                                 type="text"
                                 @click="onTabelRowDel(scope.row)"
+                                v-auth="'resource:mail:delete'"
                         ><SvgIcon name="elementDelete" />删除</el-button>
                         <el-button
                                 type="text"
                                 size="mini"
                                 @click="onOpenDebugModule(scope.row)"
+                                v-auth="'resource:mail:debug'"
                         ><SvgIcon name="elementUploadFilled" />调试</el-button>
                     </template>
                 </el-table-column>
@@ -199,7 +204,7 @@
         setup() {
             const { proxy } = getCurrentInstance() as any;
             const editModuleRef = ref();
-            const debugFormRef = ref<HTMLElement | null>(null);
+            const debugFormRef = ref();
             const state:any = reactive({
                 // 遮罩层
                 loading: true,

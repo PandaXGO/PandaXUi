@@ -59,7 +59,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="onCancel" size="small">取 消</el-button>
-          <el-button type="primary" @click="onSubmit" size="small">确 定</el-button>
+          <el-button type="primary" @click="onSubmit" :loading="loading" size="small">确 定</el-button>
         </span>
       </template>
     </el-dialog>
@@ -91,6 +91,7 @@ export default {
     const state = reactive({
       // 是否显示弹出层
       isShowDialog: false,
+      loading: false,
       // 表单参数对象
       ruleForm: {
         noticeId: 0,  // 公告ID
@@ -129,6 +130,7 @@ export default {
       }
 
       state.isShowDialog = true;
+      state.loading = false;
       // 查询公告类型名字典
       proxy.getDicts("sys_notice_type").then((response: any) => {
         state.noticeTypeOptions = response.data;
@@ -160,14 +162,17 @@ export default {
       if (!formWrap) return;
       formWrap.validate((valid: boolean) => {
         if (valid) {
+          state.loading = true;
           if (state.ruleForm.noticeId != undefined && state.ruleForm.noticeId != 0) {
             updateNotice(state.ruleForm).then((response) => {
               ElMessage.success("修改成功");
+              state.loading = false;
               closeDialog(state.ruleForm); // 关闭弹窗
             });
           } else {
             addNotice(state.ruleForm).then((responseya) => {
               ElMessage.success("新增成功");
+              state.loading = false;
               closeDialog(state.ruleForm); // 关闭弹窗
             });
           }

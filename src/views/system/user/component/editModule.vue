@@ -146,7 +146,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="onCancel" size="small">取 消</el-button>
-          <el-button type="primary" @click="onSubmit" size="small"
+          <el-button type="primary" @click="onSubmit" :loading="loading" size="small"
             >编 辑</el-button
           >
         </span>
@@ -176,6 +176,7 @@ export default {
     const state = reactive({
       // 是否显示弹出层
       isShowDialog: false,
+      loading: false,
       // 默认密码
       // 性别状态字典
       sexOptions: [],
@@ -261,7 +262,7 @@ export default {
       }
       getTreeselect();
       state.isShowDialog = true;
-
+      state.loading = false;
       // 查询显示性別数据字典
       proxy.getDicts("sys_user_sex").then((response: any) => {
         state.sexOptions = response.data;
@@ -297,14 +298,17 @@ export default {
           state.ruleForm.roleId = state.roleIds[0]
           state.ruleForm.postIds = state.postIds.join(',')
           state.ruleForm.roleIds = state.roleIds.join(',')
+          state.loading = true;
           if (state.ruleForm.userId != undefined) {
             updateUser(state.ruleForm).then((response) => {
               ElMessage.success("修改成功");
+              state.loading = false;
               closeDialog(); // 关闭弹窗
             });
           } else {
             addUser(state.ruleForm).then((response) => {
               ElMessage.success("新增成功");
+              state.loading = false;
               closeDialog(); // 关闭弹窗
             });
           }

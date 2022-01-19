@@ -96,7 +96,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="onCancel" size="small">取 消</el-button>
-          <el-button type="primary" @click="onSubmit" size="small"
+          <el-button type="primary" @click="onSubmit" :loading="loading" size="small"
             >编 辑</el-button
           >
         </span>
@@ -126,7 +126,7 @@ export default {
     const state = reactive({
       // 是否显示弹出层
       isShowDialog: false,
-
+      loading: false,
       // 部门对象
       ruleForm: {
         deptId: 0, // 部门ID
@@ -182,7 +182,7 @@ export default {
       }
 
       state.isShowDialog = true;
-
+      state.loading = false;
       // 查询部门状态数据字典
       proxy.getDicts("sys_normal_disable").then((response: any) => {
         state.statusOptions = response.data;
@@ -216,17 +216,17 @@ export default {
       if (!formWrap) return;
       formWrap.validate((valid: boolean) => {
         if (valid) {
-          if (
-            state.ruleForm.deptId != undefined &&
-            state.ruleForm.deptId != 0
-          ) {
+          state.loading = true;
+          if (state.ruleForm.deptId != undefined && state.ruleForm.deptId != 0) {
             updateDept(state.ruleForm).then((response) => {
               ElMessage.success("修改成功");
+              state.loading = false;
               closeDialog(state.ruleForm); // 关闭弹窗
             });
           } else {
             addDept(state.ruleForm).then((response) => {
               ElMessage.success("新增成功");
+              state.loading = false;
               closeDialog(state.ruleForm); // 关闭弹窗
             });
           }

@@ -273,7 +273,7 @@
             </el-form>
             <template #footer>
         <span class="dialog-footer">
-         <el-button type="primary" size="small" @click="submitForm">确 定</el-button>
+         <el-button type="primary" size="small" :loading="bunLoading" @click="submitForm">确 定</el-button>
         <el-button size="small" @click="cancel">取 消</el-button>
         </span>
             </template>
@@ -383,6 +383,7 @@
                 activeName: 'first',
                 // 遮罩层
                 loading: true,
+                bunLoading: false,
                 // 选中数组
                 ids: [],
                 // 总条数
@@ -660,6 +661,7 @@
                         })
                     });
                 });
+                state.bunLoading = false;
             };
             /** 删除按钮操作 */
             const handleDelete = (row: any) => {
@@ -716,11 +718,13 @@
                 if (!formWrap) return;
                 formWrap.validate((valid: boolean) => {
                     if (valid) {
+                        state.bunLoading = true;
                         if (state.roleForm != null && state.roleForm.roleId != undefined) {
                             state.roleForm.menuIds = getMenuAllCheckedKeys();
                             state.roleForm.apiIds = getApiAllCheckedKeys();
                             updateRole(state.roleForm).then(() => {
                                 ElMessage.success("修改成功");
+                                state.bunLoading = true;
                                 state.open = false;
                                 getList();
                             });
@@ -729,6 +733,7 @@
                             state.roleForm.apiIds = getApiAllCheckedKeys();
                             addRole(state.roleForm).then(() => {
                                 ElMessage.success("新增成功");
+                                state.bunLoading = true;
                                 state.open = false;
                                 getList();
                             });

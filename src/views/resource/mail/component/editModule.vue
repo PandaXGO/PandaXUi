@@ -77,7 +77,7 @@
             <template #footer>
         <span class="dialog-footer">
           <el-button @click="onCancel" size="small">取 消</el-button>
-          <el-button type="primary" @click="onSubmit" size="small"
+          <el-button type="primary" @click="onSubmit" :loading="loading" size="small"
           >编 辑</el-button
           >
         </span>
@@ -106,6 +106,7 @@
             const state = reactive({
                 // 是否显示弹出层
                 isShowDialog: false,
+                loading: false,
                 ruleForm: {
                     mailId: 0, // ID
                     category: "",
@@ -155,7 +156,7 @@
                     initForm();
                 }
                 state.isShowDialog = true;
-
+                state.loading = false;
                 // 查询状态数据字典
                 proxy.getDicts("sys_normal_disable").then((response: any) => {
                     state.statusOptions = response.data;
@@ -182,17 +183,17 @@
                 if (!formWrap) return;
                 formWrap.validate((valid: boolean) => {
                     if (valid) {
-                        if (
-                            state.ruleForm.mailId != undefined &&
-                            state.ruleForm.mailId != 0
-                        ) {
+                        state.loading = true;
+                        if (state.ruleForm.mailId != undefined && state.ruleForm.mailId != 0) {
                             updateResEmails(state.ruleForm).then((response) => {
                                 ElMessage.success("修改成功");
+                                state.loading = false;
                                 closeDialog(state.ruleForm); // 关闭弹窗
                             });
                         } else {
                             addResEmails(state.ruleForm).then((response) => {
                                 ElMessage.success("新增成功");
+                                state.loading = false;
                                 closeDialog(state.ruleForm); // 关闭弹窗
                             });
                         }

@@ -48,7 +48,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="onCancel" size="small">取 消</el-button>
-          <el-button type="primary" @click="onSubmit" size="small"
+          <el-button type="primary" @click="onSubmit" :loading="loading" size="small"
             >编 辑</el-button
           >
         </span>
@@ -77,7 +77,7 @@ export default {
     const state = reactive({
       // 是否显示弹出层
       isShowDialog: false,
-
+      loading: false,
       // 表单参数对象
       ruleForm: {
         dictCode: 0, // 字典编码 字典数据主键
@@ -129,6 +129,7 @@ export default {
         state.ruleForm.dictType = row.dictType; // 字典类型
       }
       state.isShowDialog = true;
+      state.loading = false;
     };
 
     // 关闭弹窗
@@ -147,17 +148,17 @@ export default {
       if (!formWrap) return;
       formWrap.validate((valid: boolean) => {
         if (valid) {
-          if (
-            state.ruleForm.dictCode != undefined &&
-            state.ruleForm.dictCode != 0
-          ) {
+          state.loading = true;
+          if (state.ruleForm.dictCode != undefined && state.ruleForm.dictCode != 0) {
             updateData(state.ruleForm).then((response) => {
               ElMessage.success("修改成功");
+              state.loading = false;
               closeDialog(state.ruleForm);
             });
           } else {
             addData(state.ruleForm).then((response) => {
               ElMessage.success("新增成功");
+              state.loading = false;
               closeDialog(state.ruleForm); // 关闭弹窗
             });
           }

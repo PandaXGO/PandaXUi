@@ -168,7 +168,7 @@
         </el-tabs>
         <el-form label-width="100px">
             <el-form-item style="text-align: center;margin-left:-100px;margin-top:10px;">
-                <el-button type="primary" @click="submitForm">提交</el-button>
+                <el-button type="primary" @click="submitForm" :loading="loading">提交</el-button>
                 <el-button @click="closeDialog">返回</el-button>
             </el-form-item>
         </el-form>
@@ -196,6 +196,7 @@
             const state = reactive({
                 // 是否显示弹出层
                 isShowDialog: false,
+                loading: false,
                 // 选中选项卡的 name
                 activeName: 'cloum',
                 // 表列信息
@@ -219,13 +220,12 @@
                         state.columns = columns;
                         state.info = res.data.info;
                         state.info.columns = state.columns;
-                        console.log(state)
                         state.isShowDialog = true;
                     });
+                    state.loading = false;
                     /** 查询字典下拉列表 */
                     getDictOptionselect({pageNum: 1, pageSize: 100}).then(response => {
                         state.dictOptions = response.data.data;
-                        console.log(state.dictOptions)
                     });
                     getTableTree().then(response => {
                         state.tableTree = response.data
@@ -245,15 +245,16 @@
                     const validateResult = res.every(item => !!item)
                     if (validateResult) {
                         const genTable = Object.assign({}, basicForm.model, genForm.model)
-                        console.log(state.columns)
                         genTable.columns = state.columns
                         genTable.params = {
                             treeCode: genTable.treeCode,
                             treeName: genTable.treeName,
                             treeParentCode: genTable.treeParentCode
                         }
+                        state.loading = true;
                         updateTable(genTable).then((res) =>{
                                 ElMessage.success("修改成功");
+                            state.loading = false;
                                 closeDialog();
                         });
                     } else {

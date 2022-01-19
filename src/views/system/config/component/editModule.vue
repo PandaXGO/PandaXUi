@@ -46,7 +46,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="onCancel" size="small">取 消</el-button>
-          <el-button type="primary" @click="onSubmit" size="small"
+          <el-button type="primary" @click="onSubmit" :loading="loading" size="small"
             >编 辑</el-button
           >
         </span>
@@ -75,6 +75,7 @@ export default {
     const state = reactive({
       // 是否显示弹出层
       isShowDialog: false,
+      loading: false,
       // 表单参数对象
       ruleForm: {
         configId: 0, // 配置参数ID
@@ -110,6 +111,7 @@ export default {
         initForm();
       }
       state.isShowDialog = true;
+      state.loading = false;
       // 查询配置参数状态数据配置参数
       proxy.getDicts("sys_yes_no").then((response: any) => {
         state.typeOptions = response.data;
@@ -132,17 +134,17 @@ export default {
       if (!formWrap) return;
       formWrap.validate((valid: boolean) => {
         if (valid) {
-          if (
-            state.ruleForm.configId != undefined &&
-            state.ruleForm.configId != 0
-          ) {
+          state.loading = true;
+          if (state.ruleForm.configId != undefined && state.ruleForm.configId != 0) {
             updateConfig(state.ruleForm).then((response) => {
               ElMessage.success("修改成功");
+              state.loading = false;
               closeDialog(state.ruleForm); // 关闭弹窗
             });
           } else {
             addConfig(state.ruleForm).then((response) => {
               ElMessage.success("新增成功");
+              state.loading = false;
               closeDialog(state.ruleForm); // 关闭弹窗
             });
           }

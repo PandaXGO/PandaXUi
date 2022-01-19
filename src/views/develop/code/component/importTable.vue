@@ -69,7 +69,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="onCancel" size="small">取 消</el-button>
-          <el-button type="primary" @click="onSubmit" size="small"
+          <el-button type="primary" @click="onSubmit" :loading="btnLoading" size="small"
             >确 定</el-button>
         </span>
       </template>
@@ -97,6 +97,7 @@ export default {
       // 是否显示弹出层
       isShowDialog: false,
       loading:false,
+      btnLoading: false,
       visible: false,
       // 选中数组值
       tables: [],
@@ -125,6 +126,7 @@ export default {
     const openDialog = (row: any) => {
       handleQuery()
       state.isShowDialog = true;
+      state.btnLoading = false;
     };
     // 重置
     const resetQuery = () => {
@@ -158,8 +160,10 @@ export default {
     
     // 保存
     const onSubmit = () => {
+      state.btnLoading = true;
       insertTable({ tables: state.tables.join(',') }).then(response => {
         ElMessage.success("导入成功");
+        state.btnLoading = false;
         closeDialog(); // 关闭弹窗
       })
     };

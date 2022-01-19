@@ -92,7 +92,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="onCancel" size="small">取 消</el-button>
-          <el-button type="primary" @click="onSubmit" size="small">编 辑</el-button>
+          <el-button type="primary" @click="onSubmit" :loading="loading" size="small">编 辑</el-button>
         </span>
       </template>
     </el-dialog>
@@ -119,6 +119,7 @@ export default {
     const state = reactive({
       // 是否显示弹出层
       isShowDialog: false,
+      loading: false,
       // 表单参数对象
       ruleForm: {
         jobId: 0, // 定时任务ID
@@ -178,6 +179,7 @@ export default {
         initForm();
       }
       state.isShowDialog = true;
+      state.loading = false;
       // 查询定时任务状态数据定时任务
       proxy.getDicts("sys_normal_disable").then((response: any) => {
         state.statusOptions = response.data;
@@ -204,14 +206,17 @@ export default {
       if (!formWrap) return;
       formWrap.validate((valid: boolean) => {
         if (valid) {
-          if (state.ruleForm.jobId != undefined && state.ruleForm.jobId != "") {
+          state.loading = true;
+          if (state.ruleForm.jobId != undefined && state.ruleForm.jobId != 0) {
             updateJob(state.ruleForm).then((response) => {
               ElMessage.success("修改成功");
+              state.loading = false;
               closeDialog(state.ruleForm); // 关闭弹窗
             });
           } else {
             addJob(state.ruleForm).then((response) => {
               ElMessage.success("新增成功");
+              state.loading = false;
               closeDialog(state.ruleForm); // 关闭弹窗
             });
           }

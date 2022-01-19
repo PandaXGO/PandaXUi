@@ -246,7 +246,7 @@
             <template #footer>
         <span class="dialog-footer">
           <el-button @click="onCancel" size="small">取 消</el-button>
-          <el-button type="primary" @click="onSubmit" size="small"
+          <el-button type="primary" @click="onSubmit" :loading="loading" size="small"
           >编 辑</el-button
           >
         </span>
@@ -281,7 +281,7 @@
             const state = reactive({
                 // 是否显示弹出层
                 isShowDialog: false,
-
+                loading: false,
                 /**
                  * 参数请参考 `/src/router/route.ts` 中的 `dynamicRoutes` 路由菜单格式（请注意参数类型！）
                  * 受到 `element plus` 类型 `string/number/object` 影响，不可使用 `:value="true"`
@@ -347,7 +347,7 @@
                 }
 
                 state.isShowDialog = true;
-
+                state.loading = false;
                 // 查询显示状态数据字典
                 proxy.getDicts("sys_show_hide").then((response: any) => {
                     state.isHideOptions = response.data;
@@ -398,18 +398,18 @@
                                 state.ruleForm.component = "Layout"
                             }
                         }
-                        if (
-                            state.ruleForm.menuId != undefined &&
-                            state.ruleForm.menuId != 0
-                        ) {
+                        state.loading = true;
+                        if (state.ruleForm.menuId != undefined && state.ruleForm.menuId != 0) {
                             updateMenu(state.ruleForm).then((response) => {
                                 ElMessage.success("修改成功");
+                                state.loading = false
                                 closeDialog(); // 关闭弹窗
                                 //resetSession(response)
                             });
                         } else {
                             addMenu(state.ruleForm).then((response) => {
                                 ElMessage.success("新增成功");
+                                state.loading = false
                                 closeDialog(); // 关闭弹窗
                                 //resetSession(response)
                             });

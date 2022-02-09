@@ -117,21 +117,21 @@
                 >
                     <template #default="scope">
                         <el-button
-                                size="mini"
+
                                 type="text"
                                 @click="onOpenEditModule(scope.row)"
                                 v-auth="'resource:mail:edit'"
                         ><SvgIcon name="elementEdit" />修改</el-button>
                         <el-button
                                 v-if="scope.row.parentId != 0"
-                                size="mini"
+
                                 type="text"
                                 @click="onTabelRowDel(scope.row)"
                                 v-auth="'resource:mail:delete'"
                         ><SvgIcon name="elementDelete" />删除</el-button>
                         <el-button
                                 type="text"
-                                size="mini"
+
                                 @click="onOpenDebugModule(scope.row)"
                                 v-auth="'resource:mail:debug'"
                         ><SvgIcon name="elementUploadFilled" />调试</el-button>

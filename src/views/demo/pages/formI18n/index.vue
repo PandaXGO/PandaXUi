@@ -2,12 +2,12 @@
 	<div class="form-i18n-container">
 		<el-card shadow="hover" header="表单国际化演示(不适用于动态项 form-item)">
 			<div style="text-align: center; margin-top: 15px">
-				<el-radio-group v-model="radio" size="small" @change="onRadioChange">
+				<el-radio-group v-model="radio"  @change="onRadioChange">
 					<el-radio-button label="zh-cn">中文简体</el-radio-button>
 					<el-radio-button label="en">英文</el-radio-button>
 				</el-radio-group>
 			</div>
-			<el-form :model="form" size="small" label-width="100px" class="mt35 mb35">
+			<el-form :model="form"  label-width="100px" class="mt35 mb35">
 				<el-row :gutter="35">
 					<el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8" class="mb20">
 						<el-form-item :label="$t('message.formI18nLabel.name')">

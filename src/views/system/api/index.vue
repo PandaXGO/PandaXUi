@@ -113,14 +113,14 @@
       >
         <template #default="scope">
           <el-button
-            size="mini"
+
             type="text"
             v-auth="'system:api:edit'"
             @click="onOpenEditModule(scope.row)"
             ><SvgIcon name="elementEdit" />修改</el-button>
           <el-button
             v-if="scope.row.parentId != 0"
-            size="mini"
+
             type="text"
             v-auth="'system:api:delete'"
             @click="onTabelRowDel(scope.row)"

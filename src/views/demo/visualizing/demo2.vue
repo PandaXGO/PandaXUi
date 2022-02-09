@@ -10,7 +10,7 @@
 				<span>智慧农业系统平台</span>
 			</div>
 			<div class="up-right">
-				<el-dropdown size="small">
+				<el-dropdown >
 					<span class="el-dropdown-link">
 						{{ dropdownActive }}
 						<SvgIcon name="elementArrowDown" class="el-icon--right" />

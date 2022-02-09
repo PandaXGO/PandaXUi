@@ -169,12 +169,12 @@
           <el-table-column prop="path" label="操作" width="150">
             <template #default="scope">
               <el-button
-                size="mini"
+
                 type="text"
                 @click="handleUpdate(scope.row)"
                 ><SvgIcon name="elementEdit" />修改</el-button>
               <el-button
-                size="mini"
+
                 type="text"
                 @click="handleDelete(scope.row)"
                 ><SvgIcon name="elementDelete" />删除</el-button>

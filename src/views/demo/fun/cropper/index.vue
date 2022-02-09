@@ -11,7 +11,7 @@
 				<div class="mb15 mt15">
 					<img class="cropper-img" :src="cropperImg" />
 				</div>
-				<el-button type="primary" size="small" @click="onCropperDialogOpen">
+				<el-button type="primary"  @click="onCropperDialogOpen">
 					<el-icon>
 						<elementCrop />
 					</el-icon>

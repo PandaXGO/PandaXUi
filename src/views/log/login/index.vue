@@ -47,7 +47,7 @@
                 <el-button
                         type="danger"
                         plain
-                        size="mini"
+
                         :disabled="multiple"
                         @click="onTabelRowDel"
                         v-auth="'log:login:delete'"
@@ -58,7 +58,7 @@
                 <el-button
                         type="danger"
                         plain
-                        size="mini"
+
                         @click="handleClean"
                         v-auth="'log:login:clean'"
                 ><SvgIcon name="elementDelete" />清空</el-button

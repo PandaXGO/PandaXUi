@@ -38,7 +38,7 @@
           </el-button>
           <el-button type="primary"
                      plain
-                     size="mini"
+
                      v-auth="'system:dept:add'"
                      @click="onOpenAddModule">
             <SvgIcon name="elementPlus" />
@@ -97,13 +97,13 @@
       >
         <template #default="scope">
           <el-button
-            size="mini"
+
             type="text"
             v-auth="'system:dept:edit'"
             @click="onOpenEditModule(scope.row)"
             ><SvgIcon name="elementEdit" />修改</el-button>
           <el-button
-            size="mini"
+
             type="text"
             v-auth="'system:dept:add'"
             @click="onOpenAddModule(scope.row)"
@@ -111,7 +111,7 @@
           >
           <el-button
             v-if="scope.row.parentId != 0"
-            size="mini"
+
             type="text"
             v-auth="'system:dept:delete'"
             @click="onTabelRowDel(scope.row)"

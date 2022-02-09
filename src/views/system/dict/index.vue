@@ -113,20 +113,20 @@
                 >
                     <template #default="scope">
                         <el-button
-                                size="mini"
+
                                 type="text"
                                 icon="el-icon-s-tools"
                                 @click="editDictItem(scope.row)"
                         ><SvgIcon name="elementTools" />字典配置</el-button>
                         <el-button
-                                size="mini"
+
                                 type="text"
                                 v-auth="'system:dictT:edit'"
                                 @click="onOpenEditModule(scope.row)"
                         ><SvgIcon name="elementEdit" />修改</el-button>
                         <el-button
                                 v-if="scope.row.parentId != 0"
-                                size="mini"
+
                                 type="text"
                                 v-auth="'system:dictT:delete'"
                                 @click="onTabelRowDel(scope.row)"

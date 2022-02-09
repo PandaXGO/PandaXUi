@@ -134,9 +134,9 @@
                     class-name="small-padding fixed-width"
             >
                 <template #default="scope">
-                    <el-button size="mini" type="text" v-auth="'tool:job:run'" @click="handleRun(scope.row)"><SvgIcon name="elementSwitchButton" />{{ scope.row.entryId > 0 ? "停止":"启动"}}</el-button>
-                    <el-button size="mini" type="text" v-auth="'tool:job:edit'" @click="onOpenEditModule(scope.row)"><SvgIcon name="elementEdit" />编辑</el-button>
-                    <el-button size="mini" type="text" v-auth="'tool:job:delete'" @click="onTabelRowDel(scope.row)"><SvgIcon name="elementDelete" />删除</el-button>
+                    <el-button  type="text" v-auth="'tool:job:run'" @click="handleRun(scope.row)"><SvgIcon name="elementSwitchButton" />{{ scope.row.entryId > 0 ? "停止":"启动"}}</el-button>
+                    <el-button  type="text" v-auth="'tool:job:edit'" @click="onOpenEditModule(scope.row)"><SvgIcon name="elementEdit" />编辑</el-button>
+                    <el-button  type="text" v-auth="'tool:job:delete'" @click="onTabelRowDel(scope.row)"><SvgIcon name="elementDelete" />删除</el-button>
                 </template>
             </el-table-column>
         </el-table>

@@ -6,31 +6,31 @@
 				v-model="threeLevelLinkage"
 				:options="threeLevelLinkageList"
 				:props="{ expandTrigger: 'hover', value: 'code', label: 'name' }"
-				size="small"
+
 				clearable
 			>
 			</el-cascader>
 		</el-card>
 		<el-card shadow="hover" header="2、分开联动" class="mt15">
-			<el-form size="small" label-width="40px">
+			<el-form  label-width="40px">
 				<el-row :gutter="15">
 					<el-col :xs="24" :sm="8" :md="8" :lg="8" :xl="8" class="mb15">
 						<el-form-item label="省级">
-							<el-select v-model="linkage.province" placeholder="请选择" size="small" clearable @change="onProvinceChange" class="w100">
+							<el-select v-model="linkage.province" placeholder="请选择"  clearable @change="onProvinceChange" class="w100">
 								<el-option v-for="(v, k) in linkage.provinceList" :key="k" :label="v.name" :value="v.name"></el-option>
 							</el-select>
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="8" :md="8" :lg="8" :xl="8" class="mb15">
 						<el-form-item label="市级">
-							<el-select v-model="linkage.city" placeholder="请选择" size="small" clearable @change="onCityChange" class="w100">
+							<el-select v-model="linkage.city" placeholder="请选择"  clearable @change="onCityChange" class="w100">
 								<el-option v-for="(v, k) in linkage.cityList" :key="k" :label="v.name" :value="v.name"></el-option>
 							</el-select>
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="8" :md="8" :lg="8" :xl="8">
 						<el-form-item label="区级">
-							<el-select v-model="linkage.area" placeholder="请选择" size="small" clearable class="w100">
+							<el-select v-model="linkage.area" placeholder="请选择"  clearable class="w100">
 								<el-option v-for="(v, k) in linkage.areaList" :key="k" :label="v.name" :value="v.name"></el-option>
 							</el-select>
 						</el-form-item>

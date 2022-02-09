@@ -148,7 +148,7 @@
             >
                 <template #default="scope">
                     <el-button
-                            size="mini"
+
                             type="text"
                             @click="handleView(scope.row)"
                     ><SvgIcon name="elementView" />详细</el-button

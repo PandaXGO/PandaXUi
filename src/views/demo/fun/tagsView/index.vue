@@ -9,7 +9,7 @@
 			<div class="flex-warp">
 				<div class="flex-warp-item">
 					<div class="flex-warp-item-box">
-						<el-button type="primary" size="small" @click="refreshCurrentTagsView">
+						<el-button type="primary"  @click="refreshCurrentTagsView">
 							<el-icon>
 								<elementRefreshRight />
 							</el-icon>
@@ -19,7 +19,7 @@
 				</div>
 				<div class="flex-warp-item">
 					<div class="flex-warp-item-box">
-						<el-button type="info" size="small" @click="closeCurrentTagsView">
+						<el-button type="info"  @click="closeCurrentTagsView">
 							<el-icon>
 								<elementClose />
 							</el-icon>
@@ -29,7 +29,7 @@
 				</div>
 				<div class="flex-warp-item">
 					<div class="flex-warp-item-box">
-						<el-button type="warning" size="small" @click="closeOtherTagsView">
+						<el-button type="warning"  @click="closeOtherTagsView">
 							<el-icon>
 								<elementCircleClose />
 							</el-icon>
@@ -39,7 +39,7 @@
 				</div>
 				<div class="flex-warp-item">
 					<div class="flex-warp-item-box">
-						<el-button type="danger" size="small" @click="closeAllTagsView">
+						<el-button type="danger"  @click="closeAllTagsView">
 							<el-icon>
 								<elementFolderDelete />
 							</el-icon>
@@ -49,7 +49,7 @@
 				</div>
 				<div class="flex-warp-item">
 					<div class="flex-warp-item-box">
-						<el-button type="success" size="small" @click="openCurrenFullscreen">
+						<el-button type="success"  @click="openCurrenFullscreen">
 							<el-icon>
 								<elementFullScreen />
 							</el-icon>

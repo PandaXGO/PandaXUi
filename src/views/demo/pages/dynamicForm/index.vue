@@ -1,7 +1,7 @@
 <template>
 	<div class="dynamic-form-container">
 		<el-card shadow="hover" header="动态复杂表单">
-			<el-form :model="form" ref="formRulesOneRef" size="small" label-width="100px" class="mt35">
+			<el-form :model="form" ref="formRulesOneRef"  label-width="100px" class="mt35">
 				<el-row :gutter="35">
 					<el-col
 						:xs="val.xs"
@@ -63,12 +63,12 @@
 								<el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="6" class="mb20">
 									<el-form-item label="年度" :prop="`list[${k}].year`" :rules="[{ required: true, message: `年度不能为空`, trigger: 'blur' }]">
 										<template #label>
-											<el-button type="primary" circle size="mini" @click="onAddRow" v-if="k === 0">
+											<el-button type="primary" circle  @click="onAddRow" v-if="k === 0">
 												<el-icon>
 													<elementPlus />
 												</el-icon>
 											</el-button>
-											<el-button type="danger" circle size="mini" @click="onDelRow(k)" v-else>
+											<el-button type="danger" circle  @click="onDelRow(k)" v-else>
 												<el-icon>
 													<elementDelete />
 												</el-icon>
@@ -96,13 +96,13 @@
 		</el-card>
 		<el-row class="flex mt15">
 			<div class="flex-margin">
-				<el-button size="small" @click="onResetForm">
+				<el-button  @click="onResetForm">
 					<el-icon>
 						<elementRefreshRight />
 					</el-icon>
 					重置表单
 				</el-button>
-				<el-button size="small" type="primary" @click="onSubmitForm">
+				<el-button  type="primary" @click="onSubmitForm">
 					<SvgIcon name="iconfont icon-shuxing" />
 					验证表单
 				</el-button>

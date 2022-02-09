@@ -130,19 +130,19 @@
                 >
                     <template #default="scope">
                         <el-button
-                                size="mini"
+
                                 type="text"
                                 icon="el-icon-edit"
                                 @click="onOpenEditMenu(scope.row)"
                         ><SvgIcon name="elementEdit" />修改</el-button>
                         <el-button
-                                size="mini"
+
                                 type="text"
                                 icon="el-icon-plus"
                                 @click="onOpenAddMenu(scope.row)"
                         ><SvgIcon name="elementPlus" />新增</el-button>
                         <el-button
-                                size="mini"
+
                                 type="text"
                                 icon="el-icon-delete"
                                 @click="handleDelete(scope.row)"

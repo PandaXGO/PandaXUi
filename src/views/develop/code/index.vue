@@ -94,12 +94,11 @@
                     <template #default="scope">
                         <el-button
                                 type="text"
-                                size="small"
                                 v-auth="'develop:code:view'"
                                 @click="handlePreview(scope.row)"
                         ><SvgIcon name="elementView" />预览</el-button>
                         <el-button
-                                size="mini"
+
                                 type="text"
                                 v-auth="'develop:code:edit'"
                                 @click="onOpenEditModule(scope.row)"
@@ -107,7 +106,6 @@
                         <el-button
                                 slot="reference"
                                 type="text"
-                                size="small"
                                 v-auth="'develop:code:code'"
                                 @click="handleToProject(scope.row)"
                         ><SvgIcon name="elementDownload" />代码生成</el-button>
@@ -120,14 +118,13 @@
 <!--                            <el-button-->
 <!--                                    slot="reference"-->
 <!--                                    type="text"-->
-<!--                                    size="small"-->
 <!--                                    @click="handleToDB(scope.row)"-->
 <!--                            ><SvgIcon name="elementView" />生成配置</el-button>-->
 <!--                        </el-tooltip>-->
 
                         <el-button
                                 v-if="scope.row.parentId != 0"
-                                size="mini"
+
                                 type="text"
                                 v-auth="'develop:code:delete'"
                                 @click="onTabelRowDel(scope.row)"

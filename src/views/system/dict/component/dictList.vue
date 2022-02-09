@@ -13,7 +13,7 @@
         <el-form
           :model="queryParams"
           ref="queryForm"
-          size="mini"
+
           :inline="true"
         >
           <el-row>
@@ -120,7 +120,7 @@
           >
             <template #default="scope">
               <el-button
-                size="mini"
+
                 type="text"
                 icon="el-icon-edit"
                 v-auth="'system:dictD:edit'"
@@ -128,7 +128,7 @@
                 ><SvgIcon name="elementEdit" />修改</el-button
               >
               <el-button
-                size="mini"
+
                 type="text"
                 v-auth="'system:dictD:delete'"
                 @click="onTabelRowDel(scope.row)"

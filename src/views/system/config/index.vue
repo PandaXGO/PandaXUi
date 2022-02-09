@@ -145,7 +145,7 @@
       >
         <template #default="scope">
           <el-button
-            size="mini"
+
             type="text"
             v-auth="'system:config:edit'"
             @click="onOpenEditModule(scope.row)"
@@ -153,7 +153,7 @@
           >
           <el-button
             v-if="scope.row.parentId != 0"
-            size="mini"
+
             type="text"
             v-auth="'system:config:delete'"
             @click="onTabelRowDel(scope.row)"
@@ -300,7 +300,7 @@ export default {
         type: "warning",
         }).then(function() {
           return exportConfig(queryParams);
-        }).then(response => {
+        }).then((response:any) => {
           proxy.download(response.data);
         })
     };

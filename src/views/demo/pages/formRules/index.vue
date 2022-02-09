@@ -5,11 +5,11 @@
 		<el-card shadow="hover" header="表单组件3" class="mt15"> <FormRulesThree ref="pagesFormRulesThreeRef" /></el-card>
 		<el-row class="flex mt15">
 			<div class="flex-margin">
-				<el-button size="small" @click="onResetForm">
+				<el-button  @click="onResetForm">
 					<SvgIcon name="elementRefreshRight" />
 					重置表单
 				</el-button>
-				<el-button size="small" type="primary" @click="onSubmitForm">
+				<el-button  type="primary" @click="onSubmitForm">
 					<SvgIcon name="iconfont icon-shuxing" />
 					验证表单
 				</el-button>

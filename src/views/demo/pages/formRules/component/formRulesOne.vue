@@ -1,6 +1,6 @@
 <template>
 	<div class="form-rules-one-container">
-		<el-form :model="form" :rules="rules" ref="formRulesOneRef" size="small" label-width="100px" class="mt35">
+		<el-form :model="form" :rules="rules" ref="formRulesOneRef"  label-width="100px" class="mt35">
 			<el-row :gutter="35">
 				<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
 					<el-form-item label="姓名" prop="name">

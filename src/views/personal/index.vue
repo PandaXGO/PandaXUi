@@ -288,7 +288,7 @@ import {useI18n} from "vue-i18n";
 		})
 	};
 	const updateRole = async () => {
-		updateUser({roleId: state.roleId}).then((res:any) => {
+		updateUser({userId: store.state.userInfos.userInfos.userId, roleId: state.roleId}).then((res:any) => {
 			ElMessage.success("角色切换成功");
 			state.dialogVisibleRole = false;
 
@@ -302,7 +302,7 @@ import {useI18n} from "vue-i18n";
 	};
 
 	const updatePost = async () => {
-		updateUser({postId: state.postId}).then((res:any) => {
+		updateUser({userId: store.state.userInfos.userInfos.userId, postId: state.postId}).then((res:any) => {
 			ElMessage.success("岗位切换成功");
 			state.dialogVisiblePost = false;
 		})

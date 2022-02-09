@@ -166,12 +166,12 @@
                 <GenInfoForm ref="genInfoRef" :info="info" />
             </el-tab-pane>
         </el-tabs>
-        <el-form label-width="100px">
-            <el-form-item style="text-align: center;margin-left:-100px;margin-top:10px;">
+        <template #footer>
+            <span class="dialog-footer">
                 <el-button type="primary" @click="submitForm" :loading="loading">提交</el-button>
                 <el-button @click="closeDialog">返回</el-button>
-            </el-form-item>
-        </el-form>
+            </span>
+        </template>
     </el-dialog>
 </template>
 <script>

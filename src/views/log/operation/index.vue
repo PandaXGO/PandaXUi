@@ -12,7 +12,6 @@
                     <el-input
                             placeholder="请输入系统模块模糊查询"
                             clearable
-                            size="small"
                             @keyup.enter="handleQuery"
                             style="width: 240px"
                             v-model="queryParams.title"
@@ -22,7 +21,6 @@
                     <el-input
                             placeholder="请输入操作人员模糊查询"
                             clearable
-                            size="small"
                             @keyup.enter="handleQuery"
                             style="width: 240px"
                             v-model="queryParams.operName"
@@ -33,7 +31,6 @@
                             v-model="queryParams.businessType"
                             placeholder="操作类型"
                             clearable
-                            size="small"
                             style="width: 240px"
                     >
                         <el-option
@@ -47,12 +44,11 @@
                 <el-form-item>
                     <el-button
                             type="primary"
-                            size="mini"
                             @click="handleQuery"
                     >
                         <SvgIcon name="elementSearch" />
                         搜索</el-button>
-                    <el-button size="mini" @click="resetQuery">
+                    <el-button @click="resetQuery">
                         <SvgIcon name="elementRefresh" />
                         重置
                     </el-button>
@@ -65,7 +61,6 @@
                     <el-button
                             type="danger"
                             plain
-                            size="mini"
                             :disabled="multiple"
                             @click="onTabelRowDel"
                             v-auth="'log:operation:delete'"
@@ -76,7 +71,6 @@
                     <el-button
                             type="danger"
                             plain
-                            size="mini"
                             @click="handleClean"
                             v-auth="'log:operation:clean'"
                     ><SvgIcon name="elementDelete" />清空</el-button
@@ -166,12 +160,11 @@
             </div>
         </el-card>
         <!-- 操作日志详细 -->
-        <el-dialog title="操作日志详细" v-model="open" width="700px" append-to-body>
+        <el-dialog title="操作日志详细" v-model="open" width="700px" center append-to-body>
             <el-form
                     ref="ruleFormRef"
                     :model="modelForm"
                     label-width="100px"
-                    size="mini"
             >
                 <el-row>
                     <el-col :span="12">
@@ -224,7 +217,7 @@
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
-                  <el-button @click="open = false" size="small">关 闭</el-button>
+                  <el-button @click="open = false">关 闭</el-button>
                 </span>
             </template>
         </el-dialog>

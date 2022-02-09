@@ -7,7 +7,6 @@
         <el-input
           placeholder="请输入部门名称模糊查询"
           clearable
-          size="small"
           @keyup.enter.native="handleQuery"
           v-model="state.queryParams.deptName"
         />
@@ -17,7 +16,6 @@
           v-model="state.queryParams.status"
           placeholder="部门状态"
           clearable
-          size="small"
         >
           <el-option
             v-for="dict in state.statusOptions"
@@ -30,12 +28,11 @@
       <el-form-item>
           <el-button
                   type="primary"
-                  size="mini"
                   @click="handleQuery"
           >
             <SvgIcon name="elementSearch" />
             搜索</el-button>
-          <el-button size="mini" @click="resetQuery">
+          <el-button @click="resetQuery">
             <SvgIcon name="elementRefresh" />
             重置
           </el-button>

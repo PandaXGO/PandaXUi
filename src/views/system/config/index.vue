@@ -12,7 +12,6 @@
          <el-input
           placeholder="参数名称模糊查询"
           clearable
-          size="small"
           @keyup.enter="handleQuery"
           style="width: 240px"
           v-model="queryParams.configName"
@@ -22,7 +21,6 @@
          <el-input
           placeholder="参数键名模糊查询"
           clearable
-          size="small"
           @keyup.enter="handleQuery"
           style="width: 240px"
           v-model="queryParams.configKey"
@@ -33,7 +31,6 @@
           v-model="queryParams.configType"
           placeholder="系统内置"
           clearable
-          size="small"
           style="width: 240px"
         >
           <el-option
@@ -47,12 +44,11 @@
       <el-form-item>
         <el-button
                 type="primary"
-                size="mini"
                 @click="handleQuery"
         >
           <SvgIcon name="elementSearch" />
           搜索</el-button>
-        <el-button size="mini" @click="resetQuery">
+        <el-button @click="resetQuery">
           <SvgIcon name="elementRefresh" />
           重置
         </el-button>
@@ -66,7 +62,6 @@
         <el-button
           type="primary"
           plain
-          size="mini"
           @click="onOpenAddModule"
           v-auth="'system:config:add'"
           ><SvgIcon name="elementPlus" />新增</el-button
@@ -76,7 +71,6 @@
         <el-button
           type="danger"
           plain
-          size="mini"
           :disabled="multiple"
           v-auth="'system:config:delete'"
           @click="onTabelRowDel"
@@ -87,7 +81,6 @@
         <el-button
           type="warning"
           plain
-          size="mini"
           v-auth="'system:config:export'"
           @click="handleExport"
           ><SvgIcon name="elementDownload" />导出</el-button

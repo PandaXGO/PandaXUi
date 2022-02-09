@@ -13,29 +13,27 @@
         <el-form
           :model="queryParams"
           ref="queryForm"
-          :inline="true"
           size="mini"
+          :inline="true"
         >
-          <el-row :gutter="12">
-            <el-col :md="8" :sm="8" :xs="24">
+          <el-row>
+            <el-col span="8">
               <el-form-item label="标签" prop="dictName">
                 <el-input
                   placeholder="标签查询"
                   clearable
-                  size="small"
                   @keyup.enter="handleQuery"
-                  style="width: 120px"
+                  style="width: 140px"
                   v-model="queryParams.dictLabel"
                 />
               </el-form-item>
             </el-col>
-            <el-col :md="8" :sm="8" :xs="24">
+            <el-col span="8">
               <el-form-item label="状态" prop="status">
                 <el-select
                   v-model="queryParams.status"
                   placeholder="状态"
                   clearable
-                  size="mini"
                   style="width: 100px"
                 >
                   <el-option
@@ -47,16 +45,14 @@
                 </el-select>
               </el-form-item>
             </el-col>
-            <el-col :md="8" :sm="8" :xs="24">
+            <el-col span="8">
               <el-form-item>
                 <el-button
                   type="primary"
                   @click="handleQuery"
-                  size="mini"
                   ><SvgIcon name="elementSearch" />搜索</el-button
                 >
                 <el-button
-                  size="mini"
                   @click="resetQuery"
                   ><SvgIcon name="elementRefresh" />重置</el-button
                 >
@@ -67,7 +63,6 @@
             <el-col :md="2" :sm="2" :xs="8">
               <el-button
                 style="margin-bottom: 10px; margin-top: 10px"
-                size="mini"
                 type="primary"
                 v-auth="'system:dictD:add'"
                 @click="onOpenAddModule"

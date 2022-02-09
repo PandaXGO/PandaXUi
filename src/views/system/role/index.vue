@@ -12,7 +12,6 @@
                     <el-input
                             placeholder="角色名称模糊查询"
                             clearable
-                            size="small"
                             @keyup.enter="handleQuery"
                             style="width: 240px"
                             v-model="queryParams.roleName"
@@ -22,7 +21,6 @@
                     <el-input
                             placeholder="权限字符模糊查询"
                             clearable
-                            size="small"
                             @keyup.enter="handleQuery"
                             style="width: 240px"
                             v-model="queryParams.roleKey"
@@ -33,7 +31,6 @@
                             v-model="queryParams.status"
                             placeholder="角色状态"
                             clearable
-                            size="small"
                             style="width: 240px"
                     >
                         <el-option
@@ -47,12 +44,11 @@
                 <el-form-item>
                     <el-button
                             type="primary"
-                            size="mini"
                             @click="handleQuery"
                     >
                         <SvgIcon name="elementSearch" />
                         搜索</el-button>
-                    <el-button size="mini" @click="resetQuery">
+                    <el-button @click="resetQuery">
                         <SvgIcon name="elementRefresh" />
                         重置
                     </el-button>
@@ -66,7 +62,6 @@
                     <el-button
                             type="primary"
                             plain
-                            size="mini"
                             v-auth="'system:role:add'"
                             @click="handleAdd"
                     ><SvgIcon name="elementPlus" />新增</el-button>
@@ -75,7 +70,6 @@
                     <el-button
                             type="danger"
                             plain
-                            size="mini"
                             v-auth="'system:role:delete'"
                             :disabled="multiple"
                             @click="handleDelete"
@@ -85,7 +79,6 @@
                     <el-button
                             type="warning"
                             plain
-                            size="mini"
                             v-auth="'system:role:export'"
                             @click="handleExport"
                     ><SvgIcon name="elementDownload" />导出</el-button>
@@ -174,7 +167,7 @@
             </div>
         </el-card>
         <!-- 添加或修改角色配置对话框 -->
-        <el-dialog :title="title" v-model="open" width="769px">
+        <el-dialog :title="title" v-model="open" width="769px" center>
             <el-form
                     ref="roleFormRef"
                     :model="roleForm"
@@ -273,14 +266,14 @@
             </el-form>
             <template #footer>
         <span class="dialog-footer">
-         <el-button type="primary" size="small" :loading="bunLoading" @click="submitForm">确 定</el-button>
-        <el-button size="small" @click="cancel">取 消</el-button>
+         <el-button type="primary" :loading="bunLoading" @click="submitForm">确 定</el-button>
+        <el-button @click="cancel">取 消</el-button>
         </span>
             </template>
         </el-dialog>
 
         <!-- 分配角色数据权限对话框 -->
-        <el-dialog :title="title" v-model="openDataScope" width="769px">
+        <el-dialog :title="title" v-model="openDataScope" width="769px" center>
             <el-form :model="roleForm" label-width="80px">
                 <el-form-item label="角色名称">
                     <el-input v-model="roleForm.roleName" :disabled="true"/>
@@ -331,8 +324,8 @@
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
-                 <el-button type="primary" size="small" @click="submitDataScope">确 定</el-button>
-                <el-button size="small" @click="cancelDataScope">取 消</el-button>
+                 <el-button type="primary" @click="submitDataScope">确 定</el-button>
+                <el-button  @click="cancelDataScope">取 消</el-button>
                 </span>
             </template>
         </el-dialog>

@@ -1,6 +1,6 @@
 <template>
   <div class="system-job-container">
-    <el-dialog v-model="isShowDialog" width="769px">
+    <el-dialog v-model="isShowDialog" width="769px" center>
       <template #title>
         <div style="font-size: large" v-drag="['.system-job-container .el-dialog', '.system-job-container .el-dialog__header']">{{title}}</div>
       </template>
@@ -64,14 +64,14 @@
         </el-form-item>
 
         <el-form-item label="任务类型" prop="jobType">
-          <el-radio-group v-model="ruleForm.jobType" size="small">
+          <el-radio-group v-model="ruleForm.jobType">
             <el-radio-button label="1">接口</el-radio-button>
             <el-radio-button label="2">函数</el-radio-button>
           </el-radio-group>
         </el-form-item>
 
         <el-form-item label="错误策略" prop="misfirePolicy">
-          <el-radio-group v-model="ruleForm.misfirePolicy" size="small">
+          <el-radio-group v-model="ruleForm.misfirePolicy">
             <el-radio-button label="1">立即执行</el-radio-button>
             <el-radio-button label="2">执行一次</el-radio-button>
             <el-radio-button label="3">放弃执行</el-radio-button>
@@ -91,8 +91,8 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel" size="small">取 消</el-button>
-          <el-button type="primary" @click="onSubmit" :loading="loading" size="small">编 辑</el-button>
+          <el-button @click="onCancel">取 消</el-button>
+          <el-button type="primary" @click="onSubmit" :loading="loading">编 辑</el-button>
         </span>
       </template>
     </el-dialog>

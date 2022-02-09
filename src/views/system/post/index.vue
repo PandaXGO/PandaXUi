@@ -12,7 +12,6 @@
         <el-input
           placeholder="请输入岗位编码模糊查询"
           clearable
-          size="small"
           @keyup.enter="handleQuery"
           style="width: 240px"
           v-model="queryParams.postCode"
@@ -22,7 +21,6 @@
         <el-input
           placeholder="请输入岗位名称模糊查询"
           clearable
-          size="small"
           @keyup.enter="handleQuery"
           style="width: 240px"
           v-model="queryParams.postName"
@@ -33,7 +31,6 @@
           v-model="queryParams.status"
           placeholder="岗位状态"
           clearable
-          size="small"
           style="width: 240px"
         >
           <el-option
@@ -47,12 +44,11 @@
         <el-form-item>
           <el-button
                   type="primary"
-                  size="mini"
                   @click="handleQuery"
           >
             <SvgIcon name="elementSearch" />
             搜索</el-button>
-          <el-button size="mini" @click="resetQuery">
+          <el-button @click="resetQuery">
             <SvgIcon name="elementRefresh" />
             重置
           </el-button>
@@ -66,7 +62,6 @@
         <el-button
           type="primary"
           plain
-          size="mini"
           v-auth="'system:post:add'"
           @click="onOpenAddModule"
           ><SvgIcon name="elementPlus" />新增</el-button
@@ -76,7 +71,6 @@
         <el-button
           type="danger"
           plain
-          size="mini"
           v-auth="'system:post:delete'"
           :disabled="multiple"
           @click="onTabelRowDel"
@@ -87,7 +81,6 @@
         <el-button
           type="warning"
           plain
-          size="mini"
           v-auth="'system:post:export'"
           @click="onTabelRowDel"
           ><SvgIcon name="elementDownload" />导出</el-button

@@ -7,7 +7,6 @@
                 <el-input
                         placeholder="请输入任务名称模糊查询"
                         clearable
-                        size="small"
                         @keyup.enter="handleQuery"
                         style="width: 240px"
                         v-model="queryParams.jobName"
@@ -18,7 +17,6 @@
                         v-model="queryParams.jobGroup"
                         placeholder="请选择任务组名"
                         clearable
-                        size="small"
                         style="width: 240px"
                 >
                     <el-option
@@ -34,7 +32,6 @@
                         v-model="queryParams.status"
                         placeholder="请选择任务状态"
                         clearable
-                        size="small"
                         style="width: 240px"
                 >
                     <el-option
@@ -48,12 +45,11 @@
             <el-form-item>
                 <el-button
                         type="primary"
-                        size="mini"
                         @click="handleQuery"
                 >
                     <SvgIcon name="elementSearch" />
                     搜索</el-button>
-                <el-button size="mini" @click="resetQuery">
+                <el-button @click="resetQuery">
                     <SvgIcon name="elementRefresh" />
                     重置
                 </el-button>
@@ -66,7 +62,6 @@
                 <el-button
                         type="primary"
                         plain
-                        size="mini"
                         @click="onOpenAddModule"
                         v-auth="'tool:job:add'"
                 ><SvgIcon name="elementPlus" />新增</el-button>
@@ -75,7 +70,6 @@
                 <el-button
                         type="danger"
                         plain
-                        size="mini"
                         :disabled="multiple"
                         @click="onTabelRowDel"
                         v-auth="'tool:job:delete'"

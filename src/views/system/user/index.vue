@@ -9,7 +9,6 @@
             v-model="deptName"
             placeholder="请输入部门名称"
             clearable
-            size="small"
             prefix-icon="el-icon-search"
             style="margin-bottom: 20px"
           />
@@ -40,7 +39,6 @@
             <el-input
               placeholder="用户名称模糊查询"
               clearable
-              size="small"
               @keyup.enter="handleQuery"
               style="width: 240px"
               v-model="queryParams.username"
@@ -51,7 +49,6 @@
               v-model="queryParams.phone"
               placeholder="请输入手机号码"
               clearable
-              size="small"
               style="width: 240px"
               @keyup.enter="handleQuery"
             />
@@ -61,7 +58,6 @@
               v-model="queryParams.status"
               placeholder="用户状态"
               clearable
-              size="small"
               style="width: 240px"
             >
               <el-option
@@ -75,12 +71,11 @@
           <el-form-item>
             <el-button
                     type="primary"
-                    size="mini"
                     @click="handleQuery"
             >
               <SvgIcon name="elementSearch" />
               搜索</el-button>
-            <el-button size="mini" @click="resetQuery">
+            <el-button @click="resetQuery">
               <SvgIcon name="elementRefresh" />
               重置
             </el-button>
@@ -92,7 +87,6 @@
           <el-button
             type="primary"
             plain
-            size="mini"
             @click="handleAdd"
             ><SvgIcon name="elementPlus" />新增</el-button>
         </el-col>
@@ -100,7 +94,6 @@
           <el-button
             type="danger"
             plain
-            size="mini"
             :disabled="multiple"
             @click="handleDelete"
             ><SvgIcon name="elementDelete" />删除</el-button>
@@ -109,7 +102,6 @@
           <el-button
             type="warning"
             plain
-            size="mini"
             @click="handleExport"
             ><SvgIcon name="elementDownload" />导出</el-button>
         </el-col>

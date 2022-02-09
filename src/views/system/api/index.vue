@@ -11,7 +11,6 @@
          <el-input
           placeholder="Api路径模糊查询"
           clearable
-          size="small"
           @keyup.enter="handleQuery"
           style="width: 240px"
           v-model="queryParams.path"
@@ -21,7 +20,6 @@
          <el-input
           placeholder="描述模糊查询"
           clearable
-          size="small"
           @keyup.enter="handleQuery"
           style="width: 240px"
           v-model="queryParams.description"
@@ -31,7 +29,6 @@
         <el-input
                 placeholder="分组查询"
                 clearable
-                size="small"
                 @keyup.enter="handleQuery"
                 style="width: 240px"
                 v-model="queryParams.apiGroup"
@@ -42,7 +39,6 @@
           v-model="queryParams.method"
           placeholder="方法"
           clearable
-          size="small"
           style="width: 240px"
         >
           <el-option
@@ -56,12 +52,11 @@
       <el-form-item>
         <el-button
                 type="primary"
-                size="mini"
                 @click="handleQuery"
         >
           <SvgIcon name="elementSearch" />
           搜索</el-button>
-        <el-button size="mini" @click="resetQuery">
+        <el-button @click="resetQuery">
           <SvgIcon name="elementRefresh" />
           重置
         </el-button>
@@ -75,7 +70,6 @@
         <el-button
           type="primary"
           plain
-          size="mini"
           v-auth="'system:api:add'"
           @click="onOpenAddModule"
           ><SvgIcon name="elementPlus" />新增</el-button
@@ -85,7 +79,6 @@
         <el-button
           type="danger"
           plain
-          size="mini"
           :disabled="multiple"
           v-auth="'system:api:delete'"
           @click="onTabelRowDel"

@@ -73,7 +73,7 @@ export default {
 		// 输入框占位文本
 		size: {
 			type: String,
-			default: () => 'small',
+			default: () => 'default',
 		},
 		// 弹窗标题
 		title: {

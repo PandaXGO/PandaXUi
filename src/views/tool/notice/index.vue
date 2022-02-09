@@ -7,7 +7,6 @@
                     <el-input
                             placeholder="请输入公告标题模糊查询"
                             clearable
-                            size="small"
                             @keyup.enter="handleQuery"
                             style="width: 240px"
                             v-model="queryParams.title"
@@ -18,7 +17,6 @@
                             v-model="queryParams.noticeType"
                             placeholder="请选择通知类型"
                             clearable
-                            size="small"
                             style="width: 240px"
                     >
                         <el-option
@@ -32,12 +30,11 @@
                 <el-form-item>
                     <el-button
                             type="primary"
-                            size="mini"
                             @click="handleQuery"
                     >
                         <SvgIcon name="elementSearch" />
                         搜索</el-button>
-                    <el-button size="mini" @click="resetQuery">
+                    <el-button @click="resetQuery">
                         <SvgIcon name="elementRefresh" />
                         重置
                     </el-button>

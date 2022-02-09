@@ -13,7 +13,6 @@
                             v-model="queryParams.category"
                             placeholder="分类"
                             clearable
-                            size="small"
                     >
                         <el-option
                                 v-for="dict in mailOptions"
@@ -28,7 +27,6 @@
                             v-model="queryParams.status"
                             placeholder="状态"
                             clearable
-                            size="small"
                             style="width: 240px"
                     >
                         <el-option
@@ -42,12 +40,11 @@
                 <el-form-item>
                     <el-button
                             type="primary"
-                            size="mini"
                             @click="handleQuery"
                     >
                         <SvgIcon name="elementSearch" />
                         搜索</el-button>
-                    <el-button size="mini" @click="resetQuery">
+                    <el-button @click="resetQuery">
                         <SvgIcon name="elementRefresh" />
                         重置
                     </el-button>
@@ -61,7 +58,6 @@
                     <el-button
                             type="primary"
                             plain
-                            size="mini"
                             @click="onOpenAddModule"
                             v-auth="'resource:mail:add'"
                     ><SvgIcon name="elementPlus" />新增</el-button
@@ -71,7 +67,6 @@
                     <el-button
                             type="danger"
                             plain
-                            size="mini"
                             :disabled="multiple"
                             @click="onTabelRowDel"
                             v-auth="'resource:mail:delete'"
@@ -177,8 +172,8 @@
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
-                 <el-button type="primary" size="small" @click="submitDebug">确 定</el-button>
-                <el-button size="small" @click="cancelDebug">取 消</el-button>
+                 <el-button type="primary" @click="submitDebug">确 定</el-button>
+                <el-button @click="cancelDebug">取 消</el-button>
                 </span>
             </template>
         </el-dialog>

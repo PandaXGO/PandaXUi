@@ -12,7 +12,6 @@
                     <el-input
                             placeholder="请输入表名称模糊查询"
                             clearable
-                            size="small"
                             @keyup.enter="handleQuery"
                             style="width: 240px"
                             v-model="queryParams.tableName"
@@ -22,7 +21,6 @@
                     <el-input
                             placeholder="请输入表描述模糊查询"
                             clearable
-                            size="small"
                             @keyup.enter="handleQuery"
                             style="width: 240px"
                             v-model="queryParams.tableComment"
@@ -31,12 +29,11 @@
                 <el-form-item>
                     <el-button
                             type="primary"
-                            size="mini"
                             @click="handleQuery"
                     >
                         <SvgIcon name="elementSearch" />
                         搜索</el-button>
-                    <el-button size="mini" @click="resetQuery">
+                    <el-button @click="resetQuery">
                         <SvgIcon name="elementRefresh" />
                         重置
                     </el-button>
@@ -50,7 +47,6 @@
                     <el-button
                             type="primary"
                             plain
-                            size="mini"
                             @click="onOpenAddModule"
                             v-auth="'develop:code:add'"
                     ><SvgIcon name="elementDownload" />导入</el-button
@@ -60,7 +56,6 @@
                     <el-button
                             type="danger"
                             plain
-                            size="mini"
                             :disabled="multiple"
                             @click="onTabelRowDel"
                             v-auth="'develop:code:delete'"
@@ -173,7 +168,7 @@
             </div>
             <template #footer>
                 <span class="dialog-footer">
-                  <el-button type="primary" @click="preview.open = false" size="small">确 定</el-button>
+                  <el-button type="primary" @click="preview.open = false">确 定</el-button>
                 </span>
             </template>
         </el-dialog>

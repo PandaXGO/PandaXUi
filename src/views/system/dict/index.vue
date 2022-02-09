@@ -12,7 +12,6 @@
                     <el-input
                             placeholder="请输入字典名称模糊查询"
                             clearable
-                            size="small"
                             @keyup.enter="handleQuery"
                             style="width: 240px"
                             v-model="queryParams.dictName"
@@ -23,7 +22,6 @@
                             v-model="queryParams.dictType"
                             placeholder="请输入字典类型模糊查询"
                             clearable
-                            size="small"
                             style="width: 240px"
                             @keyup.enter="handleQuery"
                     />
@@ -33,7 +31,6 @@
                             v-model="queryParams.status"
                             placeholder="字典状态"
                             clearable
-                            size="small"
                             style="width: 240px"
                     >
                         <el-option
@@ -47,12 +44,10 @@
                 <el-form-item>
                     <el-button
                             type="primary"
-                            size="mini"
                             @click="handleQuery"
                     >
-                        <SvgIcon name="elementSearch" />
-                        搜索</el-button>
-                    <el-button size="mini" @click="resetQuery">
+                        <SvgIcon name="elementSearch" />搜索</el-button>
+                    <el-button @click="resetQuery">
                         <SvgIcon name="elementRefresh" />
                         重置
                     </el-button>
@@ -66,7 +61,6 @@
                     <el-button
                             type="primary"
                             plain
-                            size="mini"
                             v-auth="'system:dictT:add'"
                             @click="onOpenAddModule"
                     ><SvgIcon name="elementPlus" />新增</el-button>
@@ -75,7 +69,6 @@
                     <el-button
                             type="danger"
                             plain
-                            size="mini"
                             v-auth="'system:dictT:delete'"
                             :disabled="multiple"
                             @click="onTabelRowDel"
@@ -86,7 +79,6 @@
                             type="warning"
                             plain
                             v-auth="'system:dictT:export'"
-                            size="mini"
                             @click="handleExport"
                     ><SvgIcon name="elementDownload" />导出</el-button>
                 </el-col>

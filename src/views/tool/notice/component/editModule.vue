@@ -1,6 +1,6 @@
 <template>
   <div class="system-notice-container">
-    <el-dialog v-model="isShowDialog" width="769px">
+    <el-dialog v-model="isShowDialog" width="769px" center>
       <template #title>
         <div style="font-size: large" v-drag="['.system-notice-container .el-dialog', '.system-notice-container .el-dialog__header']">{{title}}</div>
       </template>
@@ -35,7 +35,6 @@
             <el-cascader
                     v-model="ruleForm.deptId"
                     :options="deptOptions"
-                    size="small"
                     class="w100"
                     :props="{
                   value: 'deptId',
@@ -58,8 +57,8 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel" size="small">取 消</el-button>
-          <el-button type="primary" @click="onSubmit" :loading="loading" size="small">确 定</el-button>
+          <el-button @click="onCancel">取 消</el-button>
+          <el-button type="primary" @click="onSubmit" :loading="loading">确 定</el-button>
         </span>
       </template>
     </el-dialog>

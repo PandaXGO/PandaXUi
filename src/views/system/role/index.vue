@@ -1,6 +1,5 @@
 <template>
     <div class="app-container">
-        <div v-drag="['.app-container .el-dialog', '.app-container .el-dialog__header']"></div>
         <el-card shadow="always">
             <!--查询-->
             <el-form
@@ -175,6 +174,7 @@
         </el-card>
         <!-- 添加或修改角色配置对话框 -->
         <el-dialog :title="title" v-model="open" width="769px">
+            <div v-drag="['.app-container .el-dialog', '.app-container .el-dialog__header']"></div>
             <el-form
                     ref="roleFormRef"
                     :model="roleForm"
@@ -281,6 +281,7 @@
 
         <!-- 分配角色数据权限对话框 -->
         <el-dialog :title="title" v-model="openDataScope" width="769px">
+            <div v-drag="['.app-container .el-dialog', '.app-container .el-dialog__header']"></div>
             <el-form :model="roleForm" label-width="80px">
                 <el-form-item label="角色名称">
                     <el-input v-model="roleForm.roleName" :disabled="true"/>

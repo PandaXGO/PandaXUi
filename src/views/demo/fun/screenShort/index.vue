@@ -8,7 +8,7 @@
 				class="mb15"
 			></el-alert>
 			<ScreenShort ref="screenShortRef" @getBase64="onGetBase64" />
-			<el-button type="primary" size="small" @click="onScreenShortClick">
+			<el-button type="primary"  @click="onScreenShortClick">
 				<SvgIcon name="elementCrop" />
 				点击截屏
 			</el-button>

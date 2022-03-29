@@ -81,7 +81,7 @@
 			<el-col :span="24">
 				<el-card shadow="hover" class="mt15 personal-edit" header="更新信息">
 					<div class="personal-edit-title">基本信息</div>
-					<el-form :model="personalForm" size="small" label-width="40px" class="mt35 mb35">
+					<el-form :model="personalForm" label-width="40px" class="mt35 mb35">
 						<el-row :gutter="35">
 							<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
 								<el-form-item label="昵称">
@@ -288,7 +288,7 @@ import {useI18n} from "vue-i18n";
 		})
 	};
 	const updateRole = async () => {
-		updateUser({roleId: state.roleId}).then((res:any) => {
+		updateUser({userId: store.state.userInfos.userInfos.userId, roleId: state.roleId}).then((res:any) => {
 			ElMessage.success("角色切换成功");
 			state.dialogVisibleRole = false;
 
@@ -302,7 +302,7 @@ import {useI18n} from "vue-i18n";
 	};
 
 	const updatePost = async () => {
-		updateUser({postId: state.postId}).then((res:any) => {
+		updateUser({userId: store.state.userInfos.userInfos.userId, postId: state.postId}).then((res:any) => {
 			ElMessage.success("岗位切换成功");
 			state.dialogVisiblePost = false;
 		})

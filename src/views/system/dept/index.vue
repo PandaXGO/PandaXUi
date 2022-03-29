@@ -7,7 +7,6 @@
         <el-input
           placeholder="请输入部门名称模糊查询"
           clearable
-          size="small"
           @keyup.enter.native="handleQuery"
           v-model="state.queryParams.deptName"
         />
@@ -17,7 +16,6 @@
           v-model="state.queryParams.status"
           placeholder="部门状态"
           clearable
-          size="small"
         >
           <el-option
             v-for="dict in state.statusOptions"
@@ -30,18 +28,17 @@
       <el-form-item>
           <el-button
                   type="primary"
-                  size="mini"
                   @click="handleQuery"
           >
             <SvgIcon name="elementSearch" />
             搜索</el-button>
-          <el-button size="mini" @click="resetQuery">
+          <el-button @click="resetQuery">
             <SvgIcon name="elementRefresh" />
             重置
           </el-button>
           <el-button type="primary"
                      plain
-                     size="mini"
+
                      v-auth="'system:dept:add'"
                      @click="onOpenAddModule">
             <SvgIcon name="elementPlus" />
@@ -100,13 +97,13 @@
       >
         <template #default="scope">
           <el-button
-            size="mini"
+
             type="text"
             v-auth="'system:dept:edit'"
             @click="onOpenEditModule(scope.row)"
             ><SvgIcon name="elementEdit" />修改</el-button>
           <el-button
-            size="mini"
+
             type="text"
             v-auth="'system:dept:add'"
             @click="onOpenAddModule(scope.row)"
@@ -114,7 +111,7 @@
           >
           <el-button
             v-if="scope.row.parentId != 0"
-            size="mini"
+
             type="text"
             v-auth="'system:dept:delete'"
             @click="onTabelRowDel(scope.row)"

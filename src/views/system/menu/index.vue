@@ -12,7 +12,6 @@
                     <el-input
                             placeholder="菜单名称模糊查询"
                             clearable
-                            size="small"
                             @keyup.enter="handleQuery"
                             style="width: 240px"
                             v-model="queryParams.menuName"
@@ -23,7 +22,6 @@
                             v-model="queryParams.status"
                             placeholder="菜单状态"
                             clearable
-                            size="small"
                             style="width: 240px"
                     >
                         <el-option
@@ -37,18 +35,16 @@
                 <el-form-item>
                     <el-button
                             type="primary"
-                            size="mini"
                             @click="handleQuery"
                     >
                         <SvgIcon name="elementSearch" />
                         搜索</el-button>
-                    <el-button size="mini" @click="resetQuery">
+                    <el-button @click="resetQuery">
                         <SvgIcon name="elementRefresh" />
                         重置
                     </el-button>
                     <el-button type="primary"
                                plain
-                               size="mini"
                                v-auth="'system:dept:add'"
                                @click="onOpenAddMenu">
                         <SvgIcon name="elementPlus" />
@@ -134,19 +130,19 @@
                 >
                     <template #default="scope">
                         <el-button
-                                size="mini"
+
                                 type="text"
                                 icon="el-icon-edit"
                                 @click="onOpenEditMenu(scope.row)"
                         ><SvgIcon name="elementEdit" />修改</el-button>
                         <el-button
-                                size="mini"
+
                                 type="text"
                                 icon="el-icon-plus"
                                 @click="onOpenAddMenu(scope.row)"
                         ><SvgIcon name="elementPlus" />新增</el-button>
                         <el-button
-                                size="mini"
+
                                 type="text"
                                 icon="el-icon-delete"
                                 @click="handleDelete(scope.row)"

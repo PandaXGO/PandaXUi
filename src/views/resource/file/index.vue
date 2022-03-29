@@ -12,7 +12,6 @@
                     <el-input
                             placeholder="请输入资源编号糊查询"
                             clearable
-                            size="small"
                             @keyup.enter="handleQuery"
                             style="width: 240px"
                             v-model="queryParams.ossCode"
@@ -23,7 +22,6 @@
                             v-model="queryParams.category"
                             placeholder="分类"
                             clearable
-                            size="small"
                     >
                         <el-option
                                 v-for="dict in ossOptions"
@@ -38,7 +36,6 @@
                             v-model="queryParams.status"
                             placeholder="状态"
                             clearable
-                            size="small"
                             style="width: 240px"
                     >
                         <el-option
@@ -52,12 +49,11 @@
                 <el-form-item>
                     <el-button
                             type="primary"
-                            size="mini"
                             @click="handleQuery"
                     >
                         <SvgIcon name="elementSearch" />
                         搜索</el-button>
-                    <el-button size="mini" @click="resetQuery">
+                    <el-button @click="resetQuery">
                         <SvgIcon name="elementRefresh" />
                         重置
                     </el-button>
@@ -71,7 +67,6 @@
                     <el-button
                             type="primary"
                             plain
-                            size="mini"
                             @click="onOpenAddModule"
                             v-auth="'resource:file:add'"
                     ><SvgIcon name="elementPlus" />新增</el-button
@@ -81,7 +76,6 @@
                     <el-button
                             type="danger"
                             plain
-                            size="mini"
                             :disabled="multiple"
                             @click="onTabelRowDel"
                             v-auth="'resource:file:delete'"
@@ -132,21 +126,21 @@
                 >
                     <template #default="scope">
                         <el-button
-                                size="mini"
+
                                 type="text"
                                 @click="onOpenEditModule(scope.row)"
                                 v-auth="'resource:file:edit'"
                         ><SvgIcon name="elementEdit" />修改</el-button>
                         <el-button
                                 v-if="scope.row.parentId != 0"
-                                size="mini"
+
                                 type="text"
                                 @click="onTabelRowDel(scope.row)"
                                 v-auth="'resource:file:delete'"
                         ><SvgIcon name="elementDelete" />删除</el-button>
                         <el-button
                                 type="text"
-                                size="mini"
+
                                 @click="onOpenDebugModule(scope.row)"
                                 v-auth="'resource:file:debug'"
                         ><SvgIcon name="elementUploadFilled" />调试</el-button>

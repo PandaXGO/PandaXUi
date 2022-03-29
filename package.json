@@ -16,7 +16,7 @@
 		"echarts": "^5.2.2",
 		"echarts-gl": "^2.0.8",
 		"echarts-wordcloud": "^2.0.0",
-		"element-plus": "^1.2.0-beta.6",
+		"element-plus": "^2.0.1",
 		"jsplumb": "^2.15.6",
 		"mitt": "^3.0.0",
 		"nprogress": "^0.2.0",

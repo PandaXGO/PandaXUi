@@ -16,9 +16,9 @@
 						</el-tab-pane>
 					</el-tabs>
 					<el-divider>其他登录方式</el-divider>
-					<div>
-						<el-button style="font-size: 20px" class="fa fa-qq mr20" circle></el-button>
-						<el-button style="font-size: 20px" class="fa fa-github" circle></el-button>
+					<div class="flex">
+						<i class="fa fa-qq mr30" style="font-size: 25px;color: #4eb8ff"></i>
+						<i class="fa fa-github mr20" style="font-size: 25px;"></i>
 					</div>
 				</div>
 				<Scan v-if="state.isScan" />

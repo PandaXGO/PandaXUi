@@ -1,6 +1,6 @@
 <template>
     <div class="system-menu-container">
-        <el-dialog v-model="isShowDialog" width="769px">
+        <el-dialog v-model="isShowDialog" width="769px" center>
             <template #title>
                 <div style="font-size: large" v-drag="['.system-menu-container .el-dialog', '.system-menu-container .el-dialog__header']">{{title}}</div>
             </template>
@@ -106,8 +106,8 @@
             </el-form>
             <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel" size="small">取 消</el-button>
-          <el-button type="primary" @click="onSubmit" :loading="loading" size="small"
+          <el-button @click="onCancel">取 消</el-button>
+          <el-button type="primary" @click="onSubmit" :loading="loading"
           >编 辑</el-button
           >
         </span>

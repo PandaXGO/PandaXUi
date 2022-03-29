@@ -12,7 +12,6 @@
                 <el-input
                         placeholder="请输入任务名称模糊查询"
                         clearable
-                        size="small"
                         @keyup.enter="handleQuery"
                         style="width: 240px"
                         v-model="queryParams.name"
@@ -23,7 +22,6 @@
                         v-model="queryParams.jobGroup"
                         placeholder="请选择任务组名"
                         clearable
-                        size="small"
                 >
                     <el-option
                             v-for="dict in jobGroupOptions"
@@ -38,7 +36,6 @@
                         v-model="queryParams.status"
                         placeholder="请选择任务状态"
                         clearable
-                        size="small"
                 >
                     <el-option
                             v-for="dict in statusOptions"
@@ -51,12 +48,11 @@
             <el-form-item>
                 <el-button
                         type="primary"
-                        size="mini"
                         @click="handleQuery"
                 >
                     <SvgIcon name="elementSearch" />
                     搜索</el-button>
-                <el-button size="mini" @click="resetQuery">
+                <el-button @click="resetQuery">
                     <SvgIcon name="elementRefresh" />
                     重置
                 </el-button>
@@ -68,7 +64,6 @@
                 <el-button
                         type="danger"
                         plain
-                        size="mini"
                         :disabled="multiple"
                         @click="onTabelRowDel"
                         v-auth="'log:job:delete'"
@@ -79,7 +74,6 @@
                 <el-button
                         type="danger"
                         plain
-                        size="mini"
                         @click="handleClean"
                         v-auth="'log:job:clean'"
                 ><SvgIcon name="elementDelete" />清空</el-button
@@ -154,7 +148,7 @@
             >
                 <template #default="scope">
                     <el-button
-                            size="mini"
+
                             type="text"
                             @click="handleView(scope.row)"
                     ><SvgIcon name="elementView" />详细</el-button
@@ -179,12 +173,11 @@
 
         </el-card>
         <!-- 调度日志详细 -->
-        <el-dialog title="调度日志详细" v-model="open" width="700px" append-to-body>
+        <el-dialog title="调度日志详细" v-model="open" width="700px" center append-to-body>
             <el-form
                     ref="ruleFormRef"
                     :model="modelForm"
                     label-width="100px"
-                    size="mini"
             >
                 <el-row>
                     <el-col :span="12">

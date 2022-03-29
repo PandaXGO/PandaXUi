@@ -10,32 +10,30 @@
                 :inline="true"
                 label-width="80px"
         >
-          <el-col :span="9">
+          <el-col :span="8">
             <el-form-item label="表名称" prop="tableName">
               <el-input
                       v-model="queryParams.tableName"
                       placeholder="请输入表名称"
                       clearable
-                      size="small"
                       @keyup.enter.native="handleQuery"
               />
             </el-form-item>
           </el-col>
-          <el-col :span="9">
+          <el-col :span="8">
             <el-form-item label="表描述" prop="tableComment">
               <el-input
                       v-model="queryParams.tableComment"
                       placeholder="请输入表描述"
                       clearable
-                      size="small"
                       @keyup.enter.native="handleQuery"
               />
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="8">
             <el-form-item>
-              <el-button type="primary" size="mini" @click="handleQuery"><SvgIcon name="elementSearch" />搜索</el-button>
-              <el-button size="mini" @click="resetQuery"> <SvgIcon name="elementRefresh" />重置</el-button>
+              <el-button type="primary" @click="handleQuery"><SvgIcon name="elementSearch" />搜索</el-button>
+              <el-button @click="resetQuery"> <SvgIcon name="elementRefresh" />重置</el-button>
             </el-form-item>
           </el-col>
         </el-form>
@@ -68,8 +66,8 @@
       </el-row>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel" size="small">取 消</el-button>
-          <el-button type="primary" @click="onSubmit" :loading="btnLoading" size="small"
+          <el-button @click="onCancel">取 消</el-button>
+          <el-button type="primary" @click="onSubmit" :loading="btnLoading"
             >确 定</el-button>
         </span>
       </template>

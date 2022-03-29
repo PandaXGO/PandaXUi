@@ -1,6 +1,6 @@
 <template>
 	<el-card shadow="hover" header="正则验证（一些项目中常用的正则）">
-		<el-form :model="ruleForm" :rules="rules" class="tools-warp-form" size="small" label-position="top">
+		<el-form :model="ruleForm" :rules="rules" class="tools-warp-form"  label-position="top">
 			<el-form-item label="验证百分比（不可以小数）:" prop="a22">
 				<div class="tools-warp-form-msg">验证可以输入大于0小于100的数字</div>
 				<div>

@@ -1,10 +1,9 @@
 <template>
-	<el-form ref="loginFormRef" :model="state.loginForm" :rules="state.rules" class="login-content-form">
+	<el-form ref="loginFormRef" size="large" :model="state.loginForm" :rules="state.rules" class="login-content-form">
 		<el-form-item class="login-animation-one">
 			<el-input
 					type="text"
 					:placeholder="$t('message.account.accountPlaceholder1')"
-					prefix-icon="el-icon-user"
 					v-model="state.loginForm.username"
 					clearable
 					autocomplete="off"
@@ -56,7 +55,7 @@
 								class="login-content-code-img"
 								@click="getCaptcha"
 								width="130px"
-								height="40px"
+								height="38px"
 								:src="state.captchaImage"
 								style="cursor: pointer"
 						/>

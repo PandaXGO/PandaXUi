@@ -12,7 +12,6 @@
                     <el-input
                             placeholder="请输入表名称模糊查询"
                             clearable
-                            size="small"
                             @keyup.enter="handleQuery"
                             style="width: 240px"
                             v-model="queryParams.tableName"
@@ -22,7 +21,6 @@
                     <el-input
                             placeholder="请输入表描述模糊查询"
                             clearable
-                            size="small"
                             @keyup.enter="handleQuery"
                             style="width: 240px"
                             v-model="queryParams.tableComment"
@@ -31,12 +29,11 @@
                 <el-form-item>
                     <el-button
                             type="primary"
-                            size="mini"
                             @click="handleQuery"
                     >
                         <SvgIcon name="elementSearch" />
                         搜索</el-button>
-                    <el-button size="mini" @click="resetQuery">
+                    <el-button @click="resetQuery">
                         <SvgIcon name="elementRefresh" />
                         重置
                     </el-button>
@@ -50,7 +47,6 @@
                     <el-button
                             type="primary"
                             plain
-                            size="mini"
                             @click="onOpenAddModule"
                             v-auth="'develop:code:add'"
                     ><SvgIcon name="elementDownload" />导入</el-button
@@ -60,7 +56,6 @@
                     <el-button
                             type="danger"
                             plain
-                            size="mini"
                             :disabled="multiple"
                             @click="onTabelRowDel"
                             v-auth="'develop:code:delete'"
@@ -99,12 +94,11 @@
                     <template #default="scope">
                         <el-button
                                 type="text"
-                                size="small"
                                 v-auth="'develop:code:view'"
                                 @click="handlePreview(scope.row)"
                         ><SvgIcon name="elementView" />预览</el-button>
                         <el-button
-                                size="mini"
+
                                 type="text"
                                 v-auth="'develop:code:edit'"
                                 @click="onOpenEditModule(scope.row)"
@@ -112,7 +106,6 @@
                         <el-button
                                 slot="reference"
                                 type="text"
-                                size="small"
                                 v-auth="'develop:code:code'"
                                 @click="handleToProject(scope.row)"
                         ><SvgIcon name="elementDownload" />代码生成</el-button>
@@ -125,14 +118,13 @@
 <!--                            <el-button-->
 <!--                                    slot="reference"-->
 <!--                                    type="text"-->
-<!--                                    size="small"-->
 <!--                                    @click="handleToDB(scope.row)"-->
 <!--                            ><SvgIcon name="elementView" />生成配置</el-button>-->
 <!--                        </el-tooltip>-->
 
                         <el-button
                                 v-if="scope.row.parentId != 0"
-                                size="mini"
+
                                 type="text"
                                 v-auth="'develop:code:delete'"
                                 @click="onTabelRowDel(scope.row)"
@@ -173,7 +165,7 @@
             </div>
             <template #footer>
                 <span class="dialog-footer">
-                  <el-button type="primary" @click="preview.open = false" size="small">确 定</el-button>
+                  <el-button type="primary" @click="preview.open = false">确 定</el-button>
                 </span>
             </template>
         </el-dialog>

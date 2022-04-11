@@ -89,6 +89,7 @@
 │   ├── theme                # css主题样式
 │   ├── router               # Vue-Router
 │   ├── store                # Vuex
+│   ├── stores               # pinia
 │   ├── utils                # 工具库
 │   ├── views                # 业务页面入口和常用模板
 │   ├── App.vue              # Vue 模板入口

@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { computed } from 'vue';
-import { useStore } from '/@/store/index';
+import {useThemeConfigStateStore} from '/@/stores/themeConfig'
 import Aside from '/@/layout/component/aside.vue';
 import Header from '/@/layout/component/header.vue';
 import Main from '/@/layout/component/main.vue';
@@ -23,10 +23,10 @@ export default {
 	name: 'layoutClassic',
 	components: { Aside, Header, Main, TagsView },
 	setup() {
-		const store = useStore();
+        const theme = useThemeConfigStateStore();
 		// 获取布局配置信息
 		const getThemeConfig = computed(() => {
-			return store.state.themeConfig.themeConfig;
+			return theme.themeConfig;
 		});
 		return {
 			getThemeConfig,

@@ -20,6 +20,7 @@
 		"jsplumb": "^2.15.6",
 		"mitt": "^3.0.0",
 		"nprogress": "^0.2.0",
+		"pinia": "^2.0.13",
 		"print-js": "^1.6.0",
 		"qrcodejs2-fixes": "^0.0.2",
 		"screenfull": "^6.0.0",

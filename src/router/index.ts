@@ -1,15 +1,32 @@
+// import { createApp } from 'vue';
+// import App from '../App.vue';
+// const app = createApp(App); 
+// import { createPinia } from 'pinia'
+// const pinia = createPinia();
+// app.use(pinia);
+
+import { useThemeConfigStateStore } from '/@/stores/themeConfig'
+import { useKeepAliveNamesStore } from '/@/stores/keepAliveNames'
+import { useRoutesListStore } from "/@/stores/routesList";
+import { useTagsViewRoutesStore } from "/@/stores/tagsViewRoutes";
+import { useUserInfosState } from "/@/stores/userInfos";
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-import { store } from '/@/store/index.ts';
 import { Session } from '/@/utils/storage';
 import { NextLoading } from '/@/utils/loading';
 import { staticRoutes, staticPageRoutes } from '/@/router/route';
 import { getRoutes } from '/@/api/system/menu';
 
 const Layout = () => import('/@/layout/index.vue')
-const layouModules: any = import.meta.glob('../layout/routerView/*.{vue,tsx}');
 const viewsModules: any = import.meta.glob('../views/**/*.{vue,tsx}');
+const layouModules: any = import.meta.glob('../layout/routerView/*.{vue,tsx}');
+
+
+
+
+
+
 /**
  * 获取目录下的 .vue、.tsx 全部文件
  * @method import.meta.glob
@@ -27,12 +44,13 @@ const router = createRouter({
 });
 // 前端控制路由
 export async function initFrontEndControlRoutes() {
+    const userInfos = useUserInfosState();
 	// 界面 loading 动画开始执行
 	if (window.nextLoading === undefined) NextLoading.start();
 	// 无 token 停止执行下一步
 	if (!Session.get('token')) return false;
 	// 触发初始化用户信息
-	store.dispatch('userInfos/setUserInfos');
+	userInfos.setUserInfos();
 	router.addRoute(pathMatch); // 添加404界面
 	resetRoute(); // 删除/重置路由
 	// 添加动态路由
@@ -40,18 +58,23 @@ export async function initFrontEndControlRoutes() {
 	// 	router.addRoute((route as unknown) as RouteRecordRaw);
 	// });
 	// 过滤权限菜单
-	//store.dispatch('routesList/setRoutesList', setFilterMenuFun(dynamicRoutes[0].children, store.state.userInfos.userInfos.menus));
+	//store.dispatch('routesList/setRoutesList', setFilterMenuFun(dynamicRoutes[0].children, userInfos.userInfos.menus));
 }
 
 // 后端控制路由：模拟执行路由数据初始化
 export function initBackEndControlRoutes() {
+
+    const routesList = useRoutesListStore();
+    const tagsViewRoutes = useTagsViewRoutesStore();
+    const userInfos = useUserInfosState();
+
 	NextLoading.start(); // 界面 loading 动画开始执行
 	const token = Session.get('token'); // 获取浏览器缓存 token 值
 	if (!token) {
 		// 无 token 停止执行下一步
 		return false
 	}
-	store.dispatch('userInfos/setUserInfos'); // 触发初始化用户信息
+	userInfos.setUserInfos(); // 触发初始化用户信息
 	let menuRoute = Session.get('menus')
 	if (!menuRoute) {
 		menuRoute = getBackEndControlRoutes(); // 获取路由
@@ -87,18 +110,18 @@ export function initBackEndControlRoutes() {
 	// @ts-ignore
 	drs[0].children?.push( staticPageRoutes[0] );
 
-	console.log(drs[0])
+	// console.log(drs[0])
 	// 添加404界面
 	router.addRoute(pathMatch);
 	// 添加动态路由
 	formatTwoStageRoutes(formatFlatteningRoutes(drs)).forEach((route: any) => {
 		router.addRoute((route as unknown) as RouteRecordRaw);
 	});
-	store.dispatch('routesList/setRoutesList', drs[0].children);
+	routesList.setRoutesList(drs[0].children);
 
-	let authsRoutes = setFilterHasAuthMenu(drs, store.state.userInfos.userInfos.authPageList);
+	let authsRoutes = setFilterHasAuthMenu(drs, userInfos.userInfos.authPageList);
 	// 添加到 vuex setTagsViewRoutes 中
-	store.dispatch('tagsViewRoutes/setTagsViewRoutes', formatTwoStageRoutes(formatFlatteningRoutes(authsRoutes))[0].children);
+	tagsViewRoutes.setTagsViewRoutes(formatTwoStageRoutes(formatFlatteningRoutes(authsRoutes))[0].children);
 }
 
 /**
@@ -205,6 +228,7 @@ export function formatFlatteningRoutes(arr: any) {
  * @returns 返回将一维数组重新处理成 `定义动态路由（dynamicRoutes）` 的格式
  */
 export function formatTwoStageRoutes(arr: any) {
+    const keepAliveNames = useKeepAliveNamesStore();
 	if (arr.length <= 0) return false;
 	const newArr: any = [];
 	const cacheList: Array<string> = [];
@@ -222,7 +246,7 @@ export function formatTwoStageRoutes(arr: any) {
 			// 路径：/@/layout/routerView/parent.vue
 			if (newArr[0].meta.isKeepAlive && v.meta.isKeepAlive) {
 				cacheList.push(v.name);
-				store.dispatch('keepAliveNames/setCacheKeepAlive', cacheList);
+				keepAliveNames.setCacheKeepAlive(cacheList);
 			}
 		}
 	});
@@ -278,7 +302,8 @@ export function setFilterHasAuthMenu(routes: any, auth: any) {
  * @link 参考：https://next.router.vuejs.org/zh/api/#push
  */
 export function resetRoute() {
-	store.state.routesList.routesList.forEach((route: any) => {
+    const routesList = useRoutesListStore();
+	routesList.routesList.forEach((route: any) => {
 		const { name } = route;
 		router.hasRoute(name) && router.removeRoute(name);
 	});
@@ -286,13 +311,16 @@ export function resetRoute() {
 
 }
 
-// isRequestRoutes 为 true，则开启后端控制路由，路径：`/src/store/modules/themeConfig.ts`
-const { isRequestRoutes } = store.state.themeConfig.themeConfig;
-// 前端控制路由：初始化方法，防止刷新时路由丢失
-if (!isRequestRoutes) initFrontEndControlRoutes();
+
 
 // 路由加载前
 router.beforeEach(async (to, from, next) => {
+    const theme = useThemeConfigStateStore();
+    const routesList = useRoutesListStore();
+    // isRequestRoutes 为 true，则开启后端控制路由，路径：`/src/stors/themeConfig.ts`
+    const { isRequestRoutes } = theme.themeConfig;
+// 前端控制路由：初始化方法，防止刷新时路由丢失
+    if (!isRequestRoutes) initFrontEndControlRoutes();
 	NProgress.configure({ showSpinner: false });
 	if (to.meta.title) NProgress.start();
 	const token = Session.get('token');
@@ -309,7 +337,7 @@ router.beforeEach(async (to, from, next) => {
 			next('/home');
 			NProgress.done();
 		} else {
-			if (store.state.routesList.routesList.length === 0) {
+			if (routesList.routesList.length === 0) {
 				if (isRequestRoutes) {
 					// 后端控制路由：路由数据初始化，防止刷新时丢失
 					await initBackEndControlRoutes();

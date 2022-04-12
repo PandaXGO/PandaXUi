@@ -154,7 +154,7 @@ const login = () => {
 // 登录
 const onSignIn = async () => {
 	state.loading.signIn = true;
-	let loginRespon;
+	let loginRespon ;
 	try {
 		loginRespon = await signIn(state.loginForm)
 	} catch (e) {
@@ -177,6 +177,7 @@ const onSignIn = async () => {
 		roleId: loginRes.user.roleId,
 		deptId: loginRes.user.deptId,
 		postId: loginRes.user.postId,
+		token: loginRes.token,
 		// 头像
 		photo: loginRes.user.avatar || letterAvatar(loginRes.user.username),
 		time: new Date().getTime(),

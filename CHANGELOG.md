@@ -43,7 +43,7 @@
 - 🎯 优化 左侧导航菜单，共用菜单树，防止 `布局配置` 设置 `菜单 / 顶栏` 时，样式丢失等问题
 - 🐞 修复 固定 header 后没有回到顶部的 bug，拉取项目后运行不起来的 bug。<a href="https://gitee.com/PandaAdmin/PandaX/pulls/14" target="_blank">!14</a>，感谢<a href="https://gitee.com/wjs0509" target="_blank">@wjs0509</a>
 - 🐞 修复 tagView 右键全屏后，浏览器窗口大小发生任何变化都会导致左边菜单显示出来，并且可点击打开对应页面。<a href="https://gitee.com/PandaAdmin/PandaX/issues/I46E6T" target="_blank">I46E6T</a>
-- 🐞 修复 默认设置 `菜单 / 顶栏` 样式不生效问题（/@/src/store/modules/themeConfig.ts）
+- 🐞 修复 默认设置 `菜单 / 顶栏` 样式不生效问题（/@/src/stores/themeConfig.ts）
 
 ## 1.0.16
 

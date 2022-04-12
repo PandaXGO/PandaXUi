@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { computed, onBeforeMount, onUnmounted, getCurrentInstance } from 'vue';
-import { useStore } from '/@/store/index';
+import {useThemeConfigStateStore} from '/@/stores/themeConfig'
 import { Local } from '/@/utils/storage';
 import Defaults from '/@/layout/main/defaults.vue';
 import Classic from '/@/layout/main/classic.vue';
@@ -18,10 +18,10 @@ export default {
 	components: { Defaults, Classic, Transverse, Columns },
 	setup() {
 		const { proxy } = getCurrentInstance() as any;
-		const store = useStore();
+        const theme = useThemeConfigStateStore();
 		// 获取布局配置信息
 		const getThemeConfig = computed(() => {
-			return store.state.themeConfig.themeConfig;
+			return theme.themeConfig;
 		});
 		// 窗口大小改变时(适配移动端)
 		const onLayoutResize = () => {

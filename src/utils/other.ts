@@ -3,6 +3,7 @@ import { App } from 'vue';
 import * as svg from '@element-plus/icons-vue';
 import router from '/@/router/index';
 import { store } from '/@/store/index';
+import {useThemeConfigStateStore} from '/@/stores/themeConfig'
 import { i18n } from '/@/i18n/index';
 import { Local } from '/@/utils/storage';
 import SvgIcon from '/@/components/svgIcon/index.vue';
@@ -25,9 +26,10 @@ export function elSvg(app: App) {
  * @method const title = useTitle(); ==> title()
  */
 export function useTitle() {
+    const theme = useThemeConfigStateStore();
     nextTick(() => {
         let webTitle = '';
-        let globalTitle: string = store.state.themeConfig.themeConfig.globalTitle;
+        let globalTitle: string = theme.themeConfig.globalTitle;
         router.currentRoute.value.path === '/login'
             ? (webTitle = router.currentRoute.value.meta.title as any)
             : (webTitle = i18n.global.t(router.currentRoute.value.meta.title as any));
@@ -63,7 +65,10 @@ export const lazyImg = (el: any, arr: any) => {
  * 全局组件大小
  * @returns 返回 `window.localStorage` 中读取的缓存值 `globalComponentSize`
  */
-export const globalComponentSize: string = Local.get('themeConfig')?.globalComponentSize || store.state.themeConfig.themeConfig?.globalComponentSize;
+export const globalComponentSize: string = () => {
+    const theme = useThemeConfigStateStore();
+    return Local.get('themeConfig')?.globalComponentSize || theme.themeConfig?.globalComponentSize;
+}
 
 
 /**

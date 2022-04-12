@@ -10,27 +10,27 @@
 
 <script lang="ts">
 import { computed, getCurrentInstance } from 'vue';
-import { useStore } from '/@/store/index';
+import {useThemeConfigStateStore} from '/@/stores/themeConfig'
 import logo from '/@/assets/logo1.png'
 export default {
 	name: 'layoutLogo',
 	setup() {
 		const { proxy } = getCurrentInstance() as any;
-		const store = useStore();
+        const theme = useThemeConfigStateStore();
 		// 获取布局配置信息
 		const getThemeConfig = computed(() => {
-			return store.state.themeConfig.themeConfig;
+			return theme.themeConfig;
 		});
 		// 设置 logo 的显示。classic 经典布局默认显示 logo
 		const setShowLogo = computed(() => {
-			let { isCollapse, layout } = store.state.themeConfig.themeConfig;
+			let { isCollapse, layout } = theme.themeConfig;
 			return !isCollapse || layout === 'classic' || document.body.clientWidth < 1000;
 		});
 		// logo 点击实现菜单展开/收起
 		const onThemeConfigChange = () => {
-			if (store.state.themeConfig.themeConfig.layout === 'transverse') return false;
+			if (theme.themeConfig.layout === 'transverse') return false;
 			proxy.mittBus.emit('onMenuClick');
-			store.state.themeConfig.themeConfig.isCollapse = !store.state.themeConfig.themeConfig.isCollapse;
+			theme.themeConfig.isCollapse = !theme.themeConfig.isCollapse;
 		};
 		return {
 			logo,

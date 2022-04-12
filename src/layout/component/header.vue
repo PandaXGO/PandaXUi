@@ -10,7 +10,6 @@
 
 <script lang="ts">
 import { computed } from "vue";
- "/@/store/index";
 import { useThemeConfigStateStore } from "/@/stores/themeConfig";
 import { useTagsViewRoutesStore } from "/@/stores/tagsViewRoutes";
 import NavBarsIndex from "/@/layout/navBars/index.vue";

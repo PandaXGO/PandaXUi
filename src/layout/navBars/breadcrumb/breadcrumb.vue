@@ -39,7 +39,6 @@
 <script lang="ts">
 import { toRefs, reactive, computed, getCurrentInstance, onMounted } from "vue";
 import { onBeforeRouteUpdate, useRoute, useRouter } from "vue-router";
- "/@/store/index";
 import { useThemeConfigStateStore } from "/@/stores/themeConfig";
 import { useRoutesListStore } from "/@/stores/routesList";
 export default {

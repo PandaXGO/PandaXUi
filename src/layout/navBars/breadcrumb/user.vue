@@ -143,7 +143,6 @@ import { ElMessageBox, ElMessage } from "element-plus";
 import screenfull from "screenfull";
 import { useI18n } from "vue-i18n";
 import { resetRoute } from "/@/router/index";
- "/@/store/index";
 import { useThemeConfigStateStore } from "/@/stores/themeConfig";
 import { useUserInfosState } from "/@/stores/userInfos";
 import other from "/@/utils/other";

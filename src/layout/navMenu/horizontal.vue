@@ -55,7 +55,6 @@ import {
   onBeforeMount,
 } from "vue";
 import { useRoute, onBeforeRouteUpdate } from "vue-router";
- "/@/store/index";
 import { useThemeConfigStateStore } from "/@/stores/themeConfig";
 import { useRoutesListStore } from "/@/stores/routesList";
 import SubItem from "/@/layout/navMenu/subItem.vue";

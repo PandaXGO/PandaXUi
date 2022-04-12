@@ -37,7 +37,6 @@
 import { reactive, toRefs, defineComponent, ref, nextTick } from "vue";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
- "/@/store/index";
 import { useTagsViewRoutesStore } from "/@/stores/tagsViewRoutes";
 export default defineComponent({
   name: "layoutBreadcrumbSearch",

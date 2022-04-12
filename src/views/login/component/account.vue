@@ -102,7 +102,6 @@ import { useRoute, useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
 import { useI18n } from "vue-i18n";
 import { initFrontEndControlRoutes, initBackEndControlRoutes } from "/@/router/index";
-("/@/store/index");
 import { useThemeConfigStateStore } from "/@/stores/themeConfig";
 import { useUserInfosState } from "/@/stores/userInfos";
 import { Session } from "/@/utils/storage";

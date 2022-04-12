@@ -26,7 +26,6 @@ import {
   computed,
 } from "vue";
 import { useRoute } from "vue-router";
- "/@/store/index";
 import { useThemeConfigStateStore } from "/@/stores/themeConfig";
 import { useTagsViewRoutesStore } from "/@/stores/tagsViewRoutes";
 export default defineComponent({

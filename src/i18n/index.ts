@@ -2,7 +2,6 @@ import { createI18n } from 'vue-i18n';
 import zhcnLocale from 'element-plus/lib/locale/lang/zh-cn';
 import enLocale from 'element-plus/lib/locale/lang/en';
 import zhtwLocale from 'element-plus/lib/locale/lang/zh-tw';
-import { store } from '/@/store/index';
 // import { useThemeConfigStateStore } from '/@/stores/themeConfig'
 import nextZhcn from '/@/i18n/lang/zh-cn';
 import nextEn from '/@/i18n/lang/en';
@@ -47,7 +46,7 @@ const messages = {
  //导出语言国际化
 export const i18n= createI18n({
 	// 使用pinia会报错,原因是pinia太过于组件化，导致这里调用的时候pinia还没有安装
-	locale: store.state.themeConfig.themeConfig.globalI18n,
+	locale: "'zh-cn'",
 	fallbackLocale: zhcnLocale.name,
 	messages,
 });

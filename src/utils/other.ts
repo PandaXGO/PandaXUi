@@ -2,7 +2,6 @@ import { nextTick } from 'vue';
 import { App } from 'vue';
 import * as svg from '@element-plus/icons-vue';
 import router from '/@/router/index';
-import { store } from '/@/store/index';
 import {useThemeConfigStateStore} from '/@/stores/themeConfig'
 import { i18n } from '/@/i18n/index';
 import { Local } from '/@/utils/storage';

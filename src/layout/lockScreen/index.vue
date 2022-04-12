@@ -61,7 +61,6 @@
 
 <script lang="ts">
 import { nextTick, onMounted, reactive, toRefs, ref, onUnmounted, getCurrentInstance, defineComponent } from 'vue';
- '/@/store/index';
 import {useThemeConfigStateStore} from '/@/stores/themeConfig'
 import { formatDate } from '/@/utils/formatTime';
 import { Local } from '/@/utils/storage';

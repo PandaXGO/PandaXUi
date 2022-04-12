@@ -17,7 +17,6 @@ import {
   getCurrentInstance,
 } from "vue";
 import { useRoute } from "vue-router";
- "/@/store/index";
 import { useThemeConfigStateStore } from "/@/stores/themeConfig";
 import { useRoutesListStore } from "/@/stores/routesList";
 import Breadcrumb from "/@/layout/navBars/breadcrumb/breadcrumb.vue";

@@ -142,6 +142,7 @@ export const useThemeConfigStateStore = defineStore('themeConfig', {
 	actions: {
 		// 设置布局配置
         getThemeConfig(data: object) {
+            // @ts-ignore
             this.themeConfig = data;
         },
         // 设置布局配置

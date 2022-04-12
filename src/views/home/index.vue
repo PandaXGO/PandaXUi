@@ -133,7 +133,6 @@ import {
 import * as echarts from "echarts";
 import { CountUp } from "countup.js";
 import { formatAxis } from "/@/utils/formatTime";
- "/@/store/index";
 import { useTagsViewRoutesStore } from "/@/stores/tagsViewRoutes";
 import { useUserInfosState } from "/@/stores/userInfos";
 import { topCardItemList, environmentList, activitiesList } from "./mock";

@@ -80,7 +80,6 @@ import {
 import { useRoute, useRouter, onBeforeRouteUpdate } from "vue-router";
 import Sortable from "sortablejs";
 import { ElMessage } from "element-plus";
- "/@/store/index";
 import { useThemeConfigStateStore } from "/@/stores/themeConfig";
 import { useTagsViewRoutesStore } from "/@/stores/tagsViewRoutes";
 import { Session } from "/@/utils/storage";

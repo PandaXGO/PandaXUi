@@ -5,17 +5,6 @@
 
 /* Button 按钮
 ------------------------------- */
-// text
-.el-button--text {
-	color: set-color(primary);
-	&:focus,
-	&:hover {
-		color: set-color(primary-light-3);
-	}
-}
-.el-button--text:active {
-	color: set-color(primary-light-3);
-}
 // default
 .el-button--default:hover,
 .el-button--default:focus {
@@ -43,6 +32,19 @@
 		@include Button(whites, primary, primary);
 	}
 }
+
+.el-button--primary.is-text {
+	color: set-color(primary);
+	&:focus,
+	&:hover {
+		color: set-color(primary-light-3);
+	}
+}
+
+.el-button--primary.is-text:active {
+	color: set-color(primary-light-3);
+}
+
 .el-button--primary.is-disabled,
 .el-button--primary.is-disabled:active,
 .el-button--primary.is-disabled:focus,

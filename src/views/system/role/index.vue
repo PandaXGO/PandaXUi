@@ -139,19 +139,16 @@
                 >
                     <template #default="scope">
                         <el-button
-                                size="mini"
-                                type="text"
+                                text type="primary"
                                 v-auth="'system:role:edit'"
                                 @click="handleUpdate(scope.row)"
                         ><SvgIcon name="elementEdit" />修改</el-button>
                         <el-button
-                                size="mini"
-                                type="text"
+                                text type="primary"
                                 @click="handleDataScope(scope.row)"
                         ><SvgIcon name="elementCircleCheck" />数据权限</el-button>
                         <el-button
-                                size="mini"
-                                type="text"
+                                text type="primary"
                                 v-auth="'system:role:delete'"
                                 @click="handleDelete(scope.row)"
                         ><SvgIcon name="elementDelete" />删除</el-button>

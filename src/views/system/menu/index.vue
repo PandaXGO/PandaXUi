@@ -130,20 +130,15 @@
                 >
                     <template #default="scope">
                         <el-button
-
-                                type="text"
+                            text type="primary"
                                 icon="el-icon-edit"
                                 @click="onOpenEditMenu(scope.row)"
                         ><SvgIcon name="elementEdit" />修改</el-button>
-                        <el-button
-
-                                type="text"
+                        <el-button text type="primary"
                                 icon="el-icon-plus"
                                 @click="onOpenAddMenu(scope.row)"
                         ><SvgIcon name="elementPlus" />新增</el-button>
-                        <el-button
-
-                                type="text"
+                        <el-button text type="primary"
                                 icon="el-icon-delete"
                                 @click="handleDelete(scope.row)"
                         ><SvgIcon name="elementDelete" />删除</el-button>

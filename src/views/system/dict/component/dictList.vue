@@ -119,17 +119,13 @@
             class-name="medium-padding fixed-width"
           >
             <template #default="scope">
-              <el-button
-
-                type="text"
+              <el-button text type="primary"
                 icon="el-icon-edit"
                 v-auth="'system:dictD:edit'"
                 @click="onOpenEditModule(scope.row)"
                 ><SvgIcon name="elementEdit" />修改</el-button
               >
-              <el-button
-
-                type="text"
+              <el-button text type="primary"
                 v-auth="'system:dictD:delete'"
                 @click="onTabelRowDel(scope.row)"
                 ><SvgIcon name="elementDelete" />删除</el-button

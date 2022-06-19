@@ -1,6 +1,4 @@
-// import { Module } from 'vuex';
 import { defineStore } from 'pinia';
-// 此处加上 `.ts` 后缀报错，具体原因不详
 import {KeepAliveNamesState} from 'storeInterface'
 export const useKeepAliveNamesStore = defineStore(
     'keepAliveNames',{

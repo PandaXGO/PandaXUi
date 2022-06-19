@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { reactive, toRefs,onMounted,onUnmounted, } from 'vue';
+import { reactive, toRefs,onMounted, } from 'vue';
 import {listNotice,} from "/@/api/system/notice";
 import {useRouter} from "vue-router";
 export default {

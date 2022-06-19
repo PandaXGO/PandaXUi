@@ -30,6 +30,7 @@
                 <el-form-item>
                     <el-button
                             type="primary"
+                            plain
                             @click="handleQuery"
                     >
                         <SvgIcon name="elementSearch" />
@@ -47,7 +48,6 @@
                     <el-button
                             type="primary"
                             plain
-
                             @click="onOpenAddModule"
                             v-auth="'tool:notice:add'"
                     ><SvgIcon name="elementPlus" />新增</el-button>
@@ -56,7 +56,6 @@
                     <el-button
                             type="danger"
                             plain
-
                             :disabled="multiple"
                             @click="onTabelRowDel"
                             v-auth="'tool:notice:delete'"
@@ -107,9 +106,9 @@
                         class-name="small-padding fixed-width"
                 >
                     <template #default="scope">
-                        <el-button  type="text" v-auth="'tool:notice:view'" @click="handleRun(scope.row)"><SvgIcon name="elementView" />查看</el-button>
-                        <el-button  type="text"  v-auth="'tool:notice:edit'" @click="onOpenEditModule(scope.row)"><SvgIcon name="elementEdit" />编辑</el-button>
-                        <el-button  type="text"  v-auth="'tool:notice:delete'" @click="onTabelRowDel(scope.row)"><SvgIcon name="elementDelete" />删除</el-button>
+                        <el-button text type="primary"  v-auth="'tool:notice:view'" @click="handleRun(scope.row)"><SvgIcon name="elementView" />查看</el-button>
+                        <el-button text type="primary" v-auth="'tool:notice:edit'" @click="onOpenEditModule(scope.row)"><SvgIcon name="elementEdit" />编辑</el-button>
+                        <el-button text type="primary"  v-auth="'tool:notice:delete'" @click="onTabelRowDel(scope.row)"><SvgIcon name="elementDelete" />删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>

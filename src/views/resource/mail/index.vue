@@ -113,25 +113,21 @@
                 <el-table-column
                         label="操作"
                         align="center"
+                        width="300"
                         class-name="small-padding fixed-width"
                 >
                     <template #default="scope">
-                        <el-button
-
-                                type="text"
+                        <el-button text type="primary"
                                 @click="onOpenEditModule(scope.row)"
                                 v-auth="'resource:mail:edit'"
                         ><SvgIcon name="elementEdit" />修改</el-button>
                         <el-button
                                 v-if="scope.row.parentId != 0"
-
-                                type="text"
+                                text type="primary"
                                 @click="onTabelRowDel(scope.row)"
                                 v-auth="'resource:mail:delete'"
                         ><SvgIcon name="elementDelete" />删除</el-button>
-                        <el-button
-                                type="text"
-
+                        <el-button text type="primary"
                                 @click="onOpenDebugModule(scope.row)"
                                 v-auth="'resource:mail:debug'"
                         ><SvgIcon name="elementUploadFilled" />调试</el-button>

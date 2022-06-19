@@ -101,10 +101,10 @@ import { onMounted, ref, reactive, computed, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
 import { useI18n } from "vue-i18n";
-import { initFrontEndControlRoutes, initBackEndControlRoutes } from "/@/router/index";
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
+import { initBackEndControlRoutes } from "/@/router/index";
 import { useUserInfosState } from "/@/stores/userInfos";
 import { Session } from "/@/utils/storage";
+import { Local } from "/@/utils/storage";
 import { captcha, signIn } from "/@/api/login/index";
 import { formatAxis } from "/@/utils/formatTime";
 import { letterAvatar } from "/@/utils/string";
@@ -116,7 +116,6 @@ const { proxy } = getCurrentInstance() as any;
 const loginFormRef: any = ref(null);
 const dragRef: any = ref(null);
 
-const theme = useThemeConfigStateStore();
 const userInfos2 = useUserInfosState();
 const route = useRoute();
 const router = useRouter();
@@ -181,6 +180,7 @@ const onSignIn = async () => {
   }
   let loginRes = loginRespon.data;
   Session.set("token", loginRes.token);
+  Local.set("token", loginRes.token);
   Session.set("menus", loginRes.menus);
   let perms = loginRes.permissions;
   perms.push("base");
@@ -204,24 +204,18 @@ const onSignIn = async () => {
   Session.set("userInfo", userInfos);
   // 1、请注意执行顺序(存储用户信息到vuex)
   await userInfos2.setUserInfos(userInfos);
-  if (!theme.themeConfig.isRequestRoutes) {
-    // 前端控制路由，2、请注意执行顺序
-    await initFrontEndControlRoutes();
-    signInSuccess();
-  } else {
-    // 模拟后端控制路由，isRequestRoutes 为 true，则开启后端控制路由
-    // 添加完动态路由，再进行 router 跳转，否则可能报错 No match found for location with path "/"
-    await initBackEndControlRoutes();
-    // 执行完 initBackEndControlRoutes，再执行 signInSuccess
-    signInSuccess();
-  }
+
+  // 模拟后端控制路由，isRequestRoutes 为 true，则开启后端控制路由
+  // 添加完动态路由，再进行 router 跳转，否则可能报错 No match found for location with path "/"
+  await initBackEndControlRoutes();
+  // 执行完 initBackEndControlRoutes，再执行 signInSuccess
+  signInSuccess();
 };
 const openVerify = () => {
   state.dialogVerifyVisible = true;
 };
 const passVerify = () => {
   state.dialogVerifyVisible = false;
-  console.log("通过滑块验证");
   state.isPassingFour = false;
   login();
 };

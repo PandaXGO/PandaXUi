@@ -7,6 +7,7 @@
       <el-menu
         router
         :default-active="defaultActive"
+        :ellipsis="false"
         background-color="transparent"
         mode="horizontal"
       >

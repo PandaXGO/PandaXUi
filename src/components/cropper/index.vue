@@ -38,7 +38,7 @@ import 'cropperjs/dist/cropper.css';
 export default {
 	name: 'cropperIndex',
 	setup() {
-		const state = reactive({
+		const state:any = reactive({
 			isShowDialog: false,
 			cropperImg: '',
 			cropperImgBase64: '',
@@ -100,7 +100,7 @@ export default {
 		display: inline-block;
 		height: 350px;
 		flex: 1;
-		border: var(--el-border-base);
+    border: 1px solid var(--el-border-color);
 		background: var(--color-whites);
 		overflow: hidden;
 		background-repeat: no-repeat;

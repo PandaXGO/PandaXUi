@@ -166,16 +166,12 @@
                {{dateStrFormat(scope.row.create_time)}}
             </template>
           </el-table-column>
-          <el-table-column prop="path" label="操作" width="150">
+          <el-table-column prop="path" align="center" label="操作" width="200">
             <template #default="scope">
-              <el-button
-
-                type="text"
+              <el-button text type="primary"
                 @click="handleUpdate(scope.row)"
                 ><SvgIcon name="elementEdit" />修改</el-button>
-              <el-button
-
-                type="text"
+              <el-button text type="primary"
                 @click="handleDelete(scope.row)"
                 ><SvgIcon name="elementDelete" />删除</el-button>
             </template>

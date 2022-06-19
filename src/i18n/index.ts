@@ -1,13 +1,14 @@
 import { createI18n } from 'vue-i18n';
 import zhcnLocale from 'element-plus/lib/locale/lang/zh-cn';
 import enLocale from 'element-plus/lib/locale/lang/en';
-import zhtwLocale from 'element-plus/lib/locale/lang/zh-tw';
-// import { useThemeConfigStateStore } from '/@/stores/themeConfig'
 import nextZhcn from '/@/i18n/lang/zh-cn';
 import nextEn from '/@/i18n/lang/en';
 
 import pagesHomeZhcn from '/@/i18n/pages/home/zh-cn';
 import pagesHomeEn from '/@/i18n/pages/home/en';
+import pinia from '/@/stores/index';
+import { storeToRefs } from 'pinia';
+import { useThemeConfigStateStore } from '/@/stores/themeConfig';
 
 import pagesLoginZhcn from '/@/i18n/pages/login/zh-cn';
 import pagesLoginEn from '/@/i18n/pages/login/en';
@@ -42,11 +43,15 @@ const messages = {
 		},
 	},
 };
-
+const stores = useThemeConfigStateStore(pinia);
+const { themeConfig } = storeToRefs(stores);
  //导出语言国际化
 export const i18n= createI18n({
-	// 使用pinia会报错,原因是pinia太过于组件化，导致这里调用的时候pinia还没有安装
-	locale: "'zh-cn'",
+	silentTranslationWarn: true,
+	missingWarn: false,
+	silentFallbackWarn: true,
+	fallbackWarn: false,
+	locale: themeConfig.value.globalI18n,
 	fallbackLocale: zhcnLocale.name,
 	messages,
 });

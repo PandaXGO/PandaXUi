@@ -88,24 +88,21 @@
                 <el-table-column
                         label="操作"
                         align="center"
-                        width="300"
-                        class-name="small-padding fixed-width"
+                        width="400"
                 >
                     <template #default="scope">
-                        <el-button
-                                type="text"
+                        <el-button text type="primary"
+                                   round
                                 v-auth="'develop:code:view'"
                                 @click="handlePreview(scope.row)"
                         ><SvgIcon name="elementView" />预览</el-button>
-                        <el-button
-
-                                type="text"
+                        <el-button text type="primary"
                                 v-auth="'develop:code:edit'"
                                 @click="onOpenEditModule(scope.row)"
                         ><SvgIcon name="elementEdit" />修改</el-button>
                         <el-button
                                 slot="reference"
-                                type="text"
+                                text type="primary"
                                 v-auth="'develop:code:code'"
                                 @click="handleToProject(scope.row)"
                         ><SvgIcon name="elementDownload" />代码生成</el-button>
@@ -124,8 +121,7 @@
 
                         <el-button
                                 v-if="scope.row.parentId != 0"
-
-                                type="text"
+                                text type="primary"
                                 v-auth="'develop:code:delete'"
                                 @click="onTabelRowDel(scope.row)"
                         ><SvgIcon name="elementDelete" />删除</el-button>

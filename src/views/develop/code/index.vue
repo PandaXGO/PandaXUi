@@ -27,16 +27,8 @@
                     />
                 </el-form-item>
                 <el-form-item>
-                    <el-button
-                            type="primary"
-                            @click="handleQuery"
-                    >
-                        <SvgIcon name="elementSearch" />
-                        搜索</el-button>
-                    <el-button @click="resetQuery">
-                        <SvgIcon name="elementRefresh" />
-                        重置
-                    </el-button>
+                    <el-button type="primary" plain @click="handleQuery"><SvgIcon name="elementSearch" />搜索</el-button>
+                    <el-button @click="resetQuery"><SvgIcon name="elementRefresh" />重置</el-button>
                 </el-form-item>
 
 
@@ -146,7 +138,7 @@
         <ImportTable ref="importTableRef" :title="title" />
         <EditTable ref="editModelRef"/>
 
-        <el-dialog class="preview" :title="preview.title" v-model="preview.open" width="80%" center>
+        <el-dialog class="preview" :header="preview.title" v-model="preview.open" width="80%" center>
             <div class="el-dialog-container">
                 <div class="tag-group">
                     <el-tag v-for="(value, key) in preview.data" @click="codeChange(key)">

@@ -34,9 +34,6 @@
         <elementMonitor />
       </el-icon>
     </div>
-    <div class="layout-navbars-breadcrumb-user-icon" @click="onLayoutSetingClick">
-      <i class="icon-skin iconfont" :title="$t('message.user.title3')"></i>
-    </div>
     <div class="layout-navbars-breadcrumb-user-icon">
       <el-popover
         placement="bottom"
@@ -166,10 +163,6 @@ export default {
         else state.isScreenfull = false;
       });
     };
-    // 布局配置 icon 点击时
-    const onLayoutSetingClick = () => {
-      proxy.mittBus.emit("openSetingsDrawer");
-    };
     // 下拉菜单点击时
     const onHandleCommandClick = (path: string) => {
       if (path === "logOut") {
@@ -278,7 +271,6 @@ export default {
     });
     return {
       getUserInfos,
-      onLayoutSetingClick,
       onHandleCommandClick,
       onScreenfullClick,
       onSearchClick,

@@ -1,21 +1,13 @@
 <template>
   <div class="layout-search-dialog">
-    <el-dialog
-      v-model="isShowSearch"
-      width="300px"
-      destroy-on-close
-      :modal="false"
-      fullscreen
-      :show-close="false"
-    >
+    <el-dialog v-model="isShowSearch" width="300px" destroy-on-close :modal="false" fullscreen :show-close="false">
       <el-autocomplete
-        v-model="menuQuery"
-        :fetch-suggestions="menuSearch"
-        :placeholder="$t('message.user.searchPlaceholder')"
-        prefix-icon="el-icon-search"
-        ref="layoutMenuAutocompleteRef"
-        @select="onHandleSelect"
-        @blur="onSearchBlur"
+          v-model="menuQuery"
+          :fetch-suggestions="menuSearch"
+          :placeholder="$t('message.user.searchPlaceholder')"
+          ref="layoutMenuAutocompleteRef"
+          @select="onHandleSelect"
+          @blur="onSearchBlur"
       >
         <template #prefix>
           <el-icon class="el-input__icon">
@@ -34,30 +26,47 @@
 </template>
 
 <script lang="ts">
-import { reactive, toRefs, defineComponent, ref, nextTick } from "vue";
-import { useRouter } from "vue-router";
-import { useI18n } from "vue-i18n";
-import { useTagsViewRoutesStore } from "/@/stores/tagsViewRoutes";
+import { reactive, toRefs, defineComponent, ref, nextTick } from 'vue';
+import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
+import { storeToRefs } from 'pinia';
+import { useTagsViewRoutesStore } from '/@/stores/tagsViewRoutes';
+
+// 定义接口来定义对象的类型
+interface SearchState {
+  isShowSearch: boolean;
+  menuQuery: string;
+  tagsViewList: object[];
+}
+interface Restaurant {
+  path: string;
+  meta: {
+    title: string;
+  };
+}
+
 export default defineComponent({
-  name: "layoutBreadcrumbSearch",
+  name: 'layoutBreadcrumbSearch',
   setup() {
+    const storesTagsViewRoutes = useTagsViewRoutesStore();
+    const { tagsViewRoutes } = storeToRefs(storesTagsViewRoutes);
     const layoutMenuAutocompleteRef = ref();
     const { t } = useI18n();
-     
     const router = useRouter();
-    const tagsViewRoutes = useTagsViewRoutesStore();
-    const state: any = reactive({
+    const state = reactive<SearchState>({
       isShowSearch: false,
-      menuQuery: "",
+      menuQuery: '',
       tagsViewList: [],
     });
     // 搜索弹窗打开
     const openSearch = () => {
-      state.menuQuery = "";
+      state.menuQuery = '';
       state.isShowSearch = true;
       initTageView();
       nextTick(() => {
-        layoutMenuAutocompleteRef.value.focus();
+        setTimeout(() => {
+          layoutMenuAutocompleteRef.value.focus();
+        });
       });
     };
     // 搜索弹窗关闭
@@ -65,26 +74,24 @@ export default defineComponent({
       state.isShowSearch = false;
     };
     // 菜单搜索数据过滤
-    const menuSearch = (queryString: any, cb: any) => {
-      let results = queryString
-        ? state.tagsViewList.filter(createFilter(queryString))
-        : state.tagsViewList;
+    const menuSearch = (queryString: string, cb: Function) => {
+      let results = queryString ? state.tagsViewList.filter(createFilter(queryString)) : state.tagsViewList;
       cb(results);
     };
     // 菜单搜索过滤
-    const createFilter = (queryString: any) => {
-      return (restaurant: any) => {
+    const createFilter: any = (queryString: string) => {
+      return (restaurant: Restaurant) => {
         return (
-          restaurant.path.toLowerCase().indexOf(queryString.toLowerCase()) > -1 ||
-          restaurant.meta.title.toLowerCase().indexOf(queryString.toLowerCase()) > -1 ||
-          t(restaurant.meta.title).indexOf(queryString.toLowerCase()) > -1
+            restaurant.path.toLowerCase().indexOf(queryString.toLowerCase()) > -1 ||
+            restaurant.meta.title.toLowerCase().indexOf(queryString.toLowerCase()) > -1 ||
+            t(restaurant.meta.title).indexOf(queryString.toLowerCase()) > -1
         );
       };
     };
     // 初始化菜单数据
     const initTageView = () => {
       if (state.tagsViewList.length > 0) return false;
-      tagsViewRoutes.tagsViewRoutes.map((v: any) => {
+      tagsViewRoutes.value.map((v: any) => {
         if (!v.meta.isHide) state.tagsViewList.push({ ...v });
       });
     };

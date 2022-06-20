@@ -11,7 +11,6 @@
                     <el-input
                             placeholder="角色名称模糊查询"
                             clearable
-                            size="small"
                             @keyup.enter="handleQuery"
                             style="width: 240px"
                             v-model="queryParams.roleName"
@@ -21,7 +20,6 @@
                     <el-input
                             placeholder="权限字符模糊查询"
                             clearable
-                            size="small"
                             @keyup.enter="handleQuery"
                             style="width: 240px"
                             v-model="queryParams.roleKey"
@@ -32,7 +30,6 @@
                             v-model="queryParams.status"
                             placeholder="角色状态"
                             clearable
-                            size="small"
                             style="width: 240px"
                     >
                         <el-option
@@ -44,17 +41,8 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item>
-                    <el-button
-                            type="primary"
-                            size="mini"
-                            @click="handleQuery"
-                    >
-                        <SvgIcon name="elementSearch" />
-                        搜索</el-button>
-                    <el-button size="mini" @click="resetQuery">
-                        <SvgIcon name="elementRefresh" />
-                        重置
-                    </el-button>
+                    <el-button type="primary" plain @click="handleQuery"><SvgIcon name="elementSearch" />搜索</el-button>
+                    <el-button @click="resetQuery"><SvgIcon name="elementRefresh" />重置</el-button>
                 </el-form-item>
 
             </el-form>
@@ -65,7 +53,6 @@
                     <el-button
                             type="primary"
                             plain
-                            size="mini"
                             v-auth="'system:role:add'"
                             @click="handleAdd"
                     ><SvgIcon name="elementPlus" />新增</el-button>
@@ -74,7 +61,6 @@
                     <el-button
                             type="danger"
                             plain
-                            size="mini"
                             v-auth="'system:role:delete'"
                             :disabled="multiple"
                             @click="handleDelete"
@@ -84,7 +70,6 @@
                     <el-button
                             type="warning"
                             plain
-                            size="mini"
                             v-auth="'system:role:export'"
                             @click="handleExport"
                     ><SvgIcon name="elementDownload" />导出</el-button>

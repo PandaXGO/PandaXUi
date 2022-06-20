@@ -26,19 +26,10 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-          <el-button
-                  type="primary"
-                  @click="handleQuery"
-          >
-            <SvgIcon name="elementSearch" />
-            搜索</el-button>
-          <el-button @click="resetQuery">
-            <SvgIcon name="elementRefresh" />
-            重置
-          </el-button>
+          <el-button type="primary" plain @click="handleQuery"><SvgIcon name="elementSearch" />搜索</el-button>
+          <el-button @click="resetQuery"><SvgIcon name="elementRefresh" />重置</el-button>
           <el-button type="primary"
                      plain
-
                      v-auth="'system:dept:add'"
                      @click="onOpenAddModule">
             <SvgIcon name="elementPlus" />

@@ -1,9 +1,9 @@
 <template>
   <div class="system-user-container app-container">
-    <el-card shadow="always">
     <el-row :gutter="20">
       <!--部门数据-->
       <el-col :span="4" :xs="24">
+        <el-card shadow="always">
         <div class="head-container">
           <el-input
             v-model="deptName"
@@ -25,9 +25,11 @@
             @node-click="handleNodeClick"
           />
         </div>
+        </el-card>
       </el-col>
 
       <el-col :span="20" :xs="24">
+        <el-card shadow="always">
         <!-- 查询-->
         <el-form
           :model="queryParams"
@@ -166,14 +168,10 @@
                {{dateStrFormat(scope.row.create_time)}}
             </template>
           </el-table-column>
-          <el-table-column prop="path" align="center" label="操作" width="200">
+          <el-table-column prop="path" label="操作" width="150">
             <template #default="scope">
-              <el-button text type="primary"
-                @click="handleUpdate(scope.row)"
-                ><SvgIcon name="elementEdit" />修改</el-button>
-              <el-button text type="primary"
-                @click="handleDelete(scope.row)"
-                ><SvgIcon name="elementDelete" />删除</el-button>
+              <el-button text type="primary" @click="handleUpdate(scope.row)"><SvgIcon name="elementEdit" />修改</el-button>
+              <el-button text type="primary" @click="handleDelete(scope.row)"><SvgIcon name="elementDelete" />删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -190,9 +188,9 @@
                   @current-change="onHandleCurrentChange"
           />
         </div>
+        </el-card>
       </el-col>
     </el-row>
-    </el-card>
     <!-- 添加或修改参数配置对话框 -->
     <EditModule ref="userFormRef" :title="title" />
 
@@ -337,7 +335,7 @@ export default {
         showCancelButton: true,
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        beforeClose: (action, instance, done) => {
+        beforeClose: (action:string, instance:any, done:any) => {
           if (action === "confirm") {
             return changeUserStatus(row.userId, row.status).then(() => {
               ElMessage.success(text + "成功");
@@ -381,7 +379,7 @@ export default {
     // 筛选节点
     const filterNode = (value: string, data: any) => {
       if (!value) return true;
-      return data.label.indexOf(value) !== -1;
+      return data.deptName.includes(value);
     };
     // 节点单击事件
     const handleNodeClick = (data: any) => {
@@ -403,7 +401,7 @@ export default {
         .then(function () {
           return exportUser(queryParams);
         })
-        .then((response) => {
+        .then((response:any) => {
           proxy.download(response.data);
         });
     };

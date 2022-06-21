@@ -42,16 +42,8 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button
-                type="primary"
-                @click="handleQuery"
-        >
-          <SvgIcon name="elementSearch" />
-          搜索</el-button>
-        <el-button @click="resetQuery">
-          <SvgIcon name="elementRefresh" />
-          重置
-        </el-button>
+        <el-button type="primary" plain @click="handleQuery"><SvgIcon name="elementSearch" />搜索</el-button>
+        <el-button @click="resetQuery"><SvgIcon name="elementRefresh" />重置</el-button>
       </el-form-item>
 
     </el-form>
@@ -144,17 +136,14 @@
         class-name="medium-padding fixed-width"
       >
         <template #default="scope">
-          <el-button
-
-            type="text"
+          <el-button text type="primary"
             v-auth="'system:config:edit'"
             @click="onOpenEditModule(scope.row)"
             ><SvgIcon name="elementEdit" />修改</el-button
           >
           <el-button
             v-if="scope.row.parentId != 0"
-
-            type="text"
+            text type="primary"
             v-auth="'system:config:delete'"
             @click="onTabelRowDel(scope.row)"
             ><SvgIcon name="elementDelete" />删除</el-button

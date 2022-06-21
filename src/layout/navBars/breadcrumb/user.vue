@@ -3,37 +3,6 @@
     <el-dropdown
       :show-timeout="70"
       :hide-timeout="50"
-      trigger="click"
-      @command="onComponentSizeChange"
-    >
-      <div class="layout-navbars-breadcrumb-user-icon">
-        <i
-          class="iconfont icon-ziti"
-          style="font-size: 18px"
-          :title="$t('message.user.title0')"
-        ></i>
-      </div>
-      <template #dropdown>
-        <el-dropdown-menu>
-          <el-dropdown-item command="" :disabled="disabledSize === ''">{{
-            $t("message.user.dropdownDefault")
-          }}</el-dropdown-item>
-          <el-dropdown-item command="medium" :disabled="disabledSize === 'medium'">{{
-            $t("message.user.dropdownMedium")
-          }}</el-dropdown-item>
-          <el-dropdown-item command="small" :disabled="disabledSize === 'small'">{{
-            $t("message.user.dropdownSmall")
-          }}</el-dropdown-item>
-          <el-dropdown-item command="mini" :disabled="disabledSize === 'mini'">{{
-            $t("message.user.dropdownMini")
-          }}</el-dropdown-item>
-        </el-dropdown-menu>
-      </template>
-    </el-dropdown>
-    <el-dropdown
-      :show-timeout="70"
-      :hide-timeout="50"
-      trigger="click"
       @command="onLanguageChange"
     >
       <div class="layout-navbars-breadcrumb-user-icon">
@@ -65,30 +34,25 @@
         <elementMonitor />
       </el-icon>
     </div>
-    <div class="layout-navbars-breadcrumb-user-icon" @click="onLayoutSetingClick">
-      <i class="icon-skin iconfont" :title="$t('message.user.title3')"></i>
-    </div>
     <div class="layout-navbars-breadcrumb-user-icon">
       <el-popover
         placement="bottom"
-        trigger="click"
-        v-model:visible="isShowUserNewsPopover"
+        transition="el-zoom-in-top"
         :width="300"
-        popper-class="el-popover-pupop-user-news"
+        :persistent="false"
       >
         <template #reference>
           <el-badge
             :is-dot="true"
-            @click="isShowUserNewsPopover = !isShowUserNewsPopover"
           >
             <el-icon :title="$t('message.user.title4')">
               <elementBell />
             </el-icon>
           </el-badge>
         </template>
-        <transition name="el-zoom-in-top">
-          <UserNews v-show="isShowUserNewsPopover" />
-        </transition>
+        <template #default>
+          <UserNews />
+        </template>
       </el-popover>
     </div>
     <div class="layout-navbars-breadcrumb-user-icon mr10" @click="onScreenfullClick">
@@ -199,10 +163,6 @@ export default {
         else state.isScreenfull = false;
       });
     };
-    // 布局配置 icon 点击时
-    const onLayoutSetingClick = () => {
-      proxy.mittBus.emit("openSetingsDrawer");
-    };
     // 下拉菜单点击时
     const onHandleCommandClick = (path: string) => {
       if (path === "logOut") {
@@ -214,7 +174,7 @@ export default {
           showCancelButton: true,
           confirmButtonText: t("message.user.logOutConfirm"),
           cancelButtonText: t("message.user.logOutCancel"),
-          beforeClose: (action, instance, done) => {
+          beforeClose: (action:string, instance:any, done:any) => {
             if (action === "confirm") {
               instance.confirmButtonLoading = true;
               instance.confirmButtonText = t("message.user.logOutExit");
@@ -248,15 +208,6 @@ export default {
     const onSearchClick = () => {
       searchRef.value.openSearch();
     };
-    // 组件大小改变
-    const onComponentSizeChange = (size: string) => {
-      Local.remove("themeConfig");
-      getThemeConfig.value.globalComponentSize = size;
-      Local.set("themeConfig", getThemeConfig.value);
-      proxy.$ELEMENT.size = size;
-      initComponentSize();
-      window.location.reload();
-    };
     // 语言切换
     const onLanguageChange = (lang: string) => {
       Local.remove("themeConfig");
@@ -272,7 +223,7 @@ export default {
     };
     // 菜单锁屏点击
     const onLockClick = () => {
-      Local.remove("themeConfig");
+      //Local.remove("themeConfig");
       getThemeConfig.value.isLockScreen = true;
       getThemeConfig.value.lockScreenTime = 0;
       Local.set("themeConfig", getThemeConfig.value);
@@ -320,12 +271,10 @@ export default {
     });
     return {
       getUserInfos,
-      onLayoutSetingClick,
       onHandleCommandClick,
       onScreenfullClick,
       onSearchClick,
       onLockClick,
-      onComponentSizeChange,
       onLanguageChange,
       searchRef,
       layoutUserFlexNum,

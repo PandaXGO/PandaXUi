@@ -110,7 +110,7 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 							isAffix: false,
 							isIframe: false,
 							auth: ['base'],
-							icon: 'elementThumb',
+							icon: 'elementOdometer',
 						},
 					},
 					{

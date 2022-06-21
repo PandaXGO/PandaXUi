@@ -64,7 +64,7 @@ export const lazyImg = (el: any, arr: any) => {
  * 全局组件大小
  * @returns 返回 `window.localStorage` 中读取的缓存值 `globalComponentSize`
  */
-export const globalComponentSize: string = () => {
+export const globalComponentSize: any = () => {
     const theme = useThemeConfigStateStore();
     return Local.get('themeConfig')?.globalComponentSize || theme.themeConfig?.globalComponentSize;
 }

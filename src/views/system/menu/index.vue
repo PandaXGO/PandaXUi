@@ -33,16 +33,8 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item>
-                    <el-button
-                            type="primary"
-                            @click="handleQuery"
-                    >
-                        <SvgIcon name="elementSearch" />
-                        搜索</el-button>
-                    <el-button @click="resetQuery">
-                        <SvgIcon name="elementRefresh" />
-                        重置
-                    </el-button>
+                    <el-button type="primary" plain @click="handleQuery"><SvgIcon name="elementSearch" />搜索</el-button>
+                    <el-button @click="resetQuery"><SvgIcon name="elementRefresh" />重置</el-button>
                     <el-button type="primary"
                                plain
                                v-auth="'system:dept:add'"
@@ -130,20 +122,15 @@
                 >
                     <template #default="scope">
                         <el-button
-
-                                type="text"
+                            text type="primary"
                                 icon="el-icon-edit"
                                 @click="onOpenEditMenu(scope.row)"
                         ><SvgIcon name="elementEdit" />修改</el-button>
-                        <el-button
-
-                                type="text"
+                        <el-button text type="primary"
                                 icon="el-icon-plus"
                                 @click="onOpenAddMenu(scope.row)"
                         ><SvgIcon name="elementPlus" />新增</el-button>
-                        <el-button
-
-                                type="text"
+                        <el-button text type="primary"
                                 icon="el-icon-delete"
                                 @click="handleDelete(scope.row)"
                         ><SvgIcon name="elementDelete" />删除</el-button>

@@ -18,8 +18,6 @@ import VueGridLayout from 'vue-grid-layout';
 
 import Codemirror from "codemirror-editor-vue3";
 
-
-
 const app = createApp(App); 
 const pinia = createPinia();
 

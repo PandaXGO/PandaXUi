@@ -1,7 +1,7 @@
 <template>
   <div class="system-menu-container">
     <el-dialog v-model="isShowDialog" width="769px">
-      <template #title>
+      <template #header>
         <div style="font-size: large" v-drag="['.system-menu-container .el-dialog', '.system-menu-container .el-dialog__header']">{{title}}</div>
       </template>
       <el-row>

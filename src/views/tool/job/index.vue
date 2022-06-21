@@ -45,6 +45,7 @@
             <el-form-item>
                 <el-button
                         type="primary"
+                        plain
                         @click="handleQuery"
                 >
                     <SvgIcon name="elementSearch" />
@@ -131,12 +132,12 @@
             <el-table-column
                     label="操作"
                     align="center"
-                    class-name="small-padding fixed-width"
+                    width="300"
             >
                 <template #default="scope">
-                    <el-button  type="text" v-auth="'tool:job:run'" @click="handleRun(scope.row)"><SvgIcon name="elementSwitchButton" />{{ scope.row.entryId > 0 ? "停止":"启动"}}</el-button>
-                    <el-button  type="text" v-auth="'tool:job:edit'" @click="onOpenEditModule(scope.row)"><SvgIcon name="elementEdit" />编辑</el-button>
-                    <el-button  type="text" v-auth="'tool:job:delete'" @click="onTabelRowDel(scope.row)"><SvgIcon name="elementDelete" />删除</el-button>
+                    <el-button  text type="primary" v-auth="'tool:job:run'" @click="handleRun(scope.row)"><SvgIcon name="elementSwitchButton" />{{ scope.row.entryId > 0 ? "停止":"启动"}}</el-button>
+                    <el-button  text type="primary" v-auth="'tool:job:edit'" @click="onOpenEditModule(scope.row)"><SvgIcon name="elementEdit" />编辑</el-button>
+                    <el-button  text type="primary" v-auth="'tool:job:delete'" @click="onTabelRowDel(scope.row)"><SvgIcon name="elementDelete" />删除</el-button>
                 </template>
             </el-table-column>
         </el-table>

@@ -82,14 +82,4 @@ declare module 'storeInterface' {
     export interface RequestOldRoutesState {
         requestOldRoutes: Array<string>;
     }
-
-    // 主接口(顶级类型声明)
-    export interface RootStateTypes {
-        themeConfig: ThemeConfigState;
-        routesList: RoutesListState;
-        keepAliveNames: KeepAliveNamesState;
-        tagsViewRoutes: TagsViewRoutesState;
-        userInfos: UserInfosState;
-        requestOldRoutes: RequestOldRoutesState;
-    }
 }

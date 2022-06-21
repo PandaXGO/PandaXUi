@@ -574,6 +574,18 @@ export default {
       if (val.tagsViewRoutes.length === state.tagsViewRoutesList.length) return false;
       getTagsViewRoutes();
     });
+
+    // 监听路由的变化，动态赋值给 tagsView
+    watch(
+        useTagsViewRoutesStore,
+        (val) => {
+          if (val.tagsViewRoutes.length === state.tagsViewRoutesList.length) return false;
+          getTagsViewRoutes();
+        },
+        {
+          deep: true,
+        }
+    );
     return {
       isActive,
       onContextmenu,

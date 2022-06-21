@@ -1,7 +1,7 @@
 <template>
   <div class="system-job-container">
     <el-dialog v-model="isShowDialog" width="769px" center>
-      <template #title>
+      <template #header>
         <div style="font-size: large" v-drag="['.system-job-container .el-dialog', '.system-job-container .el-dialog__header']">{{title}}</div>
       </template>
       <el-form

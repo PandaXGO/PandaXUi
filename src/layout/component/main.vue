@@ -1,5 +1,6 @@
 <template>
   <el-main class="layout-main">
+    <el-button type="primary" color="#626aef" class="drawer-container" @click="showSettingDrawer" ><SvgIcon name="elementSetting" /></el-button>
     <el-scrollbar
       class="layout-scrollbar"
       ref="layoutScrollbarRef"
@@ -54,6 +55,10 @@ export default defineComponent({
     const initGetMeta = () => {
       state.currentRouteMeta = route.meta;
     };
+    // 布局配置 icon 点击时
+    const showSettingDrawer = () => {
+      proxy.mittBus.emit("openSetingsDrawer");
+    }
     // 页面加载前
     onBeforeMount(() => {
       initHeaderHeight();
@@ -76,8 +81,30 @@ export default defineComponent({
     );
     return {
       getThemeConfig,
+      showSettingDrawer,
       ...toRefs(state),
     };
   },
 });
 </script>
+<style lang="scss" scoped>
+.drawer-container {
+    transition: all 0.2s;
+    &:hover{
+      right: 0
+    }
+    position: fixed;
+    right: 10px;
+    top: 20%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    border-radius: 4px 0 0 4px;
+    cursor: pointer;
+    -webkit-box-shadow: inset 0 0 6px rgba(0 ,0 ,0, 10%);
+}
+
+</style>

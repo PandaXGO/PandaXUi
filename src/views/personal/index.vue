@@ -174,7 +174,7 @@
                 <div class="personal-edit-safe-item-left-value">当前密码强度：强</div>
               </div>
               <div class="personal-edit-safe-item-right">
-                <el-button type="text" @click="handler('password', true)"
+                <el-button text type="primary" @click="handler('password', true)"
                   >立即修改</el-button
                 >
               </div>
@@ -189,7 +189,7 @@
                 </div>
               </div>
               <div class="personal-edit-safe-item-right">
-                <el-button type="text" @click="handler('role', true)">立即更换</el-button>
+                <el-button text type="primary" @click="handler('role', true)">立即更换</el-button>
               </div>
             </div>
           </div>
@@ -202,7 +202,7 @@
                 </div>
               </div>
               <div class="personal-edit-safe-item-right">
-                <el-button type="text" @click="handler('post', true)">立即更换</el-button>
+                <el-button text type="primary" @click="handler('post', true)">立即更换</el-button>
               </div>
             </div>
           </div>

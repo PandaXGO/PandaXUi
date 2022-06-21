@@ -14,7 +14,7 @@
         :key="val.path"
       >
         <template #title>
-          <SvgIcon :name="val.meta.icon" />
+          <SvgIcon :name="val.meta.icon"/>
           <span>{{ $t(val.meta.title) }}</span>
         </template>
         <SubItem :chil="val.children" />
@@ -77,7 +77,7 @@ export default defineComponent({
       return theme.themeConfig;
     });
     // 菜单高亮（详情时，父级高亮）
-    const setParentHighlight = (currentRoute) => {
+    const setParentHighlight = (currentRoute:any) => {
       const { path, meta } = currentRoute;
       const pathSplit = meta.isDynamic ? meta.isDynamicPath.split("/") : path.split("/");
       if (pathSplit.length >= 4 && meta.isHide) return pathSplit.splice(0, 3).join("/");

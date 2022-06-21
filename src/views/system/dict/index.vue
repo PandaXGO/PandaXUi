@@ -42,15 +42,8 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item>
-                    <el-button
-                            type="primary"
-                            @click="handleQuery"
-                    >
-                        <SvgIcon name="elementSearch" />搜索</el-button>
-                    <el-button @click="resetQuery">
-                        <SvgIcon name="elementRefresh" />
-                        重置
-                    </el-button>
+                    <el-button type="primary" plain @click="handleQuery"><SvgIcon name="elementSearch" />搜索</el-button>
+                    <el-button @click="resetQuery"><SvgIcon name="elementRefresh" />重置</el-button>
                 </el-form-item>
 
             </el-form>
@@ -108,26 +101,19 @@
                 <el-table-column
                         label="操作"
                         align="center"
-                        width="250"
+                        width="350"
                         class-name="medium-padding fixed-width"
                 >
                     <template #default="scope">
-                        <el-button
-
-                                type="text"
-                                icon="el-icon-s-tools"
-                                @click="editDictItem(scope.row)"
+                        <el-button text type="primary" icon="el-icon-s-tools" @click="editDictItem(scope.row)"
                         ><SvgIcon name="elementTools" />字典配置</el-button>
-                        <el-button
-
-                                type="text"
+                        <el-button text type="primary"
                                 v-auth="'system:dictT:edit'"
                                 @click="onOpenEditModule(scope.row)"
                         ><SvgIcon name="elementEdit" />修改</el-button>
                         <el-button
                                 v-if="scope.row.parentId != 0"
-
-                                type="text"
+                                text type="primary"
                                 v-auth="'system:dictT:delete'"
                                 @click="onTabelRowDel(scope.row)"
                         ><SvgIcon name="elementDelete" />删除</el-button>

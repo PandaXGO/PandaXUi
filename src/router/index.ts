@@ -5,7 +5,6 @@
 // const pinia = createPinia();
 // app.use(pinia);
 
-import { useThemeConfigStateStore } from '/@/stores/themeConfig'
 import { useKeepAliveNamesStore } from '/@/stores/keepAliveNames'
 import { useRoutesListStore } from "/@/stores/routesList";
 import { useTagsViewRoutesStore } from "/@/stores/tagsViewRoutes";
@@ -13,7 +12,7 @@ import { useUserInfosState } from "/@/stores/userInfos";
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-import { Session } from '/@/utils/storage';
+import {Local, Session} from '/@/utils/storage';
 import { NextLoading } from '/@/utils/loading';
 import { staticRoutes, staticPageRoutes } from '/@/router/route';
 import { getRoutes } from '/@/api/system/menu';
@@ -21,10 +20,6 @@ import { getRoutes } from '/@/api/system/menu';
 const Layout = () => import('/@/layout/index.vue')
 const viewsModules: any = import.meta.glob('../views/**/*.{vue,tsx}');
 const layouModules: any = import.meta.glob('../layout/routerView/*.{vue,tsx}');
-
-
-
-
 
 
 /**
@@ -42,28 +37,8 @@ const router = createRouter({
 	history: createWebHashHistory(),
 	routes: staticRoutes,
 });
-// 前端控制路由
-export async function initFrontEndControlRoutes() {
-    const userInfos = useUserInfosState();
-	// 界面 loading 动画开始执行
-	if (window.nextLoading === undefined) NextLoading.start();
-	// 无 token 停止执行下一步
-	if (!Session.get('token')) return false;
-	// 触发初始化用户信息
-	userInfos.setUserInfos();
-	router.addRoute(pathMatch); // 添加404界面
-	resetRoute(); // 删除/重置路由
-	// 添加动态路由
-	// setFilterRouteEnd().forEach((route: any) => {
-	// 	router.addRoute((route as unknown) as RouteRecordRaw);
-	// });
-	// 过滤权限菜单
-	//store.dispatch('routesList/setRoutesList', setFilterMenuFun(dynamicRoutes[0].children, userInfos.userInfos.menus));
-}
-
 // 后端控制路由：模拟执行路由数据初始化
 export function initBackEndControlRoutes() {
-
     const routesList = useRoutesListStore();
     const tagsViewRoutes = useTagsViewRoutesStore();
     const userInfos = useUserInfosState();
@@ -119,8 +94,9 @@ export function initBackEndControlRoutes() {
 	});
 	routesList.setRoutesList(drs[0].children);
 
+	// @ts-ignore
 	let authsRoutes = setFilterHasAuthMenu(drs, userInfos.userInfos.authPageList);
-	// 添加到 vuex setTagsViewRoutes 中
+	// 添加到 pinia setTagsViewRoutes 中
 	tagsViewRoutes.setTagsViewRoutes(formatTwoStageRoutes(formatFlatteningRoutes(authsRoutes))[0].children);
 }
 
@@ -311,16 +287,9 @@ export function resetRoute() {
 
 }
 
-
-
 // 路由加载前
 router.beforeEach(async (to, from, next) => {
-    const theme = useThemeConfigStateStore();
     const routesList = useRoutesListStore();
-    // isRequestRoutes 为 true，则开启后端控制路由，路径：`/src/stors/themeConfig.ts`
-    const { isRequestRoutes } = theme.themeConfig;
-// 前端控制路由：初始化方法，防止刷新时路由丢失
-    if (!isRequestRoutes) initFrontEndControlRoutes();
 	NProgress.configure({ showSpinner: false });
 	if (to.meta.title) NProgress.start();
 	const token = Session.get('token');
@@ -338,13 +307,11 @@ router.beforeEach(async (to, from, next) => {
 			NProgress.done();
 		} else {
 			if (routesList.routesList.length === 0) {
-				if (isRequestRoutes) {
-					// 后端控制路由：路由数据初始化，防止刷新时丢失
-					await initBackEndControlRoutes();
-					// 动态添加路由：防止非首页刷新时跳转回首页的问题
-					// 确保 addRoute() 时动态添加的路由已经被完全加载上去
-					next({ ...to, replace: true });
-				}
+				// 后端控制路由：路由数据初始化，防止刷新时丢失
+				await initBackEndControlRoutes();
+				// 动态添加路由：防止非首页刷新时跳转回首页的问题
+				// 确保 addRoute() 时动态添加的路由已经被完全加载上去
+				next({ ...to, replace: true });
 			} else {
 				next();
 			}

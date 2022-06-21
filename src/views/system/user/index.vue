@@ -4,195 +4,206 @@
       <!--部门数据-->
       <el-col :span="4" :xs="24">
         <el-card shadow="always">
-        <div class="head-container">
-          <el-input
-            v-model="deptName"
-            placeholder="请输入部门名称"
-            clearable
-            prefix-icon="el-icon-search"
-            style="margin-bottom: 20px"
-          />
-        </div>
-        <div class="head-container">
-          <el-tree
-            :data="deptOptions"
-            :props="defaultProps"
-            node-key="deptId"
-            :expand-on-click-node="false"
-            :filter-node-method="filterNode"
-            ref="tree"
-            default-expand-all
-            @node-click="handleNodeClick"
-          />
-        </div>
+          <div class="head-container">
+            <el-input
+                v-model="deptName"
+                placeholder="请输入部门名称"
+                clearable
+                prefix-icon="el-icon-search"
+                style="margin-bottom: 20px"
+            />
+          </div>
+          <div class="head-container">
+            <el-tree
+                :data="deptOptions"
+                :props="defaultProps"
+                node-key="deptId"
+                :expand-on-click-node="false"
+                :filter-node-method="filterNode"
+                ref="tree"
+                default-expand-all
+                @node-click="handleNodeClick"
+            />
+          </div>
         </el-card>
       </el-col>
 
       <el-col :span="20" :xs="24">
         <el-card shadow="always">
-        <!-- 查询-->
-        <el-form
-          :model="queryParams"
-          ref="queryForm"
-          :inline="true"
-          label-width="78px"
-        >
-          <el-form-item label="用户名称" prop="username">
-            <el-input
-              placeholder="用户名称模糊查询"
-              clearable
-              @keyup.enter="handleQuery"
-              style="width: 240px"
-              v-model="queryParams.username"
-            />
-          </el-form-item>
-          <el-form-item label="手机号码" prop="phone">
-            <el-input
-              v-model="queryParams.phone"
-              placeholder="请输入手机号码"
-              clearable
-              style="width: 240px"
-              @keyup.enter="handleQuery"
-            />
-          </el-form-item>
-          <el-form-item label="状态" prop="status">
-            <el-select
-              v-model="queryParams.status"
-              placeholder="用户状态"
-              clearable
-              style="width: 240px"
-            >
-              <el-option
-                v-for="dict in statusOptions"
-                :key="dict.dictValue"
-                :label="dict.dictLabel"
-                :value="dict.dictValue"
+          <!-- 查询-->
+          <el-form
+              :model="queryParams"
+              ref="queryForm"
+              :inline="true"
+              label-width="78px"
+          >
+            <el-form-item label="用户名称" prop="username">
+              <el-input
+                  placeholder="用户名称模糊查询"
+                  clearable
+                  @keyup.enter="handleQuery"
+                  style="width: 240px"
+                  v-model="queryParams.username"
               />
-            </el-select>
-          </el-form-item>
-          <el-form-item>
-            <el-button
-                    type="primary"
-                    @click="handleQuery"
-            >
-              <SvgIcon name="elementSearch" />
-              搜索</el-button>
-            <el-button @click="resetQuery">
-              <SvgIcon name="elementRefresh" />
-              重置
-            </el-button>
-          </el-form-item>
-
-        </el-form>
+            </el-form-item>
+            <el-form-item label="手机号码" prop="phone">
+              <el-input
+                  v-model="queryParams.phone"
+                  placeholder="请输入手机号码"
+                  clearable
+                  style="width: 240px"
+                  @keyup.enter="handleQuery"
+              />
+            </el-form-item>
+            <el-form-item label="状态" prop="status">
+              <el-select
+                  v-model="queryParams.status"
+                  placeholder="用户状态"
+                  clearable
+                  style="width: 240px"
+              >
+                <el-option
+                    v-for="dict in statusOptions"
+                    :key="dict.dictValue"
+                    :label="dict.dictLabel"
+                    :value="dict.dictValue"
+                />
+              </el-select>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" plain @click="handleQuery">
+                <SvgIcon name="elementSearch"/>
+                搜索
+              </el-button>
+              <el-button @click="resetQuery">
+                <SvgIcon name="elementRefresh"/>
+                重置
+              </el-button>
+            </el-form-item>
+          </el-form>
+        </el-card>
         <!-- 操作按钮 -->
-        <el-col :span="1.5">
-          <el-button
-            type="primary"
-            plain
-            @click="handleAdd"
-            ><SvgIcon name="elementPlus" />新增</el-button>
-        </el-col>
-        <el-col :span="1.5">
-          <el-button
-            type="danger"
-            plain
-            :disabled="multiple"
-            @click="handleDelete"
-            ><SvgIcon name="elementDelete" />删除</el-button>
-        </el-col>
-        <el-col :span="1.5">
-          <el-button
-            type="warning"
-            plain
-            @click="handleExport"
-            ><SvgIcon name="elementDownload" />导出</el-button>
-        </el-col>
-
-        <el-table v-loading="loading" :data="tableData.data" stripe @selection-change="handleSelectionChange" style="width: 100%">
-          <el-table-column type="selection" width="45" align="center" />
-          <el-table-column
-            label="用户编号"
-            align="center"
-            key="userId"
-            prop="userId"
-          />
-          <el-table-column
-            label="用户名"
-            prop="username"
-            show-overflow-tooltip
-          ></el-table-column>
-          <el-table-column label="头像" show-overflow-tooltip>
-            <template #default="scope">
-              <el-image
-                class="system-user-photo"
-                :src="
+        <el-card class="box-card">
+          <template #header>
+            <div class="card-header">
+              <span class="card-header-text">用户列表</span>
+              <div>
+                <el-button type="primary" plain @click="handleAdd">
+                  <SvgIcon name="elementPlus"/>
+                  新增
+                </el-button>
+                <el-button
+                    type="danger"
+                    plain
+                    :disabled="multiple"
+                    @click="handleDelete"
+                >
+                  <SvgIcon name="elementDelete"/>
+                  删除
+                </el-button>
+                <el-button
+                    type="warning"
+                    plain
+                    @click="handleExport"
+                >
+                  <SvgIcon name="elementDownload"/>
+                  导出
+                </el-button>
+              </div>
+            </div>
+          </template>
+          <el-table v-loading="loading" :data="tableData.data" stripe @selection-change="handleSelectionChange"
+                    style="width: 100%">
+            <el-table-column type="selection" width="45" align="center"/>
+            <el-table-column
+                label="用户编号"
+                align="center"
+                key="userId"
+                prop="userId"
+            />
+            <el-table-column
+                label="用户名"
+                prop="username"
+                show-overflow-tooltip
+            ></el-table-column>
+            <el-table-column label="头像" show-overflow-tooltip>
+              <template #default="scope">
+                <el-image
+                    class="system-user-photo"
+                    :src="
                   scope.row.avatar
                     ? scope.row.avatar
                     : letterAvatar(scope.row.username)
                 "
-              ></el-image>
-            </template>
-          </el-table-column>
-          <el-table-column
-            label="用户性别"
-            align="center"
-            prop="sex"
-            :formatter="sexFormat"
-          />
-          <el-table-column
-            prop="phone"
-            label="手机"
-            show-overflow-tooltip
-          ></el-table-column>
-          <el-table-column
-            prop="email"
-            label="邮箱"
-            show-overflow-tooltip
-          ></el-table-column>
-          <el-table-column label="状态" align="center" key="status">
-            <template #default="scope">
-              <el-switch
-                v-model="scope.row.status"
-                active-value="0"
-                inactive-value="1"
-                @click="handleStatusChange(scope.row)"
-              ></el-switch>
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="create_time"
-            label="创建时间"
-            show-overflow-tooltip
-          >
-            <template #default="scope">
-               {{dateStrFormat(scope.row.create_time)}}
-            </template>
-          </el-table-column>
-          <el-table-column prop="path" label="操作" width="150">
-            <template #default="scope">
-              <el-button text type="primary" @click="handleUpdate(scope.row)"><SvgIcon name="elementEdit" />修改</el-button>
-              <el-button text type="primary" @click="handleDelete(scope.row)"><SvgIcon name="elementDelete" />删除</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-        <div v-show="tableData.total > 0">
-          <el-divider></el-divider>
-          <el-pagination
-                  background
-                  :total="tableData.total"
-                  :page-sizes="[10, 20, 30]"
-                  :current-page="queryParams.pageNum"
-                  :page-size="queryParams.pageSize"
-                  layout="total, sizes, prev, pager, next, jumper"
-                  @size-change="onHandleSizeChange"
-                  @current-change="onHandleCurrentChange"
-          />
-        </div>
+                ></el-image>
+              </template>
+            </el-table-column>
+            <el-table-column
+                label="用户性别"
+                align="center"
+                prop="sex"
+                :formatter="sexFormat"
+            />
+            <el-table-column
+                prop="phone"
+                label="手机"
+                show-overflow-tooltip
+            ></el-table-column>
+            <el-table-column
+                prop="email"
+                label="邮箱"
+                show-overflow-tooltip
+            ></el-table-column>
+            <el-table-column label="状态" align="center" key="status">
+              <template #default="scope">
+                <el-switch
+                    v-model="scope.row.status"
+                    active-value="0"
+                    inactive-value="1"
+                    @click="handleStatusChange(scope.row)"
+                ></el-switch>
+              </template>
+            </el-table-column>
+            <el-table-column
+                prop="create_time"
+                label="创建时间"
+                show-overflow-tooltip
+            >
+              <template #default="scope">
+                {{ dateStrFormat(scope.row.create_time) }}
+              </template>
+            </el-table-column>
+            <el-table-column prop="path" align="center" label="操作" width="250">
+              <template #default="scope">
+                <el-button text type="primary" @click="handleUpdate(scope.row)">
+                  <SvgIcon name="elementEdit"/>
+                  修改
+                </el-button>
+                <el-button text type="primary" @click="handleDelete(scope.row)">
+                  <SvgIcon name="elementDelete"/>
+                  删除
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <div v-show="tableData.total > 0" >
+            <el-divider></el-divider>
+            <el-pagination
+                background
+                :total="tableData.total"
+                :page-sizes="[10, 20, 30]"
+                :current-page="queryParams.pageNum"
+                :page-size="queryParams.pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                @size-change="onHandleSizeChange"
+                @current-change="onHandleCurrentChange"
+            />
+          </div>
         </el-card>
       </el-col>
     </el-row>
     <!-- 添加或修改参数配置对话框 -->
-    <EditModule ref="userFormRef" :title="title" />
+    <EditModule ref="userFormRef" :title="title"/>
 
   </div>
 </template>
@@ -213,17 +224,18 @@ import {
   delUser,
   exportUser,
 } from "/@/api/system/user";
-import { treeselect } from "/@/api/system/dept";
-import { ElMessageBox, ElMessage } from "element-plus";
-import { getDicts } from "/@/api/system/dict/data";
+import {treeselect} from "/@/api/system/dept";
+import {ElMessageBox, ElMessage} from "element-plus";
+import {getDicts} from "/@/api/system/dict/data";
 import MDInput from "/@/components/panda/MDInput.vue";
 import EditModule from "./component/editModule.vue";
-import { letterAvatar } from '/@/utils/string';
+import {letterAvatar} from '/@/utils/string';
+
 export default {
   name: "systemUser",
-  components: { MDInput, EditModule },
+  components: {MDInput, EditModule},
   setup() {
-    const { proxy } = getCurrentInstance() as any;
+    const {proxy} = getCurrentInstance() as any;
     const userFormRef = ref();
     const state: any = reactive({
       tableData: {
@@ -267,23 +279,23 @@ export default {
     });
 
     watch(
-      () => state.deptName,
-      (newValue) => {
-        proxy.$refs.tree.filter(newValue);
-      }
+        () => state.deptName,
+        (newValue) => {
+          proxy.$refs.tree.filter(newValue);
+        }
     );
     /** 查询用户列表 */
     const getList = async () => {
       state.loading = true;
       listUser(state.queryParams).then(
-        (response:any) => {
-          if (response.code != 200){
+          (response: any) => {
+            if (response.code != 200) {
+              state.loading = false;
+            }
+            state.tableData.data = response.data.data;
+            state.tableData.total = response.data.total;
             state.loading = false;
           }
-          state.tableData.data = response.data.data;
-          state.tableData.total = response.data.total;
-          state.loading = false;
-        }
       );
     };
     // 多选框选中数据
@@ -335,7 +347,7 @@ export default {
         showCancelButton: true,
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        beforeClose: (action:string, instance:any, done:any) => {
+        beforeClose: (action: string, instance: any, done: any) => {
           if (action === "confirm") {
             return changeUserStatus(row.userId, row.status).then(() => {
               ElMessage.success(text + "成功");
@@ -398,12 +410,12 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       })
-        .then(function () {
-          return exportUser(queryParams);
-        })
-        .then((response:any) => {
-          proxy.download(response.data);
-        });
+          .then(function () {
+            return exportUser(queryParams);
+          })
+          .then((response: any) => {
+            proxy.download(response.data);
+          });
     };
     // 字典状态字典翻译
     const sexFormat = (row: any, column: any) => {
@@ -455,6 +467,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
 .system-user-container {
   .system-user-search {
     text-align: left;

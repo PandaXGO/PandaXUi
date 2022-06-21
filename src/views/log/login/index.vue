@@ -32,31 +32,30 @@
                 <el-button @click="resetQuery"><SvgIcon name="elementRefresh" />重置</el-button>
             </el-form-item>
         </el-form>
+        </el-card>
+      <el-card class="box-card">
+        <template #header>
+          <div class="card-header">
+            <span class="card-header-text">登录日志</span>
+            <div>
+              <el-button
+                  type="danger"
+                  plain
 
-        <!-- 操作按钮 -->
-        <el-row :gutter="10" class="mb8">
-            <el-col :span="1.5">
-                <el-button
-                        type="danger"
-                        plain
+                  :disabled="multiple"
+                  @click="onTabelRowDel"
+                  v-auth="'log:login:delete'"
+              ><SvgIcon name="elementDelete" />删除</el-button>
+              <el-button
+                  type="danger"
+                  plain
 
-                        :disabled="multiple"
-                        @click="onTabelRowDel"
-                        v-auth="'log:login:delete'"
-                ><SvgIcon name="elementDelete" />删除</el-button
-                >
-            </el-col>
-            <el-col :span="1.5">
-                <el-button
-                        type="danger"
-                        plain
-
-                        @click="handleClean"
-                        v-auth="'log:login:clean'"
-                ><SvgIcon name="elementDelete" />清空</el-button
-                >
-            </el-col>
-        </el-row>
+                  @click="handleClean"
+                  v-auth="'log:login:clean'"
+              ><SvgIcon name="elementDelete" />清空</el-button>
+            </div>
+          </div>
+        </template>
 
         <!--数据表格-->
         <el-table

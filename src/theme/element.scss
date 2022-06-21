@@ -811,6 +811,39 @@
 .el-menu--collapse .el-sub-menu.is-active i {
 	color: set-color(primary);
 }
+
+.el-menu-item.is-active {
+	border-bottom-left-radius: 50px;
+	border-top-left-radius: 50px;
+	color: var(--el-color-primary);
+	background-color: var(--el-color-white) !important;
+	margin-left: 5px;
+	border: 0px;
+}
+.el-menu-item.is-active::before {
+	width: 20px;
+	height: 12px;
+	background-image: url("./images/round.png");
+	background-repeat:no-repeat;
+	background-size: 100% 100%;
+	content: "";
+	position: absolute;
+	right: 0px;
+	top: -12px;
+}
+
+.el-menu-item.is-active::after {
+	width: 20px;
+	height: 12px;
+	background-image: url("./images/round-1.png");
+	background-repeat:no-repeat;
+	background-size: 100% 100%;
+	content: "";
+	position: absolute;
+	right: 0px;
+	top: 50px;
+}
+
 .el-active-extend {
 	color: var(--color-whites) !important;
 	background-color: set-color(primary) !important;
@@ -939,6 +972,10 @@
 
 /* Dialog 对话框
 ------------------------------- */
+.el-dialog {
+	border-radius: 15px !important;
+}
+
 .el-dialog__headerbtn:focus .el-dialog__close,
 .el-dialog__headerbtn:hover .el-dialog__close {
 	color: set-color(primary);
@@ -969,6 +1006,10 @@
 
 /* Card 卡片
 ------------------------------- */
+.el-card {
+	border-radius: 15px;
+}
+
 .el-card__header {
 	padding: 15px 20px;
 }
@@ -1065,3 +1106,4 @@
 .el-drawer-fade-leave-active .el-drawer.ltr {
 	animation: ltr-drawer-animation 0.3s ease !important;
 }
+

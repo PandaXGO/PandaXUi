@@ -1,172 +1,179 @@
 <template>
   <div class="app-container">
     <el-card shadow="always">
-    <!-- 查询 -->
-    <el-form
-      :model="queryParams"
-      ref="queryForm"
-      :inline="true"
-      label-width="68px"
-    >
-      <el-form-item label="参数名称" prop="configName">
-         <el-input
-          placeholder="参数名称模糊查询"
-          clearable
-          @keyup.enter="handleQuery"
-          style="width: 240px"
-          v-model="queryParams.configName"
-        />
-      </el-form-item>
-      <el-form-item label="参数键名" prop="configKey">
-         <el-input
-          placeholder="参数键名模糊查询"
-          clearable
-          @keyup.enter="handleQuery"
-          style="width: 240px"
-          v-model="queryParams.configKey"
-        />
-      </el-form-item>
-      <el-form-item label="系统内置" prop="configType">
-        <el-select
-          v-model="queryParams.configType"
-          placeholder="系统内置"
-          clearable
-          style="width: 240px"
-        >
-          <el-option
-            v-for="dict in typeOptions"
-            :key="dict.dictValue"
-            :label="dict.dictLabel"
-            :value="dict.dictValue"
+      <!-- 查询 -->
+      <el-form
+          :model="queryParams"
+          ref="queryForm"
+          :inline="true"
+          label-width="68px"
+      >
+        <el-form-item label="参数名称" prop="configName">
+          <el-input
+              placeholder="参数名称模糊查询"
+              clearable
+              @keyup.enter="handleQuery"
+              style="width: 240px"
+              v-model="queryParams.configName"
           />
-        </el-select>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" plain @click="handleQuery"><SvgIcon name="elementSearch" />搜索</el-button>
-        <el-button @click="resetQuery"><SvgIcon name="elementRefresh" />重置</el-button>
-      </el-form-item>
-
-    </el-form>
-
-    <!-- 操作按钮 -->
-    <el-row :gutter="10" class="mb8">
-      <el-col :span="1.5">
-        <el-button
-          type="primary"
-          plain
-          @click="onOpenAddModule"
-          v-auth="'system:config:add'"
-          ><SvgIcon name="elementPlus" />新增</el-button
-        >
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="danger"
-          plain
-          :disabled="multiple"
-          v-auth="'system:config:delete'"
-          @click="onTabelRowDel"
-          ><SvgIcon name="elementDelete" />删除</el-button
-        >
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="warning"
-          plain
-          v-auth="'system:config:export'"
-          @click="handleExport"
-          ><SvgIcon name="elementDownload" />导出</el-button
-        >
-      </el-col>
-    </el-row>
-
-    <!--数据表格-->
-    <el-table
-      v-loading="loading"
-      :data="tableData"
-      @selection-change="handleSelectionChange"
-    >
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="参数主键" align="center" prop="configId" />
-      <el-table-column
-        label="参数名称"
-        align="center"
-        prop="configName"
-        :show-overflow-tooltip="true"
-      />
-      <el-table-column
-        label="参数键名"
-        align="center"
-        prop="configKey"
-        :show-overflow-tooltip="true"
-      />
-      <el-table-column label="参数键值" align="center" prop="configValue" />
-      <el-table-column
-        label="系统内置"
-        align="center"
-        prop="configType"
-      >
-        <template #default="scope">
-          <el-tag
-                  :type="scope.row.configType === '1' ? 'danger' : 'success'"
-                  disable-transitions
-          >{{ typeFormat(scope.row)}}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="备注"
-        align="center"
-        prop="remark"
-        :show-overflow-tooltip="true"
-      />
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="create_time"
-        width="180"
-      >
-        <template #default="scope">
-          <span>{{ dateStrFormat(scope.row.create_time) }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="操作"
-        align="center"
-        width="200"
-        class-name="medium-padding fixed-width"
-      >
-        <template #default="scope">
-          <el-button text type="primary"
-            v-auth="'system:config:edit'"
-            @click="onOpenEditModule(scope.row)"
-            ><SvgIcon name="elementEdit" />修改</el-button
+        </el-form-item>
+        <el-form-item label="参数键名" prop="configKey">
+          <el-input
+              placeholder="参数键名模糊查询"
+              clearable
+              @keyup.enter="handleQuery"
+              style="width: 240px"
+              v-model="queryParams.configKey"
+          />
+        </el-form-item>
+        <el-form-item label="系统内置" prop="configType">
+          <el-select
+              v-model="queryParams.configType"
+              placeholder="系统内置"
+              clearable
+              style="width: 240px"
           >
-          <el-button
-            v-if="scope.row.parentId != 0"
-            text type="primary"
-            v-auth="'system:config:delete'"
-            @click="onTabelRowDel(scope.row)"
-            ><SvgIcon name="elementDelete" />删除</el-button
-          >
-        </template>
-      </el-table-column>
-    </el-table>
-    <!-- 分页设置-->
-    <div v-show="total > 0">
-      <el-divider></el-divider>
-      <el-pagination
-              background
-              :total="total"
-              :current-page="queryParams.pageNum"
-              :page-size="queryParams.pageSize"
-              layout="total, sizes, prev, pager, next, jumper"
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
-      />
-    </div>
+            <el-option
+                v-for="dict in typeOptions"
+                :key="dict.dictValue"
+                :label="dict.dictLabel"
+                :value="dict.dictValue"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" plain @click="handleQuery">
+            <SvgIcon name="elementSearch"/>
+            搜索
+          </el-button>
+          <el-button @click="resetQuery">
+            <SvgIcon name="elementRefresh"/>
+            重置
+          </el-button>
+        </el-form-item>
+      </el-form>
+    </el-card>
+    <el-card class="box-card">
+      <template #header>
+        <div class="card-header">
+          <span class="card-header-text">配置列表</span>
+          <div>
+            <el-button
+                type="primary"
+                plain
+                @click="onOpenAddModule"
+                v-auth="'system:config:add'"
+            >
+              <SvgIcon name="elementPlus"/>
+              新增
+            </el-button>
+            <el-button
+                type="danger"
+                plain
+                :disabled="multiple"
+                v-auth="'system:config:delete'"
+                @click="onTabelRowDel"
+            >
+              <SvgIcon name="elementDelete"/>
+              删除
+            </el-button>
+          </div>
+        </div>
+      </template>
+      <!--数据表格-->
+      <el-table
+          v-loading="loading"
+          :data="tableData"
+          @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" width="55" align="center"/>
+        <el-table-column label="参数主键" align="center" prop="configId"/>
+        <el-table-column
+            label="参数名称"
+            align="center"
+            prop="configName"
+            :show-overflow-tooltip="true"
+        />
+        <el-table-column
+            label="参数键名"
+            align="center"
+            prop="configKey"
+            :show-overflow-tooltip="true"
+        />
+        <el-table-column label="参数键值" align="center" prop="configValue"/>
+        <el-table-column
+            label="系统内置"
+            align="center"
+            prop="configType"
+        >
+          <template #default="scope">
+            <el-tag
+                :type="scope.row.configType === '1' ? 'danger' : 'success'"
+                disable-transitions
+            >{{ typeFormat(scope.row) }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column
+            label="备注"
+            align="center"
+            prop="remark"
+            :show-overflow-tooltip="true"
+        />
+        <el-table-column
+            label="创建时间"
+            align="center"
+            prop="create_time"
+            width="180"
+        >
+          <template #default="scope">
+            <span>{{ dateStrFormat(scope.row.create_time) }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+            label="操作"
+            align="center"
+            width="200"
+            class-name="medium-padding fixed-width"
+        >
+          <template #default="scope">
+            <el-button text type="primary"
+                       v-auth="'system:config:edit'"
+                       @click="onOpenEditModule(scope.row)"
+            >
+              <SvgIcon name="elementEdit"/>
+              修改
+            </el-button
+            >
+            <el-button
+                v-if="scope.row.parentId != 0"
+                text type="primary"
+                v-auth="'system:config:delete'"
+                @click="onTabelRowDel(scope.row)"
+            >
+              <SvgIcon name="elementDelete"/>
+              删除
+            </el-button
+            >
+          </template>
+        </el-table-column>
+      </el-table>
+      <!-- 分页设置-->
+      <div v-show="total > 0">
+        <el-divider></el-divider>
+        <el-pagination
+            background
+            :total="total"
+            :current-page="queryParams.pageNum"
+            :page-size="queryParams.pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+        />
+      </div>
     </el-card>
     <!-- 添加或修改配置参数对话框 -->
-    <EditModule ref="editModuleRef" :title="title" />
+    <EditModule ref="editModuleRef" :title="title"/>
   </div>
 </template>
 
@@ -179,15 +186,15 @@ import {
   getCurrentInstance,
   onUnmounted,
 } from "vue";
-import { ElMessageBox, ElMessage } from "element-plus";
-import { listConfig, delConfig,exportConfig } from "/@/api/system/config";
+import {ElMessageBox, ElMessage} from "element-plus";
+import {listConfig, delConfig, exportConfig} from "/@/api/system/config";
 import EditModule from "./component/editModule.vue";
 
 export default {
   name: "index",
-  components: { EditModule },
+  components: {EditModule},
   setup() {
-    const { proxy } = getCurrentInstance() as any;
+    const {proxy} = getCurrentInstance() as any;
     const editModuleRef = ref();
     const state = reactive({
       // 遮罩层
@@ -222,11 +229,11 @@ export default {
     const handleQuery = () => {
       state.loading = true;
       listConfig(state.queryParams).then(
-        (response) => {
-          state.tableData = response.data.data;
-          state.total = response.data.total;
-          state.loading = false;
-        }
+          (response) => {
+            state.tableData = response.data.data;
+            state.total = response.data.total;
+            state.loading = false;
+          }
       );
     };
     /** 重置按钮操作 */
@@ -276,22 +283,22 @@ export default {
       state.single = selection.length != 1;
       state.multiple = !selection.length;
     };
-/** 导出按钮操作 */
-    const handleExport=() =>{
+    /** 导出按钮操作 */
+    const handleExport = () => {
       const queryParams = state.queryParams;
-      
-          ElMessageBox({
+
+      ElMessageBox({
         message: '是否确认导出所有参数数据项?',
         title: "警告",
         showCancelButton: true,
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
-        }).then(function() {
-          return exportConfig(queryParams);
-        }).then((response:any) => {
-          proxy.download(response.data);
-        })
+      }).then(function () {
+        return exportConfig(queryParams);
+      }).then((response: any) => {
+        proxy.download(response.data);
+      })
     };
     //分页页面大小发生变化
     const handleSizeChange = (val: any) => {
@@ -303,7 +310,7 @@ export default {
       state.queryParams.pageNum = val;
       handleQuery();
     };
-   
+
 
     // 页面加载时
     onMounted(() => {

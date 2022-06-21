@@ -260,3 +260,16 @@ body,
 .cursor-move {
 	cursor: move !important;
 }
+
+.box-card{
+	margin-top: 10px;
+}
+
+.card-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	.card-header-text{
+		font-size: large;
+	}
+}

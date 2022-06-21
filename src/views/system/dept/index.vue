@@ -1,123 +1,148 @@
 <template>
   <div class="app-container">
     <el-card shadow="always">
-    <!-- 查询 -->
+      <!-- 查询 -->
       <el-form :model="state.queryParams" ref="queryForm" :inline="true" label-width="68px">
-      <el-form-item label="部门名称" prop="deptName">
-        <el-input
-          placeholder="请输入部门名称模糊查询"
-          clearable
-          @keyup.enter.native="handleQuery"
-          v-model="state.queryParams.deptName"
-        />
-      </el-form-item>
-      <el-form-item label="状态" prop="status" >
-        <el-select
-          v-model="state.queryParams.status"
-          placeholder="部门状态"
-          clearable
-        >
-          <el-option
-            v-for="dict in state.statusOptions"
-            :key="dict.dictValue"
-            :label="dict.dictLabel"
-            :value="dict.dictValue"
+        <el-form-item label="部门名称" prop="deptName">
+          <el-input
+              placeholder="请输入部门名称模糊查询"
+              clearable
+              @keyup.enter.native="handleQuery"
+              v-model="state.queryParams.deptName"
           />
-        </el-select>
-      </el-form-item>
-      <el-form-item>
-          <el-button type="primary" plain @click="handleQuery"><SvgIcon name="elementSearch" />搜索</el-button>
-          <el-button @click="resetQuery"><SvgIcon name="elementRefresh" />重置</el-button>
-          <el-button type="primary"
-                     plain
-                     v-auth="'system:dept:add'"
-                     @click="onOpenAddModule">
-            <SvgIcon name="elementPlus" />
-            新增
+        </el-form-item>
+        <el-form-item label="状态" prop="status">
+          <el-select
+              v-model="state.queryParams.status"
+              placeholder="部门状态"
+              clearable
+          >
+            <el-option
+                v-for="dict in state.statusOptions"
+                :key="dict.dictValue"
+                :label="dict.dictLabel"
+                :value="dict.dictValue"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" plain @click="handleQuery">
+            <SvgIcon name="elementSearch"/>
+            搜索
+          </el-button>
+          <el-button @click="resetQuery">
+            <SvgIcon name="elementRefresh"/>
+            重置
           </el-button>
         </el-form-item>
 
-    </el-form>
-
+      </el-form>
+    </el-card>
+    <el-card class="box-card">
+      <template #header>
+        <div class="card-header">
+          <span class="card-header-text">部门列表</span>
+          <div>
+            <el-button type="primary"
+                       plain
+                       v-auth="'system:dept:add'"
+                       @click="onOpenAddModule">
+              <SvgIcon name="elementPlus"/>
+              新增
+            </el-button>
+          </div>
+        </div>
+      </template>
       <!--数据表格-->
       <el-table
-      v-loading="state.loading"
-      :data="state.tableData"
-      row-key="deptId"
-      border
-      default-expand-all
-      :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
-    >
-      <el-table-column
-        prop="deptName"
-        label="部门名称"
-        width="260"
-      ></el-table-column>
-      <el-table-column
-                prop="create_time"
-                label="创建时间"
-                width="300"
+          v-loading="state.loading"
+          :data="state.tableData"
+          row-key="deptId"
+          border
+          default-expand-all
+          :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+      >
+        <el-table-column
+            prop="deptName"
+            label="部门名称"
+            width="260"
+        ></el-table-column>
+        <el-table-column
+            prop="create_time"
+            label="创建时间"
+            width="300"
         >
-        <template #default="scope">
-          <span>{{ dateStrFormat(scope.row.create_time) }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="sort"
-        label="排序"
-        width="200"
-      ></el-table-column>
-      <el-table-column
-        prop="status"
-        label="状态"
-        width="100"
-      >
-        <template #default="scope">
-          <el-tag
-                  :type="scope.row.status === '1' ? 'danger' : 'success'"
-                  disable-transitions
-          >{{ statusFormat(scope.row)}}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column label="负责人" align="center" prop="leader" width="200">
-      </el-table-column>
-      <el-table-column
-        label="操作"
-        align="center"
-        class-name="small-padding fixed-width"
-      >
-        <template #default="scope">
-          <el-button text type="primary"
-            v-auth="'system:dept:edit'"
-            @click="onOpenEditModule(scope.row)"
-            ><SvgIcon name="elementEdit" />修改</el-button>
-          <el-button text type="primary"
-            v-auth="'system:dept:add'"
-            @click="onOpenAddModule(scope.row)"
-            ><SvgIcon name="elementPlus" />新增</el-button
-          >
-          <el-button
-            v-if="scope.row.parentId != 0"
-            text type="primary"
-            v-auth="'system:dept:delete'"
-            @click="onTabelRowDel(scope.row)"
-            ><SvgIcon name="elementDelete" />删除</el-button
-          >
-        </template>
-      </el-table-column>
-    </el-table>
+          <template #default="scope">
+            <span>{{ dateStrFormat(scope.row.create_time) }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+            prop="sort"
+            label="排序"
+            width="200"
+        ></el-table-column>
+        <el-table-column
+            prop="status"
+            label="状态"
+            width="100"
+        >
+          <template #default="scope">
+            <el-tag
+                :type="scope.row.status === '1' ? 'danger' : 'success'"
+                disable-transitions
+            >{{ statusFormat(scope.row) }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="负责人" align="center" prop="leader" width="200">
+        </el-table-column>
+        <el-table-column
+            label="操作"
+            align="center"
+            class-name="small-padding fixed-width"
+        >
+          <template #default="scope">
+            <el-button text type="primary"
+                       v-auth="'system:dept:edit'"
+                       @click="onOpenEditModule(scope.row)"
+            >
+              <SvgIcon name="elementEdit"/>
+              修改
+            </el-button>
+            <el-button text type="primary"
+                       v-auth="'system:dept:add'"
+                       @click="onOpenAddModule(scope.row)"
+            >
+              <SvgIcon name="elementPlus"/>
+              新增
+            </el-button
+            >
+            <el-button
+                v-if="scope.row.parentId != 0"
+                text type="primary"
+                v-auth="'system:dept:delete'"
+                @click="onTabelRowDel(scope.row)"
+            >
+              <SvgIcon name="elementDelete"/>
+              删除
+            </el-button
+            >
+          </template>
+        </el-table-column>
+      </el-table>
     </el-card>
     <!-- 添加或修改部门对话框 -->
-    <EditModule ref="editModuleRef" :title="state.title" />
+    <EditModule ref="editModuleRef" :title="state.title"/>
   </div>
 </template>
 
 <script setup lang="ts">
 import {ref, reactive, onMounted, getCurrentInstance, onUnmounted,} from "vue";
-import { ElMessageBox, ElMessage } from "element-plus";
-import { listDept, delDept } from "/@/api/system/dept";
+import {ElMessageBox, ElMessage} from "element-plus";
+import {listDept, delDept} from "/@/api/system/dept";
 import EditModule from "./component/editModule.vue";
-const { proxy } = getCurrentInstance() as any;
+
+const {proxy} = getCurrentInstance() as any;
 const editModuleRef = ref();
 const state = reactive({
   // 遮罩层

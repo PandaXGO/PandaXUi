@@ -56,28 +56,28 @@
                 </el-button>
             </el-form-item>
         </el-form>
-
-        <!-- 操作按钮 -->
-        <el-row :gutter="10" class="mb8">
-            <el-col :span="1.5">
-                <el-button
-                        type="primary"
-                        plain
-                        @click="onOpenAddModule"
-                        v-auth="'tool:job:add'"
-                ><SvgIcon name="elementPlus" />新增</el-button>
-            </el-col>
-            <el-col :span="1.5">
-                <el-button
-                        type="danger"
-                        plain
-                        :disabled="multiple"
-                        @click="onTabelRowDel"
-                        v-auth="'tool:job:delete'"
-                ><SvgIcon name="elementDelete" />删除</el-button>
-            </el-col>
-        </el-row>
-
+        </el-card>
+      <el-card class="box-card">
+        <template #header>
+          <div class="card-header">
+            <span class="card-header-text">定时任务列表</span>
+            <div>
+              <el-button
+                  type="primary"
+                  plain
+                  @click="onOpenAddModule"
+                  v-auth="'tool:job:add'"
+              ><SvgIcon name="elementPlus" />新增</el-button>
+              <el-button
+                  type="danger"
+                  plain
+                  :disabled="multiple"
+                  @click="onTabelRowDel"
+                  v-auth="'tool:job:delete'"
+              ><SvgIcon name="elementDelete" />删除</el-button>
+            </div>
+          </div>
+        </template>
         <!--数据表格-->
         <el-table
                 v-loading="loading"

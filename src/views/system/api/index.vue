@@ -1,137 +1,154 @@
 <template>
   <div class="app-container">
     <el-card shadow="always">
-    <!-- 查询 -->
-    <el-form
-      :model="queryParams"
-      ref="queryForm"
-      :inline="true"
-    >
-      <el-form-item label="路径" prop="path">
-         <el-input
-          placeholder="Api路径模糊查询"
-          clearable
-          @keyup.enter="handleQuery"
-          style="width: 240px"
-          v-model="queryParams.path"
-        />
-      </el-form-item>
-      <el-form-item label="描述" prop="description">
-         <el-input
-          placeholder="描述模糊查询"
-          clearable
-          @keyup.enter="handleQuery"
-          style="width: 240px"
-          v-model="queryParams.description"
-        />
-      </el-form-item>
-      <el-form-item label="分组" prop="apiGroup">
-        <el-input
-                placeholder="分组查询"
-                clearable
-                @keyup.enter="handleQuery"
-                style="width: 240px"
-                v-model="queryParams.apiGroup"
-        />
-      </el-form-item>
-      <el-form-item label="方法" prop="method">
-        <el-select
-          v-model="queryParams.method"
-          placeholder="方法"
-          clearable
-          style="width: 240px"
-        >
-          <el-option
-            v-for="dict in methodOptions"
-            :key="dict.dictValue"
-            :label="dict.dictLabel"
-            :value="dict.dictValue"
-          />
-        </el-select>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" plain @click="handleQuery"><SvgIcon name="elementSearch" />搜索</el-button>
-        <el-button @click="resetQuery"><SvgIcon name="elementRefresh" />重置</el-button>
-      </el-form-item>
-    </el-form>
-
-    <!-- 操作按钮 -->
-    <el-row :gutter="10" class="mb8">
-      <el-col :span="1.5">
-        <el-button
-          type="primary"
-          plain
-          v-auth="'system:api:add'"
-          @click="onOpenAddModule"
-          ><SvgIcon name="elementPlus" />新增</el-button
-        >
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="danger"
-          plain
-          :disabled="multiple"
-          v-auth="'system:api:delete'"
-          @click="onTabelRowDel"
-          ><SvgIcon name="elementDelete" />删除</el-button
-        >
-      </el-col>
-    </el-row>
-
-    <!--数据表格-->
-    <el-table
-      v-loading="loading"
-      :data="tableData"
-      @selection-change="handleSelectionChange"
-    >
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="id" align="center" prop="id" />
-      <el-table-column label="路径" align="center" prop="path" :show-overflow-tooltip="true"/>
-      <el-table-column label="分组" align="center" prop="apiGroup" />
-      <el-table-column label="简介" align="center" prop="description"/>
-      <el-table-column label="请求" align="center" prop="method" :show-overflow-tooltip="true">
-        <template #default="scope">
-          <el-tag type="success">
-            {{scope.row.method}}
-          </el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="操作"
-        align="center"
-        width="200"
-        class-name="medium-padding fixed-width"
+      <!-- 查询 -->
+      <el-form
+          :model="queryParams"
+          ref="queryForm"
+          :inline="true"
       >
-        <template #default="scope">
-          <el-button text type="primary"
-            v-auth="'system:api:edit'"
-            @click="onOpenEditModule(scope.row)"
-            ><SvgIcon name="elementEdit" />修改</el-button>
-          <el-button
-            v-if="scope.row.parentId != 0"
-            text type="primary"
-            v-auth="'system:api:delete'"
-            @click="onTabelRowDel(scope.row)"
-            ><SvgIcon name="elementDelete" />删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-    <!-- 分页设置-->
-    <div v-show="total > 0">
-      <el-divider></el-divider>
-      <el-pagination
-              background
-              :total="total"
-              :current-page="queryParams.pageNum"
-              :page-size="queryParams.pageSize"
-              layout="total, sizes, prev, pager, next, jumper"
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
-      />
-    </div>
+        <el-form-item label="路径" prop="path">
+          <el-input
+              placeholder="Api路径模糊查询"
+              clearable
+              @keyup.enter="handleQuery"
+              style="width: 240px"
+              v-model="queryParams.path"
+          />
+        </el-form-item>
+        <el-form-item label="描述" prop="description">
+          <el-input
+              placeholder="描述模糊查询"
+              clearable
+              @keyup.enter="handleQuery"
+              style="width: 240px"
+              v-model="queryParams.description"
+          />
+        </el-form-item>
+        <el-form-item label="分组" prop="apiGroup">
+          <el-input
+              placeholder="分组查询"
+              clearable
+              @keyup.enter="handleQuery"
+              style="width: 240px"
+              v-model="queryParams.apiGroup"
+          />
+        </el-form-item>
+        <el-form-item label="方法" prop="method">
+          <el-select
+              v-model="queryParams.method"
+              placeholder="方法"
+              clearable
+              style="width: 240px"
+          >
+            <el-option
+                v-for="dict in methodOptions"
+                :key="dict.dictValue"
+                :label="dict.dictLabel"
+                :value="dict.dictValue"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" plain @click="handleQuery">
+            <SvgIcon name="elementSearch"/>
+            搜索
+          </el-button>
+          <el-button @click="resetQuery">
+            <SvgIcon name="elementRefresh"/>
+            重置
+          </el-button>
+        </el-form-item>
+      </el-form>
+    </el-card>
+
+    <el-card class="box-card">
+      <template #header>
+        <div class="card-header">
+          <span class="card-header-text">API列表</span>
+          <div>
+            <el-button
+                type="primary"
+                plain
+                v-auth="'system:api:add'"
+                @click="onOpenAddModule"
+            >
+              <SvgIcon name="elementPlus"/>
+              新增
+            </el-button>
+            <el-button
+                type="danger"
+                plain
+                :disabled="multiple"
+                v-auth="'system:api:delete'"
+                @click="onTabelRowDel"
+            >
+              <SvgIcon name="elementDelete"/>
+              删除
+            </el-button>
+          </div>
+        </div>
+      </template>
+      <!--数据表格-->
+      <el-table
+          v-loading="loading"
+          :data="tableData"
+          @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" width="55" align="center"/>
+        <el-table-column label="id" align="center" prop="id"/>
+        <el-table-column label="路径" align="center" prop="path" :show-overflow-tooltip="true"/>
+        <el-table-column label="分组" align="center" prop="apiGroup"/>
+        <el-table-column label="简介" align="center" prop="description"/>
+        <el-table-column label="请求" align="center" prop="method" :show-overflow-tooltip="true">
+          <template #default="scope">
+            <el-tag type="success">
+              {{ scope.row.method }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column
+            label="操作"
+            align="center"
+            width="200"
+            class-name="medium-padding fixed-width"
+        >
+          <template #default="scope">
+            <el-button text type="primary"
+                       v-auth="'system:api:edit'"
+                       @click="onOpenEditModule(scope.row)"
+            >
+              <SvgIcon name="elementEdit"/>
+              修改
+            </el-button>
+            <el-button
+                v-if="scope.row.parentId != 0"
+                text type="primary"
+                v-auth="'system:api:delete'"
+                @click="onTabelRowDel(scope.row)"
+            >
+              <SvgIcon name="elementDelete"/>
+              删除
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <!-- 分页设置-->
+      <div v-show="total > 0">
+        <el-divider></el-divider>
+        <el-pagination
+            background
+            :total="total"
+            :current-page="queryParams.pageNum"
+            :page-size="queryParams.pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+        />
+      </div>
     </el-card>
     <!-- 添加或修改配置参数对话框 -->
-    <EditModule ref="editModuleRef" :title="title" />
+    <EditModule ref="editModuleRef" :title="title"/>
   </div>
 </template>
 
@@ -144,15 +161,15 @@ import {
   getCurrentInstance,
   onUnmounted,
 } from "vue";
-import { ElMessageBox, ElMessage } from "element-plus";
-import { listApi, delApi } from "/@/api/system/api";
+import {ElMessageBox, ElMessage} from "element-plus";
+import {listApi, delApi} from "/@/api/system/api";
 import EditModule from "./component/editModule.vue";
 
 export default {
   name: "index",
-  components: { EditModule },
+  components: {EditModule},
   setup() {
-    const { proxy } = getCurrentInstance() as any;
+    const {proxy} = getCurrentInstance() as any;
     const editModuleRef = ref();
     const state = reactive({
       // 遮罩层
@@ -187,11 +204,11 @@ export default {
     const handleQuery = () => {
       state.loading = true;
       listApi(state.queryParams).then(
-        (response) => {
-          state.tableData = response.data.data;
-          state.total = response.data.total;
-          state.loading = false;
-        }
+          (response) => {
+            state.tableData = response.data.data;
+            state.total = response.data.total;
+            state.loading = false;
+          }
       );
     };
     /** 重置按钮操作 */
@@ -248,7 +265,7 @@ export default {
       state.queryParams.pageNum = val;
       handleQuery();
     };
-   
+
 
     // 页面加载时
     onMounted(() => {

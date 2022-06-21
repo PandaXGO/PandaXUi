@@ -108,6 +108,7 @@ import { Local } from "/@/utils/storage";
 import { captcha, signIn } from "/@/api/login/index";
 import { formatAxis } from "/@/utils/formatTime";
 import { letterAvatar } from "/@/utils/string";
+import { NextLoading } from '/@/utils/loading';
 // 旋转图片滑块组件
 import DragVerifyImgRotate from "/@/components/dragVerify/dragVerifyImgRotate.vue";
 
@@ -238,7 +239,7 @@ const signInSuccess = () => {
   } else {
     router.push("/");
   }
-  // 登录成功提示
+  //登录成功提示
   setTimeout(() => {
     // 关闭 loading
     state.loading.signIn = true;

@@ -83,7 +83,7 @@ export function deepClone(obj: any) {
         newObj = {};
     }
     for (let attr in obj) {
-        if (typeof obj[attr] === 'object') {
+        if (obj[attr] && typeof obj[attr] === 'object') {
             newObj[attr] = deepClone(obj[attr]);
         } else {
             newObj[attr] = obj[attr];
@@ -126,9 +126,11 @@ const other = {
     lazyImg: (el: any, arr: any) => {
         lazyImg(el, arr);
     },
-    globalComponentSize,
+    globalComponentSize: () =>{
+        return globalComponentSize();
+    },
     deepClone: (obj: any) => {
-        deepClone(obj);
+        return deepClone(obj);
     },
     isMobile: () => {
         return isMobile();

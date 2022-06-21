@@ -18,6 +18,7 @@ import {
   reactive,
   getCurrentInstance,
   onBeforeMount,
+  onMounted,
   onUnmounted,
   nextTick,
   watch,

@@ -102,7 +102,7 @@
 
 <script lang="ts">
 import { ref, getCurrentInstance, computed, reactive, toRefs, onMounted } from "vue";
-import { useRouter } from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import { ElMessageBox, ElMessage } from "element-plus";
 import screenfull from "screenfull";
 import { useI18n } from "vue-i18n";
@@ -119,6 +119,7 @@ export default {
   setup() {
     const { t } = useI18n();
     const { proxy } = getCurrentInstance() as any;
+    const route = useRoute();
     const router = useRouter();
     const theme = useThemeConfigStateStore();
      
@@ -174,6 +175,7 @@ export default {
           showCancelButton: true,
           confirmButtonText: t("message.user.logOutConfirm"),
           cancelButtonText: t("message.user.logOutCancel"),
+          buttonSize: 'default',
           beforeClose: (action:string, instance:any, done:any) => {
             if (action === "confirm") {
               instance.confirmButtonLoading = true;
@@ -189,17 +191,17 @@ export default {
             }
           },
         })
-          .then(() => {
+          .then(async () => {
             Session.clear(); // 清除缓存/token等
-            resetRoute(); // 删除/重置路由
-            router.push("/login");
+            await resetRoute(); // 删除/重置路由
+            ElMessage.success(t("message.user.logOutSuccess"));
             setTimeout(() => {
-              ElMessage.success(t("message.user.logOutSuccess"));
-            }, 300);
+              window.location.href = `#/login?redirect=${route.path}&params=${JSON.stringify(route.query ? route.query : route.params)}`; // 去登录页
+            }, 500);
           })
           .catch(() => {});
       } else if (path === "wareHouse") {
-        window.open("https://gitee.com/PandaAdmin/PandaX");
+        window.open("https://gitee.com/XM-GO/PandaX");
       } else {
         router.push(path);
       }
@@ -238,10 +240,6 @@ export default {
         case "en":
           state.disabledI18n = "en";
           setI18nConfig("en");
-          break;
-        case "zh-tw":
-          state.disabledI18n = "zh-tw";
-          setI18nConfig("zh-tw");
           break;
       }
     };

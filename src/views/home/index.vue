@@ -388,7 +388,7 @@ watch(
     width: 100%;
     height: 103px;
     background: var(--el-text-color-secondary);
-    border-radius: 4px;
+    border-radius: 15px;
     transition: all ease 0.3s;
     &:hover {
       box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);

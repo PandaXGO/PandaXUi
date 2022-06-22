@@ -812,15 +812,6 @@
 	color: set-color(primary);
 }
 
-.el-menu-item.is-active {
-	border-bottom-left-radius: 50px;
-	border-top-left-radius: 50px;
-	color: var(--el-color-primary);
-	background-color: var(--el-color-white) !important;
-	margin-left: 5px;
-	border: 0px;
-}
-
 .el-active-extend {
 	color: var(--color-whites) !important;
 	background-color: set-color(primary) !important;

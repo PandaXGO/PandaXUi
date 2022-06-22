@@ -1,5 +1,15 @@
 <template>
   <div class="layout-navbars-breadcrumb-user" :style="{ flex: layoutUserFlexNum }">
+    <div>
+      <el-select  v-model='roleId' placeholder='切换角色' @change="portalChange" style='margin-right: 10px;width: 140px'>
+        <el-option
+            v-for='item in roles'
+            :key='item.id'
+            :label='item.name'
+            :value='item.id'
+        />
+      </el-select>
+    </div>
     <el-dropdown
       :show-timeout="70"
       :hide-timeout="50"
@@ -130,6 +140,17 @@ export default {
       isShowUserNewsPopover: false,
       disabledI18n: "zh-cn",
       disabledSize: "",
+      roleId: 1,
+      roles: [
+        {
+          id: 1,
+          name: '超级管理员',
+        },
+        {
+          id: 2,
+          name: '管理员',
+        },
+      ]
     });
     // 获取用户信息 vuex
     const getUserInfos = computed(() => {
@@ -260,6 +281,9 @@ export default {
           break;
       }
     };
+    const portalChange = async (porid:any)=>{
+
+    }
     // 页面加载时
     onMounted(() => {
       if (Local.get("themeConfig")) {
@@ -274,6 +298,7 @@ export default {
       onSearchClick,
       onLockClick,
       onLanguageChange,
+      portalChange,
       searchRef,
       layoutUserFlexNum,
       ...toRefs(state),

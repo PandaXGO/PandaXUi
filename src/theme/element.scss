@@ -820,29 +820,6 @@
 	margin-left: 5px;
 	border: 0px;
 }
-.el-menu-item.is-active::before {
-	width: 20px;
-	height: 12px;
-	background-image: url("./images/round.png");
-	background-repeat:no-repeat;
-	background-size: 100% 100%;
-	content: "";
-	position: absolute;
-	right: 0px;
-	top: -12px;
-}
-
-.el-menu-item.is-active::after {
-	width: 20px;
-	height: 12px;
-	background-image: url("./images/round-1.png");
-	background-repeat:no-repeat;
-	background-size: 100% 100%;
-	content: "";
-	position: absolute;
-	right: 0px;
-	top: 50px;
-}
 
 .el-active-extend {
 	color: var(--color-whites) !important;

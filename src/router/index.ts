@@ -198,36 +198,6 @@ export function formatTwoStageRoutes(arr: any) {
 	return newArr;
 }
 
-/**
- * 判断路由 `meta.auth` 中是否包含当前登录用户权限字段
- * @param auths 用户权限标识，在 userInfos（用户信息）的 authPageList（登录页登录时缓存到浏览器）数组
- * @param route 当前循环时的路由项
- * @returns 返回对比后有权限的路由项
- */
-export function hasAuth(auths: any, route: any) {
-	if (route.meta && route.meta.auth) return auths.some((auth: any) => route.meta.auth.includes(auth));
-	else return true;
-}
-
-/**
- * 获取当前用户权限标识去比对路由表，设置递归过滤有权限的路由
- * @param routes 当前路由 children
- * @param auth 用户权限标识，在 userInfos（用户信息）的 authPageList（登录页登录时缓存到浏览器）数组
- * @returns 返回有权限的路由数组 `meta.auth` 中控制
- */
-export function setFilterHasAuthMenu(routes: any, auth: any) {
-	const menu: any = [];
-	routes.forEach((route: any) => {
-		const item = { ...route };
-		if (hasAuth(auth, item)) {
-			if (item.children) item.children = setFilterHasAuthMenu(item.children, auth);
-			menu.push(item);
-		}
-	});
-	return menu;
-}
-
-
 // 路由加载前
 router.beforeEach(async (to, from, next) => {
 	NProgress.configure({ showSpinner: false });

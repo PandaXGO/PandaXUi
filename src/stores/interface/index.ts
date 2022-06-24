@@ -64,7 +64,8 @@ declare module 'storeInterface' {
 
     // 路由缓存列表
     export interface KeepAliveNamesState {
-        keepAliveNames: Array<string>;
+        keepAliveNames: string[];
+        cachedViews: string[];
     }
 
     // TagsView 路由列表
@@ -75,7 +76,7 @@ declare module 'storeInterface' {
 
     // 用户信息
     export interface UserInfosState {
-        userInfos: object;
+        userInfos: any;
     }
 
     // 后端返回原始路由(未处理时)

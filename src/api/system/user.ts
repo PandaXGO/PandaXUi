@@ -2,7 +2,16 @@ import request from '/@/utils/request';
 
 
 // 查询用户列表
-export function listUser(query: Array<object>) {
+export function authUser(query: any) {
+	return request({
+		url: '/system/user/auth',
+		method: 'get',
+		params: query
+	})
+}
+
+// 查询用户列表
+export function listUser(query: any) {
 	return request({
 		url: '/system/user/list',
 		method: 'get',

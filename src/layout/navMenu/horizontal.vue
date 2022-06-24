@@ -88,13 +88,12 @@ export default defineComponent({
         proxy.$refs.elMenuHorizontalScrollRef.$refs.wrap.scrollLeft + eventDelta / 4;
     };
     // 初始化数据，页面刷新时，滚动条滚动到对应位置
+    // 初始化数据，页面刷新时，滚动条滚动到对应位置
     const initElMenuOffsetLeft = () => {
       nextTick(() => {
-        let els: any = document.querySelector(
-          ".el-menu.el-menu--horizontal li.is-active"
-        );
+        let els: any = document.querySelector('.el-menu.el-menu--horizontal li.is-active');
         if (!els) return false;
-        proxy.$refs.elMenuHorizontalScrollRef.$refs.wrap.scrollLeft = els.offsetLeft;
+        proxy.$refs.elMenuHorizontalScrollRef.$refs.wrap$.scrollLeft = els.offsetLeft;
       });
     };
     // 路由过滤递归函数

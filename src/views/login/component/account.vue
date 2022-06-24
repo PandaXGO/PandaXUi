@@ -104,7 +104,7 @@ import { useI18n } from "vue-i18n";
 import { initBackEndControlRoutes } from "/@/router/index";
 import { useUserInfosState } from "/@/stores/userInfos";
 import { Session } from "/@/utils/storage";
-import { Local } from "/@/utils/storage";
+import Cookies from 'js-cookie';
 import { captcha, signIn } from "/@/api/login/index";
 import { formatAxis } from "/@/utils/formatTime";
 import { letterAvatar } from "/@/utils/string";
@@ -181,30 +181,7 @@ const onSignIn = async () => {
   }
   let loginRes = loginRespon.data;
   Session.set("token", loginRes.token);
-  Local.set("token", loginRes.token);
-  Session.set("menus", loginRes.menus);
-  let perms = loginRes.permissions;
-  perms.push("base");
-  // 用户信息
-  const userInfos = {
-    username: loginRes.user.username,
-    userId: loginRes.user.userId,
-    roleId: loginRes.user.roleId,
-    deptId: loginRes.user.deptId,
-    postId: loginRes.user.postId,
-    token: loginRes.token,
-    // 头像
-    photo: loginRes.user.avatar || letterAvatar(loginRes.user.username),
-    time: new Date().getTime(),
-    authBtnList: perms,
-    authPageList: perms,
-    lastLoginTime: new Date().getTime(),
-    lastLoginIp: "127.0.0.1",
-  };
-  // 存储用户信息到浏览器缓存
-  Session.set("userInfo", userInfos);
-  // 1、请注意执行顺序(存储用户信息到vuex)
-  await userInfos2.setUserInfos(userInfos);
+  Cookies.set('userName', state.loginForm.username);
 
   // 模拟后端控制路由，isRequestRoutes 为 true，则开启后端控制路由
   // 添加完动态路由，再进行 router 跳转，否则可能报错 No match found for location with path "/"

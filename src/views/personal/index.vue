@@ -271,7 +271,6 @@ import { newsInfoList, recommendList } from "./mock";
 import { updateUserPwd, getRoPo, updateUser } from "/@/api/system/user";
 import { ElMessage } from "element-plus";
 import { Session } from "/@/utils/storage";
-import { resetRoute } from "/@/router";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 const router = useRouter();
@@ -338,7 +337,6 @@ const updateRole = async () => {
     state.dialogVisibleRole = false;
 
     Session.clear(); // 清除缓存/token等
-    resetRoute(); // 删除/重置路由
     router.push("/login");
     setTimeout(() => {
       ElMessage.success(t("message.user.logOutSuccess"));

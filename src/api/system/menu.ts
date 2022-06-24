@@ -1,9 +1,10 @@
 import request from '/@/utils/request';
 
-export function getRoutes() {
+export function getRoutes(query: any) {
 	return request({
-		url: '/api/v1/menuRole',
-		method: 'get'
+		url: '/api/menu/menuRole',
+		method: 'get',
+		params: query
 	})
 }
 

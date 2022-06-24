@@ -41,6 +41,8 @@ import { toRefs, reactive, computed, getCurrentInstance, onMounted } from "vue";
 import { onBeforeRouteUpdate, useRoute, useRouter } from "vue-router";
 import { useThemeConfigStateStore } from "/@/stores/themeConfig";
 import { useRoutesListStore } from "/@/stores/routesList";
+import { storeToRefs } from 'pinia';
+
 export default {
   name: "layoutBreadcrumb",
   setup() {
@@ -48,7 +50,8 @@ export default {
      
     const route = useRoute();
     const theme = useThemeConfigStateStore();
-    const routesList = useRoutesListStore();
+    const stores = useRoutesListStore();
+    const { routesList } = storeToRefs(stores);
     const router = useRouter();
     const state: any = reactive({
       breadcrumbList: [],
@@ -97,12 +100,13 @@ export default {
     // 当前路由字符串切割成数组，并删除第一项空内容
     const initRouteSplit = (path: string) => {
       if (!theme.themeConfig.isBreadcrumb) return false;
-      state.breadcrumbList = [routesList.routesList[0]];
+
+      state.breadcrumbList = [routesList.value[0]];
       state.routeSplit = path.split("/");
       state.routeSplit.shift();
       state.routeSplitFirst = `/${state.routeSplit[0]}`;
       state.routeSplitIndex = 1;
-      getBreadcrumbList(routesList.routesList);
+      getBreadcrumbList(routesList.value);
     };
     // 页面加载时
     onMounted(() => {

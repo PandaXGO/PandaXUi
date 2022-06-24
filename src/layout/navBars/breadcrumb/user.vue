@@ -78,7 +78,7 @@
           :src="getUserInfos.photo"
           class="layout-navbars-breadcrumb-user-link-photo mr5"
         />
-        {{ getUserInfos.userName === "" ? "test" : getUserInfos.userName }}
+        {{ getUserInfos.username === "" ? "test" : getUserInfos.username }}
         <el-icon class="el-icon--right">
           <elementArrowDown />
         </el-icon>
@@ -116,13 +116,13 @@ import {useRoute, useRouter} from "vue-router";
 import { ElMessageBox, ElMessage } from "element-plus";
 import screenfull from "screenfull";
 import { useI18n } from "vue-i18n";
-import { resetRoute } from "/@/router/index";
 import { useThemeConfigStateStore } from "/@/stores/themeConfig";
 import { useUserInfosState } from "/@/stores/userInfos";
 import other from "/@/utils/other";
 import { Session, Local } from "/@/utils/storage";
 import UserNews from "/@/layout/navBars/breadcrumb/userNews.vue";
 import Search from "/@/layout/navBars/breadcrumb/search.vue";
+import {storeToRefs} from "pinia";
 export default {
   name: "layoutBreadcrumbUser",
   components: { UserNews, Search },
@@ -214,11 +214,7 @@ export default {
         })
           .then(async () => {
             Session.clear(); // 清除缓存/token等
-            await resetRoute(); // 删除/重置路由
-            ElMessage.success(t("message.user.logOutSuccess"));
-            setTimeout(() => {
-              window.location.href = `#/login?redirect=${route.path}&params=${JSON.stringify(route.query ? route.query : route.params)}`; // 去登录页
-            }, 500);
+            window.location.reload();
           })
           .catch(() => {});
       } else if (path === "wareHouse") {

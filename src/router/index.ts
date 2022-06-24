@@ -1,9 +1,3 @@
-// import { createApp } from 'vue';
-// import App from '../App.vue';
-// const app = createApp(App); 
-// import { createPinia } from 'pinia'
-// const pinia = createPinia();
-// app.use(pinia);
 
 import { useKeepAliveNamesStore } from '/@/stores/keepAliveNames'
 import { useRoutesListStore } from "/@/stores/routesList";
@@ -12,10 +6,12 @@ import { useUserInfosState } from "/@/stores/userInfos";
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-import {Local, Session} from '/@/utils/storage';
+import {Session} from '/@/utils/storage';
 import { NextLoading } from '/@/utils/loading';
 import { staticRoutes, staticPageRoutes } from '/@/router/route';
 import { getRoutes } from '/@/api/system/menu';
+import pinia from "/@/stores";
+import {storeToRefs} from "pinia";
 
 const Layout = () => import('/@/layout/index.vue')
 const viewsModules: any = import.meta.glob('../views/**/*.{vue,tsx}');
@@ -38,21 +34,21 @@ const router = createRouter({
 	routes: staticRoutes,
 });
 // 后端控制路由：模拟执行路由数据初始化
-export function initBackEndControlRoutes() {
+export async function initBackEndControlRoutes() {
     const routesList = useRoutesListStore();
     const tagsViewRoutes = useTagsViewRoutesStore();
     const userInfos = useUserInfosState();
 
-	NextLoading.start(); // 界面 loading 动画开始执行
+	if (window.nextLoading === undefined) NextLoading.start();
 	const token = Session.get('token'); // 获取浏览器缓存 token 值
 	if (!token) {
 		// 无 token 停止执行下一步
 		return false
 	}
-	userInfos.setUserInfos(); // 触发初始化用户信息
 	let menuRoute = Session.get('menus')
 	if (!menuRoute) {
-		menuRoute = getBackEndControlRoutes(); // 获取路由
+		await userInfos.setUserInfos(); // 触发初始化用户信息
+		menuRoute = Session.get('menus')
 	}
 	let drs = [
 		{
@@ -81,11 +77,11 @@ export function initBackEndControlRoutes() {
 			],
 		},
 	]
+
 	drs[0].children = drs[0].children?.concat(backEndRouterConverter(menuRoute))
 	// @ts-ignore
 	drs[0].children?.push( staticPageRoutes[0] );
 
-	// console.log(drs[0])
 	// 添加404界面
 	router.addRoute(pathMatch);
 	// 添加动态路由
@@ -93,21 +89,10 @@ export function initBackEndControlRoutes() {
 		router.addRoute((route as unknown) as RouteRecordRaw);
 	});
 	routesList.setRoutesList(drs[0].children);
-
-	// @ts-ignore
-	let authsRoutes = setFilterHasAuthMenu(drs, userInfos.userInfos.authPageList);
 	// 添加到 pinia setTagsViewRoutes 中
-	tagsViewRoutes.setTagsViewRoutes(formatTwoStageRoutes(formatFlatteningRoutes(authsRoutes))[0].children);
+	tagsViewRoutes.setTagsViewRoutes(formatTwoStageRoutes(formatFlatteningRoutes(drs))[0].children);
 }
 
-/**
- * 请求后端路由菜单接口
- * @description isRequestRoutes 为 true，则开启后端控制路由
- * @returns 返回后端路由菜单数据
- */
-export function getBackEndControlRoutes() {
-	return getRoutes()
-}
 
 // 后端控制路由，后端返回路由 转换为vue route
 export function backEndRouterConverter(routes: any, parentPath: string = "/") {
@@ -154,22 +139,6 @@ export function dynamicImport(dynamicViewsModules: Record<string, Function>, com
 	if (matchKeys?.length > 1) {
 		return false;
 	}
-}
-
-
-// 递归过滤有权限的路由
-export function setFilterMenuFun(routes: any, menus: any) {
-	const menu: any = [];
-	routes.forEach((route: any) => {
-		const item = { ...route };
-		if (hasAuth(menus, item)) {
-			if (item.children) {
-				item.children = setFilterMenuFun(item.children, menus)
-			}
-			menu.push(item);
-		}
-	});
-	return menu;
 }
 
 /**
@@ -259,37 +228,8 @@ export function setFilterHasAuthMenu(routes: any, auth: any) {
 }
 
 
-/**
- * 获取有当前用户权限标识的路由数组，进行对原路由的替换
- * @description 替换 dynamicRoutes（/@/router/route）第一个顶级 children 的路由
- * @returns 返回替换后的路由数组
- */
-// export function setFilterRouteEnd() {
-// 	let filterRouteEnd: any = formatTwoStageRoutes(formatFlatteningRoutes(dynamicRoutes));
-// 	filterRouteEnd[0].children = [...filterRouteEnd[0].children, { ...pathMatch }];
-// 	return filterRouteEnd;
-// }
-
-
-/**
- * 删除/重置路由
- * @method router.removeRoute
- * @description 此处循环为 dynamicRoutes（/@/router/route）第一个顶级 children 的路由一维数组，非多级嵌套
- * @link 参考：https://next.router.vuejs.org/zh/api/#push
- */
-export function resetRoute() {
-    const routesList = useRoutesListStore();
-	routesList.routesList.forEach((route: any) => {
-		const { name } = route;
-		router.hasRoute(name) && router.removeRoute(name);
-	});
-
-
-}
-
 // 路由加载前
 router.beforeEach(async (to, from, next) => {
-    const routesList = useRoutesListStore();
 	NProgress.configure({ showSpinner: false });
 	if (to.meta.title) NProgress.start();
 	const token = Session.get('token');
@@ -300,12 +240,12 @@ router.beforeEach(async (to, from, next) => {
 		if (!token) {
 			next(`/login?redirect=${to.path}&params=${JSON.stringify(to.query ? to.query : to.params)}`);
 			Session.clear();
-			resetRoute();
 			NProgress.done();
 		} else if (token && to.path === '/login') {
 			next('/home');
 			NProgress.done();
 		} else {
+			const routesList = useRoutesListStore();
 			if (routesList.routesList.length === 0) {
 				// 后端控制路由：路由数据初始化，防止刷新时丢失
 				await initBackEndControlRoutes();
@@ -313,8 +253,11 @@ router.beforeEach(async (to, from, next) => {
 				// 确保 addRoute() 时动态添加的路由已经被完全加载上去
 				next({ ...to, replace: true });
 			} else {
+				const userInfos = useUserInfosState();
+				userInfos.setUserInfo()
 				next();
 			}
+			NProgress.done();
 		}
 	}
 });

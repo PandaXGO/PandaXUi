@@ -437,33 +437,18 @@ export default {
               ElMessage.success("修改成功");
               state.loading = false;
               closeDialog(); // 关闭弹窗
-              //resetSession(response)
             });
           } else {
             addMenu(state.ruleForm).then((response) => {
               ElMessage.success("新增成功");
               state.loading = false;
               closeDialog(); // 关闭弹窗
-              //resetSession(response)
             });
           }
         }
       });
     };
-    // 重置session
-    const resetSession = (res: any) => {
-      let permissions = res.data.permissions;
-      permissions.push("base");
-      let menus = res.data.menus;
-      Session.set("menus", menus);
-      let userInfos: any = Session.get("userInfo");
-      userInfos.authBtnList = permissions;
-      userInfos.authPageList = permissions;
-      userInfosState.setUserInfos(userInfos);
-      Session.set("userInfo", userInfos);
-      //window.location.reload()   //页面刷新有
-      //initBackEndControlRoutes();
-    };
+
     // 表单初始化，方法：`resetFields()` 无法使用
     const initForm = () => {
       state.ruleForm.menuId = 0; // 菜单ID

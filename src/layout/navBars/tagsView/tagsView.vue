@@ -25,8 +25,8 @@
           ></i>
           <SvgIcon
             :name="v.meta.icon"
-            class="layout-navbars-tagsview-ul-li-iconfont"
             v-if="!isActive(v) && getThemeConfig.isTagsviewIcon"
+            class="pr5"
           />
           <span>{{ $t(v.meta.title) }}</span>
           <template v-if="isActive(v)">
@@ -115,6 +115,7 @@ export default {
     });
     // 获取布局配置信息
     const getThemeConfig = computed(() => {
+      console.log("theme.themeConfig",theme.themeConfig)
       return theme.themeConfig;
     });
     // 设置 tagsView 高亮

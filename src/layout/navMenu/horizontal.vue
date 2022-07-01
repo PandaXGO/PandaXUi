@@ -121,7 +121,7 @@ export default defineComponent({
       return currentData;
     };
     // 设置页面当前路由高亮
-    const setCurrentRouterHighlight = (currentRoute) => {
+    const setCurrentRouterHighlight = (currentRoute:any) => {
       const { path, meta } = currentRoute;
       if (theme.themeConfig.layout === "classic") {
         state.defaultActive = `/${path.split("/")[1]}`;

@@ -4,7 +4,6 @@ import * as svg from '@element-plus/icons-vue';
 import router from '/@/router/index';
 import {useThemeConfigStateStore} from '/@/stores/themeConfig'
 import { i18n } from '/@/i18n/index';
-import { Local } from '/@/utils/storage';
 import SvgIcon from '/@/components/svgIcon/index.vue';
 
 /**
@@ -61,16 +60,6 @@ export const lazyImg = (el: any, arr: any) => {
 };
 
 /**
- * 全局组件大小
- * @returns 返回 `window.localStorage` 中读取的缓存值 `globalComponentSize`
- */
-export const globalComponentSize: any = () => {
-    const theme = useThemeConfigStateStore();
-    return Local.get('themeConfig')?.globalComponentSize || theme.themeConfig?.globalComponentSize;
-}
-
-
-/**
  * 对象深克隆
  * @param obj 源对象
  * @returns 克隆后的对象
@@ -125,9 +114,6 @@ const other = {
     },
     lazyImg: (el: any, arr: any) => {
         lazyImg(el, arr);
-    },
-    globalComponentSize: () =>{
-        return globalComponentSize();
     },
     deepClone: (obj: any) => {
         return deepClone(obj);

@@ -139,7 +139,6 @@ export default {
       isScreenfull: false,
       isShowUserNewsPopover: false,
       disabledI18n: "zh-cn",
-      disabledSize: "",
       roleId: 1,
       roles: [
         {
@@ -163,14 +162,14 @@ export default {
     // 设置分割样式
     const layoutUserFlexNum = computed(() => {
       let { layout, isClassicSplitMenu } = getThemeConfig.value;
-      let num = "";
+      let num = 0;
       if (
         layout === "defaults" ||
         (layout === "classic" && !isClassicSplitMenu) ||
         layout === "columns"
       )
         num = 1;
-      else num = null;
+      else num = 0;
       return num;
     });
     // 全屏点击时
@@ -260,31 +259,14 @@ export default {
           break;
       }
     };
-    // 初始化全局组件大小
-    const initComponentSize = () => {
-      switch (Local.get("themeConfig").globalComponentSize) {
-        case "":
-          state.disabledSize = "";
-          break;
-        case "medium":
-          state.disabledSize = "medium";
-          break;
-        case "small":
-          state.disabledSize = "small";
-          break;
-        case "mini":
-          state.disabledSize = "mini";
-          break;
-      }
-    };
     const portalChange = async (porid:any)=>{
-
+      console.log(porid)
     }
     // 页面加载时
     onMounted(() => {
       if (Local.get("themeConfig")) {
         initI18n();
-        initComponentSize();
+        //initComponentSize();
       }
     });
     return {

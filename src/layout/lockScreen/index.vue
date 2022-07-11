@@ -28,9 +28,9 @@
 				<div v-show="isShowLoockLogin" class="layout-lock-screen-login">
 					<div class="layout-lock-screen-login-box">
 						<div class="layout-lock-screen-login-box-img">
-							<img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1813762643,1914315241&fm=26&gp=0.jpg" />
+							<img :src="rotate" />
 						</div>
-						<div class="layout-lock-screen-login-box-name">Administrator</div>
+						<div class="layout-lock-screen-login-box-name">Panda Go</div>
 						<div class="layout-lock-screen-login-box-value">
 							<el-input
 								placeholder="请输入密码"
@@ -64,6 +64,7 @@ import { nextTick, onMounted, reactive, toRefs, ref, onUnmounted, getCurrentInst
 import {useThemeConfigStateStore} from '/@/stores/themeConfig'
 import { formatDate } from '/@/utils/formatTime';
 import { Local } from '/@/utils/storage';
+import rotate from '/@/assets/rotate.png'
 export default defineComponent({
 	name: 'layoutLockScreen',
 	setup() {
@@ -183,6 +184,7 @@ export default defineComponent({
 			window.clearInterval(state.isShowLockScreenIntervalTime);
 		});
 		return {
+			rotate,
 			layoutLockScreenInputRef,
 			onDown,
 			onMove,
@@ -212,9 +214,9 @@ export default defineComponent({
 }
 .layout-lock-screen-img {
 	@extend .layout-lock-screen-fixed;
-	background-image: url('/@/assets/03.jpg');
+	background-image: url('/@/assets/lock.jpg');
 	background-size: 100% 100%;
-	z-index: 9999991;
+	z-index: 999;
 }
 .layout-lock-screen {
 	@extend .layout-lock-screen-fixed;

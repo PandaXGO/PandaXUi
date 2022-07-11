@@ -1,10 +1,5 @@
 <template>
   <div class="layout-navbars-breadcrumb" :style="{ display: isShowBreadcrumb }">
-    <i
-      class="layout-navbars-breadcrumb-icon"
-      :class="getThemeConfig.isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"
-      @click="onThemeConfigChange"
-    ></i>
     <SvgIcon
       class="layout-navbars-breadcrumb-icon"
       :name="getThemeConfig.isCollapse ? 'elementExpand' : 'elementFold'"

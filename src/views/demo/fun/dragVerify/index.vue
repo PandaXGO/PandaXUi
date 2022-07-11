@@ -74,6 +74,7 @@
 
 <script lang="ts">
 import { toRefs, reactive } from 'vue';
+import rotate from '/@/assets/rotate.png'
 // 基本滑块验证组件
 import DragVerify from '/@/components/dragVerify/dragVerify.vue';
 // 图片滑块组件
@@ -97,7 +98,7 @@ export default {
 			isPassingThree: false,
 			isPassingFour: false,
 			imgTwo: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1813762643,1914315241&fm=26&gp=0.jpg',
-			imgThree: 'https://img1.baidu.com/it/u=2813520958,2218166536&fm=26&fmt=auto&gp=0.jpg',
+			imgThree: rotate,
 		});
 		return {
 			...toRefs(state),

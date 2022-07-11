@@ -107,6 +107,7 @@ import { Session } from "/@/utils/storage";
 import Cookies from 'js-cookie';
 import { captcha, signIn } from "/@/api/login/index";
 import { formatAxis } from "/@/utils/formatTime";
+import rotate from '/@/assets/rotate.png'
 import { letterAvatar } from "/@/utils/string";
 import { NextLoading } from '/@/utils/loading';
 // 旋转图片滑块组件
@@ -123,7 +124,7 @@ const router = useRouter();
 const state = reactive({
   dialogVerifyVisible: false,
   isPassingFour: false,
-  imgThree: "https://img1.baidu.com/it/u=2813520958,2218166536&fm=26&fmt=auto&gp=0.jpg",
+  imgThree: rotate,
   captchaImage: "",
   loginForm: {
     username: "admin",

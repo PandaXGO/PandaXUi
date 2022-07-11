@@ -27,7 +27,7 @@ other.elSvg(app);
 app
     .use(pinia)
 	.use(router)
-	.use(ElementPlus, { i18n: i18n.global.t, size: other.globalComponentSize })
+	.use(ElementPlus, { i18n: i18n.global.t, size: "default" })
 	.use(FormCreate)
 	.use(Codemirror)
 	.use(i18n)

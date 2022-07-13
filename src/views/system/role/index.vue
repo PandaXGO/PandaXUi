@@ -374,6 +374,7 @@ import {
 import {
   roleDeptTreeselect,
 } from "@/api/system/dept";
+import {handleFileError} from "@/utils/export";
 
 export default {
   name: "systemRole",
@@ -688,6 +689,9 @@ export default {
     /** 导出按钮操作 */
     const handleExport = () => {
       const queryParams = state.queryParams;
+      let data:any = new Date().getTime() / 1000
+      let time = parseInt(data) + '';
+      queryParams.filename = "角色表_" + time +".xlsx"
       ElMessageBox({
         message: "是否确认导出所有角色数据项?",
         title: "警告",
@@ -698,8 +702,8 @@ export default {
           .then(function () {
             return exportRole(queryParams);
           })
-          .then((response) => {
-            // download(response.msg);
+          .then((response: any) => {
+            handleFileError(response, queryParams.filename)
           });
     };
     /** 根据角色ID查询部门树结构 */

@@ -1,14 +1,17 @@
 <template>
-  <div class="layout-search-dialog">
-    <el-dialog v-model="isShowSearch" width="300px" destroy-on-close :modal="false" fullscreen :show-close="false">
+  <div class="layout-search-dialog" >
+    <el-dialog v-model="isShowSearch" width="300px"  destroy-on-close :modal="false" fullscreen :show-close="false">
       <el-autocomplete
           v-model="menuQuery"
           :fetch-suggestions="menuSearch"
           :placeholder="$t('message.user.searchPlaceholder')"
           ref="layoutMenuAutocompleteRef"
           @select="onHandleSelect"
-          @blur="onSearchBlur"
       >
+        <template #prepend>
+          <SvgIcon name="elementClose" @click="onSearchBlur" class="mr5" />
+          按下 ESC 关闭
+        </template>
         <template #prefix>
           <el-icon class="el-input__icon">
             <elementSearch />
@@ -26,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { reactive, toRefs, defineComponent, ref, nextTick } from 'vue';
+import { reactive, toRefs, defineComponent, ref, nextTick ,watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { storeToRefs } from 'pinia';
@@ -58,6 +61,7 @@ export default defineComponent({
       menuQuery: '',
       tagsViewList: [],
     });
+
     // 搜索弹窗打开
     const openSearch = () => {
       state.menuQuery = '';
@@ -71,6 +75,7 @@ export default defineComponent({
     };
     // 搜索弹窗关闭
     const closeSearch = () => {
+      console.log("关闭弹窗")
       state.isShowSearch = false;
     };
     // 菜单搜索数据过滤

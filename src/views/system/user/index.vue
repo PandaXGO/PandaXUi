@@ -230,6 +230,7 @@ import {getDicts} from "@/api/system/dict/data";
 import MDInput from "@/components/panda/MDInput.vue";
 import EditModule from "./component/editModule.vue";
 import {letterAvatar} from '@/utils/string';
+import {handleFileError} from "@/utils/export";
 
 export default {
   name: "systemUser",
@@ -403,6 +404,9 @@ export default {
     /** 导出按钮操作 */
     const handleExport = () => {
       const queryParams = state.queryParams;
+      let data:any = new Date().getTime() / 1000
+      let time = parseInt(data) + '';
+      queryParams.filename = "用户表_" + time +".xlsx"
       ElMessageBox({
         message: "是否确认导出所有用户数据项?",
         title: "警告",
@@ -414,7 +418,7 @@ export default {
             return exportUser(queryParams);
           })
           .then((response: any) => {
-            proxy.download(response.data);
+            handleFileError(response, queryParams.filename)
           });
     };
     // 字典状态字典翻译

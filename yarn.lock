@@ -1412,6 +1412,11 @@
   dependencies:
     "flat-cache" "^3.0.4"
 
+"file-saver@^2.0.5":
+  "integrity" "sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA=="
+  "resolved" "https://registry.npmjs.org/file-saver/-/file-saver-2.0.5.tgz"
+  "version" "2.0.5"
+
 "fill-range@^7.0.1":
   "integrity" "sha512-qOo9F+dMUmC2Lcb4BbVvnKJxTPjCm+RRpe4gDuGrzkL7mEVl/djYSu2OdQ2Pa302N4oqkSg9ir6jaLWJ2USVpQ=="
   "resolved" "https://registry.npmjs.org/fill-range/-/fill-range-7.0.1.tgz"
@@ -1916,6 +1921,11 @@
   dependencies:
     "safe-buffer" "^5.1.0"
 
+"raw-loader@~0.5.1":
+  "integrity" "sha512-sf7oGoLuaYAScB4VGr0tzetsYlS8EJH6qnTCfQ/WVEa89hALQ4RQfCKt5xCyPQKPDUbVUAIP1QsxAwfAjlDp7Q=="
+  "resolved" "https://registry.npmjs.org/raw-loader/-/raw-loader-0.5.1.tgz"
+  "version" "0.5.1"
+
 "readdirp@~3.6.0":
   "integrity" "sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA=="
   "resolved" "https://registry.npmjs.org/readdirp/-/readdirp-3.6.0.tgz"
@@ -2015,6 +2025,13 @@
   "integrity" "sha512-LGY0nhNQkC4FX4DT4pZdJ5cZH5EOz9Gfh9KcVMl779pS677k4IV1Wv7sY/CwC9VKFT21fYgCh7zkTVVefi5XKA=="
   "resolved" "https://registry.npmmirror.com/screenfull/download/screenfull-6.0.0.tgz"
   "version" "6.0.0"
+
+"script-loader@^0.7.2":
+  "integrity" "sha512-UMNLEvgOAQuzK8ji8qIscM3GIrRCWN6MmMXGD4SD5l6cSycgGsCo0tX5xRnfQcoghqct0tjHjcykgI1PyBE2aA=="
+  "resolved" "https://registry.npmjs.org/script-loader/-/script-loader-0.7.2.tgz"
+  "version" "0.7.2"
+  dependencies:
+    "raw-loader" "~0.5.1"
 
 "sdp@^2.12.0", "sdp@^2.6.0":
   "integrity" "sha512-jhXqQAQVM+8Xj5EjJGVweuEzgtGWb3tmEEpl3CLP3cStInSbVHSg0QWOGQzNq8pSID4JkpeV2mPqlMDLrm0/Vw=="

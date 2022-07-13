@@ -48,7 +48,7 @@ export function getUserInit() {
 	})
 }
 
-// 添加时查询用户ROLE POST
+// 添加时查询用户ROLE
 export function getRoPo() {
 	return request({
 		url: '/system/user/getRoPo',
@@ -96,7 +96,8 @@ export function exportUser(query: any) {
 	return request({
 		url: '/system/user/export',
 		method: 'get',
-		params: query
+		params: query,
+		responseType: 'blob'
 	})
 }
 

@@ -180,6 +180,7 @@ import {listType, delType} from "@/api/system/dict/type";
 import EditModule from "./component/editModule.vue";
 import DictList from "./component/dictList.vue";
 import {exportType} from "@/api/system/dict/type";
+import {handleFileError} from "@/utils/export";
 
 const {proxy} = getCurrentInstance() as any;
 const editModuleRef = ref();
@@ -296,7 +297,10 @@ const editDictItem = (record: any) => {
 
 /** 导出按钮操作 */
 const handleExport = () => {
-  const queryParams = state.queryParams;
+  const queryParams:any = state.queryParams;
+  let data:any = new Date().getTime() / 1000
+  let time = parseInt(data) + '';
+  queryParams.filename = "字典表_" + time +".xlsx"
   ElMessageBox({
     message: "是否确认导出所有类型数据项?",
     title: "警告",
@@ -306,7 +310,9 @@ const handleExport = () => {
   })
       .then(function () {
         return exportType(queryParams);
-      })
+      }).then(function (response: any) {
+    handleFileError(response, queryParams.filename)
+  })
 };
 // 页面加载时
 onMounted(() => {

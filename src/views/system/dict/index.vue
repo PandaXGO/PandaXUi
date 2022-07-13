@@ -176,10 +176,10 @@ import {
   onUnmounted,
 } from "vue";
 import {ElMessageBox, ElMessage} from "element-plus";
-import {listType, delType} from "/@/api/system/dict/type";
+import {listType, delType} from "@/api/system/dict/type";
 import EditModule from "./component/editModule.vue";
 import DictList from "./component/dictList.vue";
-import {exportType} from "/@/api/system/dict/type";
+import {exportType} from "@/api/system/dict/type";
 
 const {proxy} = getCurrentInstance() as any;
 const editModuleRef = ref();

@@ -26,8 +26,8 @@ import {
   computed,
 } from "vue";
 import { useRoute } from "vue-router";
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
-import { useTagsViewRoutesStore } from "/@/stores/tagsViewRoutes";
+import { useThemeConfigStateStore } from "@/stores/themeConfig";
+import { useTagsViewRoutesStore } from "@/stores/tagsViewRoutes";
 export default defineComponent({
   name: "layoutIfameView",
   setup() {

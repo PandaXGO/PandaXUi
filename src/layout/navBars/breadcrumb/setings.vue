@@ -658,13 +658,13 @@ import {
   reactive,
   toRefs,
 } from "vue";
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
-import { getLightColor } from "/@/utils/theme";
-import { verifyAndSpace } from "/@/utils/toolsValidate";
-import { Local } from "/@/utils/storage";
-import Watermark from "/@/utils/wartermark";
-import commonFunction from "/@/utils/commonFunction";
-import other from "/@/utils/other";
+import { useThemeConfigStateStore } from "@/stores/themeConfig";
+import { getLightColor } from "@/utils/theme";
+import { verifyAndSpace } from "@/utils/toolsValidate";
+import { Local } from "@/utils/storage";
+import Watermark from "@/utils/wartermark";
+import commonFunction from "@/utils/commonFunction";
+import other from "@/utils/other";
 export default defineComponent({
   name: "layoutBreadcrumbSeting",
   setup() {

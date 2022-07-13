@@ -7,12 +7,12 @@
 
 <script lang="ts">
 import { computed, onBeforeMount, onUnmounted, getCurrentInstance } from 'vue';
-import {useThemeConfigStateStore} from '/@/stores/themeConfig'
-import { Local } from '/@/utils/storage';
-import Defaults from '/@/layout/main/defaults.vue';
-import Classic from '/@/layout/main/classic.vue';
-import Transverse from '/@/layout/main/transverse.vue';
-import Columns from '/@/layout/main/columns.vue';
+import {useThemeConfigStateStore} from '@/stores/themeConfig'
+import { Local } from '@/utils/storage';
+import Defaults from '@/layout/main/defaults.vue';
+import Classic from '@/layout/main/classic.vue';
+import Transverse from '@/layout/main/transverse.vue';
+import Columns from '@/layout/main/columns.vue';
 export default {
 	name: 'layout',
 	components: { Defaults, Classic, Transverse, Columns },

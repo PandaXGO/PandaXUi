@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Session } from '/@/utils/storage';
+import { Session } from '@/utils/storage';
 
 const mimeMap = {
     xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',

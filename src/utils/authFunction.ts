@@ -1,6 +1,6 @@
  
-import { judementSameArr } from '/@/utils/arrayOperation';
-import { useUserInfosState } from "/@/stores/userInfos";
+import { judementSameArr } from '@/utils/arrayOperation';
+import { useUserInfosState } from "@/stores/userInfos";
 const userInfos = useUserInfosState();
 /**
  * 单个权限验证

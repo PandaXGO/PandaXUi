@@ -149,7 +149,7 @@ import {
   onUnmounted,
   onMounted,
 } from "vue";
-import { delData, listData } from "/@/api/system/dict/data";
+import { delData, listData } from "@/api/system/dict/data";
 import { ElMessageBox, ElMessage } from "element-plus";
 import editDictItem from "./editDictItem.vue";
 

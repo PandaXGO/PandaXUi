@@ -21,9 +21,9 @@
 <script lang="ts">
 import { toRefs, reactive, defineComponent, getCurrentInstance } from 'vue';
 import { ElMessage } from 'element-plus';
-import FormRulesOne from '/@/views/demo/pages/formRules/component/formRulesOne.vue';
-import FormRulesTwo from '/@/views/demo/pages/formRules/component/formRulesTwo.vue';
-import FormRulesThree from '/@/views/demo/pages/formRules/component/formRulesThree.vue';
+import FormRulesOne from '@/views/demo/pages/formRules/component/formRulesOne.vue';
+import FormRulesTwo from '@/views/demo/pages/formRules/component/formRulesTwo.vue';
+import FormRulesThree from '@/views/demo/pages/formRules/component/formRulesThree.vue';
 export default defineComponent({
 	name: 'pagesFormRules',
 	components: {

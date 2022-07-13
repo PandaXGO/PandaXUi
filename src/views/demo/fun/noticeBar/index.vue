@@ -49,7 +49,7 @@
 
 <script lang="ts">
 import { toRefs, reactive, defineComponent } from 'vue';
-import NoticeBar from '/@/components/noticeBar/index.vue';
+import NoticeBar from '@/components/noticeBar/index.vue';
 export default defineComponent({
 	name: 'funNoticeBar',
 	components: { NoticeBar },

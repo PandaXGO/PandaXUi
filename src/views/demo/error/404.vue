@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { useRouter } from 'vue-router';
-import img from '/@/assets/404.png'
+import img from '@/assets/404.png'
 export default {
 	name: '404',
 	setup() {

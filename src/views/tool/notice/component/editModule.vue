@@ -67,10 +67,10 @@
 
 <script lang="ts">
 import { reactive, toRefs, ref, unref, getCurrentInstance } from "vue";
-import { addNotice, updateNotice } from "/@/api/system/notice";
+import { addNotice, updateNotice } from "@/api/system/notice";
 import { ElMessage } from "element-plus";
-import {treeselect} from "/@/api/system/dept";
-import Editor from '/@/components/editor/index.vue';
+import {treeselect} from "@/api/system/dept";
+import Editor from '@/components/editor/index.vue';
 
 export default {
   name: "editMenu",

@@ -167,7 +167,7 @@ import {
   onUnmounted,
 } from "vue";
 import {ElMessageBox, ElMessage} from "element-plus";
-import {listPost, delPost} from "/@/api/system/post";
+import {listPost, delPost} from "@/api/system/post";
 import EditModule from "./component/editModule.vue";
 
 export default {

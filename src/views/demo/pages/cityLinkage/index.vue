@@ -43,7 +43,7 @@
 
 <script lang="ts">
 import { toRefs, reactive, onMounted, defineComponent } from 'vue';
-import threeLevelLinkageJson from '/@/mock/threeLevelLinkage.json';
+import threeLevelLinkageJson from '@/mock/threeLevelLinkage.json';
 export default defineComponent({
 	name: 'pagesCityLinkage',
 	setup() {

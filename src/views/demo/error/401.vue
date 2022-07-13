@@ -20,8 +20,8 @@
 
 <script lang="ts">
 import { useRouter } from 'vue-router';
-import { Session } from '/@/utils/storage';
-import img from '/@/assets/401.png'
+import { Session } from '@/utils/storage';
+import img from '@/assets/401.png'
 export default {
 	name: '401',
 	setup() {

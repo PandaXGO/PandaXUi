@@ -106,10 +106,10 @@
 
 <script lang="ts">
 import { reactive, toRefs, ref, unref, getCurrentInstance } from "vue";
-import { treeselect, updateDept, addDept } from "/@/api/system/dept";
+import { treeselect, updateDept, addDept } from "@/api/system/dept";
 import { ElMessage } from "element-plus";
 
-// import { setBackEndControlRefreshRoutes } from "/@/router/backEnd";
+// import { setBackEndControlRefreshRoutes } from "@/router/backEnd";
 export default {
   name: "editMenu",
   props: {

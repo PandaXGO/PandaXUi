@@ -139,7 +139,7 @@
 <script setup lang="ts">
 import {ref, reactive, onMounted, getCurrentInstance, onUnmounted,} from "vue";
 import {ElMessageBox, ElMessage} from "element-plus";
-import {listDept, delDept} from "/@/api/system/dept";
+import {listDept, delDept} from "@/api/system/dept";
 import EditModule from "./component/editModule.vue";
 
 const {proxy} = getCurrentInstance() as any;

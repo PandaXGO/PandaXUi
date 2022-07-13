@@ -20,11 +20,11 @@
 
 <script lang="ts">
 import { computed } from "vue";
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
-import Aside from "/@/layout/component/aside.vue";
-import Header from "/@/layout/component/header.vue";
-import Main from "/@/layout/component/main.vue";
-import ColumnsAside from "/@/layout/component/columnsAside.vue";
+import { useThemeConfigStateStore } from "@/stores/themeConfig";
+import Aside from "@/layout/component/aside.vue";
+import Header from "@/layout/component/header.vue";
+import Main from "@/layout/component/main.vue";
+import ColumnsAside from "@/layout/component/columnsAside.vue";
 export default {
   name: "layoutColumns",
   components: { Aside, Header, Main, ColumnsAside },

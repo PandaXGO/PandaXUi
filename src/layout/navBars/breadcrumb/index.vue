@@ -17,12 +17,12 @@ import {
   getCurrentInstance,
 } from "vue";
 import { useRoute } from "vue-router";
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
-import { useRoutesListStore } from "/@/stores/routesList";
-import Breadcrumb from "/@/layout/navBars/breadcrumb/breadcrumb.vue";
-import User from "/@/layout/navBars/breadcrumb/user.vue";
-import Logo from "/@/layout/logo/index.vue";
-import Horizontal from "/@/layout/navMenu/horizontal.vue";
+import { useThemeConfigStateStore } from "@/stores/themeConfig";
+import { useRoutesListStore } from "@/stores/routesList";
+import Breadcrumb from "@/layout/navBars/breadcrumb/breadcrumb.vue";
+import User from "@/layout/navBars/breadcrumb/user.vue";
+import Logo from "@/layout/logo/index.vue";
+import Horizontal from "@/layout/navMenu/horizontal.vue";
 export default {
   name: "layoutBreadcrumbIndex",
   components: { Breadcrumb, User, Logo, Horizontal },

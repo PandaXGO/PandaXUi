@@ -47,7 +47,7 @@
 
 <script lang="ts">
 import { reactive, toRefs, ref, unref, getCurrentInstance } from "vue";
-import { addType, updateType } from "/@/api/system/dict/type";
+import { addType, updateType } from "@/api/system/dict/type";
 import { ElMessage } from "element-plus";
 
 export default {

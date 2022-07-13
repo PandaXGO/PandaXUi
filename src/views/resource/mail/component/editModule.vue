@@ -86,7 +86,7 @@
 
 <script lang="ts">
     import { reactive, toRefs, ref, unref, getCurrentInstance } from "vue";
-    import { updateResEmails, addResEmails } from "/@/api/resource/email";
+    import { updateResEmails, addResEmails } from "@/api/resource/email";
     import { ElMessage } from "element-plus";
 
     export default {

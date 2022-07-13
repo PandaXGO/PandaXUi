@@ -48,8 +48,8 @@ import {
   watch,
 } from "vue";
 import { useRoute, onBeforeRouteUpdate } from "vue-router";
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
-import SubItem from "/@/layout/navMenu/subItem.vue";
+import { useThemeConfigStateStore } from "@/stores/themeConfig";
+import SubItem from "@/layout/navMenu/subItem.vue";
 export default defineComponent({
   name: "navMenuVertical",
   components: { SubItem },

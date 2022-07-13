@@ -30,7 +30,7 @@ import { reactive, toRefs, defineComponent, ref, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { storeToRefs } from 'pinia';
-import { useTagsViewRoutesStore } from '/@/stores/tagsViewRoutes';
+import { useTagsViewRoutesStore } from '@/stores/tagsViewRoutes';
 
 // 定义接口来定义对象的类型
 interface SearchState {

@@ -235,7 +235,7 @@ import {
   listOperInfo,
   delOperInfo,
   cleanOpernfo,
-} from "/@/api/log/oper";
+} from "@/api/log/oper";
 import {ElMessageBox, ElMessage} from "element-plus";
 
 export default {

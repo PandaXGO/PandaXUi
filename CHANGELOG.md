@@ -43,7 +43,7 @@
 - 🎯 优化 左侧导航菜单，共用菜单树，防止 `布局配置` 设置 `菜单 / 顶栏` 时，样式丢失等问题
 - 🐞 修复 固定 header 后没有回到顶部的 bug，拉取项目后运行不起来的 bug。<a href="https://gitee.com/PandaAdmin/PandaX/pulls/14" target="_blank">!14</a>，感谢<a href="https://gitee.com/wjs0509" target="_blank">@wjs0509</a>
 - 🐞 修复 tagView 右键全屏后，浏览器窗口大小发生任何变化都会导致左边菜单显示出来，并且可点击打开对应页面。<a href="https://gitee.com/PandaAdmin/PandaX/issues/I46E6T" target="_blank">I46E6T</a>
-- 🐞 修复 默认设置 `菜单 / 顶栏` 样式不生效问题（/@/src/stores/themeConfig.ts）
+- 🐞 修复 默认设置 `菜单 / 顶栏` 样式不生效问题（@/src/stores/themeConfig.ts）
 
 ## 1.0.16
 
@@ -177,7 +177,7 @@
 - 🎉 新增 深克隆工具，方便开发，感谢<a href="https://gitee.com/kangert" target="_blank">@kangert</a>(<a href="https://gitee.com/PandaAdmin/PandaX/pulls/6" target="_blank">#6</a>)
 - 🎯 优化 vuex 模块自动导入。感谢<a href="https://gitee.com/kangert" target="_blank">@kangert</a>(<a href="https://gitee.com/PandaAdmin/PandaX/pulls/4" target="_blank">#4</a>)，感谢群友@web 小学生-第五君
 - 🎯 优化 类型定义提高编码体验，修复不能将类型“string | undefined”分配给类型“string”的问题。感谢<a href="https://gitee.com/kangert" target="_blank">@kangert</a>(<a href="https://gitee.com/PandaAdmin/PandaX/pulls/5" target="_blank">#5</a>)
-- 🎯 优化 `layout` 文件夹移动到与 `views` 文件夹同级（改动较大，`/@/views/layout` 变成 `/@/layout`）
+- 🎯 优化 `layout` 文件夹移动到与 `views` 文件夹同级（改动较大，`@/views/layout` 变成 `@/layout`）
 - 🎯 优化 页面有 `console.log` 时 `eslint` 不生效问题
 - 🎯 优化 页面、ts 中 `any` 类型问题（改动较大）
 - 🎯 优化 登录页在手机上显示的效果
@@ -186,7 +186,7 @@
 - 🎯 优化 拆分 `router` 下内容，路由、前端、后端控制分开写，方便理解
 - 🐞 修复 鼠标移入顶部用户信息栏 `开/关全屏` 文字反向问题
 - 🐞 修复 热更新时，NextLoading（界面 loading） 不消失问题 `window.nextLoading === undefined`
-- 🐞 修复 vuex 中不可以使用 `/@/api/xxx` 下的接口调用问题
+- 🐞 修复 vuex 中不可以使用 `@/api/xxx` 下的接口调用问题
 
 ## 1.0.3
 

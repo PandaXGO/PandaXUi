@@ -23,11 +23,11 @@ import {
   getCurrentInstance,
   onBeforeMount,
 } from "vue";
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
-import { useRoutesListStore } from "/@/stores/routesList";
-import { useTagsViewRoutesStore } from "/@/stores/tagsViewRoutes";
-import Logo from "/@/layout/logo/index.vue";
-import Vertical from "/@/layout/navMenu/vertical.vue";
+import { useThemeConfigStateStore } from "@/stores/themeConfig";
+import { useRoutesListStore } from "@/stores/routesList";
+import { useTagsViewRoutesStore } from "@/stores/tagsViewRoutes";
+import Logo from "@/layout/logo/index.vue";
+import Vertical from "@/layout/navMenu/vertical.vue";
 export default {
   name: "layoutAside",
   components: { Logo, Vertical },

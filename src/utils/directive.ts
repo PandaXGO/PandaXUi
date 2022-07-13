@@ -1,6 +1,6 @@
 import type { App } from 'vue';
-import { authDirective } from '/@/utils/authDirective';
-import { wavesDirective, dragDirective } from '/@/utils/customDirective';
+import { authDirective } from '@/utils/authDirective';
+import { wavesDirective, dragDirective } from '@/utils/customDirective';
 
 /**
  * 导出指令方法：v-xxx

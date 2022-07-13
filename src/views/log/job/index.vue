@@ -240,7 +240,7 @@ import {
   listJobLog,
   delJobLog,
   cleanJobLog,
-} from "/@/api/log/job";
+} from "@/api/log/job";
 import {ElMessageBox, ElMessage} from "element-plus";
 
 export default {

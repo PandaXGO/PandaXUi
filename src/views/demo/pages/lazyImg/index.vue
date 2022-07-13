@@ -54,7 +54,7 @@
 <script lang="ts">
 import { toRefs, reactive, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { lazyImg } from '/@/utils/other';
+import { lazyImg } from '@/utils/other';
 import { filterList } from './mock';
 export default {
 	name: 'pagesListAdapt',

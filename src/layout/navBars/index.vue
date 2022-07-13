@@ -7,9 +7,9 @@
 
 <script lang="ts">
 import { computed } from "vue";
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
-import BreadcrumbIndex from "/@/layout/navBars/breadcrumb/index.vue";
-import TagsView from "/@/layout/navBars/tagsView/tagsView.vue";
+import { useThemeConfigStateStore } from "@/stores/themeConfig";
+import BreadcrumbIndex from "@/layout/navBars/breadcrumb/index.vue";
+import TagsView from "@/layout/navBars/tagsView/tagsView.vue";
 export default {
   name: "layoutNavBars",
   components: { BreadcrumbIndex, TagsView },

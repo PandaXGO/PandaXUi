@@ -191,11 +191,11 @@ import {
   onUnmounted,
 } from "vue";
 import {ElMessageBox, ElMessage} from "element-plus";
-import {getTableList, deleteTable} from "/@/api/gen/table";
-import {preview, code, menuAndApi} from "/@/api/gen/gen";
+import {getTableList, deleteTable} from "@/api/gen/table";
+import {preview, code, menuAndApi} from "@/api/gen/gen";
 import ImportTable from "./component/importTable.vue";
 import EditTable from "./component/editTable.vue";
-import {downLoadFile} from '/@/utils/zipdownload'
+import {downLoadFile} from '@/utils/zipdownload'
 import Codemirror from "codemirror-editor-vue3";
 import "codemirror/mode/javascript/javascript.js";
 import "codemirror/theme/dracula.css";

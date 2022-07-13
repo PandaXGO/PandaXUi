@@ -10,14 +10,13 @@
 
 <script lang="ts">
 import { computed } from "vue";
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
-import { useTagsViewRoutesStore } from "/@/stores/tagsViewRoutes";
-import NavBarsIndex from "/@/layout/navBars/index.vue";
+import { useThemeConfigStateStore } from "@/stores/themeConfig";
+import { useTagsViewRoutesStore } from "@/stores/tagsViewRoutes";
+import NavBarsIndex from "@/layout/navBars/index.vue";
 export default {
   name: "layoutHeader",
   components: { NavBarsIndex },
   setup() {
-     
     const theme = useThemeConfigStateStore();
     const tagsViewRoutes = useTagsViewRoutesStore();
     // 设置 header 的高度

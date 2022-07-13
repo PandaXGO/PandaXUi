@@ -162,7 +162,7 @@ import {ElMessageBox, ElMessage} from "element-plus";
 import {
   listNotice,
   delNotice,
-} from "/@/api/system/notice";
+} from "@/api/system/notice";
 import EditModule from "./component/editModule.vue";
 import ViewModule from "./component/viewModule.vue";
 

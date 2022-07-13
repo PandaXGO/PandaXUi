@@ -40,10 +40,10 @@
 
 <script setup lang="ts">
 import { reactive, computed } from "vue";
-import Account from "/@/views/login/component/account.vue";
-import Mobile from "/@/views/login/component/mobile.vue";
-import Scan from "/@/views/login/component/scan.vue";
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
+import Account from "@/views/login/component/account.vue";
+import Mobile from "@/views/login/component/mobile.vue";
+import Scan from "@/views/login/component/scan.vue";
+import { useThemeConfigStateStore } from "@/stores/themeConfig";
 const theme = useThemeConfigStateStore();
 const state = reactive({
   tabsActiveName: "account",
@@ -64,7 +64,7 @@ const onTabsClick = () => {
 .login-container {
   width: 100%;
   height: 100%;
-  background: url("/@/assets/bg-login.png") no-repeat;
+  background: url("@/assets/bg-login.png") no-repeat;
   background-size: 100% 100%;
   .login-logo {
     position: absolute;

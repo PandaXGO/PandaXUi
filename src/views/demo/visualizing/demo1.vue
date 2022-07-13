@@ -92,7 +92,7 @@
 import { toRefs, reactive, onMounted, onUnmounted, getCurrentInstance, defineComponent } from 'vue';
 import * as echarts from 'echarts';
 import 'echarts/extension/bmap/bmap';
-import { formatDate } from '/@/utils/formatTime';
+import { formatDate } from '@/utils/formatTime';
 import { echartsMapList, echartsMapData, echartsMapImgs } from './mock/demo1';
 export default defineComponent({
 	name: 'visualizingLinkDemo1',

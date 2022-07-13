@@ -1,4 +1,4 @@
-import request from '/@/utils/request';
+import request from '@/utils/request';
 
 // 查询参数列表分页
 export function listApi(query:any) {

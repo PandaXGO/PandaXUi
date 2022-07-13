@@ -68,8 +68,8 @@ import {
   onUnmounted,
 } from "vue";
 import { useRoute, useRouter, onBeforeRouteUpdate } from "vue-router";
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
-import { useRoutesListStore } from "/@/stores/routesList";
+import { useThemeConfigStateStore } from "@/stores/themeConfig";
+import { useRoutesListStore } from "@/stores/routesList";
 export default {
   name: "layoutColumnsAside",
   setup() {

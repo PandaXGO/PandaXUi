@@ -155,8 +155,8 @@
 
 <script lang="ts">
 import { reactive, toRefs, ref, unref, getCurrentInstance } from "vue";
-import { treeselect } from "/@/api/system/dept";
-import { updateUser, addUser, getUser, getUserInit } from "/@/api/system/user";
+import { treeselect } from "@/api/system/dept";
+import { updateUser, addUser, getUser, getUserInit } from "@/api/system/user";
 import { ElMessage } from "element-plus";
 
 export default {

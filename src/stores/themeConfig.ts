@@ -9,34 +9,34 @@ export const useThemeConfigStateStore = defineStore('themeConfig', {
             /**
              * 全局主题
              */
-            // 默认 primary 颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
+            // 默认 primary 颜色，请注意：需要同时修改 `@/theme/common/var.scss` 对应的值
             primary: '#D49BEF',
-            // 默认 success 颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
+            // 默认 success 颜色，请注意：需要同时修改 `@/theme/common/var.scss` 对应的值
             success: '#67c23a',
-            // 默认 info 颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
+            // 默认 info 颜色，请注意：需要同时修改 `@/theme/common/var.scss` 对应的值
             info: '#909399',
-            // 默认 warning 颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
+            // 默认 warning 颜色，请注意：需要同时修改 `@/theme/common/var.scss` 对应的值
             warning: '#e6a23c',
-            // 默认 danger 颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
+            // 默认 danger 颜色，请注意：需要同时修改 `@/theme/common/var.scss` 对应的值
             danger: '#f56c6c',
 
             /**
              * 菜单 / 顶栏
              * 注意：v1.0.17 版本去除设置布局切换，重置主题样式（initSetLayoutChange），
              * 切换布局需手动设置样式，设置的样式自动同步各布局，
-             * 代码位置：/@/layout/navBars/breadcrumb/setings.vue
+             * 代码位置：@/layout/navBars/breadcrumb/setings.vue
              */
-            // 默认顶栏导航背景颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
+            // 默认顶栏导航背景颜色，请注意：需要同时修改 `@/theme/common/var.scss` 对应的值
             topBar: '#191A23',
-            // 默认菜单导航背景颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
+            // 默认菜单导航背景颜色，请注意：需要同时修改 `@/theme/common/var.scss` 对应的值
             menuBar: '#191A23',
-            // 默认分栏菜单背景颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
+            // 默认分栏菜单背景颜色，请注意：需要同时修改 `@/theme/common/var.scss` 对应的值
             columnsMenuBar: '#545c64',
-            // 默认顶栏导航字体颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
+            // 默认顶栏导航字体颜色，请注意：需要同时修改 `@/theme/common/var.scss` 对应的值
             topBarColor: '#F4F6F8',
-            // 默认菜单导航字体颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
+            // 默认菜单导航字体颜色，请注意：需要同时修改 `@/theme/common/var.scss` 对应的值
             menuBarColor: '#eaeaea',
-            // 默认分栏菜单字体颜色，请注意：需要同时修改 `/@/theme/common/var.scss` 对应的值
+            // 默认分栏菜单字体颜色，请注意：需要同时修改 `@/theme/common/var.scss` 对应的值
             columnsMenuBarColor: '#e6e6e6',
             // 是否开启顶栏背景颜色渐变
             isTopBarColorGradual: false,
@@ -114,7 +114,7 @@ export const useThemeConfigStateStore = defineStore('themeConfig', {
 
             /**
              * 布局切换
-             * 注意：为了演示，切换布局时，颜色会被还原成默认，代码位置：/@/layout/navBars/breadcrumb/setings.vue
+             * 注意：为了演示，切换布局时，颜色会被还原成默认，代码位置：@/layout/navBars/breadcrumb/setings.vue
              * 中的 `initSetLayoutChange(设置布局切换，重置主题样式)` 方法
              */
             // 布局切换：可选值"<defaults|classic|transverse|columns>"，默认 defaults

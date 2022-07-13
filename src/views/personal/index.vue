@@ -264,13 +264,13 @@
 
 <script setup lang="ts">
 import { toRefs, reactive, computed, onMounted } from "vue";
-import { formatAxis } from "/@/utils/formatTime";
+import { formatAxis } from "@/utils/formatTime";
  
-import { useUserInfosState } from "/@/stores/userInfos";
+import { useUserInfosState } from "@/stores/userInfos";
 import { newsInfoList, recommendList } from "./mock";
-import { updateUserPwd, getRoPo, updateUser } from "/@/api/system/user";
+import { updateUserPwd, getRoPo, updateUser } from "@/api/system/user";
 import { ElMessage } from "element-plus";
-import { Session } from "/@/utils/storage";
+import { Session } from "@/utils/storage";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 const router = useRouter();

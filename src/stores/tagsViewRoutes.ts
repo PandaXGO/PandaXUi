@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { TagsViewRoutesState } from 'storeInterface';
-import { Session } from '/@/utils/storage';
+import { Session } from '@/utils/storage';
 export const useTagsViewRoutesStore = defineStore('tagsViewRoutes', {
 	state: (): TagsViewRoutesState => ({
 		tagsViewRoutes: [],

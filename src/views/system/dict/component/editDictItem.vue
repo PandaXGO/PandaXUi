@@ -57,7 +57,7 @@
 
 <script lang="ts">
 import { reactive, toRefs, ref, unref, getCurrentInstance } from "vue";
-import { addData, updateData } from "/@/api/system/dict/data";
+import { addData, updateData } from "@/api/system/dict/data";
 import { ElMessage } from "element-plus";
 
 export default {

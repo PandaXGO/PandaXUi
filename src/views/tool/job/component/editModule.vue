@@ -101,7 +101,7 @@
 
 <script lang="ts">
 import { reactive, toRefs, ref, unref, getCurrentInstance } from "vue";
-import { addJob, updateJob } from "/@/api/job/job";
+import { addJob, updateJob } from "@/api/job/job";
 import { ElMessage } from "element-plus";
 
 export default {

@@ -209,9 +209,9 @@ import {
   onUnmounted,
 } from "vue";
 import {ElMessageBox, ElMessage} from "element-plus";
-import {listResOsses, delResOsses, changeOssStatus} from "/@/api/resource/oss";
+import {listResOsses, delResOsses, changeOssStatus} from "@/api/resource/oss";
 import EditModule from "./component/editModule.vue";
-import {Session} from "/@/utils/storage";
+import {Session} from "@/utils/storage";
 
 export default {
   name: "index",

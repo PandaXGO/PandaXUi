@@ -176,8 +176,8 @@
 </template>
 <script>
     import {ref, toRefs, getCurrentInstance, reactive} from "vue";
-    import { getTableInfo, updateTable, getTableTree } from '/@/api/gen/table'
-    import { listType as getDictOptionselect } from '/@/api/system/dict/type'
+    import { getTableInfo, updateTable, getTableTree } from '@/api/gen/table'
+    import { listType as getDictOptionselect } from '@/api/system/dict/type'
 
     import BasicInfoForm from './basicInfoForm.vue'
     import GenInfoForm from './genInfoForm.vue'

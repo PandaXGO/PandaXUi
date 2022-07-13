@@ -80,12 +80,12 @@ import {
 import { useRoute, useRouter, onBeforeRouteUpdate } from "vue-router";
 import Sortable from "sortablejs";
 import { ElMessage } from "element-plus";
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
-import { useTagsViewRoutesStore } from "/@/stores/tagsViewRoutes";
-import { Session } from "/@/utils/storage";
-import { isObjectValueEqual } from "/@/utils/arrayOperation";
-import Contextmenu from "/@/layout/navBars/tagsView/contextmenu.vue";
-import other from "/@/utils/other";
+import { useThemeConfigStateStore } from "@/stores/themeConfig";
+import { useTagsViewRoutesStore } from "@/stores/tagsViewRoutes";
+import { Session } from "@/utils/storage";
+import { isObjectValueEqual } from "@/utils/arrayOperation";
+import Contextmenu from "@/layout/navBars/tagsView/contextmenu.vue";
+import other from "@/utils/other";
 export default {
   name: "layoutTagsView",
   components: { Contextmenu },

@@ -77,7 +77,7 @@
 
 <script lang="ts">
 import { reactive, toRefs, getCurrentInstance } from "vue";
-import {getDbList, insertTable} from '/@/api/gen/table'
+import {getDbList, insertTable} from '@/api/gen/table'
 import { ElMessage } from "element-plus";
 
 export default {

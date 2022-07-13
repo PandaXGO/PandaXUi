@@ -64,7 +64,7 @@
 
 <script lang="ts">
 import { getCurrentInstance, reactive, toRefs } from 'vue';
-import NoticeBar from '/@/components/noticeBar/index.vue';
+import NoticeBar from '@/components/noticeBar/index.vue';
 import { useRoute } from 'vue-router';
 export default {
 	name: 'funTagsView',

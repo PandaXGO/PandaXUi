@@ -232,7 +232,7 @@
 import { toRefs, reactive, onMounted, onUnmounted, getCurrentInstance, defineComponent } from 'vue';
 import * as echarts from 'echarts';
 import 'echarts-gl';
-import { formatDate } from '/@/utils/formatTime';
+import { formatDate } from '@/utils/formatTime';
 import { dropdownList, skyList, dBtnList, earth3DBtnList, chartData4List } from './mock/demo2';
 import worldImg from './images/world.jpg';
 import bathymetryImg from './images/bathymetry.jpg';

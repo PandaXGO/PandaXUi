@@ -72,7 +72,7 @@
 
 <script lang="ts">
 import { reactive, toRefs, ref, unref, getCurrentInstance } from "vue";
-import { updatePost, addPost } from "/@/api/system/post";
+import { updatePost, addPost } from "@/api/system/post";
 import { ElMessage } from "element-plus";
 
 export default {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ElMessage, ElMessageBox } from 'element-plus';
-import { Session } from '/@/utils/storage';
+import { Session } from '@/utils/storage';
 
 // 配置新建一个 axios 实例
 const service = axios.create({

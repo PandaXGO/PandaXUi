@@ -132,9 +132,9 @@ import {
 } from "vue";
 import * as echarts from "echarts";
 import { CountUp } from "countup.js";
-import { formatAxis } from "/@/utils/formatTime";
-import { useTagsViewRoutesStore } from "/@/stores/tagsViewRoutes";
-import { useUserInfosState } from "/@/stores/userInfos";
+import { formatAxis } from "@/utils/formatTime";
+import { useTagsViewRoutesStore } from "@/stores/tagsViewRoutes";
+import { useUserInfosState } from "@/stores/userInfos";
 import { topCardItemList, environmentList, activitiesList } from "./mock";
 
 const { proxy } = getCurrentInstance() as any;

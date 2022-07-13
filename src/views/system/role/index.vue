@@ -363,17 +363,17 @@ import {
   updateRole,
   exportRole,
   changeRoleStatus,
-} from "/@/api/system/role";
+} from "@/api/system/role";
 import {
   treeselect as menuTreeselect,
   roleMenuTreeselect,
-} from "/@/api/system/menu";
+} from "@/api/system/menu";
 import {
   listApiAll, getPolicyPathByRoleId
-} from "/@/api/system/api";
+} from "@/api/system/api";
 import {
   roleDeptTreeselect,
-} from "/@/api/system/dept";
+} from "@/api/system/dept";
 
 export default {
   name: "systemRole",

@@ -36,7 +36,7 @@
 import { defineExpose, onMounted, reactive, ref, watch } from 'vue';
 import type { ElTree } from 'element-plus';
 import { Search, MoreFilled } from '@element-plus/icons-vue';
-import { treeselect } from "/@/api/system/dept";
+import { treeselect } from "@/api/system/dept";
 
 
 interface Tree {

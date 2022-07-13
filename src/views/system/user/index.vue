@@ -223,13 +223,13 @@ import {
   changeUserStatus,
   delUser,
   exportUser,
-} from "/@/api/system/user";
-import {treeselect} from "/@/api/system/dept";
+} from "@/api/system/user";
+import {treeselect} from "@/api/system/dept";
 import {ElMessageBox, ElMessage} from "element-plus";
-import {getDicts} from "/@/api/system/dict/data";
-import MDInput from "/@/components/panda/MDInput.vue";
+import {getDicts} from "@/api/system/dict/data";
+import MDInput from "@/components/panda/MDInput.vue";
 import EditModule from "./component/editModule.vue";
-import {letterAvatar} from '/@/utils/string';
+import {letterAvatar} from '@/utils/string';
 
 export default {
   name: "systemUser",

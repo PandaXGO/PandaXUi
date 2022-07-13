@@ -55,7 +55,7 @@
 
 <script lang="ts">
 import { reactive, toRefs, ref, unref, getCurrentInstance } from "vue";
-import { addConfig, updateConfig } from "/@/api/system/config";
+import { addConfig, updateConfig } from "@/api/system/config";
 import { ElMessage } from "element-plus";
 
 export default {

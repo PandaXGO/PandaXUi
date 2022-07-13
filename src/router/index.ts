@@ -1,19 +1,19 @@
 
-import { useKeepAliveNamesStore } from '/@/stores/keepAliveNames'
-import { useRoutesListStore } from "/@/stores/routesList";
-import { useTagsViewRoutesStore } from "/@/stores/tagsViewRoutes";
-import { useUserInfosState } from "/@/stores/userInfos";
+import { useKeepAliveNamesStore } from '@/stores/keepAliveNames'
+import { useRoutesListStore } from "@/stores/routesList";
+import { useTagsViewRoutesStore } from "@/stores/tagsViewRoutes";
+import { useUserInfosState } from "@/stores/userInfos";
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-import {Session} from '/@/utils/storage';
-import { NextLoading } from '/@/utils/loading';
-import { staticRoutes, staticPageRoutes } from '/@/router/route';
-import { getRoutes } from '/@/api/system/menu';
-import pinia from "/@/stores";
+import {Session} from '@/utils/storage';
+import { NextLoading } from '@/utils/loading';
+import { staticRoutes, staticPageRoutes } from '@/router/route';
+import { getRoutes } from '@/api/system/menu';
+import pinia from "@/stores";
 import {storeToRefs} from "pinia";
 
-const Layout = () => import('/@/layout/index.vue')
+const Layout = () => import('@/layout/index.vue')
 const viewsModules: any = import.meta.glob('../views/**/*.{vue,tsx}');
 const layouModules: any = import.meta.glob('../layout/routerView/*.{vue,tsx}');
 
@@ -54,7 +54,7 @@ export async function initBackEndControlRoutes() {
 		{
 			path: '/',
 			name: '/',
-			component: () => import('/@/layout/index.vue'),
+			component: () => import('@/layout/index.vue'),
 			redirect: '/home',
 			meta: {
 				isKeepAlive: true,
@@ -63,7 +63,7 @@ export async function initBackEndControlRoutes() {
 				{
 					path: '/home',
 					name: 'home',
-					component: () => import('/@/views/home/index.vue'),
+					component: () => import('@/views/home/index.vue'),
 					meta: {
 						title: 'message.router.home',
 						isLink: '',
@@ -188,7 +188,7 @@ export function formatTwoStageRoutes(arr: any) {
 			}
 			newArr[0].children.push({ ...v });
 			// 存 name 值，keep-alive 中 include 使用，实现路由的缓存
-			// 路径：/@/layout/routerView/parent.vue
+			// 路径：@/layout/routerView/parent.vue
 			if (newArr[0].meta.isKeepAlive && v.meta.isKeepAlive) {
 				cacheList.push(v.name);
 				keepAliveNames.setCacheKeepAlive(cacheList);

@@ -1,7 +1,7 @@
 import { App } from 'vue';
  
-import { judementSameArr } from '/@/utils/arrayOperation';
-import { useUserInfosState } from "/@/stores/userInfos";
+import { judementSameArr } from '@/utils/arrayOperation';
+import { useUserInfosState } from "@/stores/userInfos";
 
 /**
  * 用户权限指令

@@ -10,8 +10,8 @@
 
 <script lang="ts">
 import { computed, getCurrentInstance } from 'vue';
-import {useThemeConfigStateStore} from '/@/stores/themeConfig'
-import logo from '/@/assets/logo1.png'
+import {useThemeConfigStateStore} from '@/stores/themeConfig'
+import logo from '@/assets/logo1.png'
 export default {
 	name: 'layoutLogo',
 	setup() {

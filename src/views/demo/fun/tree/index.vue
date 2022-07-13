@@ -10,8 +10,8 @@
 import { toRefs, reactive, computed, onMounted, getCurrentInstance } from "vue";
 import * as echarts from "echarts";
  
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
-import { useTagsViewRoutesStore } from "/@/stores/tagsViewRoutes";
+import { useThemeConfigStateStore } from "@/stores/themeConfig";
+import { useTagsViewRoutesStore } from "@/stores/tagsViewRoutes";
 import { echartsTreeList } from "./mock";
 export default {
   name: "funEchartsTree",

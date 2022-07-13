@@ -116,12 +116,12 @@ import {useRoute, useRouter} from "vue-router";
 import { ElMessageBox, ElMessage } from "element-plus";
 import screenfull from "screenfull";
 import { useI18n } from "vue-i18n";
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
-import { useUserInfosState } from "/@/stores/userInfos";
-import other from "/@/utils/other";
-import { Session, Local } from "/@/utils/storage";
-import UserNews from "/@/layout/navBars/breadcrumb/userNews.vue";
-import Search from "/@/layout/navBars/breadcrumb/search.vue";
+import { useThemeConfigStateStore } from "@/stores/themeConfig";
+import { useUserInfosState } from "@/stores/userInfos";
+import other from "@/utils/other";
+import { Session, Local } from "@/utils/storage";
+import UserNews from "@/layout/navBars/breadcrumb/userNews.vue";
+import Search from "@/layout/navBars/breadcrumb/search.vue";
 import {storeToRefs} from "pinia";
 export default {
   name: "layoutBreadcrumbUser",

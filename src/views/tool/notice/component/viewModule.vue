@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-    import Editor from '/@/components/editor/index.vue';
+    import Editor from '@/components/editor/index.vue';
     import {getCurrentInstance, reactive, toRefs} from "vue";
     export default {
         name: "viewModule",

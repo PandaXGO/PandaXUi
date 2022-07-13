@@ -1,10 +1,10 @@
 import { nextTick } from 'vue';
 import { App } from 'vue';
 import * as svg from '@element-plus/icons-vue';
-import router from '/@/router/index';
-import {useThemeConfigStateStore} from '/@/stores/themeConfig'
-import { i18n } from '/@/i18n/index';
-import SvgIcon from '/@/components/svgIcon/index.vue';
+import router from '@/router/index';
+import {useThemeConfigStateStore} from '@/stores/themeConfig'
+import { i18n } from '@/i18n/index';
+import SvgIcon from '@/components/svgIcon/index.vue';
 
 /**
  * 导出全局注册 element plus svg 图标

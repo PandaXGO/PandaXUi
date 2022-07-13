@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { reactive, toRefs, ref } from 'vue';
-import ScreenShort from '/@/components/screenShort/index.vue';
+import ScreenShort from '@/components/screenShort/index.vue';
 export default {
 	name: 'screenShort',
 	components: { ScreenShort },

@@ -12,7 +12,7 @@
 <script lang="ts">
 import { defineComponent, toRefs, reactive, computed, watch } from "vue";
 import { useRoute } from "vue-router";
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
+import { useThemeConfigStateStore } from "@/stores/themeConfig";
 export default defineComponent({
   name: "layoutLinkView",
   setup() {

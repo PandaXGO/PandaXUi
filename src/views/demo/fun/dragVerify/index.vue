@@ -74,15 +74,15 @@
 
 <script lang="ts">
 import { toRefs, reactive } from 'vue';
-import rotate from '/@/assets/rotate.png'
+import rotate from '@/assets/rotate.png'
 // 基本滑块验证组件
-import DragVerify from '/@/components/dragVerify/dragVerify.vue';
+import DragVerify from '@/components/dragVerify/dragVerify.vue';
 // 图片滑块组件
-import DragVerifyImg from '/@/components/dragVerify/dragVerifyImg.vue';
+import DragVerifyImg from '@/components/dragVerify/dragVerifyImg.vue';
 // 图片滑块组件(拼图)
-import DragVerifyImgChip from '/@/components/dragVerify/dragVerifyImgChip.vue';
+import DragVerifyImgChip from '@/components/dragVerify/dragVerifyImgChip.vue';
 // 旋转图片滑块组件
-import DragVerifyImgRotate from '/@/components/dragVerify/dragVerifyImgRotate.vue';
+import DragVerifyImgRotate from '@/components/dragVerify/dragVerifyImgRotate.vue';
 export default {
 	name: 'funDragVerify',
 	components: {

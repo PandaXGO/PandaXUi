@@ -269,6 +269,7 @@
               <el-input
                 v-model="ruleForm.isLink"
                 placeholder="外链/内嵌时链接地址（http:xxx.com）"
+                :clear="clear"
                 clearable
               >
               </el-input>
@@ -299,14 +300,11 @@
 
 <script lang="ts">
 import { reactive, toRefs, ref, unref, getCurrentInstance } from "vue";
-import IconSelector from "/@/components/iconSelector/index.vue";
-import { treeselect, updateMenu, addMenu } from "/@/api/system/menu";
+import IconSelector from "@/components/iconSelector/index.vue";
+import { treeselect, updateMenu, addMenu } from "@/api/system/menu";
 import { ElMessage } from "element-plus";
-import { Session } from "/@/utils/storage";
+import { Session } from "@/utils/storage";
 
-//import { initBackEndControlRoutes } from "/@/router/index";
- 
-import { useUserInfosState } from "/@/stores/userInfos";
 export default {
   name: "editMenu",
   components: { IconSelector },
@@ -318,7 +316,6 @@ export default {
     },
   },
   setup() {
-    const userInfosState = useUserInfosState();
     const { proxy } = getCurrentInstance() as any;
     const ruleFormRef = ref<HTMLElement | null>(null);
     const state = reactive({
@@ -369,9 +366,11 @@ export default {
         sort: [{ required: true, message: "菜单顺序不能为空", trigger: "blur" }],
       },
     });
+    const clear = () =>{
+      console.log(state.ruleForm.isLink)
+    }
     // 打开弹窗
     const openDialog = (row: any) => {
-      console.log(row);
       if (row.menuId && row.menuId != undefined && row.menuId != 0) {
         state.ruleForm = row;
       } else {
@@ -431,6 +430,7 @@ export default {
               state.ruleForm.component = "Layout";
             }
           }
+          console.log(state.ruleForm);
           state.loading = true;
           if (state.ruleForm.menuId != undefined && state.ruleForm.menuId != 0) {
             updateMenu(state.ruleForm).then((response) => {
@@ -472,6 +472,7 @@ export default {
 
     return {
       ruleFormRef,
+      clear,
       openDialog,
       closeDialog,
       onCancel,

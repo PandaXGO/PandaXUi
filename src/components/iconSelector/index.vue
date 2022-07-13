@@ -64,7 +64,7 @@
 
 <script lang="ts">
 import { ref, toRefs, reactive, onMounted, nextTick, computed, watch, defineComponent } from 'vue';
-import initIconfont from '/@/utils/getStyleSheets';
+import initIconfont from '@/utils/getStyleSheets';
 
 export default defineComponent({
   name: 'iconSelector',

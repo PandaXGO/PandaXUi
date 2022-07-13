@@ -116,8 +116,8 @@ import { ElMessage } from "element-plus";
 import { jsPlumb } from "jsplumb";
 import Sortable from "sortablejs";
  
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
-import { useTagsViewRoutesStore } from "/@/stores/tagsViewRoutes";
+import { useThemeConfigStateStore } from "@/stores/themeConfig";
+import { useTagsViewRoutesStore } from "@/stores/tagsViewRoutes";
 import Contextmenu from "./component/contextmenu/index.vue";
 import Drawer from "./component/drawer/index.vue";
 import { leftNavList } from "./mock";

@@ -213,7 +213,7 @@ import {
 	verifyPostalCode,
 	verifyUrl,
 	verifyCarNum,
-} from '/@/utils/toolsValidate';
+} from '@/utils/toolsValidate';
 export default {
 	name: 'tools',
 	setup() {

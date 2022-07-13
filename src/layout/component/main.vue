@@ -26,10 +26,10 @@ import {
   watch,
   onBeforeMount,
 } from "vue";
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
+import { useThemeConfigStateStore } from "@/stores/themeConfig";
 import { useRoute } from "vue-router";
-import LayoutParentView from "/@/layout/routerView/parent.vue";
-import Footer from "/@/layout/footer/index.vue";
+import LayoutParentView from "@/layout/routerView/parent.vue";
+import Footer from "@/layout/footer/index.vue";
 export default defineComponent({
   name: "layoutMain",
   components: { LayoutParentView, Footer },

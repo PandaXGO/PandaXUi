@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { computed } from "vue";
-import { useUserInfosState } from "/@/stores/userInfos";
+import { useUserInfosState } from "@/stores/userInfos";
 export default {
   name: "auth",
   props: {

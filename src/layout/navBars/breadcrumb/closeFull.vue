@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { toRefs, reactive, computed } from "vue";
-import { useTagsViewRoutesStore } from "/@/stores/tagsViewRoutes";
+import { useTagsViewRoutesStore } from "@/stores/tagsViewRoutes";
 export default {
   name: "layoutCloseFull",
   setup() {

@@ -11,8 +11,8 @@ import { toRefs, reactive, computed, onMounted } from "vue";
 import * as echarts from "echarts";
 import "echarts/extension/bmap/bmap";
  
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
-import { useTagsViewRoutesStore } from "/@/stores/tagsViewRoutes";
+import { useThemeConfigStateStore } from "@/stores/themeConfig";
+import { useTagsViewRoutesStore } from "@/stores/tagsViewRoutes";
 import { echartsMapList, echartsMapData } from "./mock";
 export default {
   name: "funEchartsMap",

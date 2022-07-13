@@ -118,7 +118,7 @@
 
 <script lang="ts">
     import { reactive, toRefs, ref, unref, getCurrentInstance } from "vue";
-    import { updateResOsses, addResOsses } from "/@/api/resource/oss";
+    import { updateResOsses, addResOsses } from "@/api/resource/oss";
     import { ElMessage } from "element-plus";
 
     export default {

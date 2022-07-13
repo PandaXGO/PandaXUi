@@ -138,21 +138,18 @@
           <template #default="scope">
             <el-button
                 text type="primary"
-                icon="el-icon-edit"
                 @click="onOpenEditMenu(scope.row)"
             >
               <SvgIcon name="elementEdit"/>
               修改
             </el-button>
             <el-button text type="primary"
-                       icon="el-icon-plus"
                        @click="onOpenAddMenu(scope.row)"
             >
               <SvgIcon name="elementPlus"/>
               新增
             </el-button>
             <el-button text type="primary"
-                       icon="el-icon-delete"
                        @click="handleDelete(scope.row)"
             >
               <SvgIcon name="elementDelete"/>
@@ -169,7 +166,7 @@
 
 <script setup lang="ts">
 import {toRefs, getCurrentInstance, onMounted, onUnmounted, reactive, ref} from "vue";
-import {listMenu, delMenu} from "/@/api/system/menu";
+import {listMenu, delMenu} from "@/api/system/menu";
 import EditMenu from "./component/editMenu.vue";
 import {ElMessage, ElMessageBox} from "element-plus";
 

@@ -222,12 +222,12 @@ import {
   onActivated,
 } from "vue";
  
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
-import { useTagsViewRoutesStore } from "/@/stores/tagsViewRoutes";
-import ChartHead from "/@/views/demo/chart/head.vue";
+import { useThemeConfigStateStore } from "@/stores/themeConfig";
+import { useTagsViewRoutesStore } from "@/stores/tagsViewRoutes";
+import ChartHead from "@/views/demo/chart/head.vue";
 import * as echarts from "echarts";
 import "echarts-wordcloud";
-import { skyList, dBtnList, chartData4List } from "/@/views/demo/chart/chart";
+import { skyList, dBtnList, chartData4List } from "@/views/demo/chart/chart";
 export default {
   name: "chartIndex",
   components: { ChartHead },

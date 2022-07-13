@@ -76,22 +76,22 @@
             <el-row :gutter="10">
               <el-col :span="12">
                 <el-row :gutter="10" class="row">
-                  <el-col :span="12">总数 (GB)</el-col>
-                  <el-col :span="12" v-text="state.cpu.total" />
+                  <el-col :span="12">核数 (个)</el-col>
+                  <el-col :span="12" v-text="state.cpu.num" />
                 </el-row>
                 <el-row :gutter="10" class="row">
-                  <el-col :span="12">已使用 (GB)</el-col>
+                  <el-col :span="12">用户态比率 (%)</el-col>
                   <el-col :span="12" v-text="state.cpu.used" />
                 </el-row>
                 <el-row :gutter="10" class="row">
-                  <el-col :span="12">剩余 (GB)</el-col>
+                  <el-col :span="12">空闲比率 (%)</el-col>
                   <el-col :span="12" v-text="state.cpu.free" />
                 </el-row>
               </el-col>
               <el-col :span="12">
                 <el-progress
                   type="dashboard"
-                  :percentage="state.cpu.progress"
+                  :percentage="state.cpu.used"
                   :color="state.colors"
                 />
               </el-col>
@@ -137,7 +137,7 @@
 
 <script setup lang="ts">
 import { reactive, onMounted } from "vue";
-import { getServer } from "/@/api/tool/monitor";
+import { getServer } from "@/api/tool/monitor";
 import ElMessage from "element-plus";
 
 const state = reactive({

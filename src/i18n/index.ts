@@ -1,19 +1,19 @@
 import { createI18n } from 'vue-i18n';
 import zhcnLocale from 'element-plus/lib/locale/lang/zh-cn';
 import enLocale from 'element-plus/lib/locale/lang/en';
-import nextZhcn from '/@/i18n/lang/zh-cn';
-import nextEn from '/@/i18n/lang/en';
+import nextZhcn from '@/i18n/lang/zh-cn';
+import nextEn from '@/i18n/lang/en';
 
-import pagesHomeZhcn from '/@/i18n/pages/home/zh-cn';
-import pagesHomeEn from '/@/i18n/pages/home/en';
-import pinia from '/@/stores/index';
+import pagesHomeZhcn from '@/i18n/pages/home/zh-cn';
+import pagesHomeEn from '@/i18n/pages/home/en';
+import pinia from '@/stores/index';
 import { storeToRefs } from 'pinia';
-import { useThemeConfigStateStore } from '/@/stores/themeConfig';
+import { useThemeConfigStateStore } from '@/stores/themeConfig';
 
-import pagesLoginZhcn from '/@/i18n/pages/login/zh-cn';
-import pagesLoginEn from '/@/i18n/pages/login/en';
-import pagesFormI18nZhcn from '/@/i18n/pages/formI18n/zh-cn';
-import pagesFormI18nEn from '/@/i18n/pages/formI18n/en';
+import pagesLoginZhcn from '@/i18n/pages/login/zh-cn';
+import pagesLoginEn from '@/i18n/pages/login/en';
+import pagesFormI18nZhcn from '@/i18n/pages/formI18n/zh-cn';
+import pagesFormI18nEn from '@/i18n/pages/formI18n/en';
 
 
 

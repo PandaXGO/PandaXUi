@@ -101,17 +101,17 @@ import { onMounted, ref, reactive, computed, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
 import { useI18n } from "vue-i18n";
-import { initBackEndControlRoutes } from "/@/router/index";
-import { useUserInfosState } from "/@/stores/userInfos";
-import { Session } from "/@/utils/storage";
+import { initBackEndControlRoutes } from "@/router/index";
+import { useUserInfosState } from "@/stores/userInfos";
+import { Session } from "@/utils/storage";
 import Cookies from 'js-cookie';
-import { captcha, signIn } from "/@/api/login/index";
-import { formatAxis } from "/@/utils/formatTime";
-import rotate from '/@/assets/rotate.png'
-import { letterAvatar } from "/@/utils/string";
-import { NextLoading } from '/@/utils/loading';
+import { captcha, signIn } from "@/api/login/index";
+import { formatAxis } from "@/utils/formatTime";
+import rotate from '@/assets/rotate.png'
+import { letterAvatar } from "@/utils/string";
+import { NextLoading } from '@/utils/loading';
 // 旋转图片滑块组件
-import DragVerifyImgRotate from "/@/components/dragVerify/dragVerifyImgRotate.vue";
+import DragVerifyImgRotate from "@/components/dragVerify/dragVerifyImgRotate.vue";
 
 const { t } = useI18n();
 const { proxy } = getCurrentInstance() as any;

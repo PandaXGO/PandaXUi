@@ -22,14 +22,14 @@ import {
   toRefs,
 } from "vue";
 import { useRoute } from "vue-router";
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
-import { useTagsViewRoutesStore } from "/@/stores/tagsViewRoutes";
-import other from "/@/utils/other";
-import { Local, Session } from "/@/utils/storage";
-import setIntroduction from "/@/utils/setIconfont";
-import LockScreen from "/@/layout/lockScreen/index.vue";
-import Setings from "/@/layout/navBars/breadcrumb/setings.vue";
-import CloseFull from "/@/layout/navBars/breadcrumb/closeFull.vue";
+import { useThemeConfigStateStore } from "@/stores/themeConfig";
+import { useTagsViewRoutesStore } from "@/stores/tagsViewRoutes";
+import other from "@/utils/other";
+import { Local, Session } from "@/utils/storage";
+import setIntroduction from "@/utils/setIconfont";
+import LockScreen from "@/layout/lockScreen/index.vue";
+import Setings from "@/layout/navBars/breadcrumb/setings.vue";
+import CloseFull from "@/layout/navBars/breadcrumb/closeFull.vue";
 export default defineComponent({
   name: "app",
   components: { LockScreen, Setings, CloseFull },

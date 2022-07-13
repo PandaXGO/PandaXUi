@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import { ref, toRefs, reactive } from 'vue';
-import CropperDialog from '/@/components/cropper/index.vue';
+import CropperDialog from '@/components/cropper/index.vue';
 export default {
 	name: 'funCropper',
 	components: { CropperDialog },

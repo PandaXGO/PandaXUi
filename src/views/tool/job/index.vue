@@ -176,7 +176,7 @@
         runStopJob,
         delJob,
         changeJobStatus,
-    } from "/@/api/job/job";
+    } from "@/api/job/job";
     import EditModule from "./component/editModule.vue";
     import { useRouter } from "vue-router";
 

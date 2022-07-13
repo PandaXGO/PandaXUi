@@ -49,7 +49,7 @@
 
 <script lang="ts">
 import { reactive, toRefs, ref, unref, getCurrentInstance } from "vue";
-import { addApi, updateApi } from "/@/api/system/api";
+import { addApi, updateApi } from "@/api/system/api";
 import { ElMessage } from "element-plus";
 
 export default {

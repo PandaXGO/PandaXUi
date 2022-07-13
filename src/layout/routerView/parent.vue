@@ -23,8 +23,8 @@ import {
   watch,
 } from "vue";
 import { useRoute } from "vue-router";
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
-import { useKeepAliveNamesStore } from "/@/stores/keepAliveNames";
+import { useThemeConfigStateStore } from "@/stores/themeConfig";
+import { useKeepAliveNamesStore } from "@/stores/keepAliveNames";
 export default defineComponent({
   name: "layoutParentView",
   setup() {

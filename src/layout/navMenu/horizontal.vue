@@ -56,9 +56,9 @@ import {
   onBeforeMount,
 } from "vue";
 import { useRoute, onBeforeRouteUpdate } from "vue-router";
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
-import { useRoutesListStore } from "/@/stores/routesList";
-import SubItem from "/@/layout/navMenu/subItem.vue";
+import { useThemeConfigStateStore } from "@/stores/themeConfig";
+import { useRoutesListStore } from "@/stores/routesList";
+import SubItem from "@/layout/navMenu/subItem.vue";
 export default defineComponent({
   name: "navMenuHorizontal",
   components: { SubItem },

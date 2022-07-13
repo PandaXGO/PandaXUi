@@ -128,7 +128,7 @@
         listLoginInfo,
         delLoginInfo,
         cleanLoginInfo,
-    } from "/@/api/log/login";
+    } from "@/api/log/login";
     import { ElMessageBox, ElMessage } from "element-plus";
     export default {
         name: "Logininfo",

@@ -10,8 +10,8 @@
 
 <script lang="ts">
 import { toRefs, reactive, computed } from "vue";
-import { useThemeConfigStateStore } from "/@/stores/themeConfig";
-import { useTagsViewRoutesStore } from "/@/stores/tagsViewRoutes";
+import { useThemeConfigStateStore } from "@/stores/themeConfig";
+import { useTagsViewRoutesStore } from "@/stores/tagsViewRoutes";
 export default {
   name: "pagesFilteringDetails1",
   setup() {

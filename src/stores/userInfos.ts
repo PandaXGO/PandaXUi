@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia';
 import { UserInfosState } from 'storeInterface';
-import { Session } from '/@/utils/storage';
+import { Session } from '@/utils/storage';
 import Cookies from 'js-cookie';
-import {letterAvatar} from "/@/utils/string";
-import { authUser } from "/@/api/system/user";
+import {letterAvatar} from "@/utils/string";
+import { authUser } from "@/api/system/user";
 
 export const useUserInfosState = defineStore('userInfos', {
 	state: (): UserInfosState => ({

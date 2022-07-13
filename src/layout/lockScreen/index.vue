@@ -61,10 +61,10 @@
 
 <script lang="ts">
 import { nextTick, onMounted, reactive, toRefs, ref, onUnmounted, getCurrentInstance, defineComponent } from 'vue';
-import {useThemeConfigStateStore} from '/@/stores/themeConfig'
-import { formatDate } from '/@/utils/formatTime';
-import { Local } from '/@/utils/storage';
-import rotate from '/@/assets/rotate.png'
+import {useThemeConfigStateStore} from '@/stores/themeConfig'
+import { formatDate } from '@/utils/formatTime';
+import { Local } from '@/utils/storage';
+import rotate from '@/assets/rotate.png'
 export default defineComponent({
 	name: 'layoutLockScreen',
 	setup() {
@@ -214,7 +214,7 @@ export default defineComponent({
 }
 .layout-lock-screen-img {
 	@extend .layout-lock-screen-fixed;
-	background-image: url('/@/assets/lock.jpg');
+	background-image: url('@/assets/lock.jpg');
 	background-size: 100% 100%;
 	z-index: 999;
 }

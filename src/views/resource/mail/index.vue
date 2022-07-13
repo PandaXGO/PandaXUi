@@ -197,7 +197,7 @@ import {
   onUnmounted, unref,
 } from "vue";
 import {ElMessageBox, ElMessage} from "element-plus";
-import {listResEmails, delResEmails, changeMailStatus, debugMail} from "/@/api/resource/email";
+import {listResEmails, delResEmails, changeMailStatus, debugMail} from "@/api/resource/email";
 import EditModule from "./component/editModule.vue";
 
 export default {

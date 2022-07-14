@@ -119,27 +119,29 @@
             class-name="medium-padding fixed-width"
         >
           <template #default="scope">
-            <el-button text type="primary" icon="el-icon-s-tools" @click="editDictItem(scope.row)"
-            >
-              <SvgIcon name="elementTools"/>
-              字典配置
-            </el-button>
-            <el-button text type="primary"
-                       v-auth="'system:dictT:edit'"
-                       @click="onOpenEditModule(scope.row)"
-            >
-              <SvgIcon name="elementEdit"/>
-              修改
-            </el-button>
-            <el-button
-                v-if="scope.row.parentId != 0"
-                text type="primary"
-                v-auth="'system:dictT:delete'"
-                @click="onTabelRowDel(scope.row)"
-            >
-              <SvgIcon name="elementDelete"/>
-              删除
-            </el-button>
+            <el-popover  placement="left">
+              <template #reference>
+                <el-button type="primary" circle ><SvgIcon name="elementStar"/></el-button>
+              </template>
+              <div>
+                <el-button text type="primary" @click="editDictItem(scope.row)">
+                  <SvgIcon name="elementTools"/>
+                  字典配置
+                </el-button>
+              </div>
+              <div>
+                <el-button text type="primary" v-auth="'system:dictT:edit'" @click="onOpenEditModule(scope.row)">
+                  <SvgIcon name="elementEdit"/>
+                  修改
+                </el-button>
+              </div>
+              <div>
+                <el-button v-if="scope.row.parentId != 0" text type="primary" v-auth="'system:dictT:delete'" @click="onTabelRowDel(scope.row)">
+                  <SvgIcon name="elementDelete"/>
+                  删除
+                </el-button>
+              </div>
+            </el-popover>
           </template>
         </el-table-column>
       </el-table>

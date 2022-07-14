@@ -107,7 +107,7 @@
         <el-table-column
             prop="status"
             label="状态"
-            width="80"
+            width="100"
         >
           <template #default="scope">
             <el-tag
@@ -120,7 +120,7 @@
         <el-table-column
             prop="status"
             label="显示隐藏"
-            width="80"
+            width="100"
         >
           <template #default="scope">
             <el-tag
@@ -133,28 +133,31 @@
         <el-table-column
             label="操作"
             align="center"
-            class-name="small-padding fixed-width"
         >
           <template #default="scope">
-            <el-button
-                text type="primary"
-                @click="onOpenEditMenu(scope.row)"
-            >
-              <SvgIcon name="elementEdit"/>
-              修改
-            </el-button>
-            <el-button text type="primary"
-                       @click="onOpenAddMenu(scope.row)"
-            >
-              <SvgIcon name="elementPlus"/>
-              新增
-            </el-button>
-            <el-button text type="primary"
-                       @click="handleDelete(scope.row)"
-            >
-              <SvgIcon name="elementDelete"/>
-              删除
-            </el-button>
+            <el-popover  placement="left">
+              <template #reference>
+                <el-button type="primary" circle ><SvgIcon name="elementStar"/></el-button>
+              </template>
+              <div>
+                <el-button text type="primary" v-auth="'system:menu:edit'" @click="onOpenEditMenu(scope.row)">
+                  <SvgIcon name="elementEdit"/>
+                  修改
+                </el-button>
+              </div>
+              <div>
+                <el-button text type="primary" v-auth="'system:menu:edit'" @click="onOpenAddMenu(scope.row)">
+                  <SvgIcon name="elementPlus"/>
+                  新增
+                </el-button>
+              </div>
+              <div>
+                <el-button text type="primary" v-auth="'system:menu:delete'" @click="handleDelete(scope.row)">
+                  <SvgIcon name="elementDelete"/>
+                  删除
+                </el-button>
+              </div>
+            </el-popover>
           </template>
         </el-table-column>
       </el-table>

@@ -95,21 +95,19 @@
           @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" align="center"/>
-        <el-table-column label="角色编号" prop="roleId" width="120"/>
+        <el-table-column label="角色编号" prop="roleId" />
         <el-table-column
             label="角色名称"
             prop="roleName"
             :show-overflow-tooltip="true"
-            width="150"
         />
         <el-table-column
             label="权限字符"
             prop="roleKey"
             :show-overflow-tooltip="true"
-            width="150"
         />
-        <el-table-column label="显示顺序" prop="roleSort" width="100"/>
-        <el-table-column label="状态" align="center" width="100">
+        <el-table-column label="显示顺序" prop="roleSort" />
+        <el-table-column label="状态" align="center" >
           <template #default="scope">
             <el-switch
                 v-model="scope.row.status"
@@ -123,7 +121,6 @@
             label="创建时间"
             align="center"
             prop="create_time"
-            width="180"
         >
           <template #default="scope">
             <span>{{ dateStrFormat(scope.row.create_time) }}</span>
@@ -132,32 +129,31 @@
         <el-table-column
             label="操作"
             align="center"
-            class-name="small-padding fixed-width"
         >
           <template #default="scope">
-            <el-button
-                text type="primary"
-                v-auth="'system:role:edit'"
-                @click="handleUpdate(scope.row)"
-            >
-              <SvgIcon name="elementEdit"/>
-              修改
-            </el-button>
-            <el-button
-                text type="primary"
-                @click="handleDataScope(scope.row)"
-            >
-              <SvgIcon name="elementCircleCheck"/>
-              数据权限
-            </el-button>
-            <el-button
-                text type="primary"
-                v-auth="'system:role:delete'"
-                @click="handleDelete(scope.row)"
-            >
-              <SvgIcon name="elementDelete"/>
-              删除
-            </el-button>
+            <el-popover  placement="left">
+              <template #reference>
+                <el-button type="primary" circle ><SvgIcon name="elementStar"/></el-button>
+              </template>
+              <div>
+                <el-button text type="primary" v-auth="'system:role:edit'" @click="handleUpdate(scope.row)">
+                  <SvgIcon name="elementEdit"/>
+                  修改
+                </el-button>
+              </div>
+              <div>
+                <el-button text type="primary" @click="handleDataScope(scope.row)">
+                  <SvgIcon name="elementCircleCheck"/>
+                  数据权限
+                </el-button>
+              </div>
+              <div>
+                <el-button text type="primary" v-auth="'system:role:delete'" @click="handleDelete(scope.row)">
+                  <SvgIcon name="elementDelete"/>
+                  删除
+                </el-button>
+              </div>
+            </el-popover>
           </template>
         </el-table-column>
       </el-table>

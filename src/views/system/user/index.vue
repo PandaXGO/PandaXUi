@@ -175,14 +175,23 @@
             </el-table-column>
             <el-table-column prop="path" align="center" label="操作" width="250">
               <template #default="scope">
-                <el-button text type="primary" @click="handleUpdate(scope.row)">
-                  <SvgIcon name="elementEdit"/>
-                  修改
-                </el-button>
-                <el-button text type="primary" @click="handleDelete(scope.row)">
-                  <SvgIcon name="elementDelete"/>
-                  删除
-                </el-button>
+                <el-popover  placement="left">
+                  <template #reference>
+                    <el-button type="primary" circle ><SvgIcon name="elementStar"/></el-button>
+                  </template>
+                  <div>
+                    <el-button text type="primary" v-auth="'system:user:edit'" @click="handleUpdate(scope.row)">
+                      <SvgIcon name="elementEdit"/>
+                      修改
+                    </el-button>
+                  </div>
+                  <div>
+                    <el-button text type="primary" v-auth="'system:user:delete'" @click="handleDelete(scope.row)">
+                      <SvgIcon name="elementDelete"/>
+                      删除
+                    </el-button>
+                  </div>
+                </el-popover>
               </template>
             </el-table-column>
           </el-table>

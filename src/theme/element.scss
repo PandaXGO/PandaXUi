@@ -983,6 +983,15 @@
 	padding: 15px 20px;
 }
 
+/* popper
+------------------------------- */
+.el-popper.is-light{
+	background: var(--el-bg-color-overlay);
+	border: 1px solid var(--el-border-color-light);
+	border-radius: 15px
+}
+
+
 /* Timeline 时间线
 ------------------------------- */
 // primary

@@ -4,14 +4,12 @@
       <template #header>
         <div style="font-size: large" v-drag="['.system-menu-container .el-dialog', '.system-menu-container .el-dialog__header']">{{title}}</div>
       </template>
-      <el-row>
         <el-form
                 :model="queryParams"
                 :inline="true"
-                label-width="80px"
+                label-width="60px"
         >
-          <el-col :span="8">
-            <el-form-item label="表名称" prop="tableName">
+            <el-form-item label="表名称" style="width: 220px" prop="tableName">
               <el-input
                       v-model="queryParams.tableName"
                       placeholder="请输入表名称"
@@ -19,9 +17,7 @@
                       @keyup.enter.native="handleQuery"
               />
             </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="表描述" prop="tableComment">
+            <el-form-item label="表描述" style="width: 220px" prop="tableComment">
               <el-input
                       v-model="queryParams.tableComment"
                       placeholder="请输入表描述"
@@ -29,15 +25,11 @@
                       @keyup.enter.native="handleQuery"
               />
             </el-form-item>
-          </el-col>
-          <el-col :span="8">
             <el-form-item>
               <el-button type="primary" @click="handleQuery"><SvgIcon name="elementSearch" />搜索</el-button>
               <el-button @click="resetQuery"> <SvgIcon name="elementRefresh" />重置</el-button>
             </el-form-item>
-          </el-col>
         </el-form>
-      </el-row>
 
       <el-row>
         <el-table v-loading="loading" ref="table" :data="dbTableList" height="260px" @row-click="clickRow" @selection-change="handleSelectionChange">

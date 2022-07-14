@@ -135,9 +135,20 @@
                     width="300"
             >
                 <template #default="scope">
-                    <el-button  text type="primary" v-auth="'tool:job:run'" @click="handleRun(scope.row)"><SvgIcon name="elementSwitchButton" />{{ scope.row.entryId > 0 ? "停止":"启动"}}</el-button>
-                    <el-button  text type="primary" v-auth="'tool:job:edit'" @click="onOpenEditModule(scope.row)"><SvgIcon name="elementEdit" />编辑</el-button>
-                    <el-button  text type="primary" v-auth="'tool:job:delete'" @click="onTabelRowDel(scope.row)"><SvgIcon name="elementDelete" />删除</el-button>
+                    <el-popover  placement="left">
+                        <template #reference>
+                            <el-button type="primary" circle ><SvgIcon name="elementStar"/></el-button>
+                        </template>
+                        <div>
+                            <el-button  text type="primary" v-auth="'tool:job:run'" @click="handleRun(scope.row)"><SvgIcon name="elementSwitchButton" />{{ scope.row.entryId > 0 ? "停止":"启动"}}</el-button>
+                        </div>
+                        <div>
+                            <el-button  text type="primary" v-auth="'tool:job:edit'" @click="onOpenEditModule(scope.row)"><SvgIcon name="elementEdit" />编辑</el-button>
+                        </div>
+                        <div>
+                            <el-button  text type="primary" v-auth="'tool:job:delete'" @click="onTabelRowDel(scope.row)"><SvgIcon name="elementDelete" />删除</el-button>
+                        </div>
+                    </el-popover>
                 </template>
             </el-table-column>
         </el-table>

@@ -21,7 +21,7 @@ export default defineComponent({
     // svg 大小
     size: {
       type: Number,
-      default: () => 16,
+      default: () => 18,
     },
     // svg 颜色
     color: {
@@ -46,7 +46,7 @@ export default defineComponent({
     });
     // 设置图标样式
     const setIconSvgStyle = computed(() => {
-      return `font-size: ${props.size}px;color: ${props.color};`;
+      return `font-size: ${props.size}px !important;color: ${props.color} !important;`;
     });
     // 设置图片样式
     const setIconImgOutStyle = computed(() => {

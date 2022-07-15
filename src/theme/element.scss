@@ -134,7 +134,7 @@
 // 第三方字体图标大小
 .el-button i.iconfont,
 .el-button i.fa {
-	font-size: 14px !important;
+	font-size: 16px !important;
 	margin-right: 5px;
 }
 .el-button--medium i.iconfont,
@@ -758,15 +758,19 @@
 	line-height: 50px !important;
 	color: var(--bg-menuBarColor);
 	transition: none !important;
-	font-size: 15px;
+	font-size: 16px;
+	.el-icon {
+		font-size: 16px !important;
+	}
 }
+
 // horizontal 水平方向时
 .el-menu--horizontal > .el-menu-item.is-active,
 .el-menu--horizontal > .el-sub-menu.is-active .el-sub-menu__title {
 	border-bottom: 3px solid !important;
 	border-bottom-color: set-color(primary);
 	color: set-color(primary) !important;
-	font-size: 15px;
+	font-size: 16px;
 }
 .el-menu--horizontal .el-menu-item:not(.is-disabled):focus,
 .el-menu--horizontal .el-menu-item:not(.is-disabled):hover,
@@ -775,7 +779,7 @@
 .el-menu--horizontal .el-menu .el-menu-item.is-active,
 .el-menu--horizontal .el-menu .el-sub-menu.is-active > .el-sub-menu__title {
 	color: set-color(primary) !important;
-	font-size: 15px;
+	font-size: 16px;
 }
 .el-menu.el-menu--horizontal {
 	border-bottom: none !important;
@@ -783,7 +787,7 @@
 .el-menu--horizontal > .el-menu-item,
 .el-menu--horizontal > .el-sub-menu .el-sub-menu__title {
 	color: var(--bg-topBarColor);
-	font-size: 15px;
+	font-size: 16px;
 }
 // 外部链接时
 .el-menu-item a,
@@ -857,10 +861,7 @@
 .el-sub-menu .fa {
 	@include generalIcon;
 }
-// element plus 本身字体图标
-.el-sub-menu .el-icon {
-	font-size: 14px !important;
-}
+
 // 去掉离开浏览器时，菜单的默认高亮
 .el-menu-item:focus {
 	background-color: transparent !important;

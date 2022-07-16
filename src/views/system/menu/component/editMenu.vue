@@ -303,7 +303,6 @@ import { reactive, toRefs, ref, unref, getCurrentInstance } from "vue";
 import IconSelector from "@/components/iconSelector/index.vue";
 import { treeselect, updateMenu, addMenu } from "@/api/system/menu";
 import { ElMessage } from "element-plus";
-import { Session } from "@/utils/storage";
 
 export default {
   name: "editMenu",
@@ -430,7 +429,6 @@ export default {
               state.ruleForm.component = "Layout";
             }
           }
-          console.log(state.ruleForm);
           state.loading = true;
           if (state.ruleForm.menuId != undefined && state.ruleForm.menuId != 0) {
             updateMenu(state.ruleForm).then((response) => {

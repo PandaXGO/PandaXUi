@@ -17,9 +17,9 @@ export function code(tableId:any) {
 }
 
 // 生成api菜单
-export function menuAndApi(tableId:any) {
+export function menuAndApi(tableId:any,menuId: any) {
     return request({
-        url: '/develop/code/gen/menuAndApi/' + tableId,
+        url: '/develop/code/gen/configure/' + tableId +"?menuId=" + menuId,
         method: 'get',
     })
 }

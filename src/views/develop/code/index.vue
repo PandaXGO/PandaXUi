@@ -81,9 +81,9 @@
             <span>{{ dateStrFormat(scope.row.createTime) }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="更新时间" align="center" prop="update_time">
+        <el-table-column label="更新时间" align="center" prop="updateTime">
           <template #default="scope">
-            <span>{{ dateStrFormat(scope.row.update_time) }}</span>
+            <span>{{ dateStrFormat(scope.row.updateTime) }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -128,12 +128,11 @@
                   <el-button
                           slot="reference"
                           text type="primary"
-                          @click="handleToDB(scope.row)"
+                          @click="openConfigureDialog(scope.row)"
                   ><SvgIcon name="elementView" />生成配置</el-button>
                 </div>
                 <div>
                   <el-button
-                          v-if="scope.row.parentId != 0"
                           text type="primary"
                           v-auth="'develop:code:delete'"
                           @click="onTabelRowDel(scope.row)"
@@ -163,6 +162,33 @@
     <!-- 添加或修改岗位对话框 -->
     <ImportTable ref="importTableRef" :title="title"/>
     <EditTable ref="editModelRef"/>
+    <el-dialog v-model="isShowConfigureDialog" width="769px" center>
+      <el-form :model="configureForm" label-width="80px">
+        <el-form-item label="上级菜单" prop="parentId">
+          <el-cascader
+              v-model="configureForm.parentId"
+              :options="menuOptions"
+              class="w100"
+              :props="{
+                  label: 'menuName',
+                  value: 'menuId',
+                  checkStrictly: true,
+                  emitPath: false,
+                }"
+              clearable
+              filterable
+              placeholder="选择上级菜单"
+              :show-all-levels="false"
+          ></el-cascader>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="onCancel">取 消</el-button>
+          <el-button type="primary" @click="handleToDB" :loading="loading">编 辑</el-button>
+        </span>
+      </template>
+    </el-dialog>
 
     <el-dialog class="preview" :header="preview.title" v-model="preview.open" width="80%" center>
       <div class="el-dialog-container">
@@ -198,6 +224,7 @@ import {
 import {ElMessageBox, ElMessage} from "element-plus";
 import {getTableList, deleteTable} from "@/api/gen/table";
 import {preview, code, menuAndApi} from "@/api/gen/gen";
+import { treeselect  } from "@/api/system/menu";
 import ImportTable from "./component/importTable.vue";
 import EditTable from "./component/editTable.vue";
 import {downLoadFile} from '@/utils/zipdownload'
@@ -206,14 +233,12 @@ import "codemirror/mode/javascript/javascript.js";
 import "codemirror/theme/dracula.css";
 import 'codemirror/mode/go/go.js'
 import 'codemirror/mode/vue/vue.js'
-import {useRouter} from "vue-router";
 
 export default {
   name: "index",
   components: {ImportTable, EditTable, Codemirror},
   setup() {
     const {proxy} = getCurrentInstance() as any;
-    const router = useRouter();
     const importTableRef = ref();
     const editModelRef = ref();
     const state: any = reactive({
@@ -225,6 +250,12 @@ export default {
         line: true,
         styleActiveLine: true,
       },
+      isShowConfigureDialog: false,
+      configureForm: {
+        parentId: 0, // 父菜单ID
+        tableId: 0,
+      },
+      menuOptions: [],
       codestr: '',
       // 遮罩层
       loading: true,
@@ -349,12 +380,27 @@ export default {
       });
     };
     // 生成配置
-    const handleToDB = (row: any) => {
-      menuAndApi(row.tableId).then((response) => {
+    const handleToDB = () => {
+      menuAndApi(state.configureForm.tableId,state.configureForm.parentId).then((response) => {
         ElMessage.success("菜单API生成成功");
       }).catch(function () {
       })
     };
+    const openConfigureDialog = (row: any) => {
+      state.isShowConfigureDialog = true
+      state.configureForm.tableId = row.tableId
+      treeselect().then((response: any) => {
+        state.menuOptions = [];
+        const menu = { menuId: 0, menuName: "主类目", children: [] };
+        menu.children = response.data;
+        state.menuOptions.push(menu);
+      });
+    };
+    // 取消
+    const onCancel = () => {
+      state.isShowConfigureDialog = false
+    };
+
     /** 删除按钮操作 */
     const onTabelRowDel = (row: any) => {
       const tableIds = row.tableId || state.ids;
@@ -395,6 +441,8 @@ export default {
     return {
       importTableRef,
       editModelRef,
+      openConfigureDialog,
+      onCancel,
       handleSelectionChange,
       handleQuery,
       handleCurrentChange,

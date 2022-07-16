@@ -119,7 +119,7 @@
                     </el-table-column>
                     <el-table-column label="关系表" width="160">
                         <template #default="scope">
-                            <el-select v-model="scope.row.linkTableName" clearable filterable placeholder="请选择" @change="handleChangeConfig(scope.row,scope.$index)">
+                            <el-select v-model="scope.row.linkTableName" clearable filterable placeholder="请选择">
                                 <el-option
                                         v-for="table in tableTree"
                                         :key="table.tableName"
@@ -128,36 +128,6 @@
                                 >
                                     <span style="float: left">{{ table.tableName }}</span>
                                     <span style="float: right; color: #8492a6; font-size: 13px">{{ table.tableComment }}</span>
-                                </el-option>
-                            </el-select>
-                        </template>
-                    </el-table-column>
-                    <el-table-column label="关系表key" width="150">
-                        <template #default="scope">
-                            <el-select v-model="scope.row.linkLabelId" clearable filterable placeholder="请选择">
-                                <el-option
-                                        v-for="column in scope.row.fkCol"
-                                        :key="column.columnName"
-                                        :label="column.columnName"
-                                        :value="column.jsonField"
-                                >
-                                    <span style="float: left">{{ column.jsonField }}</span>
-                                    <span style="float: right; color: #8492a6; font-size: 13px">{{ column.columnComment }}</span>
-                                </el-option>
-                            </el-select>
-                        </template>
-                    </el-table-column>
-                    <el-table-column label="关系表value" width="150">
-                        <template #default="scope">
-                            <el-select v-model="scope.row.linkLabelName" clearable filterable placeholder="请选择">
-                                <el-option
-                                        v-for="column in scope.row.fkCol"
-                                        :key="column.columnName"
-                                        :label="column.columnName"
-                                        :value="column.jsonField"
-                                >
-                                    <span style="float: left">{{ column.jsonField }}</span>
-                                    <span style="float: right; color: #8492a6; font-size: 13px">{{ column.columnComment }}</span>
                                 </el-option>
                             </el-select>
                         </template>
@@ -231,7 +201,9 @@
                     });
                     getTableTree().then(response => {
                         state.tableTree = response.data
-                        state.tableTree.unshift({ tableId: 0, className: '请选择' })
+                        if (state.tableTree.length === 0) {
+                          state.tableTree.unshift({ tableId: 0, className: '请选择' })
+                        }
                     })
                 }
 
@@ -245,7 +217,6 @@
                     const validateResult = res.every(item => !!item)
                     if (validateResult) {
                         const genTable = Object.assign({}, basicInfoRef.value.info, genInfoRef.value.info)
-                        console.log("genTable",genTable)
                         genTable.columns = state.columns
                         state.loading = true;
                         updateTable(genTable).then((res) =>{
@@ -283,13 +254,6 @@
                 proxy.mittBus.emit("onEditTableModule", row);
                 state.isShowDialog = false;
             };
-            const handleChangeConfig = (row, index) => {
-                state.tableTree.filter(function(item) {
-                    if (item.tableName === row.linkTableName) {
-                        row.fkCol = item.columns
-                    }
-                })
-            };
             return {
                 genInfoRef,
                 basicInfoRef,
@@ -299,7 +263,6 @@
                 getTables,
                 submitForm,
                 getFormPromise,
-                handleChangeConfig,
                 ...toRefs(state),
             };
         },

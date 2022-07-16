@@ -68,12 +68,12 @@
             width="260"
         ></el-table-column>
         <el-table-column
-            prop="create_time"
+            prop="createTime"
             label="创建时间"
             width="300"
         >
           <template #default="scope">
-            <span>{{ dateStrFormat(scope.row.create_time) }}</span>
+            <span>{{ dateStrFormat(scope.row.createTime) }}</span>
           </template>
         </el-table-column>
         <el-table-column

@@ -76,9 +76,9 @@
         <el-table-column label="表名称" align="center" prop="tableName" :show-overflow-tooltip="true"/>
         <el-table-column label="表描述" align="center" prop="tableComment" :show-overflow-tooltip="true"/>
         <el-table-column label="模型名称" align="center" prop="className" :show-overflow-tooltip="true"/>
-        <el-table-column label="创建时间" align="center" prop="create_time">
+        <el-table-column label="创建时间" align="center" prop="createTime">
           <template #default="scope">
-            <span>{{ dateStrFormat(scope.row.create_time) }}</span>
+            <span>{{ dateStrFormat(scope.row.createTime) }}</span>
           </template>
         </el-table-column>
         <el-table-column label="更新时间" align="center" prop="update_time">
@@ -110,7 +110,7 @@
                            @click="onOpenEditModule(scope.row)"
                 >
                   <SvgIcon name="elementEdit"/>
-                  修改
+                  参数编辑
                 </el-button>
               </div>
                 <div>
@@ -258,7 +258,6 @@ export default {
       }
     });
 
-    /** 查询岗位列表 */
     const handleQuery = () => {
       state.loading = true;
       getTableList(state.queryParams).then(response => {

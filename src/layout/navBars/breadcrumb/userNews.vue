@@ -9,7 +9,7 @@
 				<div class="content-box-item" v-for="(v, k) in newsList" :key="k">
 					<div>{{ v.title }}</div>
 
-					<div class="content-box-time">发布时间：{{ dateStrFormat(v.create_time) }}</div>
+					<div class="content-box-time">发布时间：{{ dateStrFormat(v.createTime) }}</div>
 				</div>
 			</template>
 			<el-empty :description="$t('message.user.newDesc')" v-else></el-empty>

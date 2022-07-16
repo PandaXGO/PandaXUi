@@ -13,28 +13,22 @@
         <el-form
           :model="queryParams"
           ref="queryForm"
-
           :inline="true"
         >
           <el-row>
-            <el-col span="8">
               <el-form-item label="标签" prop="dictName">
                 <el-input
                   placeholder="标签查询"
                   clearable
                   @keyup.enter="handleQuery"
-                  style="width: 140px"
                   v-model="queryParams.dictLabel"
                 />
               </el-form-item>
-            </el-col>
-            <el-col span="8">
               <el-form-item label="状态" prop="status">
                 <el-select
                   v-model="queryParams.status"
                   placeholder="状态"
                   clearable
-                  style="width: 100px"
                 >
                   <el-option
                     v-for="dict in statusOptions"
@@ -44,8 +38,6 @@
                   />
                 </el-select>
               </el-form-item>
-            </el-col>
-            <el-col span="8">
               <el-form-item>
                 <el-button
                   type="primary"
@@ -56,19 +48,13 @@
                   @click="resetQuery"
                   ><SvgIcon name="elementRefresh" />重置</el-button
                 >
+                <el-button
+                        style="margin-bottom: 10px; margin-top: 10px"
+                        type="primary"
+                        v-auth="'system:dictD:add'"
+                        @click="onOpenAddModule"
+                ><SvgIcon name="elementPlus" />新增</el-button>
               </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :md="2" :sm="2" :xs="8">
-              <el-button
-                style="margin-bottom: 10px; margin-top: 10px"
-                type="primary"
-                v-auth="'system:dictD:add'"
-                @click="onOpenAddModule"
-                ><SvgIcon name="elementPlus" />新增</el-button
-              >
-            </el-col>
           </el-row>
         </el-form>
       </div>
@@ -119,17 +105,23 @@
             class-name="medium-padding fixed-width"
           >
             <template #default="scope">
-              <el-button text type="primary"
-                icon="el-icon-edit"
-                v-auth="'system:dictD:edit'"
-                @click="onOpenEditModule(scope.row)"
-                ><SvgIcon name="elementEdit" />修改</el-button
-              >
-              <el-button text type="primary"
-                v-auth="'system:dictD:delete'"
-                @click="onTabelRowDel(scope.row)"
-                ><SvgIcon name="elementDelete" />删除</el-button
-              >
+              <el-popover  placement="left">
+                <template #reference>
+                  <el-button type="primary" circle ><SvgIcon name="elementStar"/></el-button>
+                </template>
+                <div>
+                  <el-button text type="primary"
+                             v-auth="'system:dictD:edit'"
+                             @click="onOpenEditModule(scope.row)"
+                  ><SvgIcon name="elementEdit" />修改</el-button>
+                </div>
+                <div>
+                  <el-button text type="primary"
+                             v-auth="'system:dictD:delete'"
+                             @click="onTabelRowDel(scope.row)"
+                  ><SvgIcon name="elementDelete" />删除</el-button>
+                </div>
+              </el-popover>
             </template>
           </el-table-column>
         </el-table>

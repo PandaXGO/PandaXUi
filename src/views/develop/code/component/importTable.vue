@@ -98,7 +98,7 @@ export default {
       // 查询参数
       queryParams: {
         pageNum: 1,
-        pageSize: 10,
+        pageSize: 999,
         tableName: undefined,
         tableComment: undefined
       }

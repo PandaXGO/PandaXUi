@@ -93,7 +93,9 @@
                             <el-select v-model="scope.row.htmlType">
                                 <el-option label="文本框" value="input" />
                                 <el-option label="下拉框" value="select" />
+                                <el-option label="开关" value="switch" />
                                 <el-option label="单选框" value="radio" />
+                                <el-option label="多选框" value="checkbox" />
                                 <el-option label="文件选择" value="file" />
                                 <el-option label="文本域" value="textarea" />
                                 <el-option label="日期控件" value="datetime" />
@@ -215,7 +217,7 @@
                     // 获取表详细信息
                     getTableInfo(row.tableId).then((res) => {
                         let columns = res.data.list.filter((item)=>{
-                            return !['create_time','update_time','delete_time'].includes(item.columnName)
+                            return !['createTime','update_time','delete_time'].includes(item.columnName)
                         })
                         state.columns = columns;
                         state.info = res.data.info;
@@ -237,20 +239,14 @@
 
             /** 提交按钮 */
             const submitForm = () => {
-                console.log(basicInfoRef.value)
                 const basicForm = basicInfoRef.value.basicInfoForm
                 const genForm = genInfoRef.value.genInfoFormRef
-
                 Promise.all([basicForm, genForm].map(getFormPromise)).then(res => {
                     const validateResult = res.every(item => !!item)
                     if (validateResult) {
-                        const genTable = Object.assign({}, basicForm.model, genForm.model)
+                        const genTable = Object.assign({}, basicInfoRef.value.info, genInfoRef.value.info)
+                        console.log("genTable",genTable)
                         genTable.columns = state.columns
-                        genTable.params = {
-                            treeCode: genTable.treeCode,
-                            treeName: genTable.treeName,
-                            treeParentCode: genTable.treeParentCode
-                        }
                         state.loading = true;
                         updateTable(genTable).then((res) =>{
                                 ElMessage.success("修改成功");

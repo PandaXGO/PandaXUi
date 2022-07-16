@@ -129,7 +129,7 @@
             align="center"
         >
           <template #default="scope">
-            <span>{{ dateStrFormat(scope.row.create_time) }}</span>
+            <span>{{ dateStrFormat(scope.row.createTime) }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -208,7 +208,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="操作时间：">{{
-                dateStrFormat(modelForm.create_time)
+                dateStrFormat(modelForm.createTime)
               }}
             </el-form-item>
           </el-col>

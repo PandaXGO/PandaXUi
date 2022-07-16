@@ -165,12 +165,12 @@
               </template>
             </el-table-column>
             <el-table-column
-                prop="create_time"
+                prop="createTime"
                 label="创建时间"
                 show-overflow-tooltip
             >
               <template #default="scope">
-                {{ dateStrFormat(scope.row.create_time) }}
+                {{ dateStrFormat(scope.row.createTime) }}
               </template>
             </el-table-column>
             <el-table-column prop="path" align="center" label="操作" width="250">

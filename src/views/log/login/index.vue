@@ -99,7 +99,7 @@
                     align="center"
             >
                 <template #default="scope">
-                    <span>{{ dateStrFormat(scope.row.create_time) }}</span>
+                    <span>{{ dateStrFormat(scope.row.createTime) }}</span>
                 </template>
             </el-table-column>
         </el-table>

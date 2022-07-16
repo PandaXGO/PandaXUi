@@ -138,11 +138,11 @@
         <el-table-column
             label="执行时间"
             align="center"
-            prop="create_time"
+            prop="createTime"
             width="180"
         >
           <template #default="scope">
-            <span>{{ dateStrFormat(scope.row.create_time) }}</span>
+            <span>{{ dateStrFormat(scope.row.createTime) }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -196,7 +196,7 @@
             <el-form-item label="任务名称：">{{ modelForm.name }}</el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="执行时间：">{{ modelForm.create_time }}</el-form-item>
+            <el-form-item label="执行时间：">{{ modelForm.createTime }}</el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="调用方法：">{{

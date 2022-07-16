@@ -130,7 +130,7 @@
                 </el-button>
               </div>
               <div>
-                <el-button v-if="scope.row.parentId != 0" text type="primary" v-auth="'system:post:delete'" @click="onTabelRowDel(scope.row)">
+                <el-button text type="primary" v-auth="'system:post:delete'" @click="onTabelRowDel(scope.row)">
                   <SvgIcon name="elementDelete"/>
                   删除
                 </el-button>

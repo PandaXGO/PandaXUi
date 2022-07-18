@@ -10,15 +10,15 @@
                     ref="ruleFormRef"
                     label-width="80px"
             >
+                <el-form-item label="租户名" prop="tenantName">
+                    <el-input v-model="ruleForm.tenantName" placeholder="请输入租户名" />
+                </el-form-item>
                 <el-form-item label="过期时间" prop="expireTime">
                     <el-date-picker clearable style="width: 200px"
                                     v-model="ruleForm.expireTime"
                                     type="datetime"
                                     placeholder="选择过期时间">
                     </el-date-picker>
-                </el-form-item>
-                <el-form-item label="租户名" prop="tenantName">
-                    <el-input v-model="ruleForm.tenantName" placeholder="请输入租户名" />
                 </el-form-item>
                 <el-form-item label="备注" prop="remark">
                     <el-input v-model="ruleForm.remark" placeholder="请输入备注" />

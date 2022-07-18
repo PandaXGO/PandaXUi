@@ -1,6 +1,5 @@
 <template>
 	<div v-show="isShowLockScreen">
-		<div class="layout-lock-screen-mask"></div>
 		<div class="layout-lock-screen-img" :class="{ 'layout-lock-screen-filter': isShowLoockLogin }"></div>
 		<div class="layout-lock-screen">
 			<div
@@ -206,11 +205,6 @@ export default defineComponent({
 }
 .layout-lock-screen-filter {
 	filter: blur(1px);
-}
-.layout-lock-screen-mask {
-	background: var(--el-color-white);
-	@extend .layout-lock-screen-fixed;
-	z-index: 9999990;
 }
 .layout-lock-screen-img {
 	@extend .layout-lock-screen-fixed;

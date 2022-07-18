@@ -206,7 +206,7 @@
         </el-form-item>
 
         <el-form-item label="权限设置">
-          <el-tabs v-model="activeName" @tab-click="handleClick">
+          <el-tabs v-model="activeName">
             <el-tab-pane label="菜单权限" name="first">
               <el-checkbox
                   v-model="menuExpand"
@@ -302,31 +302,30 @@
           </el-select>
         </el-form-item>
         <el-form-item label="数据权限" v-show="roleForm.dataScope == 2">
-          <el-checkbox
-              v-model="deptExpand"
-              @change="handleCheckedTreeExpand($event, 'dept')"
-          >展开/折叠
-          </el-checkbox
-          >
-          <el-checkbox
-              v-model="deptNodeAll"
-              @change="handleCheckedTreeNodeAll($event, 'dept')"
-          >全选/全不选
-          </el-checkbox
-          >
-          <el-tree
-              class="tree-border"
-              :data="deptOptions"
-              show-checkbox
-              default-expand-all
-              ref="deptRef"
-              node-key="deptId"
-              empty-text="加载中，请稍后"
-              :props="{
+            <el-checkbox
+                    v-model="deptExpand"
+                    @change="handleCheckedTreeExpand($event, 'dept')"
+            >展开/折叠
+            </el-checkbox
+            >
+            <el-checkbox
+                    v-model="deptNodeAll"
+                    @change="handleCheckedTreeNodeAll($event, 'dept')"
+            >全选/全不选
+            </el-checkbox>
+            <el-tree
+                    class="tree-border"
+                    :data="deptOptions"
+                    show-checkbox
+                    default-expand-all
+                    ref="deptRef"
+                    node-key="deptId"
+                    empty-text="加载中，请稍后"
+                    :props="{
               label: 'deptName',
               children: 'children',
             }"
-          ></el-tree>
+            ></el-tree>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -371,9 +370,11 @@ import {
   roleDeptTreeselect,
 } from "@/api/system/dept";
 import {handleFileError} from "@/utils/export";
+import DictList from "@/views/system/dict/component/dictList.vue";
 
 export default {
   name: "systemRole",
+  components: {DictList},
   setup() {
     const {proxy} = getCurrentInstance() as any;
     const roleFormRef = ref<HTMLElement | null>(null);

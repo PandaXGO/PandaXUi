@@ -61,17 +61,17 @@
                     @selection-change="handleSelectionChange"
             >
                 <el-table-column type="selection" width="55" align="center" />
+                <el-table-column label="租户名" align="center" prop="tenantName" />
                 <el-table-column label="过期时间" align="center" prop="expireTime" width="180">
                     <template #default="scope">
                         <span>{{ dateStrFormat(scope.row.expireTime) }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="CreateTime" align="center" prop="createTime" width="180">
+                <el-table-column label="创建事件" align="center" prop="createTime" width="180">
                     <template #default="scope">
                         <span>{{ dateStrFormat(scope.row.createTime) }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="租户名" align="center" prop="tenantName" />
                 <el-table-column label="备注" align="center" prop="remark" />
                 <el-table-column label="编号" align="center" prop="id" />
                 <el-table-column

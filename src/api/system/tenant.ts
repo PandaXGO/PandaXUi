@@ -1,11 +1,18 @@
 import request from '@/utils/request';
 
-// 查询SysTenants列表
+// 查询SysTenants列表分页
 export function listSysTenants(query:any) {
     return request({
         url: '/system/tenant/list',
         method: 'get',
         params: query
+    })
+}
+
+export function allSysTenants() {
+    return request({
+        url: '/system/tenant/lists',
+        method: 'get'
     })
 }
 

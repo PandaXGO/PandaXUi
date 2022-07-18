@@ -126,6 +126,11 @@
                 prop="username"
                 show-overflow-tooltip
             ></el-table-column>
+            <el-table-column
+                    label="所属租户"
+                    prop="tenants.tenantName"
+                    show-overflow-tooltip
+            ></el-table-column>
             <el-table-column label="头像" show-overflow-tooltip>
               <template #default="scope">
                 <el-image
@@ -173,7 +178,7 @@
                 {{ dateStrFormat(scope.row.createTime) }}
               </template>
             </el-table-column>
-            <el-table-column prop="path" align="center" label="操作" width="250">
+            <el-table-column prop="path" align="center" label="操作">
               <template #default="scope">
                 <el-popover  placement="left">
                   <template #reference>

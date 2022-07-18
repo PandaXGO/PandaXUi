@@ -20,6 +20,25 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
+            <el-form-item label="归属租户" prop="tenantId">
+              <el-cascader
+                      v-model="ruleForm.tenantId"
+                      :options="tenantOptions"
+                      :props="{
+                        label: 'tenantName',
+                        value: 'id',
+                        checkStrictly: true,
+                        emitPath: false,
+                      }"
+                      class="w100"
+                      clearable
+                      filterable
+                      placeholder="请选择归属租户"
+                      :show-all-levels="false"
+              ></el-cascader>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
             <el-form-item label="归属部门" prop="deptId">
               <el-cascader
                 v-model="ruleForm.deptId"
@@ -38,9 +57,9 @@
               ></el-cascader>
             </el-form-item>
           </el-col>
-          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
+          <el-col v-if="ruleForm.userName == undefined" :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
             <el-form-item
-                    v-if="ruleForm.userId == undefined"
+
                     label="用户名称"
                     prop="username"
             >
@@ -50,9 +69,8 @@
               />
             </el-form-item>
           </el-col>
-          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+          <el-col v-if="ruleForm.userId == undefined" :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
             <el-form-item
-                    v-if="ruleForm.userId == undefined"
                     label="用户密码"
                     prop="password"
             >
@@ -94,20 +112,21 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="状态">
-              <el-radio-group v-model="ruleForm.status">
-                <el-radio
-                  v-for="dict in statusOptions"
-                  :key="dict.dictValue"
-                  :label="dict.dictValue"
-                  >{{ dict.dictLabel }}
-                </el-radio>
-              </el-radio-group>
+            <el-form-item label="角色">
+              <el-select v-model="roleIds" multiple placeholder="请选择">
+                <el-option
+                        v-for="item in roleOptions"
+                        :key="item.roleId"
+                        :label="item.roleName"
+                        :value="item.roleId"
+                        :disabled="item.status == 1"
+                ></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
             <el-form-item label="岗位">
-              <el-select v-model="postIds" multiple collapse-tags="true" placeholder="请选择">
+              <el-select v-model="postIds" multiple placeholder="请选择">
                 <el-option
                   v-for="item in postOptions"
                   :key="item.postId"
@@ -119,16 +138,15 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="角色">
-              <el-select v-model="roleIds" multiple collapse-tags="true" placeholder="请选择">
-                <el-option
-                  v-for="item in roleOptions"
-                  :key="item.roleId"
-                  :label="item.roleName"
-                  :value="item.roleId"
-                  :disabled="item.status == 1"
-                ></el-option>
-              </el-select>
+            <el-form-item label="状态">
+              <el-radio-group v-model="ruleForm.status">
+                <el-radio
+                        v-for="dict in statusOptions"
+                        :key="dict.dictValue"
+                        :label="dict.dictValue"
+                >{{ dict.dictLabel }}
+                </el-radio>
+              </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" >
@@ -157,6 +175,7 @@
 import { reactive, toRefs, ref, unref, getCurrentInstance } from "vue";
 import { treeselect } from "@/api/system/dept";
 import { updateUser, addUser, getUser, getUserInit } from "@/api/system/user";
+import { allSysTenants } from "@/api/system/tenant";
 import { ElMessage } from "element-plus";
 
 export default {
@@ -184,10 +203,12 @@ export default {
       statusOptions: [],
       // 部门树选项
       deptOptions: [],
+      tenantOptions: [],
       // 岗位选项
       postOptions: [],
       ruleForm: {
         userId: undefined, // 用戶ID
+        tenantId: undefined,
         username: "", // 用戶名称
         nickName: "", // 用戶昵称
         deptId: "", // 部门ID
@@ -259,6 +280,7 @@ export default {
         initForm();
       }
       getTreeselect();
+      getTenants();
       state.isShowDialog = true;
       state.loading = false;
       // 查询显示性別数据字典
@@ -284,6 +306,12 @@ export default {
     const getTreeselect = async () => {
       treeselect().then((response) => {
         state.deptOptions = response.data;
+      });
+    };
+    /** 查询租户结构 */
+    const getTenants = async () => {
+      allSysTenants().then((response) => {
+        state.tenantOptions = response.data;
       });
     };
     /** 提交按钮 */
@@ -312,9 +340,6 @@ export default {
           }
         }
       });
-      // console.log(state.ruleForm); // 数据，请注意需要转换的类型
-      // closeDialog(); // 关闭弹窗
-      // setBackEndControlRefreshRoutes() // 刷新菜单，未进行后端接口测试
     };
     // 表单初始化，方法：`resetFields()` 无法使用
     const initForm = () => {
@@ -323,6 +348,7 @@ export default {
         state.roleOptions = response.data.roles
       })
       state.ruleForm.userId = undefined; // 用戶ID
+      state.ruleForm.tenantId = undefined; // 用戶ID
       state.ruleForm.username = ""; // 用戶名称
       state.ruleForm.nickName = ""; // 用戶昵称
       state.ruleForm.deptId = ""; // 部门ID

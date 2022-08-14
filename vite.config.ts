@@ -37,7 +37,7 @@ const viteConfig: UserConfig = {
 	},
 	build: {
 		//outDir: 'static',
-		outDir: 'D:\\workspace\\go\\project\\PandaX\\server\\static',
+		outDir: 'D:\\workspace\\go\\project\\PandaX\\PandaX\\static',
 		minify: 'esbuild',
 		sourcemap: false,
 		chunkSizeWarningLimit: 1500,

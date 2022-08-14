@@ -148,7 +148,7 @@
                 </el-button>
               </div>
               <div>
-                <el-button v-if="scope.row.parentId != 0" text type="primary" v-auth="'system:config:delete'" @click="onTabelRowDel(scope.row)">
+                <el-button text type="primary" v-auth="'system:config:delete'" @click="onTabelRowDel(scope.row)">
                   <SvgIcon name="elementDelete"/>
                   删除
                 </el-button>
@@ -261,16 +261,16 @@ export default {
     };
     /** 删除按钮操作 */
     const onTabelRowDel = (row: any) => {
-      const dictIds = row.dictId || state.ids;
+      const configIds = row.configId || state.ids;
       ElMessageBox({
-        message: '是否确认删除配置参数编号为"' + dictIds + '"的数据项?',
+        message: '是否确认删除配置参数编号为"' + configIds + '"的数据项?',
         title: "警告",
         showCancelButton: true,
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       }).then(function () {
-        return delConfig(dictIds).then(() => {
+        return delConfig(configIds).then(() => {
           handleQuery();
           ElMessage.success("删除成功");
         });
@@ -278,7 +278,7 @@ export default {
     };
     // 多选框选中数据
     const handleSelectionChange = (selection: any) => {
-      state.ids = selection.map((item: any) => item.postId);
+      state.ids = selection.map((item: any) => item.configId);
       state.single = selection.length != 1;
       state.multiple = !selection.length;
     };

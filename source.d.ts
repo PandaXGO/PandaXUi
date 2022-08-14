@@ -7,4 +7,5 @@ declare module '*.js';
 declare module '@form-create/element-ui';
 declare module 'codemirror-editor-vue3';
 declare module 'element-plus';
+declare module 'swagger-ui-dist';
 

@@ -90,7 +90,6 @@ const handleCommand =async (command: string | number | object) => {
 /** 查询部门下拉树结构 */
 const initTreeData = async () => {
   treeselect().then((response) => {
-    console.log(response.data);
     state.data = response.data;
   });
 };

@@ -1,0 +1,11 @@
+.properties-panel-form .ant-form-item {
+  margin-bottom: 10px;
+}
+
+.properties-panel-form .ant-form-vertical .ant-form-item-label {
+  padding: 0;
+}
+
+.properties-panel-form .ant-form-item-label>label {
+  font-weight: bold;
+}

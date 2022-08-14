@@ -102,14 +102,12 @@ import { useRoute, useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
 import { useI18n } from "vue-i18n";
 import { initBackEndControlRoutes } from "@/router/index";
-import { useUserInfosState } from "@/stores/userInfos";
 import { Session } from "@/utils/storage";
 import Cookies from 'js-cookie';
 import { captcha, signIn } from "@/api/login/index";
 import { formatAxis } from "@/utils/formatTime";
 import rotate from '@/assets/rotate.png'
-import { letterAvatar } from "@/utils/string";
-import { NextLoading } from '@/utils/loading';
+
 // 旋转图片滑块组件
 import DragVerifyImgRotate from "@/components/dragVerify/dragVerifyImgRotate.vue";
 
@@ -118,7 +116,6 @@ const { proxy } = getCurrentInstance() as any;
 const loginFormRef: any = ref(null);
 const dragRef: any = ref(null);
 
-const userInfos2 = useUserInfosState();
 const route = useRoute();
 const router = useRouter();
 const state = reactive({

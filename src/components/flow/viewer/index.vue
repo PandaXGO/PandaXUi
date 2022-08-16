@@ -1,8 +1,10 @@
 <template>
-  <el-container class="layout" >
-    <el-header class="layout-header"><Toolbar /></el-header>
-    <el-main><div ref="container" class="layout-container"></div></el-main>
-  </el-container>
+    <el-container class="layout">
+      <el-header class="layout-header"><toolbar /></el-header>
+      <el-main class="layout-main">
+        <div ref="container" class="layout-container"></div>
+      </el-main>
+    </el-container>
   <el-drawer
           v-model="codeDrawerVisible"
           title="Json代码!"
@@ -15,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import {provide, ref, onMounted, watch} from "vue";
+import {provide, ref, onMounted, watch,defineProps} from "vue";
  import highlightjs from "@highlightjs/vue-plugin"
  import { Definition } from '@logicflow/core'
  import { MiniMap } from '@logicflow/extension'
@@ -62,6 +64,7 @@ import {provide, ref, onMounted, watch} from "vue";
 
   onMounted(() => {
     if (!container.value) {
+      console.log('error container is null')
       return
     }
     const _logicflow_options: Definition = {
@@ -96,9 +99,13 @@ import {provide, ref, onMounted, watch} from "vue";
   }
   .layout-header{
     background: #fff;
-    height: 40px;
+    height: 42px;
     width: 100%;
     line-height: 32px;
+    padding: 5px 10px
+  }
+  .layout-main{
+    background: #fff;
     padding: 5px 10px
   }
   .layout-container{
@@ -107,13 +114,7 @@ import {provide, ref, onMounted, watch} from "vue";
     padding: 4px;
     box-shadow: 0 0 4px rgb(0 0 0 / 30%) inset;
     background: #fff;
-      z-index: 999;
+    z-index: 999;
   }
 
-  pre,
-  pre code.hljs {
-    overflow: visible;
-    margin: 0;
-    background-color: transparent;
-  }
 </style>

@@ -1,9 +1,9 @@
 <template>
-  <FlowModeler :code="code" :type="type" @getCode="getCode"></FlowModeler>
+    <flow-view :code="code" :type="type"></flow-view>
 </template>
 
 <script setup lang="ts">
-import  FlowModeler  from '@/components/flow/modeler/index.vue'
+import FlowView from "@/components/flow/viewer/index.vue"
 import {ref} from "vue";
 
 let codeData = {
@@ -216,10 +216,10 @@ let codeData = {
   }
 }
 
-const code = ref(codeData.nodeRed)
-const type = ref("nodeRed")
+const code = ref(codeData.bpmn)
+const type = ref("bpmn")
 
-const getCode = (newCode:any) => {
+const onSave = (newCode:any) => {
   console.log(newCode)
 }
 

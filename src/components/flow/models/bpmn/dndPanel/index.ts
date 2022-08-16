@@ -1,5 +1,6 @@
 import { createApp, getCurrentInstance } from 'vue';
 import ElementPlus from 'element-plus';
+
 import Palette from './Palette.vue';
 
 class BpmnExtension {

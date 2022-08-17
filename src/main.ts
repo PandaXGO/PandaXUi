@@ -19,9 +19,10 @@ import VForm3 from 'xmgo-vform'
 import 'xmgo-vform/dist/designer.style.css'  //引入VForm3样式
 
 
+
 import Codemirror from "codemirror-editor-vue3";
 
-const app = createApp(App); 
+const app = createApp(App);
 const pinia = createPinia();
 
 directive(app);
@@ -37,8 +38,8 @@ app
 	.use(screenShort, { enableWebRtc: false })
     .use(VueGridLayout)
 	.mount('#app');
-   
-    
+
+
 app.config.globalProperties.mittBus = mitt();
 
 // 全局方法挂载

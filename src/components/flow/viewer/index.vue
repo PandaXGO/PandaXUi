@@ -1,8 +1,8 @@
 <template>
-    <el-container class="layout">
+    <el-container class="main-container full-height">
       <el-header class="layout-header"><toolbar /></el-header>
       <el-main class="layout-main">
-        <div ref="container" class="layout-container"></div>
+           <div ref="container" class="layout-container"></div>
       </el-main>
     </el-container>
   <el-drawer
@@ -17,13 +17,17 @@
 </template>
 
 <script setup lang="ts">
-import {provide, ref, onMounted, watch,defineProps} from "vue";
+import {provide, ref, onMounted, watch} from "vue";
  import highlightjs from "@highlightjs/vue-plugin"
  import { Definition } from '@logicflow/core'
  import { MiniMap } from '@logicflow/extension'
  import hljs from 'highlight.js/lib/core'
  import json from 'highlight.js/lib/languages/json'
  import xml from 'highlight.js/lib/languages/xml'
+ import '@logicflow/extension/lib/style/index.css'
+ import '@logicflow/core/dist/style/index.css'
+ import 'highlight.js/styles/stackoverflow-light.css'
+ import 'splitpanes/dist/splitpanes.css'
  import { useViewer } from '../useapi'
  import models from '../models'
  import Toolbar from "./toolbar.vue";
@@ -90,30 +94,35 @@ import {provide, ref, onMounted, watch,defineProps} from "vue";
 
 </script>
 
-<style scoped>
-  .layout{
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    overflow: hidden;
-  }
+<style lang="scss" scoped>
+    .el-container.main-container {
+        background: #fff;
+        margin: 0;
+        padding: 0 ;
+        background: inherit;
+    }
+
+    .el-container.full-height {
+        height: 100%;
+        overflow-y: hidden;
+    }
+
   .layout-header{
-    background: #fff;
-    height: 42px;
     width: 100%;
-    line-height: 32px;
+    height: 42px !important;
+    line-height: 32px !important;
     padding: 5px 10px
   }
+
   .layout-main{
-    background: #fff;
     padding: 5px 10px
   }
+
   .layout-container{
     height: 100%;
     width: 100%;
     padding: 4px;
     box-shadow: 0 0 4px rgb(0 0 0 / 30%) inset;
-    background: #fff;
     z-index: 999;
   }
 

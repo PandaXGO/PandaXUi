@@ -111,7 +111,6 @@ export function useViewer(model: ModelType): ViewerContext {
 
     viewer.lf?.on('graph:transform', (data) => {
       if (data.type === 'zoom' || data.type === 'resetZoom') {
-        console.log(data)
         scale.value = data.transform.SCALE_X
       }
     })

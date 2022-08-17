@@ -272,8 +272,8 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-         <el-button type="primary" size="small" :loading="bunLoading" @click="submitForm">确 定</el-button>
-        <el-button size="small" @click="cancel">取 消</el-button>
+         <el-button type="primary" :loading="bunLoading" @click="submitForm">确 定</el-button>
+        <el-button  @click="cancel">取 消</el-button>
         </span>
       </template>
     </el-dialog>

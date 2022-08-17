@@ -265,7 +265,7 @@
 <script setup lang="ts">
 import { toRefs, reactive, computed, onMounted } from "vue";
 import { formatAxis } from "@/utils/formatTime";
- 
+
 import { useUserInfosState } from "@/stores/userInfos";
 import { newsInfoList, recommendList } from "./mock";
 import { updateUserPwd, getRoPo, updateUser } from "@/api/system/user";
@@ -302,7 +302,7 @@ const state = reactive({
 const { personalForm } = toRefs(state);
 // 当前时间提示语
 const currentTime = computed(() => {
-  return formatAxis(new Date());
+  return formatAxis(new Date());bito
 });
 // 获取用户信息 vuex
 const getUserInfos = computed(() => {

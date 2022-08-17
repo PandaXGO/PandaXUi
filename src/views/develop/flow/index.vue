@@ -1,9 +1,13 @@
 <template>
-    <flow-view :code="code" :type="type"></flow-view>
+    <div >
+        <flow-model :code="code" :type="type" @onSave="onSave"></flow-model>
+    </div>
+
 </template>
 
 <script setup lang="ts">
-import FlowView from "@/components/flow/viewer/index.vue"
+/*import FlowView from "@/components/flow/viewer/index.vue"*/
+import FlowModel from "@/components/flow/modeler/index.vue"
 import {ref} from "vue";
 
 let codeData = {

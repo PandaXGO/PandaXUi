@@ -220,8 +220,8 @@ let codeData = {
   }
 }
 
-const code = ref(codeData.bpmn)
-const type = ref("bpmn")
+const code = ref(codeData.nodeRed)
+const type = ref("nodeRed")
 
 const onSave = (newCode:any) => {
   console.log(newCode)

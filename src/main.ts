@@ -15,10 +15,8 @@ import mitt from 'mitt';
 import screenShort from 'vue-web-screen-shot';
 import VueGridLayout from 'vue-grid-layout';
 
-import VForm3 from 'xmgo-vform'
+import XmForm from 'xmgo-vform'
 import 'xmgo-vform/dist/designer.style.css'  //引入VForm3样式
-
-
 
 import Codemirror from "codemirror-editor-vue3";
 
@@ -32,7 +30,7 @@ app
     .use(pinia)
 	.use(router)
 	.use(ElementPlus, { i18n: i18n.global.t, size: "default" })
-	.use(VForm3)
+	.use(XmForm)
 	.use(Codemirror)
 	.use(i18n)
 	.use(screenShort, { enableWebRtc: false })

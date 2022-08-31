@@ -1,5 +1,5 @@
 import { ModelType } from '../../useapi';
-import FlowLink from "./edges/FlowLink";
+import NodeLink from "./edges/NodeLink";
 import DelayNode from "./nodes/DelayNode";
 import FetchNode from "./nodes/FetchNode";
 import FunctionNode from "./nodes/FunctionNode";
@@ -12,7 +12,7 @@ import "./style.css";
 export default <ModelType>{
   name: 'nodeRed',
   label: 'NodeRed 模型',
-  defaultEdgeType: FlowLink.type,
+  defaultEdgeType: NodeLink.type,
   nodeTypes: [
     StartNode,
     FunctionNode,
@@ -22,7 +22,7 @@ export default <ModelType>{
     DelayNode,
   ],
   edgeTypes: [
-    FlowLink
+    NodeLink
   ],
   newData: {},
   init(lf) {

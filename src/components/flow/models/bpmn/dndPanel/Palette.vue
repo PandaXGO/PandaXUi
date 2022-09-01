@@ -1,5 +1,5 @@
 <template>
-    <div style="width:180px;margin: 5px 0 0 10px;">
+    <div style="width:170px;margin: 5px 0 0 10px;">
         <el-collapse v-model="activeNames">
         <el-collapse-item v-for="item in nodeList" :title="item.title" :name="item.name" >
           <el-tooltip
@@ -69,7 +69,7 @@
             content: "这个节点是开始",
             background: 'rgb(166, 187, 207)',
             icon: startIcon,
-            normal: "left",
+            normal: "right",
           },
           {
             type: 'stop-node',
@@ -77,7 +77,7 @@
             content: "这个节点是结束",
             background: 'rgb(193, 75, 51)',
             icon: endIcon,
-            normal: "right",
+            normal: "left",
           },
         ]
       },

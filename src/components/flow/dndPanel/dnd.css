@@ -1,5 +1,5 @@
 
-.red-ui-palette-node {
+.palette-node {
     cursor: move;
     background: #fff;
     margin: 10px auto;
@@ -12,7 +12,7 @@
     background-size: contain;
     position: relative;
 }
-.red-ui-palette-label {
+.palette-label {
     color: #333;
     font-size: 13px;
     margin: 4px 0 4px 32px;
@@ -25,7 +25,7 @@
     -ms-user-select: none;
     user-select: none;
 }
-.red-ui-palette-icon-container {
+.palette-icon-container {
     position: absolute;
     text-align: center;
     top: 0;
@@ -35,7 +35,7 @@
     border-right: 1px solid rgba(0,0,0,.05);
     background-color: rgba(0,0,0,.05);
 }
-.red-ui-palette-icon {
+.palette-icon {
     display: inline-block;
     width: 20px;
     height: 100%;
@@ -44,7 +44,7 @@
     background-repeat: no-repeat;
 }
 
-.red-ui-palette-port {
+.palette-port {
     position: absolute;
     top: 8px;
     left: -5px;
@@ -57,7 +57,7 @@
     border: 1px solid #999;
 }
 
-.red-ui-palette-port-output {
+.palette-port-output {
     left: auto;
     right: -6px;
 }

@@ -50,6 +50,18 @@ class RedNodeModel extends RectNodeModel {
     const { x, y, id, width, height } = this;
     const anchors = [
       {
+        x: x,
+        y: y + height / 2,
+        id: `${id}_top`,
+        type: "top"
+      },
+      {
+        x: x,
+        y: y - height / 2,
+        id: `${id}_bottom`,
+        type: "bottom"
+      },
+      {
         x: x + width / 2,
         y: y,
         id: `${id}_right`,

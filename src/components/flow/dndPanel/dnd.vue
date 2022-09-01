@@ -1,11 +1,11 @@
 <template>
-    <div class="red-ui-palette-node" :style="{ backgroundColor: baseNode.background }">
-        <div class="red-ui-palette-label">{{baseNode.text}}</div>
-        <div class="red-ui-palette-icon-container">
-            <div class="red-ui-palette-icon" :style="{ backgroundImage: `url(${baseNode.icon})`}"></div>
+    <div class="palette-node" :style="{ backgroundColor: baseNode.background }">
+        <div class="palette-label">{{baseNode.text}}</div>
+        <div class="palette-icon-container">
+            <div class="palette-icon" :style="{ backgroundImage: `url(${baseNode.icon})`}"></div>
         </div>
-        <div v-if="normal == 'left' || normal=='default'" class="red-ui-palette-port"></div>
-        <div v-if="normal == 'right' || normal=='default'" class="red-ui-palette-port red-ui-palette-port-output"></div>
+        <div v-if="normal == 'left' || normal=='default'" class="palette-port"></div>
+        <div v-if="normal == 'right' || normal=='default'" class="palette-port palette-port-output"></div>
     </div>
 </template>
 

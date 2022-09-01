@@ -22,49 +22,21 @@
         </el-form-item>
       </el-form>
     </el-tab-pane>
-    <el-tab-pane label="参与者" name="second">
-      <el-form :model="data.properties" label-position="left" label-width="100px">
-        <el-form-item label="分配策略">
-          <el-select v-model="data.properties.fpcl" placeholder="抢任务/会签">
-            <el-option value="single" label="抢任务"/>
-            <el-option value="single" label="会签"/>
+    <el-tab-pane label="网关配置" name="second">
+      <el-form :model="data.properties" label-position="left" label-width="80px">
+        <el-form-item label="网关分类">
+          <el-select v-model="data.properties.gatewayType" placeholder="请选择网关">
+            <el-option value="exclude" label="排他网关"/>
+            <el-option value="parallel" label="并行网关"/>
           </el-select>
         </el-form-item>
-        <el-form-item label="参与者类型" >
-          <el-select v-model="data.properties.zxrlx" placeholder="人员/角色/表达式">
-            <el-option value="users" label="人员"/>
-            <el-option value="roles" label="角色"/>
-            <el-option value="complexus" label="表达式"/>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="表达式" prop="properties">
-          <el-input
-              v-model="data.properties.zxr"
-              :rows="2"
-              type="textarea"
-          />
-        </el-form-item>
-        <el-form-item label="描述" prop="properties">
-          <el-input
-              v-model="data.properties.ms"
-              :rows="2"
-              type="textarea"
-          />
+        <el-form-item v-if="data.properties.gatewayType == 'exclude'" label="网关条件" >
+          <el-input v-model="data.properties.condition"/>
         </el-form-item>
       </el-form>
     </el-tab-pane>
-    <el-tab-pane label="表单" name="third">
-      <el-form :model="data.properties" label-position="left" label-width="100px">
-        <el-form-item label="表单模式">
-          <el-select v-model="data.properties.formtype" placeholder="单表单/工作台加">
-            <el-option value="single" label="单表单"/>
-            <el-option value="complexus" label="复合表单"/>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="表单">
-          <el-input placeholder="请输入表单组件名称或者url" v-model:value="data.properties.formurl" />
-        </el-form-item>
-      </el-form>
+    <el-tab-pane label="帮助" name="third">
+      <help :content="content"></help>
     </el-tab-pane>
   </el-tabs>
 </template>
@@ -72,7 +44,15 @@
 <script setup lang="ts">
 import { usePropertiesPanelData } from '../../../useapi';
 import { userTaskIcon } from '../icons';
+import Help from './help.vue'
 import './style.css';
 
 const data = usePropertiesPanelData()
+const content = {
+  "title": "网关",
+  "sketch": "网关组件主要包含两个排他网关、并行网关",
+  "description": "排他网关：在平时的业务中，有的时候需要根据表单数据的值来判断跳转到啥位置。例如：如果申请的服务器价格低于1000元就是部门领导审批，如果超过1000元，那么就是CTO审批。为兼容这种情况因此加入了排他网关的概念。" +
+          "\n" +
+          "此外还需注意，如果使用了排他网关，则必须有一个条件判断是正确的，否则流程将无法进行下去，报错失败。并行网关：在日常的工作中，可能会有需要多个处理人并行进行处理，只有所有的处理人都完成处理才可以跳转到下一个阶段。基于这种情况的出现，因此有了并行网关的概念"
+}
 </script>

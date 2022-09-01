@@ -9,8 +9,8 @@
 	"dependencies": {
 		"@element-plus/icons-vue": "^2.0.3",
 		"@highlightjs/vue-plugin": "^2.1.0",
-		"@logicflow/core": "^1.1.22",
-		"@logicflow/extension": "^1.1.22",
+		"@logicflow/core": "^1.1.26",
+		"@logicflow/extension": "^1.1.26",
 		"axios": "^0.26.1",
 		"codemirror-editor-vue3": "^2.1.7",
 		"countup.js": "^2.1.0",

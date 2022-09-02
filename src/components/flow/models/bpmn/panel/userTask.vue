@@ -25,7 +25,7 @@
     <el-tab-pane label="参与者" name="second">
       <el-form :model="data.properties" label-position="left" label-width="90px">
         <el-form-item label="参与者类型" >
-          <el-select v-model="data.properties.assignType" placeholder="人员/角色/表达式">
+          <el-select v-model="data.properties.assignType" placeholder="人员/角色/部门">
             <el-option value="user" label="人员"/>
             <el-option value="role" label="角色"/>
             <el-option value="dept" label="部门"/>
@@ -80,7 +80,7 @@
   import { ref } from 'vue'
 import { usePropertiesPanelData } from '../../../useapi';
 import { userTaskIcon } from '../icons';
-  import Help from './help.vue'
+  import Help from '../../../help/help.vue'
 import './style.css';
 
 const data = usePropertiesPanelData()

@@ -13,9 +13,9 @@
 
 <script setup lang="ts">
 import { usePropertiesPanelData } from '../../../useapi';
-import { ref } from 'vue';
+import { ref} from 'vue';
 import './style.css';
 
 const data = usePropertiesPanelData()
-const title = ref('默认面板')
+const title = ref('开始面板')
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div style="width:150px;margin: 5px 0 0 5px;">
+    <div style="width:170px;margin: 5px 0 0 10px;">
         <el-collapse v-model="activeNames">
         <el-collapse-item v-for="item in nodeList" :title="item.title" :name="item.name" >
           <el-tooltip
@@ -20,7 +20,7 @@
     import { endIcon, gatewayIcon, serviceTaskIcon, startIcon, userTaskIcon,selectIcon } from '../icons';
     import LogicFlow from "@logicflow/core"
     import { ref,watch } from 'vue'
-    import Dnd from "@/components/dndPanel/dnd.vue"
+    import Dnd from "@/components/flow/dndPanel/dnd.vue"
     const props = defineProps({
         lf: {
             type: LogicFlow,
@@ -64,20 +64,20 @@
         "name": "base",
         "baseNodes": [
           {
-            type: 'bpmn:startEvent',
+            type: 'start-node',
             text: '开始',
-            content: "这个节点是bpmn:startEvent",
+            content: "这个节点是开始",
             background: 'rgb(166, 187, 207)',
             icon: startIcon,
-            normal: "left",
+            normal: "right",
           },
           {
-            type: 'bpmn:endEvent',
+            type: 'stop-node',
             text: '结束',
-            content: "这个节点是bpmn:endEvent",
+            content: "这个节点是结束",
             background: 'rgb(193, 75, 51)',
             icon: endIcon,
-            normal: "right",
+            normal: "left",
           },
         ]
       },
@@ -86,16 +86,16 @@
         "name": "task",
         "baseNodes": [
             {
-                type: 'bpmn:userTask',
+                type: 'user-node',
                 text: '用户任务',
-                content: "这个节点是bpmn:userTask",
+                content: "这个节点是用户任务",
                 background: 'rgb(253, 208, 162)',
                 icon: userTaskIcon
             },
             {
-                type: 'bpmn:serviceTask',
+                type: 'service-node',
                 text: '服务任务',
-                content: "这个节点是bpmn:serviceTask",
+                content: "这个节点是服务任务",
                 background: 'rgb(226, 217, 110)',
                 icon: serviceTaskIcon
             },
@@ -106,9 +106,9 @@
           "name": "gateway",
           "baseNodes": [
               {
-                  type: 'bpmn:exclusiveGateway',
+                  type: 'gateway-node',
                   text: '网关',
-                  content: "这个节点是bpmn:exclusiveGateway",
+                  content: "这个节点是网关节点",
                   background: 'rgb(32, 174, 137)',
                   icon: gatewayIcon
               }

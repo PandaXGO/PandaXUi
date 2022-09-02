@@ -1,5 +1,5 @@
 <template>
-  <div style="width:150px;margin: 5px 0 0 5px">
+  <div style="width:170px;margin: 5px 0 0 10px">
     <el-collapse v-model="activeNames">
       <el-collapse-item v-for="item in nodeList" :title="item.title" :name="item.name" >
         <el-tooltip
@@ -20,7 +20,7 @@
     import LogicFlow from "@logicflow/core"
     import { ref } from 'vue'
     import {selectIcon} from "../../bpmn/icons";
-    import Dnd from "@/components/dndPanel/dnd.vue"
+    import Dnd from "@/components/flow/dndPanel/dnd.vue"
     const props = defineProps({
         lf: {
             type: LogicFlow,

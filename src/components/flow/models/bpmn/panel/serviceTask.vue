@@ -48,7 +48,7 @@
 <script setup lang="ts">
 import { usePropertiesPanelData } from '../../../useapi';
 import { serviceTaskIcon } from '../icons';
-import Help from './help.vue'
+import Help from '../../../help/help.vue'
 import './style.css';
 
 const data = usePropertiesPanelData()

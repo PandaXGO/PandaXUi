@@ -76,7 +76,7 @@ export default {
     const columnsAsideOffsetTopRefs: any = ref([]);
     const columnsAsideActiveRef = ref();
     const { proxy } = getCurrentInstance() as any;
-     
+
     const theme = useThemeConfigStateStore();
     const routesList = useRoutesListStore();
     const route = useRoute();
@@ -109,9 +109,9 @@ export default {
     // 菜单高亮点击事件
     const onColumnsAsideMenuClick = (v: Object, k: number) => {
       setColumnsAsideMove(k);
-      let { path, redirect } = v as any;
+      let { path, redirect,children } = v as any;
       if (redirect) router.push(redirect);
-      else router.push(path);
+      else (children) ? router.push(children[0]) : router.push(path);
     };
     // 鼠标移入时，显示当前的子级菜单
     const onColumnsAsideMenuMouseenter = (v: Object, k: number) => {
@@ -254,6 +254,7 @@ export default {
       z-index: 1;
       .columns-vertical {
         margin: auto;
+        margin-bottom: 10px;
         .columns-vertical-title {
           padding-top: 1px;
         }
@@ -282,6 +283,7 @@ export default {
     .layout-columns-active {
       color: var(--color-whites) !important;
       transition: 0.3s ease-in-out;
+
     }
     .layout-columns-hover {
       color: var(--color-primary);

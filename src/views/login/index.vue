@@ -84,7 +84,7 @@ const onTabsClick = () => {
     padding: 20px;
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 80%;
     transform: translate(-50%, -50%) translate3d(0, 0, 0);
     background-color: rgba(255, 255, 255, 0.99);
     border: 5px solid var(--color-primary-light-8);

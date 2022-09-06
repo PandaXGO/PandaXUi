@@ -23,8 +23,8 @@
       <el-form :model="data.properties" label-position="left" label-width="100px">
         <el-form-item label="连线属性" >
           <el-select v-model="data.properties.attribute" placeholder="选择流转属性">
-            <el-option value="agree" label="同意"/>
-            <el-option value="refuse" label="拒绝"/>
+            <el-option value="yes" label="YES"/>
+            <el-option value="no" label="NO"/>
           </el-select>
         </el-form-item>
       </el-form>
@@ -38,7 +38,7 @@
 <script setup lang="ts">
 import { usePropertiesPanelData } from '../../../useapi';
 import { ref} from 'vue';
-import Help from './help.vue'
+import Help from '../../../help/help.vue'
 import './style.css';
 
 const data = usePropertiesPanelData()

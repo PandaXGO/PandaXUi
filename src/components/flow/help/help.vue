@@ -2,7 +2,7 @@
     <div>
         <div class="help-title">{{content.title}}</div>
         <div class="help-sketch">{{content.sketch}}</div>
-        <div class="help-description">{{content.description}}</div>
+        <div class="help-description" v-html="content.description"></div>
     </div>
 </template>
 

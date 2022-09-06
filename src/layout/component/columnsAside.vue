@@ -5,7 +5,7 @@
         <li
           v-for="(v, k) in columnsAsideList"
           :key="k"
-
+          @click="onColumnsAsideMenuClick(v, k)"
           @mouseenter="onColumnsAsideMenuMouseenter(v, k)"
           :ref="
             (el) => {
@@ -109,9 +109,9 @@ export default {
     // 菜单高亮点击事件
     const onColumnsAsideMenuClick = (v: Object, k: number) => {
       setColumnsAsideMove(k);
-      let { path, redirect } = v as any;
+      let { path, redirect,children } = v as any;
       if (redirect) router.push(redirect);
-      else router.push(path);
+      else (children) ? router.push(children[0]) : router.push(path);
     };
     // 鼠标移入时，显示当前的子级菜单
     const onColumnsAsideMenuMouseenter = (v: Object, k: number) => {

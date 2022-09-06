@@ -5,7 +5,7 @@
         <li
           v-for="(v, k) in columnsAsideList"
           :key="k"
-          @click="onColumnsAsideMenuClick(v, k)"
+
           @mouseenter="onColumnsAsideMenuMouseenter(v, k)"
           :ref="
             (el) => {
@@ -76,7 +76,7 @@ export default {
     const columnsAsideOffsetTopRefs: any = ref([]);
     const columnsAsideActiveRef = ref();
     const { proxy } = getCurrentInstance() as any;
-     
+
     const theme = useThemeConfigStateStore();
     const routesList = useRoutesListStore();
     const route = useRoute();
@@ -254,6 +254,7 @@ export default {
       z-index: 1;
       .columns-vertical {
         margin: auto;
+        margin-bottom: 10px;
         .columns-vertical-title {
           padding-top: 1px;
         }
@@ -282,6 +283,7 @@ export default {
     .layout-columns-active {
       color: var(--color-whites) !important;
       transition: 0.3s ease-in-out;
+
     }
     .layout-columns-hover {
       color: var(--color-primary);

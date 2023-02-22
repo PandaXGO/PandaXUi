@@ -2,6 +2,7 @@ import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
 import { UserConfig } from 'vite';
 import { loadEnv } from './src/utils/viteBuild';
+import vueSetupExtend from 'vite-plugin-vue-setup-extend';
 
 const pathResolve = (dir: string): any => {
 	return resolve(__dirname, '.', dir);
@@ -15,7 +16,7 @@ const alias: Record<string, string> = {
 };
 
 const viteConfig: UserConfig = {
-	plugins: [vue()],
+	plugins: [vue(),vueSetupExtend()],
 	root: process.cwd(),
 	resolve: { alias },
 	base: process.env.NODE_ENV === 'production' ? VITE_PUBLIC_PATH : './',

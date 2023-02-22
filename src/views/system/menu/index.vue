@@ -233,7 +233,7 @@ const resetQuery = () => {
 const onOpenAddMenu = (row: any) => {
   state.title = "添加菜单";
   let parentId = row.menuId;
-  row = [];
+  row = {};
   row.parentId = parentId;
   editMenuRef.value.openDialog(row);
 };

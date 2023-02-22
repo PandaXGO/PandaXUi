@@ -13,13 +13,13 @@ export default {
       default: () => [],
     },
   },
-  setup(props) {
+  setup(props:any) {
     const userInfos = useUserInfosState();
     // 获取 vuex 中的用户权限
     const getUserAuthBtnList = computed(() => {
       let flag = false;
       userInfos.userInfos.authBtnList.map((val: any) => {
-        props.value.map((v) => {
+        props.value.map((v:any) => {
           if (val === v) flag = true;
         });
       });

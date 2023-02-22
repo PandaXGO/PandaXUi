@@ -370,12 +370,7 @@ export default {
     }
     // 打开弹窗
     const openDialog = (row: any) => {
-      if (row.menuId && row.menuId != undefined && row.menuId != 0) {
-        state.ruleForm = row;
-      } else {
-        initForm();
-        state.ruleForm.parentId = row.parentId;
-      }
+      state.ruleForm = JSON.parse(JSON.stringify(row));
 
       state.isShowDialog = true;
       state.loading = false;
@@ -407,14 +402,12 @@ export default {
     };
     // 关闭弹窗
     const closeDialog = (row?: object) => {
-      initForm();
       proxy.mittBus.emit("onEditMenuModule", row);
       state.isShowDialog = false;
     };
     // 取消
     const onCancel = () => {
       closeDialog();
-      initForm();
     };
     // 保存
     const onSubmit = () => {
@@ -445,27 +438,6 @@ export default {
           }
         }
       });
-    };
-
-    // 表单初始化，方法：`resetFields()` 无法使用
-    const initForm = () => {
-      state.ruleForm.menuId = 0; // 菜单ID
-      state.ruleForm.menuName = ""; // 菜单名称
-      state.ruleForm.menuType = "";
-      state.ruleForm.parentId = 0; // 父菜单ID
-      state.ruleForm.component = ""; // 组件地址
-      state.ruleForm.path = ""; // 路由地址
-      state.ruleForm.sort = 1; // 菜单排序
-      state.ruleForm.status = ""; //菜单状态
-      state.ruleForm.title = ""; // 菜单名称
-      state.ruleForm.icon = ""; // 菜单图标
-      state.ruleForm.isHide = ""; // 是否隐藏
-      state.ruleForm.isKeepAlive = ""; // 是否缓存
-      state.ruleForm.isAffix = ""; // 是否固定
-      state.ruleForm.isLink = ""; // 是否外链，开启外链条件，`1、isLink:true 2、链接地址不为空`
-      state.ruleForm.isIframe = ""; // 是否内嵌，开启条件，`1、isFrame:true 2、链接地址不为空`
-      state.ruleForm.permission = ""; // 路由权限标识（多个请用逗号隔开），最后转成数组格式
-      state.ruleForm.remark = ""; // 备注
     };
 
     return {

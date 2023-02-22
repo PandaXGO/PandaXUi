@@ -119,16 +119,8 @@ export default {
     });
     // 打开弹窗
     const openDialog = (row: any) => {
-      if (row.postId && row.postId != undefined && row.postId != 0) {
-        state.ruleForm.postId=row.postId; // 岗位ID
-        state.ruleForm.postName=row.postName; // 岗位名称
-        state.ruleForm.postCode=row.postCode;// 岗位编码
-        state.ruleForm.sort=row.sort;// 岗位排序
-        state.ruleForm.status=row.status; //岗位状态
-        state.ruleForm.remark=row.remark;// 备注
-      } else {
-        initForm();       
-      }
+      state.ruleForm = JSON.parse(JSON.stringify(row));
+
       state.isShowDialog = true;
       state.loading = false;
       // 查询岗位状态数据字典

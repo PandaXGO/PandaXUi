@@ -30,7 +30,7 @@
             // 参考：https://v3.cn.vuejs.org/guide/migration/v-model.html#%E8%BF%81%E7%A7%BB%E7%AD%96%E7%95%A5
             modelValue: String,
         },
-        setup(props, { emit }) {
+        setup(props:any, { emit }:any) {
             const state :any = reactive({
                 editor: null,
             });

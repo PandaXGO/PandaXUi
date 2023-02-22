@@ -1,0 +1,1 @@
+import{$ as e}from"./index.1661925429160.js";function s(t){return e({url:"/system/notice/list",method:"get",params:t})}function r(t){return e({url:"/system/notice",method:"post",data:t})}function i(t){return e({url:"/system/notice",method:"put",data:t})}function n(t){return e({url:"/system/notice/"+t,method:"delete"})}export{r as a,n as d,s as l,i as u};

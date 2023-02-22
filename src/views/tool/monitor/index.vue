@@ -138,7 +138,7 @@
 <script setup lang="ts">
 import { reactive, onMounted } from "vue";
 import { getServer } from "@/api/tool/monitor";
-import ElMessage from "element-plus";
+import {ElMessage} from "element-plus";
 
 const state = reactive({
   os: undefined,

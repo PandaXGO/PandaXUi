@@ -216,6 +216,7 @@ export default {
     };
     // 打开新增字典数据弹窗
     const onOpenAddModule = (row: any) => {
+      row ={}
       row.dictType = state.queryParams.dictType;
       state.title = "添加字典数据";
       dictItemModuleRef.value.openDialog(row);

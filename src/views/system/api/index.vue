@@ -3,7 +3,7 @@
     <el-card shadow="always">
       <!-- 查询 -->
       <el-form
-          :model="queryParams"
+          :model="state.queryParams"
           ref="queryForm"
           :inline="true"
       >
@@ -13,7 +13,7 @@
               clearable
               @keyup.enter="handleQuery"
               style="width: 240px"
-              v-model="queryParams.path"
+              v-model="state.queryParams.path"
           />
         </el-form-item>
         <el-form-item label="描述" prop="description">
@@ -22,7 +22,7 @@
               clearable
               @keyup.enter="handleQuery"
               style="width: 240px"
-              v-model="queryParams.description"
+              v-model="state.queryParams.description"
           />
         </el-form-item>
         <el-form-item label="分组" prop="apiGroup">
@@ -31,18 +31,18 @@
               clearable
               @keyup.enter="handleQuery"
               style="width: 240px"
-              v-model="queryParams.apiGroup"
+              v-model="state.queryParams.apiGroup"
           />
         </el-form-item>
         <el-form-item label="方法" prop="method">
           <el-select
-              v-model="queryParams.method"
+              v-model="state.queryParams.method"
               placeholder="方法"
               clearable
               style="width: 240px"
           >
             <el-option
-                v-for="dict in methodOptions"
+                v-for="dict in state.methodOptions"
                 :key="dict.dictValue"
                 :label="dict.dictLabel"
                 :value="dict.dictValue"
@@ -79,7 +79,7 @@
             <el-button
                 type="danger"
                 plain
-                :disabled="multiple"
+                :disabled="state.multiple"
                 v-auth="'system:api:delete'"
                 @click="onTabelRowDel"
             >
@@ -91,8 +91,8 @@
       </template>
       <!--数据表格-->
       <el-table
-          v-loading="loading"
-          :data="tableData"
+          v-loading="state.loading"
+          :data="state.tableData"
           @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" align="center"/>
@@ -135,13 +135,13 @@
         </el-table-column>
       </el-table>
       <!-- 分页设置-->
-      <div v-show="total > 0">
+      <div v-show="state.total > 0">
         <el-divider></el-divider>
         <el-pagination
             background
-            :total="total"
-            :current-page="queryParams.pageNum"
-            :page-size="queryParams.pageSize"
+            :total="state.total"
+            :current-page="state.queryParams.pageNum"
+            :page-size="state.queryParams.pageSize"
             layout="total, sizes, prev, pager, next, jumper"
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -149,11 +149,11 @@
       </div>
     </el-card>
     <!-- 添加或修改配置参数对话框 -->
-    <EditModule ref="editModuleRef" :title="title"/>
+    <EditModule ref="editModuleRef" :title="state.title"/>
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import {
   ref,
   toRefs,
@@ -165,136 +165,116 @@ import {
 import {ElMessageBox, ElMessage} from "element-plus";
 import {listApi, delApi} from "@/api/system/api";
 import EditModule from "./component/editModule.vue";
-
-export default {
-  name: "index",
-  components: {EditModule},
-  setup() {
-    const {proxy} = getCurrentInstance() as any;
-    const editModuleRef = ref();
-    const state = reactive({
-      // 遮罩层
-      loading: true,
-      // 选中数组
-      ids: [],
-      // 非单个禁用
-      single: true,
-      // 非多个禁用
-      multiple: true,
-      // 弹出层标题
-      title: "",
-      // 配置参数表格数据
-      tableData: [],
-      // 总条数
-      total: 0,
-      methodOptions: [],
-      // 查询参数
-      queryParams: {
-        // 页码
-        pageNum: 1,
-        // 每页大小
-        pageSize: 10,
-        path: undefined,
-        description: undefined,
-        method: undefined,
-        apiGroup: undefined,
-      },
-    });
-
-    /** 查询配置参数列表 */
-    const handleQuery = () => {
-      state.loading = true;
-      listApi(state.queryParams).then(
-          (response) => {
-            state.tableData = response.data.data;
-            state.total = response.data.total;
-            state.loading = false;
-          }
-      );
-    };
-    /** 重置按钮操作 */
-    const resetQuery = () => {
-      state.queryParams.path = undefined;
-      state.queryParams.description = undefined;
-      state.queryParams.method = undefined;
-      state.queryParams.apiGroup = undefined;
-      handleQuery();
-    };
-
-    // 打开新增配置参数弹窗
-    const onOpenAddModule = (row: object) => {
-      row = [];
-      state.title = "添加Api参数";
-      editModuleRef.value.openDialog(row);
-    };
-    // 打开编辑配置参数弹窗
-    const onOpenEditModule = (row: object) => {
-      state.title = "修改Api参数";
-      editModuleRef.value.openDialog(row);
-    };
-    /** 删除按钮操作 */
-    const onTabelRowDel = (row: any) => {
-      const ids = row.id || state.ids;
-      ElMessageBox({
-        message: '是否确认删除配置参数编号为"' + ids + '"的数据项?',
-        title: "警告",
-        showCancelButton: true,
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      }).then(function () {
-        return delApi(ids).then(() => {
-          handleQuery();
-          ElMessage.success("删除成功");
-        });
-      });
-    };
-    // 多选框选中数据
-    const handleSelectionChange = (selection: any) => {
-      state.ids = selection.map((item: any) => item.id);
-      state.single = selection.length != 1;
-      state.multiple = !selection.length;
-    };
-
-    //分页页面大小发生变化
-    const handleSizeChange = (val: any) => {
-      state.queryParams.pageSize = val;
-      handleQuery();
-    };
-    //当前页码发生变化
-    const handleCurrentChange = (val: any) => {
-      state.queryParams.pageNum = val;
-      handleQuery();
-    };
-
-
-    // 页面加载时
-    onMounted(() => {
-      // 查询配置参数信息
-      handleQuery();
-      proxy.getDicts("sys_method_api").then((response: any) => {
-        state.methodOptions = response.data;
-      });
-      proxy.mittBus.on("onEditApiModule", (res: any) => {
-        handleQuery();
-      });
-    });
-    // 页面卸载时
-    onUnmounted(() => {
-      proxy.mittBus.off("onEditApiModule");
-    });
-    return {
-      editModuleRef,
-      handleSelectionChange,
-      handleSizeChange,
-      handleCurrentChange,
-      handleQuery,
-      resetQuery,
-      onOpenAddModule,
-      onOpenEditModule,
-      onTabelRowDel,
-      ...toRefs(state),
-    };
+const {proxy} = getCurrentInstance() as any;
+const editModuleRef = ref();
+const state = reactive({
+  // 遮罩层
+  loading: true,
+  // 选中数组
+  ids: [],
+  // 非单个禁用
+  single: true,
+  // 非多个禁用
+  multiple: true,
+  // 弹出层标题
+  title: "",
+  // 配置参数表格数据
+  tableData: [],
+  // 总条数
+  total: 0,
+  methodOptions: [],
+  // 查询参数
+  queryParams: {
+    // 页码
+    pageNum: 1,
+    // 每页大小
+    pageSize: 10,
+    path: undefined,
+    description: undefined,
+    method: undefined,
+    apiGroup: undefined,
   },
+});
+
+/** 查询配置参数列表 */
+const handleQuery = () => {
+  state.loading = true;
+  listApi(state.queryParams).then(
+      (response) => {
+        state.tableData = response.data.data;
+        state.total = response.data.total;
+        state.loading = false;
+      }
+  );
 };
+/** 重置按钮操作 */
+const resetQuery = () => {
+  state.queryParams.path = undefined;
+  state.queryParams.description = undefined;
+  state.queryParams.method = undefined;
+  state.queryParams.apiGroup = undefined;
+  handleQuery();
+};
+
+// 打开新增配置参数弹窗
+const onOpenAddModule = () => {
+  state.title = "添加Api参数";
+  editModuleRef.value.openDialog({});
+};
+// 打开编辑配置参数弹窗
+const onOpenEditModule = (row: object) => {
+  state.title = "修改Api参数";
+  editModuleRef.value.openDialog(row);
+};
+/** 删除按钮操作 */
+const onTabelRowDel = (row: any) => {
+  const ids = row.id || state.ids;
+  ElMessageBox({
+    message: '是否确认删除配置参数编号为"' + ids + '"的数据项?',
+    title: "警告",
+    showCancelButton: true,
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  }).then(function () {
+    return delApi(ids).then(() => {
+      handleQuery();
+      ElMessage.success("删除成功");
+    });
+  });
+};
+// 多选框选中数据
+const handleSelectionChange = (selection: any) => {
+  state.ids = selection.map((item: any) => item.id);
+  state.single = selection.length != 1;
+  state.multiple = !selection.length;
+};
+
+//分页页面大小发生变化
+const handleSizeChange = (val: any) => {
+  state.queryParams.pageSize = val;
+  handleQuery();
+};
+//当前页码发生变化
+const handleCurrentChange = (val: any) => {
+  state.queryParams.pageNum = val;
+  handleQuery();
+};
+
+
+// 页面加载时
+onMounted(() => {
+  // 查询配置参数信息
+  handleQuery();
+  proxy.getDicts("sys_method_api").then((response: any) => {
+    state.methodOptions = response.data;
+  });
+  proxy.mittBus.on("onEditApiModule", (res: any) => {
+    handleQuery();
+  });
+});
+// 页面卸载时
+onUnmounted(() => {
+  proxy.mittBus.off("onEditApiModule");
+});
 </script>

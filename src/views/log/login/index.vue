@@ -4,7 +4,7 @@
         <el-card shadow="always">
         <!-- 查询 -->
         <el-form
-                :model="queryParams"
+                :model="state.queryParams"
                 ref="queryForm"
                 :inline="true"
                 label-width="68px"
@@ -15,7 +15,7 @@
                         clearable
                         @keyup.enter="handleQuery"
                         style="width: 240px"
-                        v-model="queryParams.loginLocation"
+                        v-model="state.queryParams.loginLocation"
                 />
             </el-form-item>
             <el-form-item label="用户名称" prop="userName">
@@ -24,7 +24,7 @@
                         clearable
                         @keyup.enter="handleQuery"
                         style="width: 240px"
-                        v-model="queryParams.username"
+                        v-model="state.queryParams.username"
                 />
             </el-form-item>
             <el-form-item>
@@ -42,7 +42,7 @@
                   type="danger"
                   plain
 
-                  :disabled="multiple"
+                  :disabled="state.multiple"
                   @click="onTabelRowDel"
                   v-auth="'log:login:delete'"
               ><SvgIcon name="elementDelete" />删除</el-button>
@@ -59,8 +59,8 @@
 
         <!--数据表格-->
         <el-table
-                v-loading="loading"
-                :data="tableData"
+                v-loading="state.loading"
+                :data="state.tableData"
                 @selection-change="handleSelectionChange"
         >
             <el-table-column type="selection" width="55" align="center" />
@@ -105,14 +105,14 @@
         </el-table>
 
         <!-- 分页设置-->
-        <div v-show="total > 0">
+        <div v-show="state.total > 0">
             <el-divider></el-divider>
             <el-pagination
                     background
-                    :total="total"
-                    :current-page="queryParams.pageNum"
+                    :total="state.total"
+                    :current-page="state.queryParams.pageNum"
                     :page-sizes="[10, 20, 30, 40]"
-                    :page-size="queryParams.pageSize"
+                    :page-size="state.queryParams.pageSize"
                     layout="total, sizes, prev, pager, next, jumper"
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
@@ -122,7 +122,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup name="Logininfo">
     import { reactive, onMounted, toRefs, ref, getCurrentInstance } from "vue";
     import {
         listLoginInfo,
@@ -130,136 +130,118 @@
         cleanLoginInfo,
     } from "@/api/log/login";
     import { ElMessageBox, ElMessage } from "element-plus";
-    export default {
-        name: "Logininfo",
-        setup() {
-            const { proxy } = getCurrentInstance() as any;
-            const ruleFormRef = ref<HTMLElement | null>(null);
-            const state = reactive({
-                // 遮罩层
-                loading: true,
-                // 总条数
-                total: 0,
-                // 列表表格数据
-                tableData: [],
-                // 选中数组
-                ids: [],
-                // 非单个禁用
-                single: true,
-                // 非多个禁用
-                multiple: true,
-                // 弹出层标题
-                title: "",
-                // 类型数据字典
-                statusOptions: [],
-                // 查询参数
-                queryParams: {
-                    pageNum: 1,
-                    pageSize: 10,
-                    loginLocation: undefined,
-                    username: undefined,
-                },
-            });
+    const { proxy } = getCurrentInstance() as any;
+    const ruleFormRef = ref<HTMLElement | null>(null);
+    const state = reactive({
+      // 遮罩层
+      loading: true,
+      // 总条数
+      total: 0,
+      // 列表表格数据
+      tableData: [],
+      // 选中数组
+      ids: [],
+      // 非单个禁用
+      single: true,
+      // 非多个禁用
+      multiple: true,
+      // 弹出层标题
+      title: "",
+      // 类型数据字典
+      statusOptions: [],
+      // 查询参数
+      queryParams: {
+        pageNum: 1,
+        pageSize: 10,
+        loginLocation: undefined,
+        username: undefined,
+      },
+    });
 
-            /** 查询定时任务列表 */
-            const handleQuery = () => {
-                state.loading = true;
-                listLoginInfo(state.queryParams).then((response) => {
-                    state.tableData = response.data.data;
-                    state.total = response.data.total;
-                    state.loading = false;
-                });
-            };
-
-            /** 重置按钮操作 */
-            const resetQuery = () => {
-                state.queryParams.loginLocation = undefined;
-                state.queryParams.username = undefined;
-                handleQuery();
-            };
-
-            /** 清空按钮操作 */
-            const handleClean = () => {
-                ElMessageBox({
-                    message: "是否确认清空所有登录日志数据项?",
-                    title: "警告",
-                    showCancelButton: true,
-                    confirmButtonText: "确定",
-                    cancelButtonText: "取消",
-                    type: "warning",
-                })
-                    .then(function () {
-                        return cleanLoginInfo();
-                    })
-                    .then(() => {
-                        handleQuery();
-                        ElMessage.success("清空成功");
-                    });
-            };
-
-            /** 删除按钮操作 */
-            const onTabelRowDel = (row: any) => {
-                const infoIds = row.infoId || state.ids;
-                ElMessageBox({
-                    message: '是否确认删除访问编号为"' + infoIds + '"的数据项?',
-                    title: "警告",
-                    showCancelButton: true,
-                    confirmButtonText: "确定",
-                    cancelButtonText: "取消",
-                    type: "warning",
-                }).then(function () {
-                    return delLoginInfo(infoIds).then(() => {
-                        handleQuery();
-                        ElMessage.success("删除成功");
-                    });
-                });
-            };
-
-            //分页页面大小发生变化
-            const handleSizeChange = (val: any) => {
-                state.queryParams.pageSize = val;
-                handleQuery();
-            };
-            //当前页码发生变化
-            const handleCurrentChange = (val: any) => {
-                state.queryParams.pageNum = val;
-                handleQuery();
-            };
-
-            // 操作日志状态字典翻译
-            const statusFormat = (row: any, column: any) => {
-                return proxy.selectDictLabel(state.statusOptions, row.status);
-            };
-            // 多选框选中数据
-            const handleSelectionChange = (selection: any) => {
-                state.ids = selection.map((item: any) => item.infoId);
-                state.single = selection.length != 1;
-                state.multiple = !selection.length;
-            };
-
-            // 页面加载时调用
-            onMounted(() => {
-                // 查询列表数据信息
-                handleQuery();
-                proxy.getDicts("sys_common_status").then((response: any) => {
-                    state.statusOptions = response.data;
-                });
-            });
-
-            return {
-                ruleFormRef,
-                statusFormat,
-                handleSelectionChange,
-                handleSizeChange,
-                handleCurrentChange,
-                resetQuery,
-                handleQuery,
-                handleClean,
-                onTabelRowDel,
-                ...toRefs(state),
-            };
-        },
+    /** 查询定时任务列表 */
+    const handleQuery = () => {
+      state.loading = true;
+      listLoginInfo(state.queryParams).then((response) => {
+        state.tableData = response.data.data;
+        state.total = response.data.total;
+        state.loading = false;
+      });
     };
+
+    /** 重置按钮操作 */
+    const resetQuery = () => {
+      state.queryParams.loginLocation = undefined;
+      state.queryParams.username = undefined;
+      handleQuery();
+    };
+
+    /** 清空按钮操作 */
+    const handleClean = () => {
+      ElMessageBox({
+        message: "是否确认清空所有登录日志数据项?",
+        title: "警告",
+        showCancelButton: true,
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+          .then(function () {
+            return cleanLoginInfo();
+          })
+          .then(() => {
+            handleQuery();
+            ElMessage.success("清空成功");
+          });
+    };
+
+    /** 删除按钮操作 */
+    const onTabelRowDel = (row: any) => {
+      const infoIds = row.infoId || state.ids;
+      ElMessageBox({
+        message: '是否确认删除访问编号为"' + infoIds + '"的数据项?',
+        title: "警告",
+        showCancelButton: true,
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(function () {
+        return delLoginInfo(infoIds).then(() => {
+          handleQuery();
+          ElMessage.success("删除成功");
+        });
+      });
+    };
+
+    //分页页面大小发生变化
+    const handleSizeChange = (val: any) => {
+      state.queryParams.pageSize = val;
+      handleQuery();
+    };
+    //当前页码发生变化
+    const handleCurrentChange = (val: any) => {
+      state.queryParams.pageNum = val;
+      handleQuery();
+    };
+
+    // 操作日志状态字典翻译
+    const statusFormat = (row: any, column: any) => {
+      return proxy.selectDictLabel(state.statusOptions, row.status);
+    };
+    // 多选框选中数据
+    const handleSelectionChange = (selection: any) => {
+      state.ids = selection.map((item: any) => item.infoId);
+      state.single = selection.length != 1;
+      state.multiple = !selection.length;
+    };
+
+    // 页面加载时调用
+    onMounted(() => {
+      // 查询列表数据信息
+      handleQuery();
+      proxy.getDicts("sys_common_status").then((response: any) => {
+        state.statusOptions = response.data;
+      });
+    });
 </script>
 
 <style>

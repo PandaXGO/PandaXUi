@@ -181,7 +181,7 @@ const statusFormat = (row: any) => {
 // 打开新增部门弹窗
 const onOpenAddModule = (row: any) => {
   let parentId = row.deptId;
-  row = [];
+  row = {};
   row.parentId = parentId;
   state.title = "添加部门";
   editModuleRef.value.openDialog(row);

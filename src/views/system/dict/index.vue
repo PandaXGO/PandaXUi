@@ -249,9 +249,8 @@ const statusFormat = (row: any) => {
 
 // 打开新增字典弹窗
 const onOpenAddModule = (row: object) => {
-  row = [];
   state.title = "添加字典";
-  editModuleRef.value.openDialog(row);
+  editModuleRef.value.openDialog({});
 };
 // 打开编辑字典弹窗
 const onOpenEditModule = (row: object) => {

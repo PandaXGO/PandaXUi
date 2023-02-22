@@ -96,16 +96,8 @@ export default {
     });
     // 打开弹窗
     const openDialog = (row: any) => {
-      if (row.dictId && row.dictId != undefined && row.dictId != "") {
-        state.ruleForm = row;
-        state.ruleForm.dictId = row.dictId; // 字典ID
-        state.ruleForm.dictName = row.dictName; // 字典名称
-        state.ruleForm.dictType = row.dictType; // 字典类型
-        state.ruleForm.status = row.status; //字典状态
-        state.ruleForm.remark = row.remark; // 备注
-      } else {
-        initForm();
-      }
+      state.ruleForm = JSON.parse(JSON.stringify(row));
+
       state.isShowDialog = true;
       state.loading =false;
     };
@@ -142,14 +134,6 @@ export default {
           }
         }
       });
-    };
-    // 表单初始化，方法：`resetFields()` 无法使用
-    const initForm = () => {
-      state.ruleForm.dictId = 0; // 字典ID
-      state.ruleForm.dictName = ""; // 字典名称
-      state.ruleForm.dictType = ""; // 字典类型
-      state.ruleForm.status = "0"; //字典状态
-      state.ruleForm.remark = ""; // 备注
     };
 
     return {

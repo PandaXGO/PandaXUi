@@ -237,10 +237,9 @@ export default {
     };
 
     // 打开新增岗位弹窗
-    const onOpenAddModule = (row: object) => {
-      row = [];
+    const onOpenAddModule = () => {
       state.title = "添加岗位";
-      editModuleRef.value.openDialog(row);
+      editModuleRef.value.openDialog({});
     };
     // 打开编辑岗位弹窗
     const onOpenEditModule = (row: object) => {

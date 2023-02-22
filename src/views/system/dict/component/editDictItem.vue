@@ -111,21 +111,9 @@ export default {
     });
     // 打开弹窗
     const openDialog = (row: any) => {
-      if (row.dictCode && row.dictCode != undefined && row.dictCode != "") {
-        state.ruleForm = row;
-        state.ruleForm.dictCode = row.dictCode; // 字典编码
-        state.ruleForm.dictLabel = row.dictLabel; // 数据标签
- 
-        state.ruleForm.dictValue = row.dictValue; // 数据键值
-        state.ruleForm.dictSort = row.dictSort; // 显示排序
-        state.ruleForm.dictType = row.dictType; // 字典类型
+      state.ruleForm = JSON.parse(JSON.stringify(row));
+      state.ruleForm.dictType = row.dictType; // 字典类型
 
-        state.ruleForm.status = row.status; //字典状态
-        state.ruleForm.remark = row.remark; // 备注
-      } else {
-        initForm();
-        state.ruleForm.dictType = row.dictType; // 字典类型
-      }
       state.isShowDialog = true;
       state.loading = false;
     };

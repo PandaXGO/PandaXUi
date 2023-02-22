@@ -13,7 +13,7 @@ export default {
       default: () => "",
     },
   },
-  setup(props) {
+  setup(props:any) {
     const userInfos = useUserInfosState();
     // 获取 vuex 中的用户权限
     const getUserAuthBtnList = computed(() => {

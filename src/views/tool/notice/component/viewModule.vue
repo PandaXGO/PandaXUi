@@ -41,6 +41,10 @@ const noticeTypeFormat = (row: any, column: any) => {
   return proxy.selectDictLabel(state.noticeTypeOptions, row.noticeType);
 };
 
+defineExpose({
+  openDialog,
+});
+
 </script>
 
 <style scoped>

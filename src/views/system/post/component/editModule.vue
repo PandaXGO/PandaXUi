@@ -75,112 +75,92 @@ import { reactive, toRefs, ref, unref, getCurrentInstance } from "vue";
 import { updatePost, addPost } from "@/api/system/post";
 import { ElMessage } from "element-plus";
 
-export default {
-  name: "editMenu",
-  props: {
-    // 弹窗标题
-    title: {
-      type: String,
-      default: () => "",
-    },
+const props = defineProps({
+  title: {
+    type: String,
+    default: () => "",
   },
-  setup() {
-    const { proxy } = getCurrentInstance() as any;
-    const ruleFormRef = ref<HTMLElement | null>(null);
-    const state = reactive({
-      // 是否显示弹出层
-      isShowDialog: false,
-      loading: false,
-      // 岗位对象
-      ruleForm: {
-        postId: 0, // 岗位ID
-        postName: "", // 岗位名称
-        postCode: "",// 岗位编码
-        sort: 0, // 岗位排序
-        status: "", //岗位状态
-        remark: "", // 备注       
-      },
-      // 岗位状态数据字典
-      statusOptions: [],
-      // 岗位树选项
-      deptOptions: [],
-      // 表单校验
-      ruleRules: {
-        postName: [
-          { required: true, message: "岗位名称不能为空", trigger: "blur" }
-        ],
-        postCode: [
-          { required: true, message: "岗位编码不能为空", trigger: "blur" }
-        ],
-        postSort: [
-          { required: true, message: "岗位顺序不能为空", trigger: "blur" }
-        ]
-      },
-    });
-    // 打开弹窗
-    const openDialog = (row: any) => {
-      state.ruleForm = JSON.parse(JSON.stringify(row));
+})
 
-      state.isShowDialog = true;
-      state.loading = false;
-      // 查询岗位状态数据字典
-      proxy.getDicts("sys_normal_disable").then((response: any) => {
-        state.statusOptions = response.data;
-      });    
-    };
-
-    // 关闭弹窗
-    const closeDialog = (row?: object) => {     
-      proxy.mittBus.emit("onEditPostModule", row);
-      state.isShowDialog = false;
-    };
-    // 取消
-    const onCancel = () => {      
-      closeDialog();       
-    };
-    
-    // 保存
-    const onSubmit = () => {
-      const formWrap = unref(ruleFormRef) as any;
-      if (!formWrap) return;
-      formWrap.validate((valid: boolean) => {
-        if (valid) {
-          state.loading = true;
-          if (state.ruleForm.postId != undefined && state.ruleForm.postId != 0) {
-            updatePost(state.ruleForm).then((response) => {
-              ElMessage.success("修改成功");
-              state.loading = false;
-              closeDialog(state.ruleForm); // 关闭弹窗
-            });
-          } else {
-            addPost(state.ruleForm).then((response) => {
-              ElMessage.success("新增成功");
-              state.loading = false;
-              closeDialog(state.ruleForm); // 关闭弹窗
-            });
-          }
-        }
-      });
-    };
-    // 表单初始化，方法：`resetFields()` 无法使用
-    const initForm = () => { 
-      state.ruleForm.postId = 0; // 岗位ID
-      state.ruleForm.postName = ""; // 岗位名称
-      state.ruleForm.postCode = ""; // 岗位编码
-      state.ruleForm.sort = 0 ; // 岗位排序
-      state.ruleForm.status =  "0"; //岗位状态
-      state.ruleForm.remark = ""; // 备注
-    };
-
-    return {
-      ruleFormRef,
-      openDialog,
-      closeDialog,
-      onCancel,
-      initForm,
-      onSubmit,
-      ...toRefs(state),
-    };
+const { proxy } = getCurrentInstance() as any;
+const ruleFormRef = ref<HTMLElement | null>(null);
+const state = reactive({
+  // 是否显示弹出层
+  isShowDialog: false,
+  loading: false,
+  // 岗位对象
+  ruleForm: {
+    postId: 0, // 岗位ID
+    postName: "", // 岗位名称
+    postCode: "",// 岗位编码
+    sort: 0, // 岗位排序
+    status: "", //岗位状态
+    remark: "", // 备注
   },
+  // 岗位状态数据字典
+  statusOptions: [],
+  // 岗位树选项
+  deptOptions: [],
+  // 表单校验
+  ruleRules: {
+    postName: [
+      { required: true, message: "岗位名称不能为空", trigger: "blur" }
+    ],
+    postCode: [
+      { required: true, message: "岗位编码不能为空", trigger: "blur" }
+    ],
+    postSort: [
+      { required: true, message: "岗位顺序不能为空", trigger: "blur" }
+    ]
+  },
+});
+// 打开弹窗
+const openDialog = (row: any) => {
+  state.ruleForm = JSON.parse(JSON.stringify(row));
+
+  state.isShowDialog = true;
+  state.loading = false;
+  // 查询岗位状态数据字典
+  proxy.getDicts("sys_normal_disable").then((response: any) => {
+    state.statusOptions = response.data;
+  });
 };
+
+// 关闭弹窗
+const closeDialog = (row?: object) => {
+  proxy.mittBus.emit("onEditPostModule", row);
+  state.isShowDialog = false;
+};
+// 取消
+const onCancel = () => {
+  closeDialog();
+};
+
+// 保存
+const onSubmit = () => {
+  const formWrap = unref(ruleFormRef) as any;
+  if (!formWrap) return;
+  formWrap.validate((valid: boolean) => {
+    if (valid) {
+      state.loading = true;
+      if (state.ruleForm.postId != undefined && state.ruleForm.postId != 0) {
+        updatePost(state.ruleForm).then((response) => {
+          ElMessage.success("修改成功");
+          state.loading = false;
+          closeDialog(state.ruleForm); // 关闭弹窗
+        });
+      } else {
+        addPost(state.ruleForm).then((response) => {
+          ElMessage.success("新增成功");
+          state.loading = false;
+          closeDialog(state.ruleForm); // 关闭弹窗
+        });
+      }
+    }
+  });
+};
+
+defineExpose({
+  openDialog,
+});
 </script>

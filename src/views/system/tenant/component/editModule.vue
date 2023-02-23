@@ -65,7 +65,9 @@ const state = reactive({
 });
 // 打开弹窗
 const openDialog = (row: any) => {
+
   state.ruleForm = JSON.parse(JSON.stringify(row));
+
   state.isShowDialog = true;
   state.loading = false;
 }
@@ -103,5 +105,7 @@ const onSubmit = () => {
   });
 };
 
-
+defineExpose({
+  openDialog,
+});
 </script>

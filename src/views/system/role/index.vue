@@ -172,7 +172,7 @@
       </div>
     </el-card>
     <!-- 添加或修改角色配置对话框 -->
-    <el-dialog :title="state.title" v-model="open" width="769px" center>
+    <el-dialog :title="state.title" v-model="state.open" width="769px" center>
       <div v-drag="['.app-container .el-dialog', '.app-container .el-dialog__header']"></div>
       <el-form
           ref="roleFormRef"

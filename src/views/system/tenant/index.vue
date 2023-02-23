@@ -36,7 +36,7 @@
         <el-card class="box-card">
             <template #header>
                 <div class="card-header">
-                    <span class="card-header-text">岗位列表</span>
+                    <span class="card-header-text">租户列表</span>
                     <div>
                         <el-button
                                 type="primary"

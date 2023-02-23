@@ -141,7 +141,6 @@ export default {
       openDialog,
       closeDialog,
       onCancel,
-      initForm,
       onSubmit,
       ...toRefs(state),
     };

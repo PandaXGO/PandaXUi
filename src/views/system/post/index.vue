@@ -3,7 +3,7 @@
     <el-card shadow="always">
       <!-- 查询 -->
       <el-form
-          :model="queryParams"
+          :model="state.queryParams"
           ref="queryForm"
           :inline="true"
           label-width="68px"
@@ -14,7 +14,7 @@
               clearable
               @keyup.enter="handleQuery"
               style="width: 240px"
-              v-model="queryParams.postCode"
+              v-model="state.queryParams.postCode"
           />
         </el-form-item>
         <el-form-item label="岗位名称" prop="postName">
@@ -23,18 +23,18 @@
               clearable
               @keyup.enter="handleQuery"
               style="width: 240px"
-              v-model="queryParams.postName"
+              v-model="state.queryParams.postName"
           />
         </el-form-item>
         <el-form-item label="状态" prop="status">
           <el-select
-              v-model="queryParams.status"
+              v-model="state.queryParams.status"
               placeholder="岗位状态"
               clearable
               style="width: 240px"
           >
             <el-option
-                v-for="dict in statusOptions"
+                v-for="dict in state.statusOptions"
                 :key="dict.dictValue"
                 :label="dict.dictLabel"
                 :value="dict.dictValue"
@@ -71,7 +71,7 @@
                 type="danger"
                 plain
                 v-auth="'system:post:delete'"
-                :disabled="multiple"
+                :disabled="state.multiple"
                 @click="onTabelRowDel"
             >
               <SvgIcon name="elementDelete"/>
@@ -91,8 +91,8 @@
       </template>
       <!--数据表格-->
       <el-table
-          v-loading="loading"
-          :data="tableData"
+          v-loading="state.loading"
+          :data="state.tableData"
           @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" align="center"/>
@@ -140,13 +140,13 @@
         </el-table-column>
       </el-table>
       <!-- 分页设置-->
-      <div v-show="total > 0">
+      <div v-show="state.total > 0">
         <el-divider></el-divider>
         <el-pagination
             background
-            :total="total"
-            :current-page="queryParams.pageNum"
-            :page-size="queryParams.pageSize"
+            :total="state.total"
+            :current-page="state.queryParams.pageNum"
+            :page-size="state.queryParams.pageSize"
             layout="total, sizes, prev, pager, next, jumper"
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -154,11 +154,11 @@
       </div>
     </el-card>
     <!-- 添加或修改岗位对话框 -->
-    <EditModule ref="editModuleRef" :title="title"/>
+    <EditModule ref="editModuleRef" :title="state.title"/>
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import {
   ref,
   toRefs,
@@ -171,133 +171,114 @@ import {ElMessageBox, ElMessage} from "element-plus";
 import {listPost, delPost} from "@/api/system/post";
 import EditModule from "./component/editModule.vue";
 
-export default {
-  name: "index",
-  components: {EditModule},
-  setup() {
-    const {proxy} = getCurrentInstance() as any;
-    const editModuleRef = ref();
-    const state = reactive({
-      // 遮罩层
-      loading: true,
-      // 选中数组
-      ids: [],
-      // 非单个禁用
-      single: true,
-      // 非多个禁用
-      multiple: true,
-      // 弹出层标题
-      title: "",
-      // 岗位表格数据
-      tableData: [],
-      // 总条数
-      total: 0,
-      // 状态数据字典
-      statusOptions: [],
-      // 查询参数
-      queryParams: {
-        // 页码
-        pageNum: 1,
-        // 每页大小
-        pageSize: 10,
-        postCode: undefined,
-        postName: undefined,
-        status: undefined,
-      },
-    });
-
-    /** 查询岗位列表 */
-    const handleQuery = () => {
-      state.loading = true;
-      listPost(state.queryParams).then((response) => {
-        state.tableData = response.data.data;
-        state.total = response.data.total;
-        state.loading = false;
-      });
-    };
-    /** 重置按钮操作 */
-    const resetQuery = () => {
-      state.queryParams.postName = undefined;
-      state.queryParams.postCode = undefined;
-      state.queryParams.status = undefined;
-      handleQuery();
-    };
-
-    const handleCurrentChange = (val: number) => {
-      state.queryParams.pageNum = val
-      handleQuery()
-    }
-    const handleSizeChange = (val: number) => {
-      state.queryParams.pageSize = val
-      handleQuery()
-    }
-
-    const statusFormat = (row: any) => {
-      return proxy.selectDictLabel(state.statusOptions, row.status);
-    };
-
-    // 打开新增岗位弹窗
-    const onOpenAddModule = () => {
-      state.title = "添加岗位";
-      editModuleRef.value.openDialog({});
-    };
-    // 打开编辑岗位弹窗
-    const onOpenEditModule = (row: object) => {
-      state.title = "修改岗位";
-      editModuleRef.value.openDialog(row);
-    };
-    /** 删除按钮操作 */
-    const onTabelRowDel = (row: any) => {
-      const postIds = row.postId || state.ids;
-      ElMessageBox({
-        message: '是否确认删除岗位编号为"' + postIds + '"的数据项?',
-        title: "警告",
-        showCancelButton: true,
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      }).then(function () {
-        return delPost(postIds).then(() => {
-          handleQuery();
-          ElMessage.success("删除成功");
-        });
-      });
-    };
-    // 多选框选中数据
-    const handleSelectionChange = (selection: any) => {
-      state.ids = selection.map((item: any) => item.postId);
-      state.single = selection.length != 1;
-      state.multiple = !selection.length;
-    };
-    // 页面加载时
-    onMounted(() => {
-      // 查询岗位信息
-      handleQuery();
-      // 查询岗位状态数据字典
-      proxy.getDicts("sys_normal_disable").then((response: any) => {
-        state.statusOptions = response.data;
-      });
-      proxy.mittBus.on("onEditPostModule", (res: any) => {
-        handleQuery();
-      });
-    });
-    // 页面卸载时
-    onUnmounted(() => {
-      proxy.mittBus.off("onEditPostModule");
-    });
-    return {
-      editModuleRef,
-      handleSelectionChange,
-      handleQuery,
-      handleCurrentChange,
-      handleSizeChange,
-      resetQuery,
-      statusFormat,
-      onOpenAddModule,
-      onOpenEditModule,
-      onTabelRowDel,
-      ...toRefs(state),
-    };
+const {proxy} = getCurrentInstance() as any;
+const editModuleRef = ref();
+const state = reactive({
+  // 遮罩层
+  loading: true,
+  // 选中数组
+  ids: [],
+  // 非单个禁用
+  single: true,
+  // 非多个禁用
+  multiple: true,
+  // 弹出层标题
+  title: "",
+  // 岗位表格数据
+  tableData: [],
+  // 总条数
+  total: 0,
+  // 状态数据字典
+  statusOptions: [],
+  // 查询参数
+  queryParams: {
+    // 页码
+    pageNum: 1,
+    // 每页大小
+    pageSize: 10,
+    postCode: undefined,
+    postName: undefined,
+    status: undefined,
   },
+});
+
+/** 查询岗位列表 */
+const handleQuery = () => {
+  state.loading = true;
+  listPost(state.queryParams).then((response) => {
+    state.tableData = response.data.data;
+    state.total = response.data.total;
+    state.loading = false;
+  });
 };
+/** 重置按钮操作 */
+const resetQuery = () => {
+  state.queryParams.postName = undefined;
+  state.queryParams.postCode = undefined;
+  state.queryParams.status = undefined;
+  handleQuery();
+};
+
+const handleCurrentChange = (val: number) => {
+  state.queryParams.pageNum = val
+  handleQuery()
+}
+const handleSizeChange = (val: number) => {
+  state.queryParams.pageSize = val
+  handleQuery()
+}
+
+const statusFormat = (row: any) => {
+  return proxy.selectDictLabel(state.statusOptions, row.status);
+};
+
+// 打开新增岗位弹窗
+const onOpenAddModule = () => {
+  state.title = "添加岗位";
+  editModuleRef.value.openDialog({});
+};
+// 打开编辑岗位弹窗
+const onOpenEditModule = (row: object) => {
+  state.title = "修改岗位";
+  editModuleRef.value.openDialog(row);
+};
+/** 删除按钮操作 */
+const onTabelRowDel = (row: any) => {
+  const postIds = row.postId || state.ids;
+  ElMessageBox({
+    message: '是否确认删除岗位编号为"' + postIds + '"的数据项?',
+    title: "警告",
+    showCancelButton: true,
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  }).then(function () {
+    return delPost(postIds).then(() => {
+      handleQuery();
+      ElMessage.success("删除成功");
+    });
+  });
+};
+// 多选框选中数据
+const handleSelectionChange = (selection: any) => {
+  state.ids = selection.map((item: any) => item.postId);
+  state.single = selection.length != 1;
+  state.multiple = !selection.length;
+};
+// 页面加载时
+onMounted(() => {
+  // 查询岗位信息
+  handleQuery();
+  // 查询岗位状态数据字典
+  proxy.getDicts("sys_normal_disable").then((response: any) => {
+    state.statusOptions = response.data;
+  });
+  proxy.mittBus.on("onEditPostModule", (res: any) => {
+    handleQuery();
+  });
+});
+// 页面卸载时
+onUnmounted(() => {
+  proxy.mittBus.off("onEditPostModule");
+});
 </script>

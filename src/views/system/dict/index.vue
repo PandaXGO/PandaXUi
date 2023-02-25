@@ -3,7 +3,7 @@
     <el-card shadow="always">
       <!-- 查询 -->
       <el-form
-          :model="queryParams"
+          :model="state.queryParams"
           ref="queryForm"
           :inline="true"
           label-width="68px"
@@ -14,12 +14,12 @@
               clearable
               @keyup.enter="handleQuery"
               style="width: 240px"
-              v-model="queryParams.dictName"
+              v-model="state.queryParams.dictName"
           />
         </el-form-item>
         <el-form-item label="字典类型" prop="dictType">
           <el-input
-              v-model="queryParams.dictType"
+              v-model="state.queryParams.dictType"
               placeholder="请输入字典类型模糊查询"
               clearable
               style="width: 240px"
@@ -28,13 +28,13 @@
         </el-form-item>
         <el-form-item label="状态" prop="status">
           <el-select
-              v-model="queryParams.status"
+              v-model="state.queryParams.status"
               placeholder="字典状态"
               clearable
               style="width: 240px"
           >
             <el-option
-                v-for="dict in statusOptions"
+                v-for="dict in state.statusOptions"
                 :key="dict.dictValue"
                 :label="dict.dictLabel"
                 :value="dict.dictValue"
@@ -72,7 +72,7 @@
                 type="danger"
                 plain
                 v-auth="'system:dictT:delete'"
-                :disabled="multiple"
+                :disabled="state.multiple"
                 @click="onTabelRowDel"
             >
               <SvgIcon name="elementDelete"/>
@@ -91,7 +91,7 @@
         </div>
       </template>
       <!--数据表格-->
-      <el-table v-loading="loading" border :data="tableData" @selection-change="handleSelectionChange">
+      <el-table v-loading="state.loading" border :data="state.tableData" @selection-change="handleSelectionChange">
         <el-table-column type="selection" align="center"/>
         <el-table-column label="字典编号" align="center" prop="dictId"/>
         <el-table-column label="字典名称" align="center" prop="dictName" :show-overflow-tooltip="true"/>
@@ -146,13 +146,13 @@
         </el-table-column>
       </el-table>
       <!-- 分页设置-->
-      <div v-show="total > 0">
+      <div v-show="state.total > 0">
         <el-divider></el-divider>
         <el-pagination
             background
-            :total="total"
-            :current-page="queryParams.pageNum"
-            :page-size="queryParams.pageSize"
+            :total="state.total"
+            :current-page="state.queryParams.pageNum"
+            :page-size="state.queryParams.pageSize"
             layout="total, sizes, prev, pager, next, jumper"
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -161,14 +161,14 @@
 
     </el-card>
     <!-- 添加或修改字典对话框 -->
-    <EditModule ref="editModuleRef" :title="title"/>
+    <EditModule ref="editModuleRef" :title="state.title"/>
 
     <!-- 字典列表对话框 -->
     <DictList ref="dictItemModuleRef"/>
   </div>
 </template>
 <!--使用 setup 语法糖-->
-<script setup lang="ts">
+<script lang="ts" setup>
 import {
   toRefs,
   ref,

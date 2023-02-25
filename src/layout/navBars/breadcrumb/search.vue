@@ -1,29 +1,28 @@
 <template>
   <div class="layout-search-dialog" >
-    <el-dialog v-model="isShowSearch" width="300px"  destroy-on-close :modal="false" fullscreen :show-close="false">
-      <el-autocomplete
-          v-model="menuQuery"
-          :fetch-suggestions="menuSearch"
-          :placeholder="$t('message.user.searchPlaceholder')"
-          ref="layoutMenuAutocompleteRef"
-          @select="onHandleSelect"
-      >
-        <template #prepend>
-          <SvgIcon name="elementClose" @click="onSearchBlur" class="mr5" />
-          按下 ESC 关闭
-        </template>
-        <template #prefix>
-          <el-icon class="el-input__icon">
-            <elementSearch />
-          </el-icon>
-        </template>
-        <template #default="{ item }">
-          <div>
-            <SvgIcon :name="item.meta.icon" class="mr5" />
-            {{ $t(item.meta.title) }}
-          </div>
-        </template>
-      </el-autocomplete>
+    <el-dialog v-model="isShowSearch"  destroy-on-close :show-close="false">
+      <template #footer>
+        <el-autocomplete
+            v-model="menuQuery"
+            :fetch-suggestions="menuSearch"
+            :placeholder="$t('message.user.searchPlaceholder')"
+            ref="layoutMenuAutocompleteRef"
+            @select="onHandleSelect"
+            :fit-input-width="true"
+        >
+          <template #prefix>
+            <el-icon class="el-input__icon">
+              <elementSearch />
+            </el-icon>
+          </template>
+          <template #default="{ item }">
+            <div>
+              <SvgIcon :name="item.meta.icon" class="mr5" />
+              {{ $t(item.meta.title) }}
+            </div>
+          </template>
+        </el-autocomplete>
+      </template>
     </el-dialog>
   </div>
 </template>
@@ -75,7 +74,6 @@ export default defineComponent({
     };
     // 搜索弹窗关闭
     const closeSearch = () => {
-      console.log("关闭弹窗")
       state.isShowSearch = false;
     };
     // 菜单搜索数据过滤
@@ -102,10 +100,10 @@ export default defineComponent({
     };
     // 当前菜单选中时
     const onHandleSelect = (item: any) => {
-      let { path, redirect } = item;
+      let { path, redirect,children } = item;
       if (item.meta.isLink && !item.meta.isIframe) window.open(item.meta.isLink);
       else if (redirect) router.push(redirect);
-      else router.push(path);
+      else (children) ? router.push(children[0]) : router.push(path);
       closeSearch();
     };
     // input 失去焦点时
@@ -127,15 +125,23 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .layout-search-dialog {
-  ::v-deep(.el-dialog) {
-    box-shadow: unset !important;
-    border-radius: 0 !important;
-    background: rgba(0, 0, 0, 0.5);
+  position: relative;
+  :deep(.el-dialog) {
+    .el-dialog__header,
+    .el-dialog__body {
+      display: none;
+    }
+    .el-dialog__footer {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: -53vh;
+    }
   }
-  ::v-deep(.el-autocomplete) {
+  :deep(.el-autocomplete) {
     width: 560px;
     position: absolute;
-    top: 100px;
+    top: 150px;
     left: 50%;
     transform: translateX(-50%);
   }

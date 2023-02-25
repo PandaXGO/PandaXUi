@@ -32,11 +32,13 @@
           <template v-if="isActive(v)">
             <SvgIcon
               name="elementRefreshRight"
+              :size="13"
               class="ml5 layout-navbars-tagsview-ul-li-refresh"
               @click.stop="refreshCurrentTagsView($route.fullPath)"
             />
             <SvgIcon
               name="elementClose"
+              :size="13"
               class="layout-navbars-tagsview-ul-li-icon layout-icon-active"
               v-if="!v.meta.isAffix"
               @click.stop="
@@ -46,6 +48,7 @@
           </template>
           <SvgIcon
             name="elementClose"
+            :size="13"
             class="layout-navbars-tagsview-ul-li-icon layout-icon-three"
             v-if="!v.meta.isAffix"
             @click.stop="

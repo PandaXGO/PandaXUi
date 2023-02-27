@@ -9,7 +9,7 @@ export default {
 		two4: '友情链接',
 	},
 	copyright: {
-		one5: '版权所有：山东xxx软件科技有限公司',
+		one5: '版权所有：山东xxx软件科技有限公司 备案号： 鲁ICP备20000271号-1',
 		two6: 'Copyright: ShanDong XXX Software Technology 鲁ICP备05010000号',
 	},
 	account: {

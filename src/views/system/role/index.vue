@@ -260,6 +260,7 @@
                   :default-checked-keys="state.apiCheckedKeys"
               ></el-tree>
             </el-tab-pane>
+            <el-tab-pane label="工单权限" name="work"/>
           </el-tabs>
         </el-form-item>
         <el-form-item label="备注">

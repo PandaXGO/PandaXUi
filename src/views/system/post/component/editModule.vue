@@ -1,12 +1,12 @@
 <template>
   <div class="system-menu-container">
-    <el-dialog v-model="isShowDialog" width="769px" center>
+    <el-dialog v-model="state.isShowDialog" width="769px" center>
       <template #header>
         <div style="font-size: large" v-drag="['.system-menu-container .el-dialog', '.system-menu-container .el-dialog__header']">{{title}}</div>
       </template>
       <el-form
-        :model="ruleForm"
-        :rules="ruleRules"
+        :model="state.ruleForm"
+        :rules="state.ruleRules"
         ref="ruleFormRef"
         label-width="80px"
       >
@@ -14,7 +14,7 @@
           <el-col :span="24" >
             <el-form-item label="岗位名称" prop="postName">
               <el-input
-                v-model="ruleForm.postName"
+                v-model="state.ruleForm.postName"
                 placeholder="请输入岗位名称"
               />
             </el-form-item>
@@ -22,7 +22,7 @@
           <el-col :span="24" >
             <el-form-item label="岗位编码" prop="postCode">
               <el-input
-                v-model="ruleForm.postCode"
+                v-model="state.ruleForm.postCode"
                 placeholder="请输入编码名称"
               />
             </el-form-item>
@@ -31,7 +31,7 @@
           <el-col :span="24" >
             <el-form-item label="岗位顺序" prop="sort">
               <el-input-number
-                v-model="ruleForm.sort"
+                v-model="state.ruleForm.sort"
                 controls-position="right"
                 :min="0"
               />
@@ -39,9 +39,9 @@
           </el-col>
           <el-col :span="24" >
             <el-form-item label="岗位状态" prop="status">
-              <el-radio-group v-model="ruleForm.status">
+              <el-radio-group v-model="state.ruleForm.status">
                 <el-radio
-                  v-for="dict in statusOptions"
+                  v-for="dict in state.statusOptions"
                   :key="dict.dictValue"
                   :label="dict.dictValue"
                   >{{ dict.dictLabel }}
@@ -52,7 +52,7 @@
           <el-col :span="24" >
             <el-form-item label="备注" prop="remark">
               <el-input
-                v-model="ruleForm.remark"
+                v-model="state.ruleForm.remark"
                 type="textarea"
                 placeholder="请输入内容"
               />
@@ -63,15 +63,15 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="onCancel">取 消</el-button>
-          <el-button type="primary" @click="onSubmit" :loading="loading">编 辑</el-button>
+          <el-button type="primary" @click="onSubmit" :loading="state.loading">编 辑</el-button>
         </span>
       </template>
     </el-dialog>
   </div>
 </template>
 
-<script lang="ts">
-import { reactive, toRefs, ref, unref, getCurrentInstance } from "vue";
+<script lang="ts" setup>
+import { reactive, ref, unref, getCurrentInstance } from "vue";
 import { updatePost, addPost } from "@/api/system/post";
 import { ElMessage } from "element-plus";
 

@@ -14,6 +14,7 @@
           >
             <SvgIcon
               :name="v.meta.icon"
+              :size="16"
               class="layout-navbars-breadcrumb-iconfont"
               v-if="getThemeConfig.isBreadcrumbIcon"
             />{{ $t(v.meta.title) }}
@@ -21,6 +22,7 @@
           <a v-else @click.prevent="onBreadcrumbClick(v)">
             <SvgIcon
               :name="v.meta.icon"
+              :size="16"
               class="layout-navbars-breadcrumb-iconfont"
               v-if="getThemeConfig.isBreadcrumbIcon"
             />{{ $t(v.meta.title) }}

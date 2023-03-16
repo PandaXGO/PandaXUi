@@ -44,26 +44,6 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 			title: 'message.staticRoutes.noPower',
 		},
 	},
-	/**
-	 * 提示：写在这里的为全屏界面，不建议写在这里
-	 * 请写在 `dynamicRoutes` 路由数组中
-	 */
-	{
-		path: '/visualizingDemo1',
-		name: 'visualizingDemo1',
-		component: () => import('@/views/demo/visualizing/demo1.vue'),
-		meta: {
-			title: 'message.router.visualizingLinkDemo1',
-		},
-	},
-	{
-		path: '/visualizingDemo2',
-		name: 'visualizingDemo2',
-		component: () => import('@/views/demo/visualizing/demo2.vue'),
-		meta: {
-			title: 'message.router.visualizingLinkDemo2',
-		},
-	},
 ];
 
 export const staticPageRoutes: Array<RouteRecordRaw> = [
@@ -652,70 +632,6 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 				],
 			},
 			{
-				path: '/visualizing',
-				name: 'visualizingIndex',
-				component: () => import('@/layout/routerView/parent.vue'),
-				redirect: '/visualizing/visualizingLinkDemo1',
-				meta: {
-					title: 'message.router.visualizingIndex',
-					isLink: '',
-					isHide: false,
-					isKeepAlive: true,
-					isAffix: false,
-					isIframe: false,
-					auth: ['base'],
-					icon: 'elementDataLine',
-				},
-				children: [
-					{
-						path: '/visualizing/visualizingLinkDemo1',
-						name: 'visualizingLinkDemo1',
-						component: () => import('@/layout/routerView/link.vue'),
-						meta: {
-							title: 'message.router.visualizingLinkDemo1',
-							isLink: `http://localhost:8889/#/visualizingDemo1`,
-							isHide: false,
-							isKeepAlive: false,
-							isAffix: false,
-							isIframe: false,
-							auth: ['base'],
-							icon: 'iconfont icon-caozuo-wailian',
-						},
-					},
-					{
-						path: '/visualizing/visualizingLinkDemo2',
-						name: 'visualizingLinkDemo2',
-						component: () => import('@/layout/routerView/link.vue'),
-						meta: {
-							title: 'message.router.visualizingLinkDemo2',
-							isLink: `http://localhost:8889/#/visualizingDemo2`,
-							isHide: false,
-							isKeepAlive: false,
-							isAffix: false,
-							isIframe: false,
-							auth: ['base'],
-							icon: 'iconfont icon-caozuo-wailian',
-						},
-					},
-				],
-			},
-			{
-				path: '/chart',
-				name: 'chartIndex',
-				component: () => import('@/views/demo/chart/index.vue'),
-				meta: {
-					title: 'message.router.chartIndex',
-					isLink: '',
-					isHide: false,
-					isKeepAlive: true,
-					isAffix: false,
-					isIframe: false,
-					auth: ['base'],
-					icon: 'iconfont icon-ico_shuju',
-				},
-			},
-
-			{
 				path: '/tools',
 				name: 'tools',
 				component: () => import('@/views/demo/tools/index.vue'),
@@ -736,7 +652,7 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 				component: () => import('@/layout/routerView/link.vue'),
 				meta: {
 					title: 'message.router.layoutLinkView',
-					isLink: 'https://element-plus.gitee.io/#/zh-CN/component/installation',
+					isLink: 'https://gitee.com/XM-GO/PandaX',
 					isHide: false,
 					isKeepAlive: false,
 					isAffix: false,
@@ -751,7 +667,7 @@ export const staticPageRoutes: Array<RouteRecordRaw> = [
 				component: () => import('@/layout/routerView/iframes.vue'),
 				meta: {
 					title: 'message.router.layoutIfameView',
-					isLink: 'https://gitee.com/PandaAdmin/PandaX',
+					isLink: 'https://gitee.com/XM-GO/PandaX',
 					isHide: false,
 					isKeepAlive: false,
 					isAffix: false,

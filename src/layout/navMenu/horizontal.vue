@@ -19,7 +19,7 @@
           >
             <template #title>
               <SvgIcon :name="val.meta.icon" />
-              <span>{{ $t(val.meta.title) }}</span>
+              {{ $t(val.meta.title) }}
             </template>
             <SubItem :chil="val.children" />
           </el-sub-menu>
@@ -54,6 +54,7 @@ import {
   onMounted,
   nextTick,
   onBeforeMount,
+  ref
 } from "vue";
 import { useRoute, onBeforeRouteUpdate } from "vue-router";
 import { useThemeConfigStateStore } from "@/stores/themeConfig";
@@ -96,6 +97,7 @@ export default defineComponent({
         proxy.$refs.elMenuHorizontalScrollRef.$refs.wrap$.scrollLeft = els.offsetLeft;
       });
     };
+
     // 路由过滤递归函数
     const filterRoutesFun = (arr: Array<object>) => {
       return arr
@@ -173,7 +175,7 @@ export default defineComponent({
   ::v-deep(a) {
     width: 100%;
   }
-  .el-menu.el-menu--horizontal {
+ .el-menu.el-menu--horizontal {
     display: flex;
     height: 100%;
     width: 100%;

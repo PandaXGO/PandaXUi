@@ -13,6 +13,7 @@ import 'element-plus/dist/index.css';
 import '@/theme/index.scss';
 import mitt from 'mitt';
 import screenShort from 'vue-web-screen-shot';
+// @ts-ignore
 import VueGridLayout from 'vue-grid-layout';
 
 // @ts-ignore

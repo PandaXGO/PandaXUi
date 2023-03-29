@@ -12,7 +12,7 @@
                     {{noticeTypeFormat(state.content)}}
                 </el-descriptions-item>
                 <el-descriptions-item width="100" label="通知内容">
-                    <editor id="view" v-model="state.content.content" :isDisable="true"></editor>
+                  <Editor v-model:get-html="state.content.content" :disable="true"></Editor>
                 </el-descriptions-item>
             </el-descriptions>
         </el-dialog>
@@ -48,5 +48,7 @@ defineExpose({
 </script>
 
 <style scoped>
-
+.span{
+  color: #ff7f0e;
+}
 </style>

@@ -118,7 +118,7 @@ export const useThemeConfigStateStore = defineStore('themeConfig', {
              * 中的 `initSetLayoutChange(设置布局切换，重置主题样式)` 方法
              */
             // 布局切换：可选值"<defaults|classic|transverse|columns>"，默认 defaults
-            layout: 'transverse',
+            layout: 'defaults',
 
             /**
              * 后端控制路由

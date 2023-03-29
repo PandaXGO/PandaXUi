@@ -1,7 +1,7 @@
 import request from '@/utils/request';
 
 // 查询Classify列表
-export function listClassify(query:any) {
+export function listWorkClassify(query:any) {
 	return request({
 		url: '/flow/workclassify/list',
 		method: 'get',
@@ -10,7 +10,7 @@ export function listClassify(query:any) {
 }
 
 // 查询Classify详细
-export function getClassify(id:number) {
+export function getWorkClassify(id:number) {
 	return request({
 		url: '/flow/workclassify/' + id,
 		method: 'get'
@@ -18,7 +18,7 @@ export function getClassify(id:number) {
 }
 
 // 新增Classify
-export function addClassify(data:any) {
+export function addWorkClassify(data:any) {
 	return request({
 		url: '/flow/workclassify',
 		method: 'post',
@@ -27,7 +27,7 @@ export function addClassify(data:any) {
 }
 
 // 修改Classify
-export function updateClassify(data:any) {
+export function updateWorkClassify(data:any) {
 	return request({
 		url: '/flow/workclassify',
 		method: 'put',
@@ -36,7 +36,7 @@ export function updateClassify(data:any) {
 }
 
 // 删除Classify
-export function delClassify(id: string) {
+export function delWorkClassify(id: string) {
 	return request({
 		url: '/flow/workclassify/' + id,
 		method: 'delete'

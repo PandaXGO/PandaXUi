@@ -4,11 +4,12 @@
     </div>
 </template>
 <script setup lang="ts">
-import { SwaggerUIBundle,SwaggerUIStandalonePreset } from 'swagger-ui-dist'
+import { SwaggerUIBundle, SwaggerUIStandalonePreset } from 'swagger-ui-dist'
 import {onMounted} from "vue";
 const baseURL = import.meta.env.VITE_API_URL
 
 onMounted(() => {
+  console.log("baseURL",baseURL)
     const ui = SwaggerUIBundle({
         url: baseURL + "/apidocs.json",
         dom_id: '#swagger-ui',

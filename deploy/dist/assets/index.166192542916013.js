@@ -1,1 +1,0 @@
-import{d as o,H as _,f as r,r as s,o as t}from"./index.1661925429160.js";const d=o({__name:"index",setup(f){const e=_();return(a,c)=>{const n=s("xm-form-designer");return t(),r(n,{ref_key:"vfdRef",ref:e},null,512)}}});export{d as default};

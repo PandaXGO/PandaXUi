@@ -16,6 +16,12 @@
         <el-form-item label="分类" prop="classify">
           <el-input v-model="state.ruleForm.classify" placeholder="请选择分类" />
         </el-form-item>
+        <el-form-item label="抄送" prop="classify">
+          <el-select v-model="state.ruleForm.cc" multiple placeholder="选择要抄送的人">
+            <el-option label="张三" value="1"/>
+            <el-option label="李四" value="2"/>
+          </el-select>
+        </el-form-item>
         <el-form-item label="图标" prop="icon">
           <el-input v-model="state.ruleForm.icon" placeholder="请输入图标" />
         </el-form-item>
@@ -54,6 +60,7 @@ const state = reactive({
   ruleForm: {
     name: "",
     creator: 0,
+    cc: [],
     remarks: "",
     icon: "",
     id: undefined,

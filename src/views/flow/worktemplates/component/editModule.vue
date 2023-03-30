@@ -1,8 +1,8 @@
 <template>
   <div class="system-worktemplates-container">
-    <el-dialog v-model="state.isShowDialog" width="769px" center>
+    <el-dialog v-model="state.isShowDialog" fullscreen center >
       <template #title>
-        <div style="font-size: large" v-drag="['.system-worktemplates-container .el-dialog', '.system-worktemplates-container .el-dialog__header']">{{title}}</div>
+        <div style="font-size: large" >{{title}}</div>
       </template>
       <el-form
           :model="state.ruleForm"
@@ -10,13 +10,20 @@
           ref="ruleFormRef"
           label-width="80px"
       >
-        <el-form-item label="名称" prop="name">
+        <el-form-item label="名称:" prop="name">
           <el-input v-model="state.ruleForm.name" placeholder="请输入名称" />
         </el-form-item>
-        <el-form-item label="描述 " prop="remarks">
-          <el-input v-model="state.ruleForm.remarks" placeholder="请输入描述 " />
+        <el-form-item label="描述:" prop="remarks">
+          <el-input v-model="state.ruleForm.remarks" type="textarea" placeholder="请输入描述 " />
+        </el-form-item>
+        <el-form-item label="模板:" prop="remarks">
+          <FormDesign ref="vfdRef"></FormDesign>
         </el-form-item>
       </el-form>
+<!--      <div style="width: 100%;height: 100%">
+        <FormDesign ref="vfdRef"></FormDesign>
+      </div>-->
+
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="onCancel">取 消</el-button>
@@ -41,6 +48,7 @@ const props = defineProps({
 
 const { proxy } = getCurrentInstance() as any;
 const ruleFormRef = ref<HTMLElement | null>(null);
+const vfdRef = ref()
 const state = reactive({
   // 是否显示弹出层
   isShowDialog: false,
@@ -50,6 +58,7 @@ const state = reactive({
     id: undefined,
     name: "",
     creator: 0,
+    form_structure: undefined
   },
   // 表单校验
   ruleRules: {
@@ -83,6 +92,8 @@ const onSubmit = () => {
   formWrap.validate((valid: boolean) => {
     if (valid) {
       state.loading = true;
+      const data = vfdRef.value.getJson()
+      state.ruleForm.form_structure = data
       if (state.ruleForm.id != undefined && state.ruleForm.id != 0) {
         updateWorkTemplates(state.ruleForm).then((response) => {
           ElMessage.success("修改成功");

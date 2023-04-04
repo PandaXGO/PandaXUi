@@ -14,7 +14,7 @@ onMounted(() => {
        deepLinking: true,
        presets: [
          SwaggerUIBundle.presets.apis,
-         SwaggerUIBundle.SwaggerUIStandalonePreset,
+         SwaggerUIStandalonePreset,
        ],
    })
 });

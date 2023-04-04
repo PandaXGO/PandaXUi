@@ -1,5 +1,5 @@
 <template>
-    <xm-form-designer ref="vfdRef"></xm-form-designer>
+  <FormDesign  ref="vfdRef" />
 </template>
 
 <script setup lang="ts">

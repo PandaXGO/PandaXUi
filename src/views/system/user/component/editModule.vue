@@ -38,25 +38,6 @@
               ></el-cascader>
             </el-form-item>
           </el-col>
-          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
-            <el-form-item label="归属部门" prop="deptId">
-              <el-cascader
-                v-model="state.ruleForm.deptId"
-                :options="state.deptOptions"
-                :props="{
-                  label: 'deptName',
-                  value: 'deptId',
-                  checkStrictly: true,
-                  emitPath: false,
-                }"
-                class="w100"
-                clearable
-                filterable
-                placeholder="请选择归属部门"
-                :show-all-levels="false"
-              ></el-cascader>
-            </el-form-item>
-          </el-col>
           <el-col v-if="state.ruleForm.userId == undefined" :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
             <el-form-item
 
@@ -122,6 +103,25 @@
                         :disabled="item.status == 1"
                 ></el-option>
               </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
+            <el-form-item label="归属部门" prop="deptId">
+              <el-cascader
+                  v-model="state.ruleForm.deptId"
+                  :options="state.deptOptions"
+                  :props="{
+                  label: 'deptName',
+                  value: 'deptId',
+                  checkStrictly: true,
+                  emitPath: false,
+                }"
+                  class="w100"
+                  clearable
+                  filterable
+                  placeholder="请选择归属部门"
+                  :show-all-levels="false"
+              ></el-cascader>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
@@ -265,6 +265,7 @@ const openDialog = (row: any) => {
       state.ruleForm = response.data.data;
       state.postOptions = response.data.posts;
       state.roleOptions = response.data.roles;
+      state.deptOptions = response.data.depts;
       state.postIds = response.data.postIds.split(",").map((item: string)=>{
         return Number(item)
       });
@@ -280,7 +281,7 @@ const openDialog = (row: any) => {
     })
     state.ruleForm = JSON.parse(JSON.stringify(row));
   }
-  getTreeselect();
+  //getTreeselect();
   getTenants();
   state.isShowDialog = true;
   state.loading = false;

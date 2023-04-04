@@ -51,7 +51,7 @@
         </el-row>
         <el-col :span="24">
           <el-form-item label="通知内容" prop="content">
-            <Editor v-model="state.ruleForm.content"></Editor>
+            <Editor v-model:get-html="state.ruleForm.content" ></Editor>
           </el-form-item>
         </el-col>
       </el-form>

@@ -139,6 +139,7 @@ import {ref, reactive, onMounted, getCurrentInstance, onUnmounted,} from "vue";
 import {ElMessageBox, ElMessage} from "element-plus";
 import {listDept, delDept} from "@/api/system/dept";
 import EditModule from "./component/editModule.vue";
+import {allSysTenants, getSysTenants} from "@/api/system/tenant";
 
 const {proxy} = getCurrentInstance() as any;
 const editModuleRef = ref();

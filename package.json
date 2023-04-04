@@ -35,7 +35,6 @@
 		"screenfull": "^6.0.0",
 		"sortablejs": "^1.15.0",
 		"splitpanes": "^3.1.1",
-		"swagger-ui-dist": "^4.13.2",
 		"vue": "^3.2.37",
 		"vue-clipboard3": "^2.0.0",
 		"vue-grid-layout": "^3.0.0-beta1",

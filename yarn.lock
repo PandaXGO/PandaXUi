@@ -2063,10 +2063,10 @@
     "type-check" "^0.4.0"
     "word-wrap" "^1.2.3"
 
-"pandax-form@^1.4.1":
-  "integrity" "sha512-B+l7kuP5QogEmcEUML4n3iBYp1n5cVnzKM8s0hsJXk1eCkSja0HzL1xzXFJ/KzfsKQhigCsdbuvZnz0OJYMSrg=="
-  "resolved" "https://registry.npmjs.org/pandax-form/-/pandax-form-1.4.1.tgz"
-  "version" "1.4.1"
+"pandax-form@^1.4.0":
+  "integrity" "sha512-DlXiQqhn7D0PSgKn8iRtOAYXDR++E0pS64qktMl5XnfiDAhYFaFIISGCtPWzBur9CiOwNOy8wDqkRaGXQu2WHA=="
+  "resolved" "https://registry.npmjs.org/pandax-form/-/pandax-form-1.4.0.tgz"
+  "version" "1.4.0"
   dependencies:
     "@element-plus/icons-vue" "^2.0.9"
     "@wangeditor/editor" "^5.1.14"
@@ -2455,11 +2455,6 @@
   "resolved" "https://registry.npmmirror.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
   "version" "1.0.0"
 
-"swagger-ui-dist@^4.13.2":
-  "integrity" "sha512-jHL6UyIYpvEI7NsuWd0R3hJaPQTg6Oo4qSBo+oVfOEkv6rrQm/475RGSMmZgV6ajp+Sgrp9CqrDjQYAgQqiv1A=="
-  "resolved" "https://registry.npmjs.org/swagger-ui-dist/-/swagger-ui-dist-4.13.2.tgz"
-  "version" "4.13.2"
-
 "tapable@^2.1.1", "tapable@^2.2.0":
   "integrity" "sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ=="
   "resolved" "https://registry.npmjs.org/tapable/-/tapable-2.2.1.tgz"
@@ -2765,6 +2760,11 @@
   "integrity" "sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8="
   "resolved" "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz"
   "version" "1.0.2"
+
+"xmgo-vform@^1.4.0":
+  "integrity" "sha512-TTYBOwiJ0LUfsJ7yHYoJd62IZw5dPpFHlSugI3anRnJymmi9Rry96qNdLYdJ+TNahmf1Ux/jgNMsQsKW5E/zag=="
+  "resolved" "https://registry.npmjs.org/xmgo-vform/-/xmgo-vform-1.4.0.tgz"
+  "version" "1.4.0"
 
 "yallist@^4.0.0":
   "integrity" "sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A=="

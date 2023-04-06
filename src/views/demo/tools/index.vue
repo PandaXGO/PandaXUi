@@ -482,6 +482,7 @@ export default {
 .tools-warp-form {
 	::v-deep(.el-form-item--small.el-form-item) {
 		margin-bottom: 0 !important;
+    outline: 2px solid #4eb8ff;
 	}
 	.tools-warp-form-msg {
 		color: #666666;

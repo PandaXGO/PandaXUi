@@ -1,5 +1,9 @@
 <template>
+<<<<<<< HEAD
   <xm-form-designer ref="vfdRef"></xm-form-designer>
+=======
+    <FormDesign ref="vfdRef"></FormDesign>
+>>>>>>> d73f56d9e32a7fc042ad95499c958a18d201d51c
 </template>
 
 <script setup lang="ts">
@@ -8,7 +12,5 @@
 </script>
 
 <style lang="scss">
-    body {
-        margin: 0;  /* 如果页面出现垂直滚动条，则加入此行CSS以消除之 */
-    }
+
 </style>

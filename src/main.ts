@@ -15,12 +15,6 @@ import mitt from 'mitt';
 import screenShort from 'vue-web-screen-shot';
 // @ts-ignore
 import VueGridLayout from 'vue-grid-layout';
-<<<<<<< HEAD
-=======
-import PandaXForm from 'pandax-form'
-import 'pandax-form/dist/style.css'
-
->>>>>>> d73f56d9e32a7fc042ad95499c958a18d201d51c
 // @ts-ignore
 import XmForm from 'xmgo-vform'
 import 'xmgo-vform/dist/designer.style.css'  //引入XmForm样式
@@ -36,7 +30,6 @@ app
 	.use(router)
 	.use(ElementPlus, { i18n: i18n.global.t, size: "default" })
 	.use(XmForm)
-	.use(PandaXForm)
 	.use(i18n)
 	.use(screenShort, { enableWebRtc: false })
     .use(VueGridLayout)

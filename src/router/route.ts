@@ -29,6 +29,22 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 		},
 	},
 	{
+		path: '/rule/edit',
+		name: 'edit',
+		meta: {
+			title: '规则链编辑',
+		},
+		component: () => import('@/views/visual/rulechain/component/edit.vue'),
+	},
+	{
+		path: '/rule/view',
+		name: 'view',
+		meta: {
+			title: '规则链预览',
+		},
+		component: () => import('@/views/visual/rulechain/component/view.vue'),
+	},
+	{
 		path: '/404',
 		name: 'notFound',
 		component: () => import('@/views/demo/error/404.vue'),

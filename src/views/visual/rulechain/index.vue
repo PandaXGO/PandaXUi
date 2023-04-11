@@ -64,7 +64,11 @@
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column label="名称" align="center" prop="ruleName" />
         <el-table-column label="状态" align="center" prop="status" />
-        <el-table-column label="Base64缩略图" align="center" prop="ruleBase64" />
+        <el-table-column label="Base64缩略图" align="center" prop="ruleBase64" >
+          <template #default="scope">
+            <el-image :src="scope.row.ruleBase64" />
+          </template>
+        </el-table-column>
         <el-table-column label="创建时间" align="center" prop="createTime" width="180">
           <template #default="scope">
             <span>{{ dateStrFormat(scope.row.createTime) }}</span>

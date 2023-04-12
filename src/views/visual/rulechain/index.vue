@@ -55,74 +55,66 @@
           </div>
         </div>
       </template>
-      <!--数据表格-->
-      <el-table
-          v-loading="state.loading"
-          :data="state.tableData"
-          @selection-change="handleSelectionChange"
-      >
-        <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="名称" align="center" prop="ruleName" />
-        <el-table-column label="状态" align="center" prop="status" />
-        <el-table-column label="Base64缩略图" align="center" prop="ruleBase64" >
-          <template #default="scope">
-            <el-image :src="scope.row.ruleBase64" />
-          </template>
-        </el-table-column>
-        <el-table-column label="创建时间" align="center" prop="createTime" width="180">
-          <template #default="scope">
-            <span>{{ dateStrFormat(scope.row.createTime) }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-            label="操作"
-            align="center"
-            class-name="small-padding fixed-width"
-        >
-          <template #default="scope">
-            <el-popover  placement="left">
-              <template #reference>
-                <el-button type="primary" circle ><SvgIcon name="elementStar"/></el-button>
+      <div class="content_box">
+        <div v-for="data in state.tableData" class="content_item">
+          <el-card :body-style="{ padding: '0px' }" class="ft-card">
+            <el-image class="ft-image" :src="data.ruleBase64" fit="fill">
+              <template #error>
+                <div class="image-slot">
+                  <SvgIcon name="elementPicture" :size="50"/>
+                </div>
               </template>
+            </el-image>
+            <div class="ft-foot">
+              <dev class="ft-item-name">{{data.ruleName}}</dev>
               <div>
-                <el-button text type="primary" v-auth="'visual:rulechain:clone'" @click="onCloneRule(scope.row)">
-                  <SvgIcon name="elementConnection" />克隆
-                </el-button>
+                <span style="margin-right: 5px">{{data.status === "1"?"已发布":"未发布"}}</span>
+                <el-popover  >
+                  <template #reference>
+                    <el-button type="primary" circle size="small"><SvgIcon name="elementStar"/></el-button>
+                  </template>
+                  <div>
+                    <el-button text type="primary" v-auth="'visual:rulechain:clone'" @click="onCloneRule(data)">
+                      <SvgIcon name="elementConnection" />克隆
+                    </el-button>
+                  </div>
+                  <div>
+                    <router-link
+                        v-auth="'visual:rulechain:design'" target="_blank"
+                        :to="{ path: '/rule/edit', query: { id: data.ruleId } }"
+                    >
+                      <el-button text type="primary">
+                        <SvgIcon name="elementDiscount"/>设计
+                      </el-button>
+                    </router-link>
+                  </div>
+                  <div>
+                    <router-link
+                        v-auth="'visual:rulechain:view'" target="_blank"
+                        :to="{ path: '/rule/view', query: { id: data.ruleId }}"
+                    >
+                      <el-button text type="primary">
+                        <SvgIcon name="elementView"/>预览
+                      </el-button>
+                    </router-link>
+                  </div>
+                  <div>
+                    <el-button text type="primary" v-auth="'visual:rulechain:edit'" @click="onOpenEditModule(data)">
+                      <SvgIcon name="elementEdit" />修改
+                    </el-button>
+                  </div>
+                  <div>
+                    <el-button text type="primary" v-auth="'visual:rulechain:delete'" @click="onTabelRowDel(data)">
+                      <SvgIcon name="elementDelete" />删除
+                    </el-button>
+                  </div>
+                </el-popover>
               </div>
-              <div>
-                <router-link
-                    v-auth="'visual:rulechain:design'" target="_blank"
-                    :to="{ path: '/rule/edit', query: { id: scope.row.ruleId } }"
-                >
-                  <el-button text type="primary">
-                    <SvgIcon name="elementDiscount"/>设计
-                  </el-button>
-                </router-link>
-              </div>
-              <div>
-                <router-link
-                    v-auth="'visual:rulechain:view'" target="_blank"
-                    :to="{ path: '/rule/view', query: { id: scope.row.ruleId }}"
-                >
-                  <el-button text type="primary">
-                    <SvgIcon name="elementView"/>预览
-                  </el-button>
-                </router-link>
-              </div>
-              <div>
-                <el-button text type="primary" v-auth="'visual:rulechain:edit'" @click="onOpenEditModule(scope.row)">
-                  <SvgIcon name="elementEdit" />修改
-                </el-button>
-              </div>
-              <div>
-                <el-button text type="primary" v-auth="'visual:rulechain:delete'" @click="onTabelRowDel(scope.row)">
-                  <SvgIcon name="elementDelete" />删除
-                </el-button>
-              </div>
-            </el-popover>
-          </template>
-        </el-table-column>
-      </el-table>
+            </div>
+          </el-card>
+        </div>
+      </div>
+
       <!-- 分页设置-->
       <div v-show="state.total > 0">
         <el-divider></el-divider>
@@ -308,3 +300,62 @@ onUnmounted(() => {
   proxy.mittBus.off("onEditChainModule");
 });
 </script>
+
+<style lang="scss" scoped>
+.content_box{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+
+  .content_item{
+    position: relative;
+    margin: 12px;
+    width: 300px;
+    height: 220px;
+    box-sizing: border-box;
+    flex-direction: column;
+  }
+}
+
+.el-card.ft-card {
+  width: 100%;
+  height: 100%;
+  margin: 5px;
+  border: 1px solid #8896B3;
+
+  .el-card__body{
+    padding: 5px !important;
+  }
+  .ft-image{
+    width: 300px;
+    height: 170px;
+    border-bottom: 1px solid var(--color-primary)
+  }
+
+  .ft-foot{
+    padding: 0 10px;
+    height: 50px;
+    line-height: 50px;
+    display: flex;
+    justify-content: space-between;
+
+    .ft-item-name{
+      width: 200px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis
+    }
+  }
+}
+
+.image-slot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  color: var(--el-text-color-secondary);
+  font-size: 30px;
+}
+</style>

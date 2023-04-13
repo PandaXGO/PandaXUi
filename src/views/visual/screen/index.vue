@@ -1,259 +1,251 @@
 <template>
-  <div class="app-container">
-    <el-card shadow="always">
-    <!-- 查询 -->
-    <el-form
-      :model="state.queryParams"
-      ref="queryForm"
-      :inline="true"
-      label-width="68px"
-    >
-    <el-form-item label="用户Id" prop="userId">
-        <el-input
-           v-model="state.queryParams.userId"
-           placeholder="请输入用户Id"
-           clearable
-           @keyup.enter.native="handleQuery"
-        />
-     </el-form-item>
-    <el-form-item label="Base64缩略图" prop="screenBase64">
-        <el-input
-           v-model="state.queryParams.screenBase64"
-           placeholder="请输入Base64缩略图"
-           clearable
-           @keyup.enter.native="handleQuery"
-        />
-     </el-form-item>
-    <el-form-item label="名称" prop="screenName">
-        <el-input
-           v-model="state.queryParams.screenName"
-           placeholder="请输入名称"
-           clearable
-           @keyup.enter.native="handleQuery"
-        />
-     </el-form-item>
-    <el-form-item label="说明" prop="screenRemark">
-        <el-input
-           v-model="state.queryParams.screenRemark"
-           placeholder="请输入说明"
-           clearable
-           @keyup.enter.native="handleQuery"
-        />
-     </el-form-item>
-    <el-form-item label="Creator" prop="creator">
-        <el-input
-           v-model="state.queryParams.creator"
-           placeholder="请输入Creator"
-           clearable
-           @keyup.enter.native="handleQuery"
-        />
-     </el-form-item>
-    <el-form-item label="Json数据" prop="screenDataJson">
-        <el-input
-           v-model="state.queryParams.screenDataJson"
-           placeholder="请输入Json数据"
-           clearable
-           @keyup.enter.native="handleQuery"
-        />
-     </el-form-item>
-     <el-form-item>
-       <el-button type="primary" @click="handleQuery">
-         <SvgIcon name="elementSearch" />搜索</el-button>
-       <el-button @click="resetQuery">
-         <SvgIcon name="elementRefresh" />
-         重置
-       </el-button>
-     </el-form-item>
-    </el-form>
-    </el-card>
-    <el-card class="box-card">
-        <template #header>
-           <div class="card-header">
-             <span class="card-header-text">bi大屏列表</span>
-             <div>
-               <el-button
-                  type="primary"
-                  plain
-                  v-auth="'visual:screen:add'"
-                  @click="onOpenAddModule"
-                  ><SvgIcon name="elementPlus" />新增</el-button>
-               <el-button
-                 type="danger"
-                 plain
-                 v-auth="'visual:screen:delete'"
-                 :disabled="state.multiple"
-                 @click="onTabelRowDel"
-                 ><SvgIcon name="elementDelete" />删除</el-button>
-             </div>
-           </div>
-        </template>
-    <!--数据表格-->
-    <el-table
-      v-loading="state.loading"
-      :data="state.tableData"
-      @selection-change="handleSelectionChange"
-    >
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="编号" align="center" prop="screenId" />
-      <el-table-column label="用户Id" align="center" prop="userId" />
-      <el-table-column label="CreateTime" align="center" prop="createTime" width="180">
-        <template #default="scope">
-             <span>{{ dateStrFormat(scope.row.createTime) }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="Base64缩略图" align="center" prop="screenBase64" />
-      <el-table-column label="名称" align="center" prop="screenName" />
-      <el-table-column label="状态" align="center" prop="status" />
-      <el-table-column label="说明" align="center" prop="screenRemark" />
-      <el-table-column label="Creator" align="center" prop="creator" />
-      <el-table-column label="Json数据" align="center" prop="screenDataJson" />
-      <el-table-column
-        label="操作"
-        align="center"
-        class-name="small-padding fixed-width"
-      >
-        <template #default="scope">
-          <el-popover  placement="left">
-            <template #reference>
-              <el-button type="primary" circle ><SvgIcon name="elementStar"/></el-button>
-            </template>
-            <div>
-              <el-button text type="primary" v-auth="'visual:screen:edit'" @click="onOpenEditModule(scope.row)">
-                <SvgIcon name="elementEdit" />修改
+  <div class="system-user-container app-container">
+    <el-row :gutter="20">
+      <el-col :span="4" :xs="24">
+        <el-card shadow="always">
+          <div class="head-container">
+            <el-input
+                v-model="state.name"
+                placeholder="请输入分组名称"
+                clearable
+                prefix-icon="el-icon-search"
+                style="margin-bottom: 20px"
+            />
+          </div>
+          <div class="head-container">
+            <el-tree
+                :data="state.groupOptions"
+                :props="state.defaultProps"
+                node-key="id"
+                :expand-on-click-node="false"
+                :filter-node-method="filterNode"
+                ref="tree"
+                default-expand-all
+                @node-click="handleNodeClick"
+            />
+          </div>
+        </el-card>
+      </el-col>
+
+      <el-col :span="20" :xs="24">
+        <el-card shadow="always">
+          <!-- 查询-->
+          <el-form
+              :model="state.queryParams"
+              ref="queryForm"
+              :inline="true"
+              label-width="78px"
+          >
+            <el-form-item label="大屏名称" prop="screenName">
+              <el-input
+                  placeholder="大屏名称模糊查询"
+                  clearable
+                  @keyup.enter="handleQuery"
+                  style="width: 240px"
+                  v-model="state.queryParams.screenName"
+              />
+            </el-form-item>
+            <el-form-item label="状态" prop="status">
+              <el-select
+                  v-model="state.queryParams.status"
+                  placeholder="状态"
+                  clearable
+                  style="width: 240px"
+              >
+                <el-option
+                    v-for="dict in state.statusOptions"
+                    :key="dict.dictValue"
+                    :label="dict.dictLabel"
+                    :value="dict.dictValue"
+                />
+              </el-select>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" plain @click="handleQuery">
+                <SvgIcon name="elementSearch"/>
+                搜索
               </el-button>
-            </div>
-            <div>
-              <el-button text type="primary" v-auth="'visual:screen:delete'" @click="onTabelRowDel(scope.row)">
-                <SvgIcon name="elementDelete" />删除
+              <el-button @click="resetQuery">
+                <SvgIcon name="elementRefresh"/>
+                重置
               </el-button>
+            </el-form-item>
+          </el-form>
+        </el-card>
+        <!-- 操作按钮 -->
+        <el-card class="box-card">
+          <template #header>
+            <div class="card-header">
+              <span class="card-header-text">大屏列表</span>
+              <div>
+                <el-button type="primary" v-auth="'visual:screen:add'" plain @click="handleAdd">
+                  <SvgIcon name="elementPlus"/>
+                  新增
+                </el-button>
+                <el-button type="danger" v-auth="'visual:screen:delete'" plain :disabled="state.multiple" @click="handleDelete">
+                  <SvgIcon name="elementDelete"/>
+                  删除
+                </el-button>
+              </div>
             </div>
-          </el-popover>
-        </template>
-      </el-table-column>
-    </el-table>
-    <!-- 分页设置-->
-    <div v-show="state.total > 0">
-        <el-divider></el-divider>
-        <el-pagination
-            background
-            :total="state.total"
-            :current-page="state.queryParams.pageNum"
-            :page-size="state.queryParams.pageSize"
-            layout="total, sizes, prev, pager, next, jumper"
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-        />
-    </div>
-    </el-card>
-    <!-- 添加或修改岗位对话框 -->
-    <EditModule ref="editModuleRef" :title="state.title" />
+          </template>
+
+          <div class="content_box">
+            <div v-for="data in state.tableData.data" class="content_item">
+              <el-card :body-style="{ padding: '0px' }" class="ft-card">
+                <el-image class="ft-image" :src="data.screenBase64" fit="fill">
+                  <template #error>
+                    <div class="image-slot">
+                      <SvgIcon name="elementPicture" :size="50"/>
+                    </div>
+                  </template>
+                </el-image>
+                <div class="ft-foot">
+                  <dev class="ft-item-name">{{data.screenName}}</dev>
+                  <div>
+                    <span style="margin-right: 5px">
+                      <el-switch
+                          v-model="data.status"
+                          :width="60"
+                          inline-prompt
+                          active-value="1"
+                          inactive-value="0"
+                          active-text="已发布"
+                          inactive-text="未发布"
+                          @click="handleStatusChange(data)"
+                      />
+                    </span>
+                    <el-popover  >
+                      <template #reference>
+                        <el-button type="primary" circle size="small"><SvgIcon name="elementStar"/></el-button>
+                      </template>
+                      <div>
+                        <el-button text type="primary" v-auth="'visual:screen:clone'" @click="onClonesScreen(data)">
+                          <SvgIcon name="elementConnection" />克隆
+                        </el-button>
+                      </div>
+                      <div>
+                        <router-link
+                            v-auth="'visual:screen:design'" target="_blank"
+                            :to="{ path: '/screen/edit', query: { id: data.screenId } }"
+                        >
+                          <el-button text type="primary">
+                            <SvgIcon name="elementDiscount"/>设计
+                          </el-button>
+                        </router-link>
+                      </div>
+                      <div>
+                        <router-link
+                            v-auth="'visual:screen:view'" target="_blank"
+                            :to="{ path: '/screen/view', query: { id: data.screenId }}"
+                        >
+                          <el-button text type="primary">
+                            <SvgIcon name="elementView"/>预览
+                          </el-button>
+                        </router-link>
+                      </div>
+                      <div>
+                        <el-button text type="primary" v-auth="'visual:screen:edit'" @click="handleUpdate(data)">
+                          <SvgIcon name="elementEdit" />修改
+                        </el-button>
+                      </div>
+                      <div>
+                        <el-button text type="primary" v-auth="'visual:screen:delete'" @click="handleDelete(data)">
+                          <SvgIcon name="elementDelete" />删除
+                        </el-button>
+                      </div>
+                    </el-popover>
+                  </div>
+                </div>
+              </el-card>
+            </div>
+          </div>
+          <div v-show="state.tableData.total > 0" >
+            <el-divider></el-divider>
+            <el-pagination
+                background
+                :total="state.tableData.total"
+                :page-sizes="[10, 20, 30]"
+                :current-page="state.queryParams.pageNum"
+                :page-size="state.queryParams.pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                @size-change="onHandleSizeChange"
+                @current-change="onHandleCurrentChange"
+            />
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+    <!-- 添加或修改参数配置对话框 -->
+    <EditModule ref="userFormRef" :title="state.title"/>
+
   </div>
 </template>
 
-<script lang="ts" setup name="Screen">
-import {
-  ref,
-  reactive,
-  onMounted,
-  getCurrentInstance,
-  onUnmounted,
-} from "vue";
-import { ElMessageBox, ElMessage } from "element-plus";
-import { listScreen, delScreen } from "@/api/visual/screen";
+<script lang="ts" setup>
+import {reactive, onMounted, ref, watch, getCurrentInstance, onUnmounted,} from "vue";
+import {ElMessageBox, ElMessage} from "element-plus";
+import {getDicts} from "@/api/system/dict/data";
 import EditModule from "./component/editModule.vue";
+import {addScreen, changeScreenStatus, delScreen, listScreen} from "@/api/visual/screen";
+import {listScreenGroupTree} from "@/api/visual/screen_group";
 
-const { proxy } = getCurrentInstance() as any;
-const editModuleRef = ref();
-const state = reactive({
-  // 遮罩层
-  loading: true,
-  // 选中数组
-  ids: [],
+const {proxy} = getCurrentInstance() as any;
+const userFormRef = ref();
+const state: any = reactive({
+  tableData: {
+    data: [],
+    total: 0,
+  },
+  loading: false,
+  defaultProps: {
+    children: "children",
+    label: "name",
+  },
+  // 状态数据字典
+  statusOptions: [],
+  // 分组名称
+  groupName: undefined,
   // 非单个禁用
   single: true,
   // 非多个禁用
   multiple: true,
+  // 选中数组
+  ids: [],
   // 弹出层标题
   title: "",
-  // 表格数据
-  tableData: [],
-  // 总条数
-  total: 0,
+  // 部门树选项
+  groupOptions: undefined,
   // 查询参数
   queryParams: {
-    // 页码
     pageNum: 1,
-    // 每页大小
     pageSize: 10,
-    // 以下为参数
-    screenId: undefined,
-    userId: undefined,
-    screenBase64: undefined,
     screenName: undefined,
     status: undefined,
-    screenRemark: undefined,
-    creator: undefined,
-    screenDataJson: undefined,
+    groupId: undefined,
   },
 });
 
-/** 查询列表 */
-const handleQuery = () => {
+watch(
+    () => state.groupName,
+    (newValue) => {
+      proxy.$refs.tree.filter(newValue);
+    }
+);
+/** 查询大屏列表 */
+const getList = async () => {
   state.loading = true;
-  listScreen(state.queryParams).then((response:any) => {
-    state.tableData = response.data.data;
-    state.total = response.data.total;
-    state.loading = false;
-  });
-};
-/** 重置按钮操作 */
-const resetQuery = () => {
-   state.queryParams.screenId = undefined;
-   state.queryParams.userId = undefined;
-   state.queryParams.screenBase64 = undefined;
-   state.queryParams.screenName = undefined;
-   state.queryParams.status = undefined;
-   state.queryParams.screenRemark = undefined;
-   state.queryParams.creator = undefined;
-   state.queryParams.screenDataJson = undefined;
-  handleQuery();
-};
-
-const handleCurrentChange = (val:number) => {
-  state.queryParams.pageNum = val
-  handleQuery()
-}
-const handleSizeChange = (val:number) => {
-  state.queryParams.pageSize = val
-  handleQuery()
-}
-
-// 打开新增弹窗
-const onOpenAddModule = () => {
-  state.title = "添加bi大屏";
-  editModuleRef.value.openDialog({});
-};
-// 打开编辑弹窗
-const onOpenEditModule = (row: object) => {
-  state.title = "修改bi大屏";
-  editModuleRef.value.openDialog(row);
-};
-/** 删除按钮操作 */
-const onTabelRowDel = (row: any) => {
-  const screenIds = row.screenId || state.ids;
-  ElMessageBox({
-    message: '是否确认删除编号为"' + screenIds + '"的数据项?',
-    title: "警告",
-    showCancelButton: true,
-    confirmButtonText: "确定",
-    cancelButtonText: "取消",
-    type: "warning",
-  }).then(function () {
-    return delScreen(screenIds).then(() => {
-      handleQuery();
-      ElMessage.success("删除成功");
-    });
-  });
+  listScreen(state.queryParams).then(
+      (response: any) => {
+        if (response.code != 200) {
+          state.loading = false;
+          return
+        }
+        state.tableData.data = response.data.data;
+        state.tableData.total = response.data.total;
+        state.loading = false;
+      }
+  );
 };
 // 多选框选中数据
 const handleSelectionChange = (selection: any) => {
@@ -261,17 +253,159 @@ const handleSelectionChange = (selection: any) => {
   state.single = selection.length != 1;
   state.multiple = !selection.length;
 };
+/** 搜索按钮操作 */
+const handleQuery = async () => {
+  // console.log("查询用户列表", state.queryParams.userName);
+  state.queryParams.pageNum = 1;
+  await getList();
+};
+/** 重置按钮操作 */
+const resetQuery = async () => {
+  // 表单初始化，方法：`resetFields()` 无法使用
+  state.queryParams.pageNum = 1;
+  state.queryParams.pageSize = 10;
+  state.queryParams.screenName = "";
+  state.queryParams.status = "0";
+  state.queryParams.groupId = 0;
+  handleQuery();
+};
+/** 新增按钮操作 */
+const handleAdd = () => {
+  state.title = "添加大屏";
+  userFormRef.value.openDialog({});
+};
+/** 修改按钮操作 */
+const handleUpdate = (row: any) => {
+  state.title = "修改大屏";
+  userFormRef.value.openDialog(row);
+};
+/** 克隆按钮操作 */
+const onClonesScreen = (row: any) => {
+  ElMessageBox.confirm('确定要克隆该大屏么？', '克隆确认', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(() => {
+    const form = {
+      screenName: row.screenName+"-克隆",
+      status: row.status,
+      screenBase64: row.screenBase64,
+      screenDataJson: row.screenDataJson,
+      screenRemark: row.screenRemark,
+    }
+    addScreen(form).then((response:any) => {
+      if (response.code === 200) {
+        ElMessage.success("克隆成功");
+        handleQuery()
+      }
+    });
+  })
+}
+
+/** 查询分组下拉树结构 */
+const getTreeselect = async () => {
+  listScreenGroupTree().then((response) => {
+    state.groupOptions = response.data;
+  });
+};
+// 状态修改
+const handleStatusChange = (row: any) => {
+  let text = row.status == "0" ? "取消发布" : "发布" ;
+  ElMessageBox({
+    title: "警告",
+    message: '确认要"' + text + '""' + row.screenName + '"吗?',
+    showCancelButton: true,
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    beforeClose: (action: string, instance: any, done: any) => {
+      if (action === "confirm") {
+        return changeScreenStatus(row.screenId, row.status).then(() => {
+          ElMessage.success(text + "成功");
+          done();
+        });
+      } else {
+        done();
+      }
+    },
+  }).catch(() => {
+    row.status = row.status === "0" ? "1" : "0";
+  });
+};
+/** 删除按钮操作 */
+const handleDelete = (row: any) => {
+  const screenIds = row.screenId || state.ids;
+  ElMessageBox({
+    message: '是否确认删除用户编号为"' + screenIds + '"的数据项?',
+    title: "警告",
+    showCancelButton: true,
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+  }).then(function () {
+    return delScreen(screenIds).then(() => {
+      getList();
+      ElMessage.success("删除成功");
+    });
+  });
+};
+
+// 分页改变
+const onHandleSizeChange = (val: number) => {
+  state.queryParams.pageSize = val;
+  handleQuery();
+};
+// 分页改变
+const onHandleCurrentChange = (val: number) => {
+  state.queryParams.pageNum = val;
+  handleQuery();
+};
+// 筛选节点
+const filterNode = (value: string, data: any) => {
+  if (!value) return true;
+  return data.groupName.includes(value);
+};
+// 节点单击事件
+const handleNodeClick = (data: any) => {
+  state.queryParams.groupId = data.id;
+  getList();
+  state.queryParams.groupId = 0
+};
+
 // 页面加载时
 onMounted(() => {
-  // 查询岗位信息
-  handleQuery();
+  getList();
+  getTreeselect();
+  // 查询显示状态数据字典
+  getDicts("sys_release_type").then((response) => {
+    state.statusOptions = response.data;
+  });
 
   proxy.mittBus.on("onEditScreenModule", (res: any) => {
     handleQuery();
   });
 });
+
 // 页面卸载时
 onUnmounted(() => {
   proxy.mittBus.off("onEditScreenModule");
 });
 </script>
+
+<style scoped lang="scss">
+
+.system-user-container {
+  .system-user-search {
+    text-align: left;
+
+    .system-user-search-btn {
+      text-align: center;
+      margin-left: 70px;
+    }
+  }
+
+  .system-user-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+  }
+}
+</style>

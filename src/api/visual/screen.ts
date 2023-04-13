@@ -42,3 +42,15 @@ export function delScreen(screenId: string) {
 		method: 'delete'
 	})
 }
+
+export function changeScreenStatus(screenId: number, status: string) {
+	const data = {
+		screenId,
+		status
+	}
+	return request({
+		url: '/visual/screen/changeStatus',
+		method: 'put',
+		data: data
+	})
+}

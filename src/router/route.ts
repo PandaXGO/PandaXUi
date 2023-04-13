@@ -37,6 +37,22 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 		component: () => import('@/views/visual/rulechain/component/edit.vue'),
 	},
 	{
+		path: '/screen/view',
+		name: 'view',
+		meta: {
+			title: '规则链预览',
+		},
+		component: () => import('@/views/visual/screen/component/view.vue'),
+	},
+	{
+		path: '/screen/edit',
+		name: 'edit',
+		meta: {
+			title: '规则链编辑',
+		},
+		component: () => import('@/views/visual/screen/component/edit.vue'),
+	},
+	{
 		path: '/rule/view',
 		name: 'view',
 		meta: {

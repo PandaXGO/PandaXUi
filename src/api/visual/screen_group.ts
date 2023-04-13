@@ -3,7 +3,21 @@ import request from '@/utils/request';
 // 查询ScreenGroup列表
 export function listScreenGroup(query:any) {
 	return request({
-		url: '/visual/screen/list/group',
+		url: '/visual/screen/group/list',
+		method: 'get',
+		params: query
+	})
+}
+
+export function listScreenGroupTree() {
+	return request({
+		url: '/visual/screen/group/list/tree',
+		method: 'get',
+	})
+}
+export function listScreenGroupAllList(query:any) {
+	return request({
+		url: '/visual/screen/group/list/all',
 		method: 'get',
 		params: query
 	})

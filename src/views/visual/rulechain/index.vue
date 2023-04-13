@@ -16,6 +16,21 @@
               @keyup.enter.native="handleQuery"
           />
         </el-form-item>
+        <el-form-item label="状态" prop="status">
+          <el-select
+              v-model="state.queryParams.status"
+              placeholder="状态"
+              clearable
+              style="width: 240px"
+          >
+            <el-option
+                v-for="dict in state.statusOptions"
+                :key="dict.dictValue"
+                :label="dict.dictLabel"
+                :value="dict.dictValue"
+            />
+          </el-select>
+        </el-form-item>
         <el-form-item label="说明" prop="ruleRemark">
           <el-input
               v-model="state.queryParams.ruleRemark"
@@ -68,7 +83,18 @@
             <div class="ft-foot">
               <dev class="ft-item-name">{{data.ruleName}}</dev>
               <div>
-                <span style="margin-right: 5px">{{data.status === "1"?"已发布":"未发布"}}</span>
+                <span style="margin-right: 5px">
+                   <el-switch
+                       v-model="data.status"
+                       :width="60"
+                       inline-prompt
+                       active-value="1"
+                       inactive-value="0"
+                       active-text="已发布"
+                       inactive-text="未发布"
+                       @click="handleStatusChange(data)"
+                   />
+                </span>
                 <el-popover  >
                   <template #reference>
                     <el-button type="primary" circle size="small"><SvgIcon name="elementStar"/></el-button>
@@ -143,9 +169,11 @@ import {
   onUnmounted,
 } from "vue";
 import { ElMessageBox, ElMessage } from "element-plus";
-import { listChain, delChain,addChain } from "@/api/visual/rulechain";
+import {listChain, delChain, addChain, changeChainStatus} from "@/api/visual/rulechain";
 import EditModule from "./component/editModule.vue";
 import { Session } from '@/utils/storage';
+import {getDicts} from "@/api/system/dict/data";
+import {changeScreenStatus} from "@/api/visual/screen";
 
 const { proxy } = getCurrentInstance() as any;
 const editModuleRef = ref();
@@ -162,6 +190,7 @@ const state:any = reactive({
   title: "",
   // 表格数据
   tableData: [],
+  statusOptions: [],
   // 总条数
   total: 0,
   // 查询参数
@@ -206,6 +235,30 @@ const resetQuery = () => {
   handleQuery();
 };
 
+// 状态修改
+const handleStatusChange = (row: any) => {
+  let text = row.status == "0" ? "取消发布" : "发布" ;
+  ElMessageBox({
+    title: "警告",
+    message: '确认要"' + text + '""' + row.ruleName + '"吗?',
+    showCancelButton: true,
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    beforeClose: (action: string, instance: any, done: any) => {
+      if (action === "confirm") {
+        return changeChainStatus(row.ruleId, row.status).then(() => {
+          ElMessage.success(text + "成功");
+          done();
+        });
+      } else {
+        done();
+      }
+    },
+  }).catch(() => {
+    row.status = row.status === "0" ? "1" : "0";
+  });
+};
+
 const handleCurrentChange = (val:number) => {
   state.queryParams.pageNum = val
   handleQuery()
@@ -243,21 +296,6 @@ const onCloneRule = (row: any) => {
   })
 };
 
-//设计
-const onDesignRule = (row: any) => {
-  console.log(import.meta.env.VITE_RULE_URL)
-  //const url = import.meta.env.VITE_RULE_URL+"?token="+Session.get('token')+"&id="+row.ruleId
-  //console.log(url)
-  window.open(import.meta.env.VITE_RULE_URL, "_blank",`token=${Session.get('token')},id=${row.ruleId}`);
-  //var param1 = window.opener.param1; 接收
-};
-
-//设计
-const onViewRule = (row: object) => {
-  state.title = "修改规则链";
-  editModuleRef.value.openDialog(row);
-};
-
 // 打开编辑弹窗
 const onOpenEditModule = (row: object) => {
   state.title = "修改规则链";
@@ -291,6 +329,10 @@ onMounted(() => {
   // 查询岗位信息
   handleQuery();
 
+  getDicts("sys_release_type").then((response) => {
+    state.statusOptions = response.data;
+  });
+
   proxy.mittBus.on("onEditChainModule", (res: any) => {
     handleQuery();
   });
@@ -302,60 +344,5 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.content_box{
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
 
-  .content_item{
-    position: relative;
-    margin: 12px;
-    width: 300px;
-    height: 220px;
-    box-sizing: border-box;
-    flex-direction: column;
-  }
-}
-
-.el-card.ft-card {
-  width: 100%;
-  height: 100%;
-  margin: 5px;
-  border: 1px solid #8896B3;
-
-  .el-card__body{
-    padding: 5px !important;
-  }
-  .ft-image{
-    width: 300px;
-    height: 170px;
-    border-bottom: 1px solid var(--color-primary)
-  }
-
-  .ft-foot{
-    padding: 0 10px;
-    height: 50px;
-    line-height: 50px;
-    display: flex;
-    justify-content: space-between;
-
-    .ft-item-name{
-      width: 200px;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis
-    }
-  }
-}
-
-.image-slot {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-
-  color: var(--el-text-color-secondary);
-  font-size: 30px;
-}
 </style>

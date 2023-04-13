@@ -13,10 +13,14 @@
         <el-form-item label="名称" prop="ruleName">
           <el-input v-model="state.ruleForm.ruleName" placeholder="请输入名称" />
         </el-form-item>
-        <el-form-item label="状态" prop="ruleName">
-          <el-radio-group v-model="state.ruleForm.status" >
-            <el-radio label="1">未发布</el-radio>
-            <el-radio label="2">发布</el-radio>
+        <el-form-item label="状态">
+          <el-radio-group v-model="state.ruleForm.status">
+            <el-radio
+                v-for="dict in state.statusOptions"
+                :key="dict.dictValue"
+                :label="dict.dictValue"
+            >{{ dict.dictLabel }}
+            </el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="说明" prop="ruleRemark">
@@ -60,6 +64,7 @@ const state = reactive({
     ruleId: "",
     ruleRemark: "",
   },
+  statusOptions: [],
   // 表单校验
   ruleRules: {
     ruleName: [
@@ -73,6 +78,10 @@ const state = reactive({
 // 打开弹窗
 const openDialog = (row: any) => {
   state.ruleForm = JSON.parse(JSON.stringify(row));
+
+  proxy.getDicts("sys_release_type").then((response: any) => {
+    state.statusOptions = response.data;
+  });
 
   state.isShowDialog = true;
   state.loading = false;

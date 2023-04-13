@@ -42,3 +42,15 @@ export function delChain(ruleId: string) {
         method: 'delete'
     })
 }
+
+export function changeChainStatus(ruleId: number, status: string) {
+    const data = {
+        ruleId,
+        status
+    }
+    return request({
+        url: '/visual/rulechain/changeStatus',
+        method: 'put',
+        data: data
+    })
+}

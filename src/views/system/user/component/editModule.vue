@@ -265,7 +265,7 @@ const openDialog = (row: any) => {
       state.ruleForm = response.data.data;
       state.postOptions = response.data.posts;
       state.roleOptions = response.data.roles;
-      state.deptOptions = response.data.depts;
+      //state.deptOptions = response.data.depts;
       state.postIds = response.data.postIds.split(",").map((item: string)=>{
         return Number(item)
       });
@@ -281,7 +281,7 @@ const openDialog = (row: any) => {
     })
     state.ruleForm = JSON.parse(JSON.stringify(row));
   }
-  //getTreeselect();
+  getTreeselect();
   getTenants();
   state.isShowDialog = true;
   state.loading = false;

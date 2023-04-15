@@ -289,6 +289,7 @@ const onClonesScreen = (row: any) => {
     const form = {
       screenName: row.screenName+"-克隆",
       status: row.status,
+      groupId: row.groupId,
       screenBase64: row.screenBase64,
       screenDataJson: row.screenDataJson,
       screenRemark: row.screenRemark,

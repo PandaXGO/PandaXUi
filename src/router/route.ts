@@ -30,15 +30,23 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 	},
 	{
 		path: '/rule/edit',
-		name: 'edit',
+		name: 'rule_edit',
 		meta: {
 			title: '规则链编辑',
 		},
 		component: () => import('@/views/visual/rulechain/component/edit.vue'),
 	},
 	{
+		path: '/rule/view',
+		name: 'rule_view',
+		meta: {
+			title: '规则链预览',
+		},
+		component: () => import('@/views/visual/rulechain/component/view.vue'),
+	},
+	{
 		path: '/screen/view',
-		name: 'view',
+		name: 'screen_view',
 		meta: {
 			title: '规则链预览',
 		},
@@ -46,19 +54,11 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 	},
 	{
 		path: '/screen/edit',
-		name: 'edit',
+		name: 'screen_edit',
 		meta: {
 			title: '规则链编辑',
 		},
 		component: () => import('@/views/visual/screen/component/edit.vue'),
-	},
-	{
-		path: '/rule/view',
-		name: 'view',
-		meta: {
-			title: '规则链预览',
-		},
-		component: () => import('@/views/visual/rulechain/component/view.vue'),
 	},
 	{
 		path: '/404',

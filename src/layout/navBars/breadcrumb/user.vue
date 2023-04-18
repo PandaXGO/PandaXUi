@@ -237,7 +237,9 @@ export default {
     };
     // 设置 element plus 组件的国际化
     const setI18nConfig = (locale: string) => {
-      proxy.mittBus.emit("getI18nConfig", proxy.$i18n.messages[locale]);
+      if (proxy.$i18n && proxy.$i18n.messages){
+        proxy.mittBus.emit("getI18nConfig", proxy.$i18n.messages[locale]);
+      }
     };
     // 菜单锁屏点击
     const onLockClick = () => {

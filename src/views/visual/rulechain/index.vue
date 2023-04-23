@@ -73,13 +73,14 @@
       <div class="content_box">
         <div v-for="data in state.tableData" class="content_item">
           <el-card :body-style="{ padding: '0px' }" class="ft-card">
-            <el-image class="ft-image" :src="data.ruleBase64" fit="fill">
+            <el-image v-if="data.ruleBase64" class="ft-image" :src="data.ruleBase64" fit="fill">
               <template #error>
                 <div class="image-slot">
                   <SvgIcon name="elementPicture" :size="50"/>
                 </div>
               </template>
             </el-image>
+            <el-image v-else class="ft-image" src="/src/assets/nil-img.png" fit="fill" />
             <div class="ft-foot">
               <dev class="ft-item-name">{{data.ruleName}}</dev>
               <div>

@@ -48,7 +48,7 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 		path: '/screen/view',
 		name: 'screen_view',
 		meta: {
-			title: '规则链预览',
+			title: 'BI组态预览',
 		},
 		component: () => import('@/views/visual/screen/component/view.vue'),
 	},
@@ -56,7 +56,7 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 		path: '/screen/edit',
 		name: 'screen_edit',
 		meta: {
-			title: '规则链编辑',
+			title: 'BI组态编辑',
 		},
 		component: () => import('@/views/visual/screen/component/edit.vue'),
 	},

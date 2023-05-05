@@ -16,8 +16,8 @@ import screenShort from 'vue-web-screen-shot';
 // @ts-ignore
 import VueGridLayout from 'vue-grid-layout';
 // @ts-ignore
-import XmForm from 'xmgo-vform'
-import 'xmgo-vform/dist/designer.style.css'  //引入XmForm样式
+import XmForm from 'pandax-form'
+import 'pandax-form/dist/designer.style.css'  //引入XmForm样式
 
 const app = createApp(App);
 const pinia = createPinia();

@@ -47,6 +47,7 @@ const stores = useThemeConfigStateStore(pinia);
 const { themeConfig } = storeToRefs(stores);
  //导出语言国际化
 export const i18n= createI18n({
+	legacy: false,
 	silentTranslationWarn: true,
 	missingWarn: false,
 	silentFallbackWarn: true,

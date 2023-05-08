@@ -25,6 +25,7 @@ export default {
 		});
 		// 窗口大小改变时(适配移动端)
 		const onLayoutResize = () => {
+      console.log(proxy.$emit)
 			if (!Local.get('oldLayout')) Local.set('oldLayout', getThemeConfig.value.layout);
 			const clientWidth = document.body.clientWidth;
 			if (clientWidth < 1000) {

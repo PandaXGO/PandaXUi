@@ -85,8 +85,8 @@ export default defineComponent({
     // 设置横向滚动条可以鼠标滚轮滚动
     const onElMenuHorizontalScroll = (e: any) => {
       const eventDelta = e.wheelDelta || -e.deltaY * 40;
-      proxy.$refs.elMenuHorizontalScrollRef.$refs.wrap.scrollLeft =
-        proxy.$refs.elMenuHorizontalScrollRef.$refs.wrap.scrollLeft + eventDelta / 4;
+      proxy.$refs.elMenuHorizontalScrollRef.$refs.wrapRef.scrollLeft =
+        proxy.$refs.elMenuHorizontalScrollRef.$refs.wrapRef.scrollLeft + eventDelta / 4;
     };
     // 初始化数据，页面刷新时，滚动条滚动到对应位置
     // 初始化数据，页面刷新时，滚动条滚动到对应位置
@@ -94,7 +94,7 @@ export default defineComponent({
       nextTick(() => {
         let els: any = document.querySelector('.el-menu.el-menu--horizontal li.is-active');
         if (!els) return false;
-        proxy.$refs.elMenuHorizontalScrollRef.$refs.wrap$.scrollLeft = els.offsetLeft;
+        proxy.$refs.elMenuHorizontalScrollRef.$refs.wrapRef.scrollLeft = els.offsetLeft;
       });
     };
 

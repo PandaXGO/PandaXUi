@@ -5,13 +5,13 @@ import { loadEnv } from './src/utils/viteBuild';
 import vueSetupExtend from 'vite-plugin-vue-setup-extend';
 
 const pathResolve = (dir: string): any => {
-	return resolve(__dirname, '.', dir);
+	return resolve(__dirname, dir);
 };
 
 const { VITE_PORT, VITE_OPEN, VITE_PUBLIC_PATH } = loadEnv();
 
 const alias: Record<string, string> = {
-	'@': pathResolve('./src/'),
+	'@': pathResolve('src'),
 	'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
 };
 

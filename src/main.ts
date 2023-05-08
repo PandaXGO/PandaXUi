@@ -38,7 +38,7 @@ app.config.globalProperties.dateStrFormat = dateStrFormat
 
 app.use(pinia)
 	.use(router)
-	.use(ElementPlus, { i18n: i18n.global.t, size: "default" })
+	.use(ElementPlus)
 	.use(XmForm)
 	.use(i18n)
 	.use(screenShort, { enableWebRtc: false })

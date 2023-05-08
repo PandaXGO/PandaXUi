@@ -14,7 +14,8 @@ service.interceptors.request.use(
 	(config:any) => {
 		// 在发送请求之前做些什么 token
 		if (Session.get('token')) {
-			config.headers.common['X-TOKEN'] = `${Session.get('token')}`;
+			config.headers!['X-TOKEN'] = `${Session.get('token')}`;
+			//config.headers.common['X-TOKEN'] = `${Session.get('token')}`;
 		}
 		return config;
 	},
@@ -54,6 +55,7 @@ service.interceptors.response.use(
 		} else if (error.message == 'Network Error') {
 			ElMessage.error('网络连接错误');
 		} else {
+			console.log(error.response)
 			if (error.response.data) ElMessage.error(error.response.statusText);
 			else ElMessage.error('接口路径找不到');
 		}

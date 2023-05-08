@@ -25,8 +25,7 @@ const pinia = createPinia();
 directive(app);
 other.elSvg(app);
 
-app
-    .use(pinia)
+app.use(pinia)
 	.use(router)
 	.use(ElementPlus, { i18n: i18n.global.t, size: "default" })
 	.use(XmForm)

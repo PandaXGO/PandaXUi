@@ -96,7 +96,7 @@
                 </el-button>
               </div>
               <div>
-                <el-button v-if="scope.row.pid != 0" text type="primary" v-auth="'screen:group:delete'" @click="onTabelRowDel(scope.row)">
+                <el-button text type="primary" v-auth="'screen:group:delete'" @click="onTabelRowDel(scope.row)">
                   <SvgIcon name="elementDelete"/>
                   删除
                 </el-button>
@@ -171,7 +171,7 @@ const onOpenEditModule = (row: object) => {
 /** 删除按钮操作 */
 const onTabelRowDel = (row: any) => {
   ElMessageBox({
-    message: '是否确认删除名称为"' + row.deptName + '"的数据项?',
+    message: '是否确认删除名称为"' + row.name + '"的数据项?',
     title: "警告",
     showCancelButton: true,
     confirmButtonText: "确定",

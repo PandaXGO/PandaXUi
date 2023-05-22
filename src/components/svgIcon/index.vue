@@ -21,7 +21,7 @@ export default defineComponent({
     // svg 大小
     size: {
       type: Number,
-      default: () => 18,
+      default: () => 17,
     },
     // svg 颜色
     color: {

@@ -100,7 +100,7 @@
                     </div>
                   </template>
                 </el-image>
-                <el-image v-else class="ft-image" src="/src/assets/nil-img.png" fit="fill" />
+                <el-image v-else class="ft-image" :src="nilImg" fit="fill" />
                 <div class="ft-foot">
                   <dev class="ft-item-name">{{data.screenName}}</dev>
                   <div>
@@ -191,6 +191,7 @@ import EditModule from "./component/editModule.vue";
 import {addScreen, changeScreenStatus, delScreen, listScreen} from "@/api/visual/screen";
 import {listScreenGroupTree} from "@/api/visual/screen_group";
 
+import nilImg from '@/assets/nil-img.png'
 const {proxy} = getCurrentInstance() as any;
 const userFormRef = ref();
 const state: any = reactive({

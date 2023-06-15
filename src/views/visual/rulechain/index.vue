@@ -80,7 +80,7 @@
                 </div>
               </template>
             </el-image>
-            <el-image v-else class="ft-image" src="/src/assets/nil-img.png" fit="fill" />
+            <el-image v-else class="ft-image" :src="nilImg" fit="fill" />
             <div class="ft-foot">
               <dev class="ft-item-name">{{data.ruleName}}</dev>
               <div>
@@ -172,10 +172,9 @@ import {
 import { ElMessageBox, ElMessage } from "element-plus";
 import {listChain, delChain, addChain, changeChainStatus} from "@/api/visual/rulechain";
 import EditModule from "./component/editModule.vue";
-import { Session } from '@/utils/storage';
 import {getDicts} from "@/api/system/dict/data";
-import {changeScreenStatus} from "@/api/visual/screen";
 
+import nilImg from '@/assets/nil-img.png'
 const { proxy } = getCurrentInstance() as any;
 const editModuleRef = ref();
 const state:any = reactive({

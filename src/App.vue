@@ -1,5 +1,5 @@
 <template>
-  <el-config-provider :locale="i18nLocale">
+  <el-config-provider :locale="zhCn">
     <router-view v-show="getThemeConfig.lockScreenTime !== 0" />
     <LockScreen v-if="getThemeConfig.isLockScreen" />
     <Setings ref="setingsRef" v-show="getThemeConfig.lockScreenTime !== 0" />
@@ -30,6 +30,7 @@ import setIntroduction from "@/utils/setIconfont";
 import LockScreen from "@/layout/lockScreen/index.vue";
 import Setings from "@/layout/navBars/breadcrumb/setings.vue";
 import CloseFull from "@/layout/navBars/breadcrumb/closeFull.vue";
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 export default defineComponent({
   name: "app",
   components: { LockScreen, Setings, CloseFull },
@@ -65,10 +66,6 @@ export default defineComponent({
         proxy.mittBus.on("openSetingsDrawer", () => {
           openSetingsDrawer();
         });
-        // 设置 i18n，App.vue 中的 el-config-provider
-        proxy.mittBus.on("getI18nConfig", (locale: string) => {
-          state.i18nLocale = locale;
-        });
         // 获取缓存中的布局配置
         if (Local.get("themeConfig")) {
           theme.setThemeConfig(Local.get("themeConfig"));
@@ -93,6 +90,7 @@ export default defineComponent({
       }
     );
     return {
+      zhCn,
       setingsRef,
       getThemeConfig,
       ...toRefs(state),

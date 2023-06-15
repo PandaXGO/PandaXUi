@@ -556,9 +556,9 @@
 .el-pagination__sizes .el-input .el-input__inner:hover {
 	border-color: set-color(primary);
 }
-.el-pagination.is-background .el-pager li:not(.disabled).active {
-	background-color: set-color(primary);
-	color: set-color(whites);
+.el-pagination.is-background .el-pager li.is-active {
+	background-color: var(--color-primary) !important;
+	color: var(--color-whites) !important;
 }
 
 /* Badge 标记

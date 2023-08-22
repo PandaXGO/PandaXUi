@@ -25,6 +25,16 @@ const pinia = createPinia();
 directive(app);
 other.elSvg(app);
 
+app
+	.use(pinia)
+	.use(router)
+	.use(ElementPlus)
+	.use(XmForm)
+	.use(i18n)
+	.use(screenShort, { enableWebRtc: false })
+    .use(VueGridLayout)
+	.mount('#app');
+
 // 全局方法挂载
 app.config.globalProperties.getDicts = getDicts
 app.config.globalProperties.mittBus = mitt();
@@ -34,13 +44,3 @@ app.config.globalProperties.handleTree = handleTree
 app.config.globalProperties.selectDictLabel = selectDictLabel
 app.config.globalProperties.download = download
 app.config.globalProperties.dateStrFormat = dateStrFormat
-
-
-app.use(pinia)
-	.use(router)
-	.use(ElementPlus)
-	.use(XmForm)
-	.use(i18n)
-	.use(screenShort, { enableWebRtc: false })
-    .use(VueGridLayout)
-	.mount('#app');

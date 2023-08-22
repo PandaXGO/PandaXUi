@@ -30,7 +30,7 @@
             :show-all-levels="false"
         ></el-cascader>
         </el-form-item>
-      <el-form-item label="状态">
+      <el-form-item label="状态" prop="status">
         <el-radio-group v-model="state.ruleForm.status">
           <el-radio
               v-for="dict in state.statusOptions"
@@ -40,7 +40,7 @@
           </el-radio>
         </el-radio-group>
       </el-form-item>
-      
+
       <el-form-item label="说明" prop="screenRemark">
           <el-input v-model="state.ruleForm.screenRemark" type="textarea" placeholder="请输入说明" />
       </el-form-item>
@@ -76,7 +76,7 @@ const state = reactive({
   isShowDialog: false,
   loading: false,
   ruleForm: {
-    screenId: "",
+    id: "",
     screenBase64: "",
     groupId:0,
     screenName: "",
@@ -92,6 +92,9 @@ const state = reactive({
   ruleRules: {
     screenName: [
       { required: true, message: "名称不能为空", trigger: "blur" }
+    ],
+    groupId: [
+      { required: true, message: "分组必须选择", trigger: "blur" }
     ],
     status: [
       { required: true, message: "状态不能为空", trigger: "blur" }
@@ -134,16 +137,21 @@ const onSubmit = () => {
   formWrap.validate((valid: boolean) => {
     if (valid) {
       state.loading = true;
-      if (state.ruleForm.screenId != undefined && state.ruleForm.screenId != 0) {
-        updateScreen(state.ruleForm).then((response) => {
-          ElMessage.success("修改成功");
+      if (state.ruleForm.id != undefined && state.ruleForm.id != "") {
+        updateScreen(state.ruleForm).then((response:any) => {
+          if (response.code === 200){
+            ElMessage.success("修改成功");
+            closeDialog(state.ruleForm); // 关闭弹窗
+          }
           state.loading = false;
-          closeDialog(state.ruleForm); // 关闭弹窗
         });
       } else {
-        addScreen(state.ruleForm).then((response) => {
-          ElMessage.success("新增成功");
-          closeDialog(state.ruleForm); // 关闭弹窗
+        addScreen(state.ruleForm).then((response:any) => {
+          if (response.code === 200){
+            ElMessage.success("新增成功");
+            closeDialog(state.ruleForm); // 关闭弹窗
+          }
+          state.loading = false;
         });
       }
     }

@@ -91,7 +91,7 @@
           </template>
 
           <div v-loading="state.loading" class="content_box">
-            <div v-for="data in state.tableData.data" class="content_item">
+            <div v-for="data in state.tableData.data" class="content_image_item">
               <el-card :body-style="{ padding: '0px' }" class="ft-card">
                 <el-image v-if="data.screenBase64" class="ft-image" :src="data.screenBase64" fit="fill">
                   <template #error>
@@ -102,7 +102,7 @@
                 </el-image>
                 <el-image v-else class="ft-image" :src="nilImg" fit="fill" />
                 <div class="ft-foot">
-                  <dev class="ft-item-name">{{data.screenName}}</dev>
+                  <div class="ft-item-name">{{data.screenName}}</div>
                   <div>
                     <span style="margin-right: 5px">
                       <el-switch
@@ -128,7 +128,7 @@
                       <div>
                         <router-link
                             v-auth="'visual:screen:design'" target="_blank"
-                            :to="{ path: '/screen/edit', query: { id: data.screenId } }"
+                            :to="{ path: '/screen/edit', query: { id: data.id } }"
                         >
                           <el-button text type="primary">
                             <SvgIcon name="elementDiscount"/>设计
@@ -138,7 +138,7 @@
                       <div>
                         <router-link
                             v-auth="'visual:screen:view'" target="_blank"
-                            :to="{ path: '/screen/view', query: { id: data.screenId }}"
+                            :to="{ path: '/screen/view', query: { id: data.id }}"
                         >
                           <el-button text type="primary">
                             <SvgIcon name="elementView"/>预览
@@ -251,7 +251,7 @@ const getList = async () => {
 };
 // 多选框选中数据
 const handleSelectionChange = (selection: any) => {
-  state.ids = selection.map((item: any) => item.screenId);
+  state.ids = selection.map((item: any) => item.id);
   state.single = selection.length != 1;
   state.multiple = !selection.length;
 };
@@ -320,7 +320,7 @@ const handleStatusChange = (row: any) => {
     cancelButtonText: "取消",
     beforeClose: (action: string, instance: any, done: any) => {
       if (action === "confirm") {
-        return changeScreenStatus(row.screenId, row.status).then(() => {
+        return changeScreenStatus(row.id, row.status).then(() => {
           ElMessage.success(text + "成功");
           done();
         });
@@ -334,15 +334,15 @@ const handleStatusChange = (row: any) => {
 };
 /** 删除按钮操作 */
 const handleDelete = (row: any) => {
-  const screenIds = row.screenId || state.ids;
+  const ids = row.id || state.ids;
   ElMessageBox({
-    message: '是否确认删除用户编号为"' + screenIds + '"的数据项?',
+    message: '是否确认删除用户编号为"' + ids + '"的数据项?',
     title: "警告",
     showCancelButton: true,
     confirmButtonText: "确定",
     cancelButtonText: "取消",
   }).then(function () {
-    return delScreen(screenIds).then(() => {
+    return delScreen(ids).then(() => {
       getList();
       ElMessage.success("删除成功");
     });

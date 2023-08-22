@@ -24,9 +24,9 @@
         <div class="home-card-item home-card-item-box" :style="{ background: v.color }">
           <div class="home-card-item-flex">
             <div class="home-card-item-title pb3">{{ v.title }}</div>
-            <div class="home-card-item-title-num pb6" :id="`titleNum${k + 1}`"></div>
+            <div class="home-card-item-title-num pb6">{{ v.titleNum }}</div>
             <div class="home-card-item-tip pb3">{{ v.tip }}</div>
-            <div class="home-card-item-tip-num" :id="`tipNum${k + 1}`"></div>
+            <div class="home-card-item-tip-num">{{ v.tipNum }}</div>
           </div>
           <i :class="v.icon" :style="{ color: v.iconColor }"></i>
         </div>
@@ -138,7 +138,7 @@ import { useUserInfosState } from "@/stores/userInfos";
 import { topCardItemList, environmentList, activitiesList } from "./mock";
 
 const { proxy } = getCurrentInstance() as any;
- 
+
 const tagsViewRoutes = useTagsViewRoutesStore();
 const userInfos = useUserInfosState();
 const state = reactive({
@@ -148,18 +148,18 @@ const state = reactive({
   tableData: {
     data: [
       {
-        date: "2016-05-02",
-        name: "1号实验室",
+        date: "2023-08-02",
+        name: "烟感报警器",
         address: "烟感2.1%OBS/M",
       },
       {
-        date: "2016-05-04",
-        name: "2号实验室",
+        date: "2023-07-04",
+        name: "温度传感器",
         address: "温度30℃",
       },
       {
-        date: "2016-05-01",
-        name: "3号实验室",
+        date: "2023-07-01",
+        name: "湿度传感器",
         address: "湿度57%RH",
       },
     ],
@@ -174,17 +174,7 @@ const getUserInfos = computed(() => {
 const currentTime = computed(() => {
   return formatAxis(new Date());
 });
-// 初始化数字滚动
-const initNumCountUp = () => {
-  nextTick(() => {
-    new CountUp("titleNum1", Math.random() * 10000).start();
-    new CountUp("titleNum2", Math.random() * 10000).start();
-    new CountUp("titleNum3", Math.random() * 10000).start();
-    new CountUp("tipNum1", Math.random() * 1000).start();
-    new CountUp("tipNum2", Math.random() * 1000).start();
-    new CountUp("tipNum3", Math.random() * 1000).start();
-  });
-};
+
 // 商品销售情
 const initHomeLaboratory = () => {
   const myChart = echarts.init(proxy.$refs.homeLaboratoryRef);
@@ -199,7 +189,7 @@ const initHomeLaboratory = () => {
       trigger: "axis",
     },
     legend: {
-      data: ["预购队列", "最新成交价"],
+      data: ["消息量", "预警量"],
       right: 13,
     },
     color: [
@@ -241,12 +231,12 @@ const initHomeLaboratory = () => {
     yAxis: [
       {
         type: "value",
-        name: "价格",
+        name: "消息数量",
       },
     ],
     series: [
       {
-        name: "预购队列",
+        name: "消息量",
         type: "bar",
         data: [200, 85, 112, 275, 305, 415, 441, 405, 275, 305, 415, 441],
         itemStyle: {
@@ -272,9 +262,9 @@ const initHomeLaboratory = () => {
         },
       },
       {
-        name: "最新成交价",
+        name: "预警量",
         type: "line",
-        data: [50, 85, 22, 155, 170, 25, 224, 245, 285, 300, 415, 641],
+        data: [5, 8, 22, 15, 17, 25, 22, 24, 2, 3, 4, 6],
         itemStyle: {
           color: "#febb50",
         },
@@ -298,7 +288,7 @@ const initHomeOvertime = () => {
       trigger: "axis",
     },
     legend: {
-      data: ["订单数量", "超时数量", "在线数量", "预警数量"],
+      data: ["预增数量", "超时数量", "在线数量", "预警数量"],
       right: 13,
     },
     xAxis: {
@@ -325,7 +315,7 @@ const initHomeOvertime = () => {
     ],
     series: [
       {
-        name: "订单数量",
+        name: "预增数量",
         type: "bar",
         data: [5, 20, 36, 10, 10, 20, 11, 13, 10, 9, 17, 19],
       },
@@ -363,7 +353,6 @@ const initEchartsResize = () => {
 };
 // 页面加载时
 onMounted(() => {
-  initNumCountUp();
   initHomeLaboratory();
   initHomeOvertime();
   initEchartsResize();

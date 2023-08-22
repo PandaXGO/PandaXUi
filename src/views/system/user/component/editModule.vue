@@ -19,25 +19,6 @@
               />
             </el-form-item>
           </el-col>
-          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
-            <el-form-item label="归属租户" prop="tenantId">
-              <el-cascader
-                      v-model="state.ruleForm.tenantId"
-                      :options="state.tenantOptions"
-                      :props="{
-                        label: 'tenantName',
-                        value: 'id',
-                        checkStrictly: true,
-                        emitPath: false,
-                      }"
-                      class="w100"
-                      clearable
-                      filterable
-                      placeholder="请选择归属租户"
-                      :show-all-levels="false"
-              ></el-cascader>
-            </el-form-item>
-          </el-col>
           <el-col v-if="state.ruleForm.userId == undefined" :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
             <el-form-item
 
@@ -172,10 +153,9 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs, ref, unref, getCurrentInstance } from "vue";
+import { reactive, ref, unref, getCurrentInstance } from "vue";
 import { treeselect } from "@/api/system/dept";
 import { updateUser, addUser, getUser, getUserInit } from "@/api/system/user";
-import { allSysTenants } from "@/api/system/tenant";
 import { ElMessage } from "element-plus";
 
 const props = defineProps({
@@ -200,12 +180,10 @@ const state = reactive({
   statusOptions: [],
   // 部门树选项
   deptOptions: [],
-  tenantOptions: [],
   // 岗位选项
   postOptions: [],
   ruleForm: {
     userId: undefined, // 用戶ID
-    tenantId: undefined,
     username: "", // 用戶名称
     nickName: "", // 用戶昵称
     deptId: "", // 部门ID
@@ -265,6 +243,7 @@ const openDialog = (row: any) => {
       state.ruleForm = response.data.data;
       state.postOptions = response.data.posts;
       state.roleOptions = response.data.roles;
+      //state.deptOptions = response.data.depts;
       state.postIds = response.data.postIds.split(",").map((item: string)=>{
         return Number(item)
       });
@@ -281,7 +260,6 @@ const openDialog = (row: any) => {
     state.ruleForm = JSON.parse(JSON.stringify(row));
   }
   getTreeselect();
-  getTenants();
   state.isShowDialog = true;
   state.loading = false;
   // 查询显示性別数据字典
@@ -308,12 +286,7 @@ const getTreeselect = async () => {
     state.deptOptions = response.data;
   });
 };
-/** 查询租户结构 */
-const getTenants = async () => {
-  allSysTenants().then((response) => {
-    state.tenantOptions = response.data;
-  });
-};
+
 /** 提交按钮 */
 const onSubmit = () => {
   const formWrap = unref(ruleFormRef) as any;

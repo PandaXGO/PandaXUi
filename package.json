@@ -1,12 +1,13 @@
 {
-	"name": "PandaUi",
-	"version": "1.2.0",
+	"name": "PandaIotUi",
+	"version": "1.0.0",
 	"scripts": {
 		"dev": "vite --force",
 		"build": "vite build",
 		"lint-fix": "eslint --fix --ext .js --ext .jsx --ext .vue src/"
 	},
 	"dependencies": {
+		"@amap/amap-jsapi-loader": "^1.0.1",
 		"@element-plus/icons-vue": "^2.1.0",
 		"@wangeditor/editor": "^5.1.23",
 		"@wangeditor/editor-for-vue": "^5.1.12",
@@ -18,7 +19,7 @@
 		"echarts": "^5.4.2",
 		"echarts-gl": "^2.0.9",
 		"echarts-wordcloud": "^2.0.0",
-		"element-plus": "^2.3.3",
+		"element-plus": "^2.3.4",
 		"file-saver": "^2.0.5",
 		"js-cookie": "^3.0.1",
 		"jsplumb": "^2.15.6",

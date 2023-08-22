@@ -40,8 +40,6 @@ export const useUserInfosState = defineStore('userInfos', {
 			const userInfos = {
 				username: loginRes.user.username,
 				userId: loginRes.user.userId,
-				tenantId: loginRes.user.tenantId,
-				tenantName: loginRes.user.tenants.tenantName,
 				roleId: loginRes.user.roleId,
 				deptId: loginRes.user.deptId,
 				postId: loginRes.user.postId,

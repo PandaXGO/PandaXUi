@@ -75,7 +75,7 @@ export default defineComponent({
 	setup(props, { emit }) {
 		const noticeBarWarpRef = ref();
 		const noticeBarTextRef = ref();
-		const state = reactive({
+		const state = reactive<any>({
 			order: 1,
 			oneTime: '',
 			twoTime: '',

@@ -5,7 +5,7 @@
     </div>
     <div class="login-content">
       <div class="login-content-main">
-        <h4 class="login-content-title">{{ getThemeConfig.globalTitle }}后台模板</h4>
+        <h4 class="login-content-title">{{ getThemeConfig.globalTitle }}物联网平台</h4>
         <div v-if="!state.isScan">
           <el-tabs v-model="state.tabsActiveName">
             <el-tab-pane :label="$t('message.label.one1')" name="account">
@@ -15,11 +15,6 @@
               <Mobile />
             </el-tab-pane>
           </el-tabs>
-          <el-divider>其他登录方式</el-divider>
-          <div class="flex">
-            <i class="fa fa-qq mr30" style="font-size: 25px; color: #4eb8ff"></i>
-            <i class="fa fa-github mr20" style="font-size: 25px"></i>
-          </div>
         </div>
         <Scan v-if="state.isScan" />
         <div class="login-content-main-sacn" @click="state.isScan = !state.isScan">

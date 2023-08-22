@@ -1,5 +1,5 @@
 <template>
-  <el-config-provider :locale="zn()">
+  <el-config-provider :locale="zhCn">
     <router-view v-show="getThemeConfig.lockScreenTime !== 0" />
     <LockScreen v-if="getThemeConfig.isLockScreen" />
     <Setings ref="setingsRef" v-show="getThemeConfig.lockScreenTime !== 0" />
@@ -40,7 +40,9 @@ export default defineComponent({
     const route = useRoute();
     const theme = useThemeConfigStateStore();
     const tagsViewRoutes = useTagsViewRoutesStore();
-    const state: any = reactive({});
+    const state: any = reactive({
+      i18nLocale: null,
+    });
 
     // 获取布局配置信息
     const getThemeConfig = computed(() => {
@@ -50,9 +52,6 @@ export default defineComponent({
     const openSetingsDrawer = () => {
       setingsRef.value.openDrawer();
     };
-    const zn = () => {
-      return zhCn
-    }
     // 设置初始化，防止刷新时恢复默认
     onBeforeMount(() => {
       // 设置批量第三方 icon 图标
@@ -66,6 +65,10 @@ export default defineComponent({
         // 监听布局配置弹窗点击打开
         proxy.mittBus.on("openSetingsDrawer", () => {
           openSetingsDrawer();
+        });
+        // 设置 i18n，App.vue 中的 el-config-provider
+        proxy.mittBus.on("getI18nConfig", (locale: string) => {
+          state.i18nLocale = locale;
         });
         // 获取缓存中的布局配置
         if (Local.get("themeConfig")) {
@@ -91,7 +94,7 @@ export default defineComponent({
       }
     );
     return {
-      zn,
+      zhCn,
       setingsRef,
       getThemeConfig,
       ...toRefs(state),

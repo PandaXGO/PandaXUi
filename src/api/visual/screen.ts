@@ -43,9 +43,9 @@ export function delScreen(screenId: string) {
 	})
 }
 
-export function changeScreenStatus(screenId: number, status: string) {
+export function changeScreenStatus(id: number, status: string) {
 	const data = {
-		screenId,
+		id,
 		status
 	}
 	return request({

@@ -8,10 +8,7 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import {Session} from '@/utils/storage';
 import { NextLoading } from '@/utils/loading';
-import { staticRoutes, staticPageRoutes } from '@/router/route';
-import { getRoutes } from '@/api/system/menu';
-import pinia from "@/stores";
-import {storeToRefs} from "pinia";
+import { staticRoutes } from '@/router/route';
 
 const Layout = () => import('@/layout/index.vue')
 const viewsModules: any = import.meta.glob('../views/**/*.{vue,tsx}');
@@ -79,8 +76,6 @@ export async function initBackEndControlRoutes() {
 	]
 
 	drs[0].children = drs[0].children?.concat(backEndRouterConverter(menuRoute))
-	// @ts-ignore
-	drs[0].children?.push( staticPageRoutes[0] );
 
 	// 添加404界面
 	router.addRoute(pathMatch);

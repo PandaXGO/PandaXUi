@@ -8,9 +8,8 @@
   />
 </template>
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { useUserInfosState } from "@/stores/userInfos";
 import { Session } from '@/utils/storage';
 
 const route = useRoute();

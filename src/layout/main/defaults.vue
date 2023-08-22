@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { computed, getCurrentInstance, watch } from "vue";
+import { computed, getCurrentInstance, watch,ref } from "vue";
 import { useRoute } from "vue-router";
 import { useThemeConfigStateStore } from "@/stores/themeConfig";
 import Aside from "@/layout/component/aside.vue";
@@ -29,6 +29,8 @@ export default {
     const { proxy } = getCurrentInstance() as any;
     const route = useRoute();
     const theme = useThemeConfigStateStore();
+
+    const layoutDefaultsScrollbarRef = ref()
     const isFixedHeader = computed(() => {
       return theme.themeConfig.isFixedHeader;
     });
@@ -36,7 +38,9 @@ export default {
     watch(
       () => route.path,
       () => {
+        console.log("ref",proxy.$refs.layoutDefaultsScrollbarRef, layoutDefaultsScrollbarRef.value )
         proxy.$refs.layoutDefaultsScrollbarRef.wrapRef.scrollTop = 0;
+        //proxy.$refs.layoutDefaultsScrollbarRef.setScrollTop(0)
       }
     );
     return {

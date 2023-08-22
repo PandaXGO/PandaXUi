@@ -126,11 +126,6 @@
                 prop="username"
                 show-overflow-tooltip
             ></el-table-column>
-            <el-table-column
-                    label="所属租户"
-                    prop="tenants.tenantName"
-                    show-overflow-tooltip
-            ></el-table-column>
             <el-table-column label="头像" show-overflow-tooltip>
               <template #default="scope">
                 <el-image

@@ -38,25 +38,6 @@
               ></el-input>
             </el-form-item>
           </el-col>
-          <el-col v-if="state.ruleForm.tenantId > 0" :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
-            <el-form-item label="归属租户" prop="tenantId">
-              <el-cascader
-                  v-model="state.ruleForm.tenantId"
-                  :options="state.tenantOptions"
-                  :props="{
-                        label: 'tenantName',
-                        value: 'id',
-                        checkStrictly: true,
-                        emitPath: false,
-                      }"
-                  class="w100"
-                  clearable
-                  filterable
-                  placeholder="请选择归属租户"
-                  :show-all-levels="false"
-              ></el-cascader>
-            </el-form-item>
-          </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
             <el-form-item label="负责人">
               <el-input
@@ -123,10 +104,9 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs, ref, unref, getCurrentInstance } from "vue";
+import { reactive, ref, unref, getCurrentInstance } from "vue";
 import { treeselect, updateDept, addDept } from "@/api/system/dept";
 import { ElMessage } from "element-plus";
-import {allSysTenants} from "@/api/system/tenant";
 
 const props = defineProps({
   title: {
@@ -143,7 +123,6 @@ const state = reactive({
   // 部门对象
   ruleForm: {
     deptId: 0, // 部门ID
-    tenantId: 0, //租户
     deptName: "", // 部门名称
     parentId: 0, // 父部门ID
     sort: 0, // 部门排序
@@ -156,7 +135,6 @@ const state = reactive({
   statusOptions: [],
   // 部门树选项
   deptOptions: [],
-  tenantOptions: [],
   // 表单校验
   ruleRules: {
     deptName: [
@@ -197,7 +175,7 @@ const openDialog = (row: any) => {
   proxy.getDicts("sys_normal_disable").then((response: any) => {
     state.statusOptions = response.data;
   });
-  getTenants()
+
   // 查询部门下拉树结构
   treeselect().then((response: any) => {
     state.deptOptions = [];
@@ -218,11 +196,7 @@ const closeDialog = (row?: object) => {
 const onCancel = () => {
   closeDialog();
 };
-const getTenants = async () => {
-  allSysTenants().then((response) => {
-    state.tenantOptions = response.data;
-  });
-};
+
 // 保存
 const onSubmit = () => {
   const formWrap = unref(ruleFormRef) as any;

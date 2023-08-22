@@ -89,7 +89,7 @@
       v-model:isPassing="state.isPassingFour"
       text="请按住滑块拖动"
       successText="验证通过"
-      handlerIcon="fa fa-angle-double-right"
+      handlerIcon="iconfont icon-step"
       successIcon="fa fa-hand-peace-o"
       @passcallback="passVerify"
     />

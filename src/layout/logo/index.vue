@@ -1,7 +1,7 @@
 <template>
 	<div class="layout-logo" v-if="setShowLogo" @click="onThemeConfigChange">
 		<img :src="logo" class="layout-logo-medium-img" />
-		<span >{{ getThemeConfig.globalTitle }}</span>
+		<span >{{ getThemeConfig.globalViceTitle }}</span>
 	</div>
 	<div class="layout-logo-size" v-else @click="onThemeConfigChange">
 		<img :src="logo" class="layout-logo-size-img" />
@@ -11,7 +11,7 @@
 <script lang="ts">
 import { computed, getCurrentInstance } from 'vue';
 import {useThemeConfigStateStore} from '@/stores/themeConfig'
-import logo from '@/assets/logo1.png'
+import logo from '@/assets/logo.png'
 export default {
 	name: 'layoutLogo',
 	setup() {

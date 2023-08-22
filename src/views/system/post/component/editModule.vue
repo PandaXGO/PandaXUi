@@ -27,26 +27,6 @@
               />
             </el-form-item>
           </el-col>
-          <el-col v-if="state.ruleForm.tenantId > 0" :span="24" >
-            <el-form-item label="归属租户" prop="tenantId">
-              <el-cascader
-                  v-model="state.ruleForm.tenantId"
-                  :options="state.tenantOptions"
-                  :props="{
-                        label: 'tenantName',
-                        value: 'id',
-                        checkStrictly: true,
-                        emitPath: false,
-                      }"
-                  class="w100"
-                  clearable
-                  filterable
-                  placeholder="请选择归属租户"
-                  :show-all-levels="false"
-              ></el-cascader>
-            </el-form-item>
-          </el-col>
-
           <el-col :span="24" >
             <el-form-item label="岗位顺序" prop="sort">
               <el-input-number
@@ -93,7 +73,6 @@
 import { reactive, ref, unref, getCurrentInstance } from "vue";
 import { updatePost, addPost } from "@/api/system/post";
 import { ElMessage } from "element-plus";
-import {allSysTenants} from "@/api/system/tenant";
 
 const props = defineProps({
   title: {
@@ -111,7 +90,6 @@ const state = reactive({
   // 岗位对象
   ruleForm: {
     postId: 0, // 岗位ID
-    tenantId: 0, //租户
     postName: "", // 岗位名称
     postCode: "",// 岗位编码
     sort: 0, // 岗位排序
@@ -122,7 +100,6 @@ const state = reactive({
   statusOptions: [],
   // 岗位树选项
   deptOptions: [],
-  tenantOptions: [],
   // 表单校验
   ruleRules: {
     postName: [
@@ -142,7 +119,6 @@ const openDialog = (row: any) => {
 
   state.isShowDialog = true;
   state.loading = false;
-  getTenants();
   // 查询岗位状态数据字典
   proxy.getDicts("sys_normal_disable").then((response: any) => {
     state.statusOptions = response.data;
@@ -159,11 +135,6 @@ const onCancel = () => {
   closeDialog();
 };
 
-const getTenants = async () => {
-  allSysTenants().then((response) => {
-    state.tenantOptions = response.data;
-  });
-};
 // 保存
 const onSubmit = () => {
   const formWrap = unref(ruleFormRef) as any;

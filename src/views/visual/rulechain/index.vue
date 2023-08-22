@@ -70,7 +70,7 @@
           </div>
         </div>
       </template>
-      <div class="content_box">
+      <div v-loading="state.loading" class="content_box">
         <div v-for="data in state.tableData" class="content_item">
           <el-card :body-style="{ padding: '0px' }" class="ft-card">
             <el-image v-if="data.ruleBase64" class="ft-image" :src="data.ruleBase64" fit="fill">
@@ -100,6 +100,11 @@
                   <template #reference>
                     <el-button type="primary" circle size="small"><SvgIcon name="elementStar"/></el-button>
                   </template>
+                  <div>
+                    <el-button v-if="!data.root" text type="primary"  @click="onRootRule(data)">
+                      <SvgIcon name="elementConnection" />设为根链
+                    </el-button>
+                  </div>
                   <div>
                     <el-button text type="primary" v-auth="'visual:rulechain:clone'" @click="onCloneRule(data)">
                       <SvgIcon name="elementConnection" />克隆
@@ -273,6 +278,16 @@ const onOpenAddModule = () => {
   state.title = "添加规则链";
   editModuleRef.value.openDialog({});
 };
+//设置为根链
+const onRootRule = (row: any) => {
+  ElMessageBox.confirm('确定要克隆该规则链么？', '克隆确认', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(() => {
+    ElMessage.success("设置成功");
+  })
+}
 //克隆
 const onCloneRule = (row: any) => {
   ElMessageBox.confirm('确定要克隆该规则链么？', '克隆确认', {

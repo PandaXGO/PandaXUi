@@ -90,7 +90,7 @@
             </div>
           </template>
 
-          <div class="content_box">
+          <div v-loading="state.loading" class="content_box">
             <div v-for="data in state.tableData.data" class="content_item">
               <el-card :body-style="{ padding: '0px' }" class="ft-card">
                 <el-image v-if="data.screenBase64" class="ft-image" :src="data.screenBase64" fit="fill">
@@ -257,9 +257,7 @@ const handleSelectionChange = (selection: any) => {
 };
 /** 搜索按钮操作 */
 const handleQuery = async () => {
-  // console.log("查询用户列表", state.queryParams.userName);
-  state.queryParams.pageNum = 1;
-  await getList();
+  getList();
 };
 /** 重置按钮操作 */
 const resetQuery = async () => {

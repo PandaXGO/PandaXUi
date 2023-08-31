@@ -192,26 +192,6 @@ const initHomeLaboratory = () => {
       data: ["消息量", "预警量"],
       right: 13,
     },
-    color: [
-      "#63caff",
-      "#49beff",
-      "#03387a",
-      "#03387a",
-      "#03387a",
-      "#6c93ee",
-      "#a9abff",
-      "#f7a23f",
-      "#27bae7",
-      "#ff6d9d",
-      "#cb79ff",
-      "#f95b5a",
-      "#ccaf27",
-      "#38b99c",
-      "#93d0ff",
-      "#bd74e0",
-      "#fd77da",
-      "#dea700",
-    ],
     xAxis: {
       data: [
         "1月",
@@ -251,7 +231,7 @@ const initHomeLaboratory = () => {
             colorStops: [
               {
                 offset: 0,
-                color: "#0b9eff",
+                color: "#3DD2B4",
               },
               {
                 offset: 1,
@@ -266,7 +246,7 @@ const initHomeLaboratory = () => {
         type: "line",
         data: [5, 8, 22, 15, 17, 25, 22, 24, 2, 3, 4, 6],
         itemStyle: {
-          color: "#febb50",
+          color: "#E88662",
         },
       },
     ],

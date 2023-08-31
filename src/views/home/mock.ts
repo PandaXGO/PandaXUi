@@ -8,8 +8,8 @@ export const topCardItemList = [
 		titleNum: '123',
 		tip: '在线总数',
 		tipNum: '63',
-		color: '#F95959',
-		iconColor: '#F86C6B',
+		color: '#3DD2B4',
+		iconColor: '#14DAB2',
 		icon: 'iconfont icon-jinridaiban',
 	},
 	{
@@ -26,8 +26,8 @@ export const topCardItemList = [
 		titleNum: '256',
 		tip: '告警中',
 		tipNum: '12',
-		color: '#FEBB50',
-		iconColor: '#FDC566',
+		color: '#E88662',
+		iconColor: '#DE5C2C',
 		icon: 'iconfont icon-shenqingkaiban',
 	},
 ];

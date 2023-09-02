@@ -16,21 +16,6 @@
               @keyup.enter.native="handleQuery"
           />
         </el-form-item>
-<!--        <el-form-item label="状态" prop="status">
-          <el-select
-              v-model="state.queryParams.status"
-              placeholder="状态"
-              clearable
-              style="width: 240px"
-          >
-            <el-option
-                v-for="dict in state.statusOptions"
-                :key="dict.dictValue"
-                :label="dict.dictLabel"
-                :value="dict.dictValue"
-            />
-          </el-select>
-        </el-form-item>-->
         <el-form-item>
           <el-button type="primary" @click="handleQuery">
             <SvgIcon name="elementSearch" />搜索</el-button>

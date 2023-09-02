@@ -771,7 +771,7 @@
 	border-bottom: 3px solid !important;
 	border-bottom-color: set-color(primary);
 	color: set-color(primary) !important;
-	font-size: 16px;
+	font-size: 15px;
 }
 .el-menu--horizontal .el-menu-item:not(.is-disabled):focus,
 .el-menu--horizontal .el-menu-item:not(.is-disabled):hover,
@@ -780,7 +780,7 @@
 .el-menu--horizontal .el-menu .el-menu-item.is-active,
 .el-menu--horizontal .el-menu .el-sub-menu.is-active > .el-sub-menu__title {
 	color: set-color(primary) !important;
-	font-size: 16px;
+	font-size: 15px;
 }
 .el-menu.el-menu--horizontal {
 	border-bottom: none !important;
@@ -788,7 +788,7 @@
 .el-menu--horizontal > .el-menu-item,
 .el-menu--horizontal > .el-sub-menu .el-sub-menu__title {
 	color: var(--bg-topBarColor);
-	font-size: 16px;
+	font-size: 15px;
 }
 // 外部链接时
 .el-menu-item a,

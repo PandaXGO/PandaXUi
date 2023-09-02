@@ -1,5 +1,5 @@
 <template>
-  <div>研发中。。。</div>
+  <div>gb28181</div>
 </template>
 
 <script lang="ts" setup>

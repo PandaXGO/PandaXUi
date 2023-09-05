@@ -1,4 +1,5 @@
 <template>
+  <div class="app-container">
   <el-card class="box-card">
     <template #header>
       <div class="card-header">
@@ -78,7 +79,6 @@
     </el-table-column>
     </el-table>
   </el-dialog>
-
   <el-dialog v-model="state.isShowZbDialog" width="680px" title="监控数据" center draggable @closed="closeDialog">
     <div style="width: 100%;height: 350px" id="container" ref="container"></div>
     <div style="margin-top: 10px">
@@ -105,13 +105,13 @@
         </span>
     </template>
   </el-dialog>
+  </div>
 </template>
 
 <script lang="ts" setup>
 // 查询列表
 import {nextTick, onMounted, reactive, ref} from "vue";
 import axios from "axios";
-
 
 const MEDIA_API_URL = import.meta.env.VITE_MEDIA_API_URL as any
 
@@ -302,179 +302,6 @@ onMounted(()=>{
 
 </script>
 
-<style scoped lang="scss">
-
-.control-wrapper {
-  position: relative;
-  width: 6.25rem;
-  height: 6.25rem;
-  max-width: 6.25rem;
-  max-height: 6.25rem;
-  border-radius: 100%;
-  margin-top: 1.5rem;
-  margin-left: 0.5rem;
-  float: left;
-}
-
-.control-btn {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  position: absolute;
-  width: 44%;
-  height: 44%;
-  border-radius: 5px;
-  border: 1px solid var(--color-primary);
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-transition: all .3s linear;
-  transition: all .3s linear;
-  i {
-    font-size: 20px;
-    color: var(--color-primary);
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-  }
-}
-
-.control-inner-btn {
-  position: absolute;
-  width: 60%;
-  height: 60%;
-  background: #fafafa;
-}
-
-.control-top {
-  top: -8%;
-  left: 27%;
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  border-radius: 5px 100% 5px 0;
-  &:hover{
-    cursor: pointer
-  }
-  .icon-top{
-    transform: rotate(45deg);
-    top: 20%;
-    left: 0%;
-  }
-  .control-inner {
-    left: -1px;
-    bottom: 0;
-    border-top: 1px solid var(--color-primary);
-    border-right: 1px solid var(--color-primary);
-    border-radius: 0 100% 0 0;
-  }
-}
-
-.control-left {
-  top: 27%;
-  left: -8%;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  border-radius: 5px 0 5px 100%;
-  &:hover{
-    cursor: pointer
-  }
-  .icon-left{
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    top:20%;
-  }
-  .control-inner {
-    right: -1px;
-    top: -1px;
-    border-bottom: 1px solid var(--color-primary);
-    border-left: 1px solid var(--color-primary);
-    border-radius: 0 0 0 100%;
-  }
-}
-
-.control-bottom {
-  left: 27%;
-  bottom: -8%;
-  transform: rotate(45deg);
-  border-radius: 0 5px 100% 5px;
-  &:hover{
-    cursor: pointer
-  }
-  .icon-bottom{
-    transform: rotate(-45deg);
-    top: 20%;
-  }
-  .control-inner {
-    top: -1px;
-    left: -1px;
-    border-bottom: 1px solid var(--color-primary);
-    border-right: 1px solid var(--color-primary);
-    border-radius: 0 0 100% 0;
-  }
-}
-
-.control-right {
-  top: 27%;
-  right: -8%;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  border-radius: 5px 100% 5px 0;
-  &:hover{
-    cursor: pointer
-  }
-  .icon-right{
-    transform: rotate(-45deg);
-    top:20%;
-  }
-  .control-inner {
-    left: -1px;
-    bottom: -1px;
-    border-top: 1px solid var(--color-primary);
-    border-right: 1px solid var(--color-primary);
-    border-radius: 0 100% 0 0;
-  }
-}
-
-
-.control-round {
-  position: absolute;
-  top: 21%;
-  left: 21%;
-  width: 58%;
-  height: 58%;
-  background: #fff;
-  border-radius: 100%;
-
-  .control-round-inner {
-    position: absolute;
-    left: 13%;
-    top: 13%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    width: 70%;
-    height: 70%;
-    font-size: 40px;
-    color: var(--color-primary);
-    border: 1px solid var(--color-primary);
-    border-radius: 100%;
-    -webkit-transition: all .3s linear;
-    transition: all .3s linear;
-  }
-}
+<style scoped>
 
 </style>

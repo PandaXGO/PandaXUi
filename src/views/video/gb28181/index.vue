@@ -80,7 +80,7 @@
     </el-table>
   </el-dialog>
   <el-dialog v-model="state.isShowZbDialog" width="680px" title="监控数据" center draggable @closed="closeDialog">
-    <div style="width: 100%;height: 350px" id="container" ref="container"></div>
+    <JessibucaPlay :src="playUrl" :width="'100%'" :height="'350px'"></JessibucaPlay>
     <div style="margin-top: 10px">
       <el-tabs v-model="state.activeName">
         <el-tab-pane label="设备直播" name="zb">
@@ -110,7 +110,8 @@
 
 <script lang="ts" setup>
 // 查询列表
-import {nextTick, onMounted, reactive, ref} from "vue";
+import {onMounted, reactive, ref} from "vue";
+import JessibucaPlay from "@/components/jessibuca/index.vue";
 import axios from "axios";
 
 const MEDIA_API_URL = import.meta.env.VITE_MEDIA_API_URL as any
@@ -119,17 +120,7 @@ const service = axios.create({
   baseURL: MEDIA_API_URL,
   timeout: 50000,
 });
-
-let jessibuca = null;
-const container = ref();
-const showBandwidth = ref(true)
-const showOperateBtns = ref(true);
-const forceNoOffscreen = ref(true);
 const playUrl = ref('http://flv.bdplay.nodemedia.cn/live/bbb.flv');
-const playing = ref(false);
-const quieting = ref(true);
-const loaded = ref(false);
-
 
 const state:any = reactive({
   // 遮罩层
@@ -163,122 +154,11 @@ const showChannels = (row) => {
   state.currentDeviceOptions = row
   state.isShowChanDialog = true
 }
-
+//TODO 由于没有国标设备需要验证返回的数据格式
 const viewZb = (row:any) => {
   state.isShowZbDialog = true
   state.currentChannel = row
   playUrl.value =  MEDIA_API_URL.replace(/^http/, 'ws') + "/jessica/" + state.currentChannel.LivePublisher.StreamPath
-  nextTick(() => {
-    // 初始化jessica 并进行播放
-    createJessibuca()
-    jessibuca.play(playUrl.value);
-  })
-}
-
-const createJessibuca = () => {
-  jessibuca = new (window as any).Jessibuca({
-    container: container.value,
-    videoBuffer: 0.2, // 缓存时长
-    isResize: false,
-    text: "",
-    loadingText: "加载中。。。",
-    debug: true,
-    showBandwidth: showBandwidth.value, // 显示网速
-    operateBtns: {
-      fullscreen: showOperateBtns.value,
-      screenshot: showOperateBtns.value,
-      play: showOperateBtns.value,
-      audio: showOperateBtns.value,
-    },
-    forceNoOffscreen: forceNoOffscreen.value,
-    isNotMute: false,
-  })
-
-  jessibuca.on("load", function () {
-    console.log("on load");
-  });
-
-  jessibuca.on("log", function (msg : any) {
-    console.log("on log", msg);
-  });
-  jessibuca.on("record", function (msg: any) {
-    console.log("on record:", msg);
-  });
-  jessibuca.on("pause", function () {
-    console.log("on pause");
-    playing.value = false;
-  });
-  jessibuca.on("play", function () {
-    console.log("on play");
-    playing.value = true;
-    loaded.value = true;
-    quieting.value = jessibuca.isMute();
-  });
-  jessibuca.on("fullscreen", function (msg: any) {
-    console.log("on fullscreen", msg);
-  });
-
-  jessibuca.on("mute", function (msg: any) {
-    console.log("on mute", msg);
-    quieting.value = msg;
-  });
-
-  jessibuca.on("mute", function (msg: any) {
-    console.log("on mute2", msg);
-  });
-
-  jessibuca.on("audioInfo", function (msg: any) {
-    console.log("audioInfo", msg);
-  });
-
-  jessibuca.on("videoInfo", function (info: any) {
-    console.log("videoInfo", info);
-  });
-
-  jessibuca.on("error", function (error: any) {
-    console.log("error", error);
-  });
-
-  jessibuca.on("timeout", function () {
-    console.log("timeout");
-  });
-
-  jessibuca.on('start', function () {
-    console.log('start');
-  })
-
-  jessibuca.on("performance", function (performance: any) {
-    var show = "卡顿";
-    if (performance === 2) {
-      show = "非常流畅";
-    } else if (performance === 1) {
-      show = "流畅";
-    }
-    //console.log('performance', show);
-  });
-  jessibuca.on('buffer', function (buffer: any) {
-    console.log('buffer', buffer);
-  })
-
-  jessibuca.on('stats', function (stats: any) {
-    console.log('stats', stats);
-  })
-
-  jessibuca.on('kBps', function (kBps: any) {
-    console.log('kBps', kBps);
-  });
-  // 显示时间戳 PTS
-  jessibuca.on('videoFrame', function () {
-
-  })
-  //
-  jessibuca.on('metadata', function () {
-
-  });
-}
-
-const closeDialog = () => {
-  jessibuca && jessibuca.destroy();
 }
 
 const controlPtz = (direction:string) => {

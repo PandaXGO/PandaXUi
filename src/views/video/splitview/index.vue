@@ -1,24 +1,28 @@
 <template>
   <div class="app-container">
-    <el-container v-loading="loading" style="height: 91vh;" element-loading-text="拼命加载中">
+    <el-container v-loading="state.loading" style="height: 91vh;" element-loading-text="拼命加载中">
       <el-aside width="300px" style="background-color: #ffffff">
-        <DeviceTree :clickEvent="clickEvent" :contextMenuEvent="contextMenuEvent"></DeviceTree>
+        <el-tabs v-model="state.activeName" stretch>
+          <el-tab-pane label="国标设备" name="gb28181">
+            <el-tree :data="state.deviceOptions" :props="gbDefaultProps" @node-click="handleGbNodeClick" />
+          </el-tab-pane>
+          <el-tab-pane label="萤石设备" name="ys">萤石设备</el-tab-pane>
+        </el-tabs>
       </el-aside>
       <el-container>
         <el-header height="5vh" style="text-align: left;font-size: 17px;line-height:5vh">
           分屏:
-          <i class="el-icon-full-screen btn" :class="{active:spilt==1}" @click="spilt=1"/>
-          <i class="el-icon-menu btn" :class="{active:spilt==4}" @click="spilt=4"/>
-          <i class="el-icon-s-grid btn" :class="{active:spilt==9}" @click="spilt=9"/>
+          <SvgIcon name="elementFullScreen" class="btn" :class="{active:state.spilt===1}" @click="state.spilt=1"/>
+          <SvgIcon name="elementMenu" class="btn" :class="{active:state.spilt===4}" @click="state.spilt=4"/>
+          <SvgIcon name="elementGrid" class="btn" :class="{active:state.spilt===9}" @click="state.spilt=9"/>
         </el-header>
         <el-main style="padding: 0;">
           <div style="width: 99%;height: 85vh;display: flex;flex-wrap: wrap;background-color: #000;">
-            <div v-for="i in spilt" :key="i" class="play-box"
-                 :style="liveStyle" :class="{redborder:playerIdx == (i-1)}"
-                 @click="playerIdx = (i-1)">
-              <div v-if="!videoUrl[i-1]" style="color: #ffffff;font-size: 30px;font-weight: bold;">{{ i }}</div>
-              <player ref="player" v-else :videoUrl="videoUrl[i-1]" fluent autoplay @screenshot="shot"
-                      @destroy="destroy"/>
+            <div v-for="i in state.spilt" :key="i" class="play-box"
+                 :style="liveStyle" :class="{redborder:state.playerIdx == (i-1)}"
+                 @click="state.playerIdx = (i-1)">
+<!--              <div v-if="!state.videoUrl[i-1]" style="color: #ffffff;font-size: 30px;font-weight: bold;">{{ i }}</div>-->
+              <JessibucaPlay ref="playerRef"  :src="state.videoUrl[i-1]" :autoplay="true"/>
             </div>
           </div>
         </el-main>
@@ -28,7 +32,79 @@
 </template>
 
 <script lang="ts" setup>
+import {reactive, ref, computed, onMounted} from "vue";
+import axios from "axios";
+import JessibucaPlay from "@/components/jessibuca/index.vue";
 
+const MEDIA_API_URL = import.meta.env.VITE_MEDIA_API_URL as any
+const service = axios.create({
+  baseURL: MEDIA_API_URL,
+  timeout: 50000,
+});
+const playerRef = ref()
+const state = reactive({
+  activeName: "gb28181",
+  videoUrl: ['http://flv.bdplay.nodemedia.cn/live/bbb.flv'],
+  spilt: 1,//分屏
+  playerIdx: 0,//激活播放器
+  updateLooper: 0, //数据刷新轮训标志
+  count: 15,
+  total: 0,
+  deviceOptions: [],
+  //channel
+  loading: false
+})
+
+const gbDefaultProps = {
+  children: 'Channels',
+  label: 'Name',
+}
+
+const handleQuery = () => {
+  service({
+    url: '/gb28181/api/list',
+    method: 'get',
+  }).then((res:any)=>{
+    //state.deviceOptions = res.data;
+    state.deviceOptions = [{
+      ID: "aas",
+      Name: "测试",
+      Channels: [{
+        DeviceID: "s3453",
+        Name: "chan1"
+      }]
+    }]
+  })
+};
+
+
+const liveStyle = computed(()=> {
+  let style = {width: '100%', height: '100%'}
+  switch (state.spilt) {
+    case 4:
+      style = {width: '50%', height: '50%'}
+      break
+    case 9:
+      style = {width: '33%', height: '33%'}
+      break
+  }
+  return style
+})
+
+const handleGbNodeClick = (data) => {
+  console.log(data)
+  if (data.Channels && data.Channels.length>0){
+    data.Channels.forEach((currentChannel)=>{
+      state.videoUrl.push(MEDIA_API_URL.replace(/^http/, 'ws') + "/jessica/" + currentChannel.LivePublisher.StreamPath)
+    })
+  }else {
+    state.videoUrl = [MEDIA_API_URL.replace(/^http/, 'ws') + "/jessica/" + data.LivePublisher.StreamPath]
+  }
+}
+
+onMounted(()=>{
+  handleQuery()
+})
 </script>
 
 <style scoped>
@@ -58,55 +134,4 @@
   justify-content: center;
 }
 
-.videoList {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-}
-
-.video-item {
-  position: relative;
-  width: 15rem;
-  height: 10rem;
-  margin-right: 1rem;
-  background-color: #000000;
-}
-
-.video-item-img {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  width: 100%;
-  height: 100%;
-}
-
-.video-item-img:after {
-  content: "";
-  display: inline-block;
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  width: 3rem;
-  height: 3rem;
-  background-image: url("../assets/loading.png");
-  background-size: cover;
-  background-color: #000000;
-}
-
-.video-item-title {
-  position: absolute;
-  bottom: 0;
-  color: #000000;
-  background-color: #ffffff;
-  line-height: 1.5rem;
-  padding: 0.3rem;
-  width: 14.4rem;
-}
 </style>

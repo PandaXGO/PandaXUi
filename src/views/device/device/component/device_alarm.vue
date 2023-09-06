@@ -225,7 +225,7 @@ const onOpenAlarm = (row: object) => {
     updateAlarm(row)
   }
   state.isShowDialog = true
-  state.alarmDetail = JSON.stringify(row, null, 2)
+  state.alarmDetail = JSON.parse(row.details)
 }
 
 const onCloseAlarm = (row: object) => {

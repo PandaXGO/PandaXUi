@@ -5,12 +5,19 @@
         label="产品图片"
         align="center"
         :span="2"
-    ><img :src="baseURL + '/upload/get/'+ rowData.photoUrl" class="uploader-image" fit="contain"/>
+    >
+      <el-image :src="baseURL + '/upload/get/'+ rowData.photoUrl" class="uploader-image" fit="fill">
+        <template #error>
+          <div class="image-slot">
+            <el-image :src="rowData.deviceType ==='direct' ? monitorImg : rowData.deviceType ==='gatewayS' ? gatewayDImg : gatewayImg" fit="fill" />
+          </div>
+        </template>
+      </el-image>
     </el-descriptions-item>
     <el-descriptions-item label="产品ID" align="center" width="100">{{rowData.id}}</el-descriptions-item>
     <el-descriptions-item label="产品名称" align="center" width="100">{{rowData.name}}</el-descriptions-item>
     <el-descriptions-item label="所属分类" align="center" width="100">{{rowData.productCategory.name}}</el-descriptions-item>
-    <el-descriptions-item label="设备类型" align="center" width="100">{{rowData.deviceType ==='direct' ? '直连设备': rowData.deviceType ==='gateway' ? '网关设备': rowData.deviceType ==='gatewayS'?'网关子设备':'监控设备'}}</el-descriptions-item>
+    <el-descriptions-item label="设备类型" align="center" width="100">{{rowData.deviceType ==='direct' ? '直连设备': rowData.deviceType ==='gateway' ? '网关设备': '网关子设备'}}</el-descriptions-item>
     <el-descriptions-item label="连接类型"  align="center">
       <el-tag  type="primary">{{rowData.directConnection ? "直连": "非直连"}}</el-tag>
     </el-descriptions-item>
@@ -31,7 +38,9 @@
 </template>
 
 <script lang="ts" setup>
-
+import gatewayImg from '@/assets/gateway.png'
+import gatewayDImg from '@/assets/gateway_d.png'
+import monitorImg from '@/assets/monitor.png'
 const props = defineProps({
   rowData: {
     type: Object,

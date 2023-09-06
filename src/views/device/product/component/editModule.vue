@@ -56,7 +56,6 @@
                 <el-option label="直连设备" value="direct"></el-option>
                 <el-option label="网关设备" value="gateway"></el-option>
                 <el-option label="网关子设备" value="gatewayS"></el-option>
-                <el-option label="监控设备" value="monitor"></el-option>
               </el-select>
             </el-form-item>
           </el-col>

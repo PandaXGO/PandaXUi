@@ -105,7 +105,7 @@
                       <el-image :src="baseURL + '/upload/get/'+ data.product.photoUrl" :preview-src-list="[baseURL + '/upload/get/'+ data.product.photoUrl]" :initial-index="0" :zoom-rate="1.2" fit="fill">
                         <template #error>
                           <div class="image-slot">
-                            <el-image :src="data.deviceType ==='monitor' ? monitorImg : data.deviceType ==='gatewayS' ? gatewayDImg : gatewayImg" fit="fill" />
+                            <el-image :src="data.deviceType ==='direct' ? monitorImg : data.deviceType ==='gatewayS' ? gatewayDImg : gatewayImg" fit="fill" />
                           </div>
                         </template>
                       </el-image>

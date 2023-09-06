@@ -106,14 +106,14 @@
                       <el-image :src="baseURL + '/upload/get/'+ data.photoUrl" :preview-src-list="[baseURL + '/upload/get/'+ data.photoUrl]" :initial-index="0" :zoom-rate="1.2" fit="fill">
                         <template #error>
                           <div class="image-slot">
-                            <el-image :src="data.deviceType ==='monitor' ? monitorImg : data.deviceType ==='gatewayS' ? gatewayDImg : gatewayImg" fit="fill" />
+                            <el-image :src="data.deviceType ==='direct' ? monitorImg : data.deviceType ==='gatewayS' ? gatewayDImg : gatewayImg" fit="fill" />
                           </div>
                         </template>
                       </el-image>
                     </div>
                     <div class="ft-body-item">
                         <div class="item-mb">所属分类： {{data.productCategory.name}}</div>
-                        <div class="item-mb">设备类型： {{data.deviceType ==='direct' ? '直连设备': data.deviceType ==='gateway' ? '网关设备': data.deviceType ==='gatewayS'?'网关子设备':'监控设备'}}</div>
+                        <div class="item-mb">设备类型： {{data.deviceType ==='direct' ? '直连设备': data.deviceType ==='gateway' ? '网关设备': '网关子设备'}}</div>
                         <div class="item-mb">规则链库： Root Rule Chain</div>
                         <div class="item-mb">创建时间： {{ dateStrFormat(data.createTime) }}</div>
                     </div>

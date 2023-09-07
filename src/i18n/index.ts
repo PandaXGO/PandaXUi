@@ -1,6 +1,6 @@
 import { createI18n } from 'vue-i18n';
-import zhcnLocale from 'element-plus/lib/locale/lang/zh-cn';
-import enLocale from 'element-plus/lib/locale/lang/en';
+import zhcnLocale from 'element-plus/dist/locale/zh-cn.mjs';
+import enLocale from 'element-plus/dist/locale/en.mjs';
 import nextZhcn from '@/i18n/lang/zh-cn';
 import nextEn from '@/i18n/lang/en';
 
@@ -46,7 +46,7 @@ const messages = {
 const stores = useThemeConfigStateStore(pinia);
 const { themeConfig } = storeToRefs(stores);
  //导出语言国际化
-export const i18n= createI18n({
+export const i18n = createI18n({
 	legacy: false,
 	silentTranslationWarn: true,
 	missingWarn: false,

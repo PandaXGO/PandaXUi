@@ -21,7 +21,7 @@ const viteConfig: UserConfig = {
 	resolve: { alias },
 	base: process.env.NODE_ENV === 'production' ? VITE_PUBLIC_PATH : './',
 	optimizeDeps: {
-		include: ['element-plus/lib/locale/lang/zh-cn', 'element-plus/lib/locale/lang/en'],
+		include: ['element-plus/dist/locale/zh-cn.mjs', 'element-plus/dist/locale/en.mjs'],
 	},
 	server: {
 		host: '0.0.0.0',

@@ -54,7 +54,7 @@
                 />
               </el-select>
             </el-form-item>
-            <el-form-item label="所属产品" prop="status">
+            <el-form-item label="所属产品" prop="pid">
               <el-select v-model="state.queryParams.pid" filterable  placeholder="请选择所属产品" clearable >
                 <el-option v-for="product in state.productAllOptions" :key="product.id" :label="product.name" :value="product.id"></el-option>
               </el-select>
@@ -112,7 +112,7 @@
                     </div>
                     <div class="ft-body-item">
                       <div class="item-mb">设备分组： {{data.deviceGroup.name}}</div>
-                      <div class="item-mb">设备类型： {{data.deviceType ==='direct' ? '直连设备': data.deviceType ==='gateway' ? '网关设备': data.deviceType ==='gatewayS'?'网关子设备':'监控设备'}}</div>
+                      <div class="item-mb">设备类型： {{data.deviceType ==='direct' ? '直连设备': data.deviceType ==='gateway' ? '网关设备': '网关子设备'}}</div>
                       <div class="item-mb">所属产品： {{data.product.name}}</div>
                       <div class="item-mb">创建时间： {{ dateStrFormat(data.createTime) }}</div>
                     </div>

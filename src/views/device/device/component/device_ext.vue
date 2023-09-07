@@ -20,9 +20,6 @@
             <el-input v-model="locationForm.address" disabled />
           </el-form-item>
         </el-col>
-<!--        <el-col :span="2">
-          <el-button>编 辑</el-button>
-        </el-col>-->
       </el-row>
     </el-form>
     <div :style="{ width: '100%', height: '600px',margin: '10px 0 10px 0' }" >
@@ -34,14 +31,12 @@
 
       </el-amap>
     </div>
-<!--    <div style="margin: 10px 0 10px 0; height: 600px" id="map"></div>-->
   </div>
 
 </template>
 
 <script  lang="ts" setup>
-//import AMapLoader from '@amap/amap-jsapi-loader' // 使用加载器加载JSAPI，可以避免异步加载、重复加载等常见错误加载错误
-import {onMounted, ref,shallowRef} from "vue";
+import {onMounted, ref} from "vue";
 import {updateDevice} from "@/api/device/device";
 import {ElMessage} from "element-plus";
 
@@ -54,13 +49,9 @@ const props:any = defineProps({
 
 const locationForm:any = ref<{
   position: Array<number>,
-  content: string,
-  label: string,
   address: string,
 }>({
   position: [],
-  content: "",
-  label: "",
   address: ""
 })
 

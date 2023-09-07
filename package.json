@@ -7,7 +7,6 @@
 		"lint-fix": "eslint --fix --ext .js --ext .jsx --ext .vue src/"
 	},
 	"dependencies": {
-		"@amap/amap-jsapi-loader": "^1.0.1",
 		"@element-plus/icons-vue": "^2.1.0",
 		"@vuemap/vue-amap": "^2.0.22",
 		"@wangeditor/editor": "^5.1.23",

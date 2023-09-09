@@ -34,6 +34,15 @@ export function getDeviceStatus(id:number,query:any) {
     })
 }
 
+// 查询Device属性历史
+export function getDevicePropertyHistory(id:number,query:any) {
+    return request({
+        url: '/device/' + id+'/property/history',
+        method: 'get',
+        params: query
+    })
+}
+
 // 设备属性下发
 export function downAttribute(id:number,query:any) {
     return request({

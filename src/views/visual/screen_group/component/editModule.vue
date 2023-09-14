@@ -130,7 +130,7 @@ const openDialog = (row: any) => {
   proxy.getDicts("sys_normal_disable").then((response: any) => {
     state.statusOptions = response.data;
   });
-  // 查询部门下拉树结构
+  // 查询组织下拉树结构
   listScreenGroupTree().then((response: any) => {
     state.groupOptions = [];
     const group = { id: 0, name: '主类目', children: [] }

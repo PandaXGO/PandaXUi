@@ -1,13 +1,13 @@
 <template>
   <div class="system-user-container app-container">
     <el-row :gutter="20">
-      <!--部门数据-->
+      <!--组织数据-->
       <el-col :span="4" :xs="24">
         <el-card shadow="always">
           <div class="head-container">
             <el-input
-                v-model="state.deptName"
-                placeholder="请输入部门名称"
+                v-model="state.organizationName"
+                placeholder="请输入组织名称"
                 clearable
                 prefix-icon="el-icon-search"
                 style="margin-bottom: 20px"
@@ -15,9 +15,9 @@
           </div>
           <div class="head-container">
             <el-tree
-                :data="state.deptOptions"
+                :data="state.organizationOptions"
                 :props="state.defaultProps"
-                node-key="deptId"
+                node-key="organizationId"
                 :expand-on-click-node="false"
                 :filter-node-method="filterNode"
                 ref="tree"
@@ -233,7 +233,7 @@ import {
   delUser,
   exportUser,
 } from "@/api/system/user";
-import {treeselect} from "@/api/system/dept";
+import {treeselect} from "@/api/system/organization";
 import {ElMessageBox, ElMessage} from "element-plus";
 import {getDicts} from "@/api/system/dict/data";
 import MDInput from "@/components/panda/MDInput.vue";
@@ -253,7 +253,7 @@ const state: any = reactive({
   postOptions: [],
   defaultProps: {
     children: "children",
-    label: "deptName",
+    label: "organizationName",
   },
   // 性别状态字典
   sexOptions: [],
@@ -261,8 +261,8 @@ const state: any = reactive({
   roleOptions: [],
   // 状态数据字典
   statusOptions: [],
-  // 部门名称
-  deptName: undefined,
+  // 组织名称
+  organizationName: undefined,
   // 非单个禁用
   single: true,
   // 非多个禁用
@@ -271,8 +271,8 @@ const state: any = reactive({
   ids: [],
   // 弹出层标题
   title: "",
-  // 部门树选项
-  deptOptions: undefined,
+  // 组织树选项
+  organizationOptions: undefined,
   // 查询参数
   queryParams: {
     pageNum: 1,
@@ -280,12 +280,12 @@ const state: any = reactive({
     username: undefined,
     phone: undefined,
     status: undefined,
-    deptId: undefined,
+    organizationId: undefined,
   },
 });
 
 watch(
-    () => state.deptName,
+    () => state.organizationName,
     (newValue) => {
       proxy.$refs.tree.filter(newValue);
     }
@@ -324,7 +324,7 @@ const resetQuery = async () => {
   state.queryParams.username = "";
   state.queryParams.phone = "";
   state.queryParams.status = "";
-  state.queryParams.deptId = 0;
+  state.queryParams.organizationId = 0;
   handleQuery();
 };
 /** 新增按钮操作 */
@@ -338,10 +338,10 @@ const handleUpdate = (row: any) => {
   userFormRef.value.openDialog(row);
 };
 
-/** 查询部门下拉树结构 */
+/** 查询组织下拉树结构 */
 const getTreeselect = async () => {
   treeselect().then((response) => {
-    state.deptOptions = response.data;
+    state.organizationOptions = response.data;
   });
 };
 // 用户状态修改
@@ -397,13 +397,13 @@ const onHandleCurrentChange = (val: number) => {
 // 筛选节点
 const filterNode = (value: string, data: any) => {
   if (!value) return true;
-  return data.deptName.includes(value);
+  return data.organizationName.includes(value);
 };
 // 节点单击事件
 const handleNodeClick = (data: any) => {
-  state.queryParams.deptId = data.deptId;
+  state.queryParams.organizationId = data.organizationId;
   getList();
-  state.queryParams.deptId = 0
+  state.queryParams.organizationId = 0
 };
 
 /** 导出按钮操作 */

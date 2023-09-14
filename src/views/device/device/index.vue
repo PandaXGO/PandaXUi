@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-row :gutter="20">
-      <!--部门数据-->
+      <!--组织数据-->
       <el-col :span="4" :xs="24">
         <el-card shadow="always">
           <div class="head-container">

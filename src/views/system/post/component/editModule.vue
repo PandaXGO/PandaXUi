@@ -99,7 +99,7 @@ const state = reactive({
   // 岗位状态数据字典
   statusOptions: [],
   // 岗位树选项
-  deptOptions: [],
+  organizationOptions: [],
   // 表单校验
   ruleRules: {
     postName: [

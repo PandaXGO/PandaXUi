@@ -107,7 +107,7 @@
 import { onMounted, reactive,ref} from "vue";
 import {delRuleLog, listRuleLog} from "@/api/rule/rulelog";
 import {ElMessage, ElMessageBox} from "element-plus";
-import {delDept} from "@/api/system/dept";
+import {delOrganization} from "@/api/system/organization";
 
 const msgTypeOption = [{
   label: "原始数据",

@@ -15,7 +15,7 @@ export const useUserInfosState = defineStore('userInfos', {
 
 			userId: 0,
 			roleId: 0,
-			deptId: 0,
+			organizationId: 0,
 			postId: 0,
 
 			lastLoginTime: 0,
@@ -41,7 +41,7 @@ export const useUserInfosState = defineStore('userInfos', {
 				username: loginRes.user.username,
 				userId: loginRes.user.userId,
 				roleId: loginRes.user.roleId,
-				deptId: loginRes.user.deptId,
+				organizationId: loginRes.user.organizationId,
 				postId: loginRes.user.postId,
 				// 头像
 				photo: loginRes.user.avatar || letterAvatar(loginRes.user.username),

@@ -53,7 +53,7 @@
           <div>
             <el-button type="primary"
                        plain
-                       v-auth="'system:dept:add'"
+                       v-auth="'system:organization:add'"
                        @click="onOpenAddMenu">
               <SvgIcon name="elementPlus"/>
               新增
@@ -296,7 +296,7 @@ onMounted(() => {
 });
 // 页面卸载时
 onUnmounted(() => {
-  proxy.mittBus.off("onEditDeptModule");
+  proxy.mittBus.off("onEditOrganizationModule");
 });
 </script>
 

@@ -107,7 +107,7 @@
         </el-table-column>
       </el-table>
     </el-card>
-    <!-- 添加或修改部门对话框 -->
+    <!-- 添加或修改组织对话框 -->
     <EditModule ref="editModuleRef" :title="state.title"/>
   </div>
 </template>
@@ -125,7 +125,7 @@ const state = reactive({
   loading: true,
   // 弹出层标题
   title: "",
-  // 部门表格树数据
+  // 组织表格树数据
   tableData: [] as any,
   // 状态数据字典
   statusOptions: [],
@@ -187,9 +187,9 @@ const onTabelRowDel = (row: any) => {
 };
 // 页面加载时
 onMounted(() => {
-  // 查询部门信息
+  // 查询组织信息
   handleQuery();
-  // 查询部门状态数据字典
+  // 查询组织状态数据字典
   proxy.getDicts("sys_normal_disable").then((response: any) => {
     state.statusOptions = response.data;
   });

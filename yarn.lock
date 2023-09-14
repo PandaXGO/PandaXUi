@@ -2,11 +2,6 @@
 # yarn lockfile v1
 
 
-"@amap/amap-jsapi-loader@^1.0.1":
-  "integrity" "sha512-nPyLKt7Ow/ThHLkSvn2etQlUzqxmTVgK7bIgwdBRTg2HK5668oN7xVxkaiRe3YZEzGzfV2XgH5Jmu2T73ljejw=="
-  "resolved" "https://registry.npmjs.org/@amap/amap-jsapi-loader/-/amap-jsapi-loader-1.0.1.tgz"
-  "version" "1.0.1"
-
 "@amap/amap-jsapi-types@^0.0.10":
   "integrity" "sha512-znvqLGPBy9NRCr1/3650o9vL1aYl/f1YK0+UGn8lBUvHJXND6uMDJGJsl43cEYglw9/tblwIRxjm4pIotOvSCQ=="
   "resolved" "https://registry.npmjs.org/@amap/amap-jsapi-types/-/amap-jsapi-types-0.0.10.tgz"
@@ -241,6 +236,11 @@
   dependencies:
     "@turf/helpers" "^6.5.0"
 
+"@tweenjs/tween.js@^21.0.0":
+  "integrity" "sha512-qVfOiFh0U8ZSkLgA6tf7kj2MciqRbSCWaJZRwftVO7UbtVDNsZAXpWXqvCDtIefvjC83UJB+vHTDOGm5ibXjEA=="
+  "resolved" "https://registry.npmjs.org/@tweenjs/tween.js/-/tween.js-21.0.0.tgz"
+  "version" "21.0.0"
+
 "@types/axios@^0.14.0":
   "integrity" "sha1-7CMA++fX3d1+udOr+HmZlkyvzkY="
   "resolved" "https://registry.npmjs.org/@types/axios/-/axios-0.14.0.tgz"
@@ -321,10 +321,30 @@
   "resolved" "https://registry.npmjs.org/@types/sortablejs/-/sortablejs-1.10.7.tgz"
   "version" "1.10.7"
 
+"@types/stats.js@*":
+  "integrity" "sha512-9w+a7bR8PeB0dCT/HBULU2fMqf6BAzvKbxFboYhmDtDkKPiyXYbjoe2auwsXlEFI7CFNMF1dCv3dFH5Poy9R1w=="
+  "resolved" "https://registry.npmjs.org/@types/stats.js/-/stats.js-0.17.0.tgz"
+  "version" "0.17.0"
+
+"@types/three@*":
+  "integrity" "sha512-733bXDSRdlrxqOmQuOmfC1UBRuJ2pREPk8sWnx9MtIJEVDQMx8U0NQO5MVVaOrjzDPyLI+cFPim2X/ss9v0+LQ=="
+  "resolved" "https://registry.npmjs.org/@types/three/-/three-0.156.0.tgz"
+  "version" "0.156.0"
+  dependencies:
+    "@types/stats.js" "*"
+    "@types/webxr" "*"
+    "fflate" "~0.6.10"
+    "meshoptimizer" "~0.18.1"
+
 "@types/web-bluetooth@^0.0.16":
   "integrity" "sha512-oh8q2Zc32S6gd/j50GowEjKLoOVOwHP/bWVjKJInBwQqdOYMdPrf1oVlelTlyfFK3CKxL1uahMDAr+vy8T7yMQ=="
   "resolved" "https://registry.npmjs.org/@types/web-bluetooth/-/web-bluetooth-0.0.16.tgz"
   "version" "0.0.16"
+
+"@types/webxr@*":
+  "integrity" "sha512-41gfGLTtqXZhcmoDlLDHqMJDuwAMwhHwXf9Q2job3TUBsvkNfPNI/3IWVEtLH4tyY1ElWtfwIaoNeqeEX238/Q=="
+  "resolved" "https://registry.npmjs.org/@types/webxr/-/webxr-0.5.4.tgz"
+  "version" "0.5.4"
 
 "@typescript-eslint/eslint-plugin@^5.58.0":
   "integrity" "sha512-yVrXupeHjRxLDcPKL10sGQ/QlVrA8J5IYOEWVqk0lJaSZP7X5DfnP7Ns3cc74/blmbipQ1htFNVGsHX6wsYm0A=="
@@ -1478,6 +1498,11 @@
   dependencies:
     "reusify" "^1.0.4"
 
+"fflate@~0.6.10":
+  "integrity" "sha512-IQrh3lEPM93wVCEczc9SaAOvkmcoQn/G8Bo1e8ZPlY3X3bnAxWaBdvTdvM1hP62iZp0BXWDy4vTAy4fF0+Dlpg=="
+  "resolved" "https://registry.npmjs.org/fflate/-/fflate-0.6.10.tgz"
+  "version" "0.6.10"
+
 "file-entry-cache@^6.0.1":
   "integrity" "sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg=="
   "resolved" "https://registry.npmjs.org/file-entry-cache/-/file-entry-cache-6.0.1.tgz"
@@ -1857,6 +1882,11 @@
   "integrity" "sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg=="
   "resolved" "https://registry.npmjs.org/merge2/-/merge2-1.4.1.tgz"
   "version" "1.4.1"
+
+"meshoptimizer@~0.18.1":
+  "integrity" "sha512-ZhoIoL7TNV4s5B6+rx5mC//fw8/POGyNxS/DZyCJeiZ12ScLfVwRE/GfsxwiTkMYYD5DmK2/JXnEVXqL4rF+Sw=="
+  "resolved" "https://registry.npmjs.org/meshoptimizer/-/meshoptimizer-0.18.1.tgz"
+  "version" "0.18.1"
 
 "micromatch@^4.0.4":
   "integrity" "sha512-DMy+ERcEW2q8Z2Po+WNXuw3c5YaUSFjAO5GsJqfEl7UjvtIuFKO6ZrKvcItdy98dwFI2N1tg3zNIdKaQT+aNdA=="
@@ -2359,6 +2389,31 @@
   "resolved" "https://registry.npmjs.org/text-table/-/text-table-0.2.0.tgz"
   "version" "0.2.0"
 
+"tezero@git+https://gitee.com/cedar12/tezero.git":
+  "resolved" "git+https://gitee.com/cedar12/tezero.git#670620472c690dadb255cf71605595a8fcf23e98"
+  "version" "1.0.0"
+  dependencies:
+    "@tweenjs/tween.js" "^21.0.0"
+    "three" "^0.155.0"
+    "three-spritetext" "^1.8.1"
+    "three-text2d" "^0.6.0"
+    "wasm-gzip" "^2.0.1"
+
+"three-spritetext@^1.8.1":
+  "integrity" "sha512-pohv5CcdeUtAPLi9KhG0kcDLj3gmzdIFK/QlgsTJe+U07oQFSj+K0DLPQKbNDPWAK+7YzhulkRcjWdVIQ5F7nw=="
+  "resolved" "https://registry.npmjs.org/three-spritetext/-/three-spritetext-1.8.1.tgz"
+  "version" "1.8.1"
+
+"three-text2d@^0.6.0":
+  "integrity" "sha512-u0Lj+qfV63UPNmS+QaMkxZ1+ZjRgdKsoxs9Pli9xX7d2x8k2cUP7tCGomEgAc0pxqfm7PV0zZP5tFU37n4Vibw=="
+  "resolved" "https://registry.npmjs.org/three-text2d/-/three-text2d-0.6.0.tgz"
+  "version" "0.6.0"
+
+"three@*", "three@^0.155.0", "three@>=0.86.0":
+  "integrity" "sha512-sNgCYmDijnIqkD/bMfk+1pHg3YzsxW7V2ChpuP6HCQ8NiZr3RufsXQr8M3SSUMjW4hG+sUk7YbyuY0DncaDTJQ=="
+  "resolved" "https://registry.npmjs.org/three/-/three-0.155.0.tgz"
+  "version" "0.155.0"
+
 "tiny-emitter@^2.0.0":
   "integrity" "sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q=="
   "resolved" "https://registry.npmjs.org/tiny-emitter/-/tiny-emitter-2.1.0.tgz"
@@ -2530,6 +2585,11 @@
     "@vue/runtime-dom" "3.3.4"
     "@vue/server-renderer" "3.3.4"
     "@vue/shared" "3.3.4"
+
+"wasm-gzip@^2.0.1":
+  "integrity" "sha512-k4nbaOGuV2d+fRUvtYCBgYd3ArfK+WsQ7f/blw7N9S77FqdUdz2Bu6kmvIu0ZdeeiBDsQwSHiWgXl0r8D8u/Fg=="
+  "resolved" "https://registry.npmjs.org/wasm-gzip/-/wasm-gzip-2.0.1.tgz"
+  "version" "2.0.1"
 
 "watchpack@^2.4.0":
   "integrity" "sha512-Lcvm7MGST/4fup+ifyKi2hjyIAwcdI4HRgtvTpIUxBRhB+RFtUh8XtDOxUfctVCnhVi+QQj49i91OyvzkJl6cg=="

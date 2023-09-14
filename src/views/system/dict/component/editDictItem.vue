@@ -95,7 +95,7 @@ export default {
         dictLabel: "禁用"
         }],
       // 字典树选项
-      deptOptions: [],
+      organizationOptions: [],
       // 表单校验
       ruleRules: {
          dictLabel: [

@@ -74,8 +74,8 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="角色">
-              <el-select v-model="state.roleIds" multiple placeholder="请选择">
+            <el-form-item label="角色" prop="roleIds">
+              <el-select v-model="state.ruleForm.roleIds" multiple placeholder="请选择">
                 <el-option
                         v-for="item in state.roleOptions"
                         :key="item.roleId"
@@ -87,27 +87,27 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
-            <el-form-item label="归属部门" prop="deptId">
+            <el-form-item label="归属组织" prop="organizationId">
               <el-cascader
-                  v-model="state.ruleForm.deptId"
-                  :options="state.deptOptions"
+                  v-model="state.ruleForm.organizationId"
+                  :options="state.organizationOptions"
                   :props="{
-                  label: 'deptName',
-                  value: 'deptId',
+                  label: 'organizationName',
+                  value: 'organizationId',
                   checkStrictly: true,
                   emitPath: false,
                 }"
                   class="w100"
                   clearable
                   filterable
-                  placeholder="请选择归属部门"
+                  placeholder="请选择归属组织"
                   :show-all-levels="false"
               ></el-cascader>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="岗位">
-              <el-select v-model="state.postIds" multiple placeholder="请选择">
+            <el-form-item label="岗位" prop="postIds">
+              <el-select v-model="state.ruleForm.postIds" multiple placeholder="请选择">
                 <el-option
                   v-for="item in state.postOptions"
                   :key="item.postId"
@@ -154,7 +154,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref, unref, getCurrentInstance } from "vue";
-import { treeselect } from "@/api/system/dept";
+import { treeselect } from "@/api/system/organization";
 import { updateUser, addUser, getUser, getUserInit } from "@/api/system/user";
 import { ElMessage } from "element-plus";
 
@@ -178,15 +178,15 @@ const state = reactive({
   roleOptions: [],
   // 状态数据字典
   statusOptions: [],
-  // 部门树选项
-  deptOptions: [],
+  // 组织树选项
+  organizationOptions: [],
   // 岗位选项
   postOptions: [],
   ruleForm: {
     userId: undefined, // 用戶ID
     username: "", // 用戶名称
     nickName: "", // 用戶昵称
-    deptId: "", // 部门ID
+    organizationId: "", // 组织ID
     roleId: "", // 角色ID
     postId: "", // 岗位ID
     phone: "", // 手机号
@@ -196,11 +196,9 @@ const state = reactive({
     avatar: "", // 用户头像
     sex: "", // 性别
     remark: "", // 备注
-    postIds: "",
-    roleIds: "",
+    postIds: [],
+    roleIds: [],
   },
-  postIds: [],
-  roleIds: [],
   // 显示状态数据字典
   isHideOptions: [],
   // 菜单类型数据字典
@@ -219,6 +217,12 @@ const state = reactive({
     ],
     password: [
       { required: true, message: "用户密码不能为空", trigger: "blur" },
+    ],
+    organizationId: [
+      { required: true, message: "所属组织不能为空", trigger: "blur" },
+    ],
+    roleIds: [
+      { required: true, message: "所属角色不能为空", trigger: "blur" },
     ],
     email: [
       {
@@ -243,11 +247,12 @@ const openDialog = (row: any) => {
       state.ruleForm = response.data.data;
       state.postOptions = response.data.posts;
       state.roleOptions = response.data.roles;
-      //state.deptOptions = response.data.depts;
-      state.postIds = response.data.postIds.split(",").map((item: string)=>{
+      //state.organizationOptions = response.data.organizations;
+
+      state.ruleForm.postIds = response.data.postIds.split(",").map((item: string)=>{
         return Number(item)
       });
-      state.roleIds = response.data.roleIds.split(",").map((item: string)=>{
+      state.ruleForm.roleIds = response.data.roleIds.split(",").map((item: string)=>{
         return Number(item)
       });
       state.ruleForm.password = ""
@@ -280,10 +285,10 @@ const closeDialog = (row?: object) => {
 const onCancel = () => {
   closeDialog();
 };
-/** 查询部门下拉树结构 */
+/** 查询组织下拉树结构 */
 const getTreeselect = async () => {
   treeselect().then((response) => {
-    state.deptOptions = response.data;
+    state.organizationOptions = response.data;
   });
 };
 
@@ -293,10 +298,10 @@ const onSubmit = () => {
   if (!formWrap) return;
   formWrap.validate((valid: boolean) => {
     if (valid) {
-      state.ruleForm.postId = state.postIds[0]
-      state.ruleForm.roleId = state.roleIds[0]
-      state.ruleForm.postIds = state.postIds.join(',')
-      state.ruleForm.roleIds = state.roleIds.join(',')
+      state.ruleForm.postId = state.ruleForm.postIds[0]
+      state.ruleForm.roleId = state.ruleForm.roleIds[0]
+      state.ruleForm.postIds = state.ruleForm.postIds.join(',')
+      state.ruleForm.roleIds = state.ruleForm.roleIds.join(',')
       state.loading = true;
       if (state.ruleForm.userId != undefined) {
         updateUser(state.ruleForm).then((response) => {

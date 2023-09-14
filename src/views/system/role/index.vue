@@ -303,26 +303,26 @@
         </el-form-item>
         <el-form-item label="数据权限" v-show="state.roleForm.dataScope == 2">
             <el-checkbox
-                    v-model="state.deptExpand"
-                    @change="handleCheckedTreeExpand($event, 'dept')"
+                    v-model="state.organizationExpand"
+                    @change="handleCheckedTreeExpand($event, 'organization')"
             >展开/折叠
             </el-checkbox
             >
             <el-checkbox
-                    v-model="state.deptNodeAll"
-                    @change="handleCheckedTreeNodeAll($event, 'dept')"
+                    v-model="state.organizationNodeAll"
+                    @change="handleCheckedTreeNodeAll($event, 'organization')"
             >全选/全不选
             </el-checkbox>
             <el-tree
                     class="tree-border"
-                    :data="state.deptOptions"
+                    :data="state.organizationOptions"
                     show-checkbox
                     default-expand-all
-                    ref="deptRef"
-                    node-key="deptId"
+                    ref="organizationRef"
+                    node-key="organizationId"
                     empty-text="加载中，请稍后"
                     :props="{
-              label: 'deptName',
+              label: 'organizationName',
               children: 'children',
             }"
             ></el-tree>
@@ -367,8 +367,8 @@ import {
   listApiAll, getPolicyPathByRoleId
 } from "@/api/system/api";
 import {
-  roleDeptTreeselect,
-} from "@/api/system/dept";
+  roleOrganizationTreeselect,
+} from "@/api/system/organization";
 import {handleFileError} from "@/utils/export";
 import DictList from "@/views/system/dict/component/dictList.vue";
 
@@ -376,7 +376,7 @@ const {proxy} = getCurrentInstance() as any;
 const roleFormRef = ref<HTMLElement | null>(null);
 const menuRef = ref<HTMLElement | null>(null);
 const apiRef = ref<HTMLElement | null>(null);
-const deptRef = ref<HTMLElement | null>(null);
+const organizationRef = ref<HTMLElement | null>(null);
 const state: any = reactive({
   activeName: 'first',
   // 遮罩层
@@ -408,16 +408,16 @@ const state: any = reactive({
   menuCheckedKeys: [],
   //角色具有的api列表
   apiCheckedKeys: [],
-  // 部门列表
-  deptOptions: [],
+  // 组织列表
+  organizationOptions: [],
   // 是否显示弹出层（数据权限）
   openDataScope: false,
   menuExpand: false,
   menuNodeAll: false,
   apiExpand: false,
   apiNodeAll: false,
-  deptExpand: true,
-  deptNodeAll: false,
+  organizationExpand: true,
+  organizationNodeAll: false,
   // 查询参数
   queryParams: {
     pageNum: 1,
@@ -429,6 +429,10 @@ const state: any = reactive({
   // 数据范围选项
   dataScopeOptions: [
     {
+      value: "0",
+      label: "仅本人数据权限",
+    },
+    {
       value: "1",
       label: "全部数据权限",
     },
@@ -438,15 +442,11 @@ const state: any = reactive({
     },
     {
       value: "3",
-      label: "本部门数据权限",
+      label: "本组织数据权限",
     },
     {
       value: "4",
-      label: "本部门及以下数据权限",
-    },
-    {
-      value: "5",
-      label: "仅本人数据权限",
+      label: "本组织及以下数据权限",
     },
   ],
   // 表单参数
@@ -470,8 +470,8 @@ const reset = () => {
       (state.menuNodeAll = false),
       (state.apiExpand = false),
       (state.apiNodeAll = false),
-      (state.deptExpand = true),
-      (state.deptNodeAll = false),
+      (state.organizationExpand = true),
+      (state.organizationNodeAll = false),
       (state.roleForm = {
         roleId: undefined,
         roleName: undefined,
@@ -480,9 +480,9 @@ const reset = () => {
         status: "0",
         menuIds: [],
         apiIds: [],
-        deptIds: [],
+        organizationIds: [],
         menuCheckStrictly: true,
-        deptCheckStrictly: true,
+        organizationCheckStrictly: true,
         remark: undefined,
       });
   state.roleForm = {};
@@ -520,7 +520,7 @@ const handleCurrentChange = (val: any) => {
 /** 提交按钮（数据权限） */
 const submitDataScope = () => {
   if (state.roleForm.roleId != undefined) {
-    state.roleForm.deptIds = getDeptAllCheckedKeys();
+    state.roleForm.organizationIds = getOrganizationAllCheckedKeys();
     dataScope(state.roleForm).then((response) => {
       ElMessage.success("修改成功");
       state.openDataScope = false;
@@ -528,12 +528,12 @@ const submitDataScope = () => {
     });
   }
 };
-// 所有部门节点数据
-const getDeptAllCheckedKeys = () => {
-  const formWrap = unref(deptRef) as any;
-  // 目前被选中的部门节点
+// 所有组织节点数据
+const getOrganizationAllCheckedKeys = () => {
+  const formWrap = unref(organizationRef) as any;
+  // 目前被选中的组织节点
   let checkedKeys = formWrap.getCheckedKeys();
-  // 半选中的部门节点
+  // 半选中的组织节点
   let halfCheckedKeys = formWrap.getHalfCheckedKeys();
   checkedKeys.unshift.apply(checkedKeys, halfCheckedKeys);
   return checkedKeys;
@@ -610,13 +610,13 @@ const handleStatusChange = (row: any) => {
 /** 分配数据权限操作 */
 const handleDataScope = (row: any) => {
   reset();
-  const roleDeptTreeselect = getRoleDeptTreeselect(row.roleId);
+  const roleOrganizationTreeselect = getRoleOrganizationTreeselect(row.roleId);
   getRole(row.roleId).then((response) => {
     state.roleForm = response.data;
     state.openDataScope = true;
     nextTick(() => {
-      roleDeptTreeselect.then((res) => {
-        const formWrap = unref(deptRef) as any;
+      roleOrganizationTreeselect.then((res) => {
+        const formWrap = unref(organizationRef) as any;
         formWrap.setCheckedKeys(res.checkedKeys);
       });
     });
@@ -699,10 +699,10 @@ const handleExport = () => {
         handleFileError(response, queryParams.filename)
       });
 };
-/** 根据角色ID查询部门树结构 */
-const getRoleDeptTreeselect = (roleId: number) => {
-  return roleDeptTreeselect(roleId).then((response) => {
-    state.deptOptions = response.data.depts;
+/** 根据角色ID查询组织树结构 */
+const getRoleOrganizationTreeselect = (roleId: number) => {
+  return roleOrganizationTreeselect(roleId).then((response) => {
+    state.organizationOptions = response.data.organizations;
     return response.data;
   });
 };
@@ -781,7 +781,7 @@ const cancelDataScope = () => {
 };
 /** 选择角色权限范围触发 */
 const dataScopeSelectChange = (value: any) => {
-  const formWrap = unref(deptRef) as any;
+  const formWrap = unref(organizationRef) as any;
   if (value !== "2") {
     formWrap.setCheckedKeys([]);
   }
@@ -803,11 +803,11 @@ const handleCheckedTreeExpand = (value: any, type: any) => {
       console.log("formWrap", formWrap)
       formWrap.store.nodesMap[treeList[i].onlyId].expanded = value;
     }
-  } else if (type == "dept") {
-    let treeList = state.deptOptions;
+  } else if (type == "organization") {
+    let treeList = state.organizationOptions;
     for (let i = 0; i < treeList.length; i++) {
-      const formWrap = unref(deptRef) as any;
-      formWrap.store.nodesMap[treeList[i].deptId].expanded = value;
+      const formWrap = unref(organizationRef) as any;
+      formWrap.store.nodesMap[treeList[i].organizationId].expanded = value;
     }
   }
 };
@@ -819,9 +819,9 @@ const handleCheckedTreeNodeAll = (value: any, type: any) => {
   } else if (type == "api") {
     const formWrap = unref(apiRef) as any;
     formWrap.setCheckedNodes(value ? state.apiOptions : []);
-  } else if (type == "dept") {
-    const formWrap = unref(deptRef) as any;
-    formWrap.setCheckedNodes(value ? state.deptOptions : []);
+  } else if (type == "organization") {
+    const formWrap = unref(organizationRef) as any;
+    formWrap.setCheckedNodes(value ? state.organizationOptions : []);
   }
 };
 // 页面加载时

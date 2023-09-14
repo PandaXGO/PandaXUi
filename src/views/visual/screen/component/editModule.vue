@@ -13,7 +13,7 @@
       <el-form-item label="名称" prop="screenName">
           <el-input v-model="state.ruleForm.screenName" placeholder="请输入名称" />
       </el-form-item>
-        <el-form-item label="所属分组" prop="deptId">
+        <el-form-item label="所属分组" prop="organizationId">
         <el-cascader
             v-model="state.ruleForm.groupId"
             :options="state.groupOptions"
@@ -59,7 +59,7 @@
 import { reactive, ref, unref, getCurrentInstance } from "vue";
 import { updateScreen, addScreen } from "@/api/visual/screen";
 import { ElMessage } from "element-plus";
-import {treeselect} from "@/api/system/dept";
+import {treeselect} from "@/api/system/organization";
 import {listScreenGroupTree} from "@/api/visual/screen_group";
 
 const props = defineProps({
@@ -123,7 +123,7 @@ const onCancel = () => {
   closeDialog();
 };
 
-/** 查询部门下拉树结构 */
+/** 查询组织下拉树结构 */
 const getTreeselect = async () => {
   listScreenGroupTree().then((response) => {
     state.groupOptions = response.data;

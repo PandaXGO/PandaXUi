@@ -216,7 +216,7 @@ const state: any = reactive({
   ids: [],
   // 弹出层标题
   title: "",
-  // 部门树选项
+  // 组织树选项
   groupOptions: undefined,
   // 查询参数
   queryParams: {

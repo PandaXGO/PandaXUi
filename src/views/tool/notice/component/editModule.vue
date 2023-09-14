@@ -31,19 +31,19 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="通知部门" prop="deptId">
+          <el-form-item label="通知组织" prop="organizationId">
             <el-cascader
-                    v-model="state.ruleForm.deptId"
-                    :options="state.deptOptions"
+                    v-model="state.ruleForm.organizationId"
+                    :options="state.organizationOptions"
                     class="w100"
                     :props="{
-                  value: 'deptId',
-                  label: 'deptName',
+                  value: 'organizationId',
+                  label: 'organizationName',
                   checkStrictly: true,
                   emitPath: false,
                 }"
                     clearable
-                    placeholder="选择通知部门"
+                    placeholder="选择通知组织"
                     :show-all-levels="false"
             ></el-cascader>
           </el-form-item>
@@ -69,7 +69,7 @@
 import { reactive, toRefs, ref, unref, getCurrentInstance } from "vue";
 import { addNotice, updateNotice } from "@/api/system/notice";
 import { ElMessage } from "element-plus";
-import {treeselect} from "@/api/system/dept";
+import {treeselect} from "@/api/system/organization";
 import Editor from '@/components/editor/index.vue';
 
 const props = defineProps({
@@ -90,13 +90,13 @@ const state = reactive({
     noticeId: 0,  // 公告ID
     title: "",    // 公告名称
     noticeType: "", // 公告类型
-    deptId: 0,      // 指派部门
+    organizationId: 0,      // 指派组织
     content: "",     //内容
   },
   // 公告类型字典
   noticeTypeOptions: [],
-  // 部门
-  deptOptions: [],
+  // 组织
+  organizationOptions: [],
   // 表单校验
   ruleRules: {
     title: [
@@ -117,12 +117,12 @@ const openDialog = (row: any) => {
   proxy.getDicts("sys_notice_type").then((response: any) => {
     state.noticeTypeOptions = response.data;
   });
-  // 查询部门下拉树结构
+  // 查询组织下拉树结构
   treeselect().then((response: any) => {
-    state.deptOptions = [];
-    const dept:any = { deptId: 0, deptName: '全部部门', children: [] }
-    dept.children = response.data
-    state.deptOptions.push(dept)
+    state.organizationOptions = [];
+    const organization:any = { organizationId: 0, organizationName: '全部组织', children: [] }
+    organization.children = response.data
+    state.organizationOptions.push(organization)
   });
 };
 const getWangEditorValue = (str:string) => {

@@ -12,28 +12,28 @@
       >
         <el-row :gutter="30">
           <el-col :span="24" >
-            <el-form-item label="上级部门" prop="parentId">
+            <el-form-item label="上级组织" prop="parentId">
               <el-cascader
                 v-model="state.ruleForm.parentId"
-                :options="state.deptOptions"
+                :options="state.organizationOptions"
                 class="w100"
                 :props="{
-                  value: 'deptId',
-                  label: 'deptName',
+                  value: 'organizationId',
+                  label: 'organizationName',
                   checkStrictly: true,
                   emitPath: false,
                 }"
                 clearable
-                placeholder="选择上级部门"
+                placeholder="选择上级组织"
                 :show-all-levels="false"
               ></el-cascader>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
-            <el-form-item label="部门名称" prop="deptName">
+            <el-form-item label="组织名称" prop="organizationName">
               <el-input
-                v-model="state.ruleForm.deptName"
-                placeholder="请输入部门名称"
+                v-model="state.ruleForm.organizationName"
+                placeholder="请输入组织名称"
                 clearable
               ></el-input>
             </el-form-item>
@@ -67,7 +67,7 @@
           </el-col>
 
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
-            <el-form-item label="部门状态" prop="status">
+            <el-form-item label="组织状态" prop="status">
               <el-radio-group v-model="state.ruleForm.status">
                 <el-radio
                   v-for="dict in state.statusOptions"
@@ -79,10 +79,10 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" >
-            <el-form-item label="部门排序" prop="sort">
+            <el-form-item label="组织排序" prop="sort">
               <el-input-number
                 v-model="state.ruleForm.sort"
-                placeholder="部门排序"
+                placeholder="组织排序"
                 clearable
                 controls-position="right"
                 :min="0"
@@ -105,7 +105,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref, unref, getCurrentInstance } from "vue";
-import { treeselect, updateDept, addDept } from "@/api/system/dept";
+import { treeselect, updateOrganization, addOrganization } from "@/api/system/organization";
 import { ElMessage } from "element-plus";
 
 const props = defineProps({
@@ -120,34 +120,34 @@ const state = reactive({
   // 是否显示弹出层
   isShowDialog: false,
   loading: false,
-  // 部门对象
+  // 组织对象
   ruleForm: {
-    deptId: 0, // 部门ID
-    deptName: "", // 部门名称
-    parentId: 0, // 父部门ID
-    sort: 0, // 部门排序
-    status: "", //部门状态
-    leader: "", // 部门负责人
+    organizationId: 0, // 组织ID
+    organizationName: "", // 组织名称
+    parentId: 0, // 父组织ID
+    sort: 0, // 组织排序
+    status: "", //组织状态
+    leader: "", // 组织负责人
     phone: "", // 联系电话
     email: "", // 邮箱
   },
-  // 部门状态数据字典
+  // 组织状态数据字典
   statusOptions: [],
-  // 部门树选项
-  deptOptions: [],
+  // 组织树选项
+  organizationOptions: [],
   // 表单校验
   ruleRules: {
-    deptName: [
-      { required: true, message: "部门名称不能为空", trigger: "blur" },
+    organizationName: [
+      { required: true, message: "组织名称不能为空", trigger: "blur" },
     ],
     parentId: [
-      { required: true, message: "父部门不能为空", trigger: "blur" },
+      { required: true, message: "父组织不能为空", trigger: "blur" },
     ],
     status: [
-      { required: true, message: "部门状态不能为空", trigger: "blur" },
+      { required: true, message: "组织状态不能为空", trigger: "blur" },
     ],
     sort: [
-      { required: true, message: "部门顺序不能为空", trigger: "blur" },
+      { required: true, message: "组织顺序不能为空", trigger: "blur" },
     ],
     email: [
       {
@@ -171,25 +171,25 @@ const openDialog = (row: any) => {
 
   state.isShowDialog = true;
   state.loading = false;
-  // 查询部门状态数据字典
+  // 查询组织状态数据字典
   proxy.getDicts("sys_normal_disable").then((response: any) => {
     state.statusOptions = response.data;
   });
 
-  // 查询部门下拉树结构
+  // 查询组织下拉树结构
   treeselect().then((response: any) => {
-    state.deptOptions = [];
+    state.organizationOptions = [];
     //const dataList = response.data;
-    const dept = { deptId: 0, deptName: '主类目', children: [] }
-    dept.children = response.data
-    state.deptOptions.push(dept)
-    //state.deptOptions = dataList;
+    const organization = { organizationId: 0, organizationName: '主类目', children: [] }
+    organization.children = response.data
+    state.organizationOptions.push(organization)
+    //state.organizationOptions = dataList;
   });
 };
 
 // 关闭弹窗
 const closeDialog = (row?: object) => {
-  proxy.mittBus.emit("onEditDeptModule",row)
+  proxy.mittBus.emit("onEditOrganizationModule",row)
   state.isShowDialog = false;
 };
 // 取消
@@ -204,14 +204,14 @@ const onSubmit = () => {
   formWrap.validate((valid: boolean) => {
     if (valid) {
       state.loading = true;
-      if (state.ruleForm.deptId != undefined && state.ruleForm.deptId != 0) {
-        updateDept(state.ruleForm).then((response) => {
+      if (state.ruleForm.organizationId != undefined && state.ruleForm.organizationId != 0) {
+        updateOrganization(state.ruleForm).then((response) => {
           ElMessage.success("修改成功");
           state.loading = false;
           closeDialog(state.ruleForm); // 关闭弹窗
         });
       } else {
-        addDept(state.ruleForm).then((response) => {
+        addOrganization(state.ruleForm).then((response) => {
           ElMessage.success("新增成功");
           state.loading = false;
           closeDialog(state.ruleForm); // 关闭弹窗

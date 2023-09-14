@@ -4,7 +4,7 @@
       <div class='card-header'>
         <div class='tree-h-flex'>
           <div class='tree-h-left'>
-            <el-input :prefix-icon='Search' v-model='filterText' placeholder='部门名称' />
+            <el-input :prefix-icon='Search' v-model='filterText' placeholder='组织名称' />
           </div>
           <div class='tree-h-right'>
             <el-dropdown @command='handleCommand'>
@@ -36,12 +36,12 @@
 import { defineExpose, onMounted, reactive, ref, watch } from 'vue';
 import type { ElTree } from 'element-plus';
 import { Search, MoreFilled } from '@element-plus/icons-vue';
-import { treeselect } from "@/api/system/dept";
+import { treeselect } from "@/api/system/organization";
 
 
 interface Tree {
-  deptId: number;
-  deptName: string;
+  organizationId: number;
+  organizationName: string;
   children?: Tree[];
 }
 
@@ -60,7 +60,7 @@ watch(filterText, (val) => {
 
 const filterNode = (value: string, data: Tree) => {
   if (!value) return true;
-  return data.deptName.includes(value);
+  return data.organizationName.includes(value);
 };
 
 
@@ -82,12 +82,12 @@ const handleCommand =async (command: string | number | object) => {
   }else if('refresh' == command){
     await initTreeData();
   }else if('rootNode' == command){
-    emits('node-click', { deptId: '', name: '' });
+    emits('node-click', { organizationId: '', name: '' });
   }
 };
 
 
-/** 查询部门下拉树结构 */
+/** 查询组织下拉树结构 */
 const initTreeData = async () => {
   treeselect().then((response) => {
     state.data = response.data;
@@ -108,7 +108,7 @@ onMounted(() => {
 //region 与父组件的交互逻辑
 const emits = defineEmits(['node-click']);
 const nodeClick = (node:any) => {
-  emits('node-click', { id: node.id, name: node.deptName });
+  emits('node-click', { id: node.id, name: node.organizationName });
 };
 
 const init = async () => {

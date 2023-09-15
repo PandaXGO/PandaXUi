@@ -289,7 +289,6 @@ defineExpose({
 }
 
 .uploader-image{
-  width: 120px;
   height: 120px;
 }
 </style>

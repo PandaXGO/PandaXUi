@@ -6,13 +6,7 @@
         align="center"
         :span="2"
     >
-      <el-image :src="baseURL + '/upload/get/'+ rowData.photoUrl" class="uploader-image" fit="fill">
-        <template #error>
-          <div class="image-slot">
-            <el-image :src="rowData.deviceType ==='direct' ? monitorImg : rowData.deviceType ==='gatewayS' ? gatewayDImg : gatewayImg" fit="fill" />
-          </div>
-        </template>
-      </el-image>
+      <el-image :src="getImage(rowData)" class="uploader-image" fit="fill"></el-image>
     </el-descriptions-item>
     <el-descriptions-item label="产品ID" align="center" width="100">{{rowData.id}}</el-descriptions-item>
     <el-descriptions-item label="产品名称" align="center" width="100">{{rowData.name}}</el-descriptions-item>
@@ -48,6 +42,11 @@ const props = defineProps({
   },
 })
 const baseURL = import.meta.env.VITE_API_URL
+
+
+const getImage = (row:any) => {
+  return row.photoUrl ? baseURL + '/upload/get/'+ row.photoUrl : row.deviceType ==='direct' ? monitorImg : row.deviceType ==='gatewayS' ? gatewayDImg : gatewayImg
+}
 </script>
 
 <style scoped>

@@ -102,13 +102,7 @@
                   </div>
                   <div class="ft-body">
                     <div class="ft-body-image" >
-                      <el-image :src="baseURL + '/upload/get/'+ data.product.photoUrl" :preview-src-list="[baseURL + '/upload/get/'+ data.product.photoUrl]" :initial-index="0" :zoom-rate="1.2" fit="fill">
-                        <template #error>
-                          <div class="image-slot">
-                            <el-image :src="data.deviceType ==='direct' ? monitorImg : data.deviceType ==='gatewayS' ? gatewayDImg : gatewayImg" fit="fill" />
-                          </div>
-                        </template>
-                      </el-image>
+                      <el-image :src="getImage(data)" :preview-src-list="[getImage(data)]" :initial-index="0" :zoom-rate="1.2" fit="fill"></el-image>
                     </div>
                     <div class="ft-body-item">
                       <div class="item-mb">设备分组： {{data.deviceGroup.name}}</div>
@@ -319,6 +313,9 @@ const getTreeselect = async () => {
   });
 };
 
+const getImage = (row:any) => {
+  return row.product.photoUrl ? baseURL + '/upload/get/'+ row.product.photoUrl : row.deviceType ==='direct' ? monitorImg : row.deviceType ==='gatewayS' ? gatewayDImg : gatewayImg
+}
 
 watch(
     () => state.groupName,

@@ -78,3 +78,12 @@ export function delDevice(id: string) {
         method: 'delete'
     })
 }
+
+// 查询Device详细
+export function allotDevice(id:string,query:any) {
+    return request({
+        url: '/device/' + id+'/allot/org',
+        method: 'get',
+        params: query
+    })
+}

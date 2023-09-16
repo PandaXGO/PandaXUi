@@ -134,8 +134,13 @@
                         <el-button type="primary" circle size="small"><SvgIcon name="elementStar"/></el-button>
                       </template>
                       <div>
+                        <el-button text type="primary" v-auth="'device:device:allot'" @click="onAllotDevice(data)">
+                          <SvgIcon name="elementConnection" />分配组织
+                        </el-button>
+                      </div>
+                      <div>
                         <el-button text type="primary" v-auth="'device:device:view'" @click="onViewDevice(data)">
-                          <SvgIcon name="elementConnection" />查看
+                          <SvgIcon name="elementView" />查看
                         </el-button>
                       </div>
                       <div>
@@ -173,6 +178,7 @@
     <!-- 添加或修改岗位对话框 -->
     <EditModule ref="editModuleRef" :title="state.title" />
     <View ref="viewRef" />
+    <Allot ref="allotRef"/>
   </div>
 </template>
 
@@ -188,6 +194,7 @@ import { ElMessageBox, ElMessage } from "element-plus";
 import {listDevice, delDevice, updateDevice} from "@/api/device/device";
 import EditModule from "./component/editModule.vue";
 import View from "./component/view.vue";
+import Allot from "./component/allot.vue";
 import {listDeviceGroupTreeLabel} from "@/api/device/device_group";
 import {listProductAll} from "@/api/device/product";
 
@@ -199,6 +206,7 @@ const baseURL = import.meta.env.VITE_API_URL
 const { proxy } = getCurrentInstance() as any;
 const editModuleRef = ref();
 const viewRef = ref();
+const allotRef = ref();
 const state = reactive({
   // 遮罩层
   loading: true,
@@ -275,6 +283,11 @@ const onOpenEditModule = (row: object) => {
   state.title = "修改设备";
   editModuleRef.value.openDialog(row);
 };
+
+const onAllotDevice = (row: object) => {
+  allotRef.value.openDialog(row);
+}
+
 // 打开视图
 const onViewDevice = (row: object) => {
   viewRef.value.openDrawer(row);

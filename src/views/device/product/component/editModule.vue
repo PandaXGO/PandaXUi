@@ -79,12 +79,6 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="自学习" prop="selfLearn">
-              <el-switch v-model="state.ruleForm.selfLearn" />
-            </el-form-item>
-          </el-col>
-
           <el-col :span="24">
             <el-form-item label="产品说明" prop="description">
               <el-input v-model="state.ruleForm.description" :rows="4" type="textarea" placeholder="请输入产品说明" />
@@ -138,7 +132,6 @@ const state = reactive({
     description: "",
     name: "",
     photoUrl: "",
-    selfLearn: undefined,
   },
   categoryOptions: undefined,
   ruleOptions: undefined,

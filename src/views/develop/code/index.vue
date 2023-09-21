@@ -315,11 +315,11 @@ const resetQuery = () => {
   handleQuery();
 };
 
-const handleCurrentChange = (val: number) => {
+const handleCurrentChange = (val) => {
   state.queryParams.pageNum = val
   handleQuery()
 }
-const handleSizeChange = (val: number) => {
+const handleSizeChange = (val) => {
   state.queryParams.pageSize = val
   handleQuery()
 }

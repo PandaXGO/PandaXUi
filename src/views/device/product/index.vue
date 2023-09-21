@@ -98,7 +98,7 @@
               <el-card :body-style="{ padding: '0px' }" class="ft-card">
                 <div class="ft-head">
                   <div class="ft-tag">
-                    <el-tag class="ml-3" type="warning">{{data.selfLearn ? "自学习": "非自学习"}}</el-tag>
+                    <el-tag class="ml-3" type="primary">{{data.status == '0' ? "正常": "禁用"}}</el-tag>
                     <el-tag class="ml-3" type="success">{{data.protocolName}}</el-tag>
                   </div>
                   <div class="ft-body">

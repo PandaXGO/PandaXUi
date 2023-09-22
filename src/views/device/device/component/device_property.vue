@@ -6,7 +6,7 @@
     <el-tabs v-model="activeName" :tab-position="tabPosition" type="border-card" style="height: 700px" @tab-change="changTab">
       <el-tab-pane label="属性" name="attributes">
         <div style="display: flex;flex-wrap: wrap;">
-          <el-card v-for="status in deviceStatusOptions" style="width: 300px;margin: 10px;">
+          <el-card v-if="deviceStatusOptions.length > 0" v-for="status in deviceStatusOptions" style="width: 300px;margin: 10px;">
             <template #header>
               <div style="display: flex;justify-content: space-between;">
                 <div style="font-size: large">{{status.name}}</div>
@@ -22,12 +22,13 @@
               {{ dateStrFormat(status.time) }}
             </div>
           </el-card>
+          <el-empty v-else description="请去产品中设置属性" style="margin-left: 40%;"/>
         </div>
 
       </el-tab-pane>
       <el-tab-pane label="遥测" name="telemetry">
         <div style="display: flex;flex-wrap: wrap;">
-          <el-card v-for="status in deviceStatusOptions" style="width: 300px;margin: 10px;">
+          <el-card v-if="deviceStatusOptions.length > 0" v-for="status in deviceStatusOptions" style="width: 300px;margin: 10px;">
             <template #header>
               <div style="display: flex;justify-content: space-between;">
                 <div style="font-size: large">{{status.name}}</div>
@@ -39,12 +40,13 @@
               </div>
             </template>
             <div style="margin-bottom: 10px;font-weight: bold;font-size: 20px">
-              {{status.value ? status.value : "遥测未上报"}} {{(status.type ==='int64'|| status.type ==='float64') ? status.define.unit: ''}}
+              {{status.value ? status.value : "遥测未上报"}} {{( status.value  && (status.type ==='int64'|| status.type ==='float64')) ? status.define.unit: ''}}
             </div>
             <div>
-              {{ dateStrFormat(status.time) }}
+              {{ status.time ? dateStrFormat(status.time) : '' }}
             </div>
           </el-card>
+          <el-empty v-else description="请去产品中设置遥测" style="margin-left: 40%;"/>
         </div>
       </el-tab-pane>
     </el-tabs>
@@ -140,7 +142,7 @@ const props:any = defineProps({
 const time = new Date()
 const startTime = new Date(time.setDate(time.getDate()-7))
 const loading = ref(false)
-const deviceStatusOptions = ref()
+const deviceStatusOptions = ref([])
 const devicePropertyHistoryOptions = ref([])
 const tabPosition = ref('left')
 const activeName = ref('attributes')
@@ -172,6 +174,7 @@ const showHistory = (row:any) => {
   isShowHistoryDialog.value = true
   currentProperty.value = row
   historyForm.value.key = row.key
+  timeValue.value = [startTime, new Date()]
   nextTick(()=>{
     getPropertyHistory()
   })

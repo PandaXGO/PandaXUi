@@ -26,6 +26,14 @@ export function getProduct(id:number) {
     })
 }
 
+// 查询Product详细
+export function getProductTsl(id:number) {
+    return request({
+        url: '/device/product/' + id+'/tsl',
+        method: 'get'
+    })
+}
+
 // 新增Product
 export function addProduct(data:any) {
     return request({

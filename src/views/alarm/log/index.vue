@@ -127,7 +127,7 @@
     </el-card>
     <el-dialog v-model="state.isShowDialog" width="769px" title="告警原始数据" center draggable>
       <div class="json-viewer">
-        <pre>{{ state.alarmDetail }}</pre>
+        <Codemirror ref="cmEditor" :value="state.alarmDetail" border :options="state.cmOptions"/>
       </div>
       <template #footer>
         <span class="dialog-footer">
@@ -142,6 +142,9 @@
 import { onMounted, reactive,ref} from "vue";
 import {listAlarm, updateAlarm} from "@/api/device/device_alarm";
 import {formatDate} from "@/utils/formatTime";
+import Codemirror from "codemirror-editor-vue3";
+import "codemirror/mode/javascript/javascript.js";
+import "codemirror/theme/dracula.css";
 
 const stateOption = [{
   label: "告警中",
@@ -175,6 +178,14 @@ const levelOption = [{
 const defaultTime = new Date()
 const timeValue = ref([])
 const state = reactive({
+  cmOptions: {
+    tabSize: 4,
+    theme: 'dracula',
+    mode: 'text/javascript',
+    lineNumbers: false,
+    line: true,
+    styleActiveLine: true,
+  },
   // 遮罩层
   loading: false,
   // 表格数据
@@ -194,7 +205,7 @@ const state = reactive({
     endTime: "",
   },
   isShowDialog: false,
-  alarmDetail: {},
+  alarmDetail: '',
 });
 // 查询列表
 const handleQuery = () => {
@@ -229,14 +240,14 @@ const handleSizeChange = (val: number) => {
   handleQuery()
 }
 
-const onOpenAlarm = (row: object) => {
+const onOpenAlarm = (row: any) => {
   // 修改告警状态为 已确认
   if (row.state === "0"){
     row.state = "1"
     updateAlarm(row)
   }
   state.isShowDialog = true
-  state.alarmDetail = JSON.parse(row.details)
+  state.alarmDetail = JSON.stringify(JSON.parse(row.details), null,2 )
 }
 
 const onCloseAlarm = (row: object) => {
@@ -253,10 +264,5 @@ onMounted(()=>{
 <style scoped>
 .json-viewer {
   height: 400px;
-  font-family: monospace;
-  color: #000000d9;
-  font-size: 18px;
-  overflow: auto;
-  white-space: nowrap;
 }
 </style>

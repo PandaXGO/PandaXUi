@@ -20,37 +20,64 @@
           </div>
         </div>
       </el-col>
-      <el-col :sm="6" class="mb15" v-for="(v, k) in state.topCardItemList" :key="k">
-        <div class="home-card-item home-card-item-box" :style="{ background: v.color }">
+      <el-col :sm="6" class="mb15">
+        <div class="home-card-item home-card-item-box" :style="{ background: state.colors[0] }">
           <div class="home-card-item-flex">
-            <div class="home-card-item-title pb3">{{ v.title }}</div>
-            <div class="home-card-item-title-num pb6">{{ v.titleNum }}</div>
-            <div class="home-card-item-tip pb3">{{ v.tip }}</div>
-            <div class="home-card-item-tip-num">{{ v.tipNum }}</div>
+            <div class="home-card-item-title pb3">设备总数</div>
+            <div class="home-card-item-title-num pb6">{{state.devicePanel.deviceInfo.total}} 个</div>
+            <div class="home-card-item-tip pb3">今日新增</div>
+            <div class="home-card-item-tip-num">{{state.devicePanel.deviceInfo.todayAdd}} 个</div>
           </div>
-          <i :class="v.icon" :style="{ color: v.iconColor }"></i>
+          <i class="iconfont icon-jinridaiban" :style="{ color: '#14DAB2' }"></i>
+        </div>
+      </el-col>
+      <el-col :sm="6" class="mb15">
+        <div class="home-card-item home-card-item-box" :style="{ background: state.colors[1] }">
+          <div class="home-card-item-flex">
+            <div class="home-card-item-title pb3">产品总数</div>
+            <div class="home-card-item-title-num pb6">{{state.devicePanel.productInfo.total}} 个</div>
+            <div class="home-card-item-tip pb3">今日新增</div>
+            <div class="home-card-item-tip-num">{{state.devicePanel.productInfo.todayAdd}} 个</div>
+          </div>
+          <i class="iconfont icon-AIshiyanshi" :style="{ color: '#92A1F4' }"></i>
+        </div>
+      </el-col>
+      <el-col :sm="6" class="mb15">
+        <div class="home-card-item home-card-item-box" :style="{ background: state.colors[2] }">
+          <div class="home-card-item-flex">
+            <div class="home-card-item-title pb3">告警总数</div>
+            <div class="home-card-item-title-num pb6">{{state.devicePanel.alarmInfo.total}} 个</div>
+            <div class="home-card-item-tip pb3">今日新增</div>
+            <div class="home-card-item-tip-num">{{state.devicePanel.alarmInfo.todayAdd}} 个</div>
+          </div>
+          <i class="iconfont icon-shenqingkaiban" :style="{ color: '#DE5C2C' }"></i>
         </div>
       </el-col>
     </el-row>
     <el-row :gutter="15">
-      <el-col :xs="24" :sm="14" :md="14" :lg="16" :xl="16" class="mb15">
-        <el-card shadow="hover" :header="$t('message.card.title1')">
-          <div style="height: 200px" ref="homeLaboratoryRef"></div>
+      <el-col :xs="24" :sm="16" :md="16" :lg="12" :xl="12">
+        <el-card shadow="hover" header="设备状态统计">
+          <el-row class="home-monitor">
+            <el-col :span="12"><div style="height: 100%" ref="deviceCountRef"></div></el-col>
+            <el-col :span="12">
+              <div style="display: flex; flex-direction: column; align-items: center; margin-top: 18%">
+                <div style="font-size: 16px;margin-bottom: 15px">在线设备： <strong>{{ state.onLineCount }}</strong>个</div>
+                <div style="font-size: 16px;margin-bottom: 15px">离线设备： <strong>{{ state.offLineCount }}</strong>个</div>
+                <div style="font-size: 16px;margin-bottom: 15px">未激活设备： <strong>{{ state.inactiveCount}}</strong>个</div>
+              </div>
+            </el-col>
+          </el-row>
         </el-card>
       </el-col>
-      <el-col :xs="24" :sm="10" :md="10" :lg="8" :xl="8">
-        <el-card shadow="hover" :header="$t('message.card.title2')">
+      <el-col :xs="24" :sm="16" :md="16" :lg="12" :xl="12">
+        <el-card shadow="hover" header="设备类型统计">
           <div class="home-monitor">
             <div class="flex-warp">
-              <div
-                class="flex-warp-item"
-                v-for="(v, k) in state.environmentList"
-                :key="k"
-              >
-                <div class="flex-warp-item-box">
-                  <i :class="v.icon" :style="{ color: v.iconColor }"></i>
-                  <span class="pl5">{{ v.label }}</span>
-                  <div class="mt10">{{ v.value }}</div>
+              <div class="flex-warp-item" v-for="(v, k) in state.devicePanel.deviceCountType" :key="k">
+                <div class="flex-warp-item-box" style="font-size: 16px">
+                  <i class="iconfont icon-yangan" :style="{ color: state.colors[k] }"></i>
+                  <span class="pl5" >{{ v.deviceType === 'deviceType' ? '直连设备': v.deviceType === 'gatewayS' ? '网关子设备': '网关设备' }}</span>
+                  <div class="mt10"><strong>{{ v.deviceTotal }}</strong> 个</div>
                 </div>
               </div>
             </div>
@@ -58,62 +85,10 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-row :gutter="15">
-      <el-col :xs="24" :sm="14" :md="14" :lg="16" :xl="16" class="home-warning-media">
-        <el-card
-          shadow="hover"
-          :header="$t('message.card.title3')"
-          class="home-warning-card"
-        >
-          <el-table :data="state.tableData.data" style="width: 100%" stripe>
-            <el-table-column
-              prop="date"
-              :label="$t('message.table.th1')"
-            ></el-table-column>
-            <el-table-column
-              prop="name"
-              :label="$t('message.table.th2')"
-            ></el-table-column>
-            <el-table-column
-              prop="address"
-              :label="$t('message.table.th3')"
-            ></el-table-column>
-          </el-table>
-        </el-card>
-      </el-col>
-      <el-col :xs="24" :sm="10" :md="10" :lg="8" :xl="8" class="home-dynamic-media">
-        <el-card shadow="hover" :header="$t('message.card.title4')">
-          <div class="home-dynamic">
-            <el-scrollbar>
-              <div
-                class="home-dynamic-item"
-                v-for="(v, k) in state.activitiesList"
-                :key="k"
-              >
-                <div class="home-dynamic-item-left">
-                  <div class="home-dynamic-item-left-time1 mb5">{{ v.time1 }}</div>
-                  <div class="home-dynamic-item-left-time2">{{ v.time2 }}</div>
-                </div>
-                <div class="home-dynamic-item-line">
-                  <i class="iconfont icon-fangkuang"></i>
-                </div>
-                <div class="home-dynamic-item-right">
-                  <div class="home-dynamic-item-right-title mb5">
-                    <SvgIcon name="elementComment" />
-                    <span>{{ v.title }}</span>
-                  </div>
-                  <div class="home-dynamic-item-right-label">{{ v.label }}</div>
-                </div>
-              </div>
-            </el-scrollbar>
-          </div>
-        </el-card>
-      </el-col>
-    </el-row>
     <el-row>
       <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mt15">
         <el-card shadow="hover" :header="$t('message.card.title5')">
-          <div style="height: 200px" ref="homeOvertimeRef"></div>
+          <div style="height: 260px" ref="homeOvertimeRef"></div>
         </el-card>
       </el-col>
     </el-row>
@@ -131,20 +106,27 @@ import {
   onActivated,
 } from "vue";
 import * as echarts from "echarts";
-import { CountUp } from "countup.js";
 import { formatAxis } from "@/utils/formatTime";
 import { useTagsViewRoutesStore } from "@/stores/tagsViewRoutes";
 import { useUserInfosState } from "@/stores/userInfos";
-import { topCardItemList, environmentList, activitiesList } from "./mock";
+import {getDevicePanel} from "@/api/device/device";
 
 const { proxy } = getCurrentInstance() as any;
 
 const tagsViewRoutes = useTagsViewRoutesStore();
 const userInfos = useUserInfosState();
 const state = reactive({
-  topCardItemList,
-  environmentList,
-  activitiesList,
+  devicePanel: {
+    deviceInfo: {},
+    productInfo: {},
+    alarmInfo: {},
+    deviceLinkStatusInfo: [],
+    deviceCountType: [],
+  },
+  colors: ['#3DD2B4','#8595F4','#E88662'],
+  onLineCount: 0,
+  offLineCount: 0,
+  inactiveCount: 0,
   tableData: {
     data: [
       {
@@ -166,6 +148,17 @@ const state = reactive({
   },
   myCharts: [],
 });
+
+
+const getPanelData = () => {
+  getDevicePanel().then((res:any) => {
+    if (res.code === 200){
+      state.devicePanel = res.data
+      initDeviceCount()
+    }
+  })
+}
+
 // 获取用户信息 pinia
 const getUserInfos = computed(() => {
   return userInfos.userInfos;
@@ -175,85 +168,54 @@ const currentTime = computed(() => {
   return formatAxis(new Date());
 });
 
-// 商品销售情
-const initHomeLaboratory = () => {
-  const myChart = echarts.init(proxy.$refs.homeLaboratoryRef);
+const initDeviceCount = () => {
+  const myChart = echarts.init(proxy.$refs.deviceCountRef);
+
+  let data = []
+  let statusName = '未知'
+  state.devicePanel.deviceLinkStatusInfo.forEach((item,index)=>{
+    if (item.linkStatus === 'online'){
+      statusName = "在线设备"
+      state.onLineCount = item.deviceTotal || 0
+    }
+    if (item.linkStatus === 'offline'){
+      statusName = "离线设备"
+      state.offLineCount = item.deviceTotal || 0
+    }
+    if (item.linkStatus === 'inactive'){
+      statusName = "未激活设备"
+      state.inactiveCount = item.deviceTotal || 0
+    }
+    data.push({ value: item.deviceTotal, name: statusName,itemStyle:{color: state.colors[index]} })
+  })
+
   const option = {
     grid: {
       top: 50,
       right: 20,
-      bottom: 30,
+      bottom: 5,
       left: 30,
     },
-    tooltip: {
-      trigger: "axis",
-    },
-    legend: {
-      data: ["消息量", "预警量"],
-      right: 13,
-    },
-    xAxis: {
-      data: [
-        "1月",
-        "2月",
-        "3月",
-        "4月",
-        "5月",
-        "6月",
-        "7月",
-        "8月",
-        "9月",
-        "10月",
-        "11月",
-        "12月",
-      ],
-    },
-    yAxis: [
-      {
-        type: "value",
-        name: "消息数量",
-      },
-    ],
     series: [
       {
-        name: "消息量",
-        type: "bar",
-        data: [200, 85, 112, 275, 305, 415, 441, 405, 275, 305, 415, 441],
-        itemStyle: {
-          barBorderRadius: [4, 4, 0, 0],
-          color: {
-            x: 0,
-            y: 0,
-            x2: 0,
-            y2: 1,
-            type: "linear",
-            global: false,
-            colorStops: [
-              {
-                offset: 0,
-                color: "#3DD2B4",
-              },
-              {
-                offset: 1,
-                color: "#63caff",
-              },
-            ],
-          },
-        },
-      },
-      {
-        name: "预警量",
-        type: "line",
-        data: [5, 8, 22, 15, 17, 25, 22, 24, 2, 3, 4, 6],
-        itemStyle: {
-          color: "#E88662",
-        },
-      },
-    ],
-  };
+        name: '设备数量统计',
+        type: 'pie',
+        radius: '50%',
+        data: data,
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }
+    ]
+  }
   myChart.setOption(option);
   state.myCharts.push(myChart);
-};
+}
+
 // 履约超时预警
 const initHomeOvertime = () => {
   const myChart = echarts.init(proxy.$refs.homeOvertimeRef);
@@ -261,7 +223,7 @@ const initHomeOvertime = () => {
     grid: {
       top: 50,
       right: 20,
-      bottom: 30,
+      bottom: 5,
       left: 30,
     },
     tooltip: {
@@ -333,7 +295,8 @@ const initEchartsResize = () => {
 };
 // 页面加载时
 onMounted(() => {
-  initHomeLaboratory();
+  getPanelData()
+  //initDeviceCount();
   initHomeOvertime();
   initEchartsResize();
 });
@@ -424,7 +387,7 @@ watch(
     }
   }
   .home-monitor {
-    height: 200px;
+    height: 240px;
     .flex-warp-item {
       width: 50%;
       height: 100px;

@@ -1,5 +1,13 @@
 import request from '@/utils/request';
 
+// 查询Device统计面板
+export function getDevicePanel() {
+    return request({
+        url: '/device/panel',
+        method: 'get',
+    })
+}
+
 // 查询Device列表
 export function listDevice(query:any) {
     return request({

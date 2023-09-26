@@ -21,10 +21,7 @@
     </el-descriptions>
 
     <el-descriptions v-if="rowData.token" title="MQTT认证配置" :column="2" border style="margin-top: 20px">
-      <el-descriptions-item label="username" align="center" width="100">{{rowData.id}}</el-descriptions-item>
-      <el-descriptions-item label="password" align="center" width="100">
-        {{rowData.token}}
-      </el-descriptions-item>
+      <el-descriptions-item label="AuthToken" align="center" width="100">{{rowData.token}}</el-descriptions-item>
     </el-descriptions>
   </div>
 </template>

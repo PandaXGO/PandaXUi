@@ -62,28 +62,3 @@ export const environmentList = [
 		iconColor: '#FBD4A0',
 	},
 ];
-
-/**
- * 动态信息
- * @returns 返回模拟数据
- */
-export const activitiesList = [
-	{
-		time1: '今天',
-		time2: '12:20:30',
-		title: '更名',
-		label: '正式更名为 PandaUi',
-	},
-	{
-		time1: '02-17',
-		time2: '12:20:30',
-		title: '页面',
-		label: '完成对首页的开发',
-	},
-	{
-		time1: '02-14',
-		time2: '12:20:30',
-		title: '页面',
-		label: '新增个人中心',
-	},
-];

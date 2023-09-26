@@ -1,5 +1,13 @@
 import request from '@/utils/request';
 
+
+export function getAlarmPanel() {
+    return request({
+        url: '/device/alarm/panel',
+        method: 'get',
+    })
+}
+
 // 查询告警列表
 export function listAlarm(query:any) {
     return request({

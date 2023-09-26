@@ -80,6 +80,13 @@
                   <div class="mt10"><strong>{{ v.deviceTotal }}</strong> 个</div>
                 </div>
               </div>
+              <div class="flex-warp-item">
+                <div class="flex-warp-item-box" style="font-size: 16px">
+                  <i class="iconfont icon-yangan" :style="{ color: '#d37495' }"></i>
+                  <span class="pl5" >摄像头设备</span>
+                  <div class="mt10"><strong>0</strong> 个</div>
+                </div>
+              </div>
             </div>
           </div>
         </el-card>
@@ -87,7 +94,7 @@
     </el-row>
     <el-row>
       <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mt15">
-        <el-card shadow="hover" :header="$t('message.card.title5')">
+        <el-card shadow="hover" header="告警折线图">
           <div style="height: 260px" ref="homeOvertimeRef"></div>
         </el-card>
       </el-col>
@@ -106,10 +113,11 @@ import {
   onActivated,
 } from "vue";
 import * as echarts from "echarts";
-import { formatAxis } from "@/utils/formatTime";
+import {dateFormat, formatAxis, formatDate} from "@/utils/formatTime";
 import { useTagsViewRoutesStore } from "@/stores/tagsViewRoutes";
 import { useUserInfosState } from "@/stores/userInfos";
 import {getDevicePanel} from "@/api/device/device";
+import {getAlarmPanel} from "@/api/device/device_alarm";
 
 const { proxy } = getCurrentInstance() as any;
 
@@ -123,29 +131,11 @@ const state = reactive({
     deviceLinkStatusInfo: [],
     deviceCountType: [],
   },
+  deviceAlarmPanel: [],
   colors: ['#3DD2B4','#8595F4','#E88662'],
   onLineCount: 0,
   offLineCount: 0,
   inactiveCount: 0,
-  tableData: {
-    data: [
-      {
-        date: "2023-08-02",
-        name: "烟感报警器",
-        address: "烟感2.1%OBS/M",
-      },
-      {
-        date: "2023-07-04",
-        name: "温度传感器",
-        address: "温度30℃",
-      },
-      {
-        date: "2023-07-01",
-        name: "湿度传感器",
-        address: "湿度57%RH",
-      },
-    ],
-  },
   myCharts: [],
 });
 
@@ -155,6 +145,12 @@ const getPanelData = () => {
     if (res.code === 200){
       state.devicePanel = res.data
       initDeviceCount()
+    }
+  })
+  getAlarmPanel().then((res:any)=>{
+    if (res.code === 200){
+      state.deviceAlarmPanel = res.data
+      initDeviceAlarmCount()
     }
   })
 }
@@ -167,6 +163,51 @@ const getUserInfos = computed(() => {
 const currentTime = computed(() => {
   return formatAxis(new Date());
 });
+
+const initDeviceAlarmCount = () => {
+  const myChart = echarts.init(proxy.$refs.homeOvertimeRef);
+  let data = []
+  const seriesData = []
+  state.deviceAlarmPanel.forEach((res,index)=>{
+    data.push(formatDate(new Date(res.date), 'YYYY-mm-dd' ))
+    seriesData.push(res.count)
+  })
+  const option = {
+    xAxis: {
+      type: 'category',
+      boundaryGap: false,
+      data:  data
+    },
+    yAxis: {
+      type: 'value'
+    },
+    tooltip: {
+      trigger: 'axis'
+    },
+    legend: {
+      data: ['告警总数']
+    },
+    grid: {
+      left: '1%',
+      right: '1%',
+      bottom: '2%',
+      containLabel: true
+    },
+    series: [
+      {
+        name: '告警总数',
+        data: seriesData,
+        type: 'line',
+        areaStyle: {},
+        itemStyle: {
+          color: '#958fd3',
+        },
+      }
+    ]
+  }
+  myChart.setOption(option);
+  state.myCharts.push(myChart);
+}
 
 const initDeviceCount = () => {
   const myChart = echarts.init(proxy.$refs.deviceCountRef);
@@ -216,71 +257,6 @@ const initDeviceCount = () => {
   state.myCharts.push(myChart);
 }
 
-// 履约超时预警
-const initHomeOvertime = () => {
-  const myChart = echarts.init(proxy.$refs.homeOvertimeRef);
-  const option = {
-    grid: {
-      top: 50,
-      right: 20,
-      bottom: 5,
-      left: 30,
-    },
-    tooltip: {
-      trigger: "axis",
-    },
-    legend: {
-      data: ["预增数量", "超时数量", "在线数量", "预警数量"],
-      right: 13,
-    },
-    xAxis: {
-      data: [
-        "1月",
-        "2月",
-        "3月",
-        "4月",
-        "5月",
-        "6月",
-        "7月",
-        "8月",
-        "9月",
-        "10月",
-        "11月",
-        "12月",
-      ],
-    },
-    yAxis: [
-      {
-        type: "value",
-        name: "数量",
-      },
-    ],
-    series: [
-      {
-        name: "预增数量",
-        type: "bar",
-        data: [5, 20, 36, 10, 10, 20, 11, 13, 10, 9, 17, 19],
-      },
-      {
-        name: "超时数量",
-        type: "bar",
-        data: [15, 12, 26, 15, 11, 16, 31, 13, 5, 16, 13, 15],
-      },
-      {
-        name: "在线数量",
-        type: "line",
-        data: [15, 20, 16, 20, 30, 8, 16, 19, 12, 18, 19, 14],
-      },
-      {
-        name: "预警数量",
-        type: "line",
-        data: [10, 10, 13, 12, 15, 18, 19, 10, 12, 15, 11, 17],
-      },
-    ],
-  };
-  myChart.setOption(option);
-  state.myCharts.push(myChart);
-};
 // 批量设置 echarts resize
 const initEchartsResizeFun = () => {
   nextTick(() => {
@@ -296,8 +272,6 @@ const initEchartsResize = () => {
 // 页面加载时
 onMounted(() => {
   getPanelData()
-  //initDeviceCount();
-  initHomeOvertime();
   initEchartsResize();
 });
 // 由于页面缓存原因，keep-alive

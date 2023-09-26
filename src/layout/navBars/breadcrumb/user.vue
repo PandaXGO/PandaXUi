@@ -1,6 +1,6 @@
 <template>
   <div class="layout-navbars-breadcrumb-user" :style="{ flex: layoutUserFlexNum }">
-    <div>
+<!--    <div>
       <el-select  v-model='roleId' placeholder='切换角色' @change="portalChange" style='margin-right: 10px;width: 140px'>
         <el-option
             v-for='item in roles'
@@ -9,7 +9,7 @@
             :value='item.id'
         />
       </el-select>
-    </div>
+    </div>-->
     <el-dropdown
       :show-timeout="70"
       :hide-timeout="50"
@@ -132,7 +132,7 @@ export default {
     const route = useRoute();
     const router = useRouter();
     const theme = useThemeConfigStateStore();
-     
+
     const userInfos = useUserInfosState();
     const searchRef = ref();
     const state = reactive({

@@ -86,15 +86,15 @@
     </el-card>
     <el-dialog v-model="state.isShowCmdDetailDialog" width="769px" title="命令详情" center draggable>
       <div>
-         下发内容
+         下发内容:
         <div class="json-viewer">
-          <pre>{{ JSON.parse(state.cmdDetail.cmdContent) }}</pre>
+          <Codemirror ref="cmEditor" :value="state.cmdDetail.cmdContent" border :options="state.cmOptions"/>
         </div>
       </div>
       <div>
-        响应内容
+        响应内容:
         <div class="json-viewer">
-          <pre>{{ state.cmdDetail.responseContent ? JSON.parse(state.cmdDetail.responseContent) : "" }}</pre>
+          <Codemirror ref="cmEditor" :value="state.cmdDetail.responseContent" border :options="state.cmOptions"/>
         </div>
       </div>
       <template #footer>
@@ -141,6 +141,9 @@ import {onMounted, reactive,} from "vue";
 import {addCmd, listCmdLog} from "@/api/device/device_cmd";
 import {listTemplateAll} from "@/api/device/product_template";
 import {ElMessage} from "element-plus";
+import Codemirror from "codemirror-editor-vue3";
+import "codemirror/mode/javascript/javascript.js";
+import "codemirror/theme/dracula.css";
 
 const props:any = defineProps({
   rowData: {
@@ -159,6 +162,14 @@ const stateOption = [{
 }]
 
 const state = reactive({
+  cmOptions: {
+    tabSize: 4,
+    theme: 'dracula',
+    mode: 'text/javascript',
+    lineNumbers: false,
+    line: true,
+    styleActiveLine: true,
+  },
   // 遮罩层
   loading: false,
   // 表格数据
@@ -184,7 +195,10 @@ const state = reactive({
   },
   isShowDialog: false,
   isShowCmdDetailDialog: false,
-  cmdDetail: {}
+  cmdDetail: {
+    responseContent: "",
+    cmdContent: ""
+  }
 });
 // 查询列表
 const handleQuery = () => {
@@ -257,11 +271,5 @@ onMounted(()=>{
 }
 .json-viewer {
   height: 200px;
-  font-family: monospace;
-  font-family: monospace;
-  color: #000000d9;
-  font-size: 18px;
-  overflow: auto;
-  white-space: nowrap;
 }
 </style>

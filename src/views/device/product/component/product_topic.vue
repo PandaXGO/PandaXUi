@@ -52,7 +52,7 @@ const tableData = [
     stream: '上行',
     platform: '订阅',
     device: '发布',
-    describe: "设备端上报原始数据到服务端",
+    describe: "设备端上报原始数据到服务端(主要用作透传使用)",
   },
   {
     group: '设备属性',

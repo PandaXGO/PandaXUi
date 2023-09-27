@@ -64,7 +64,8 @@
               <el-select v-model="state.ruleForm.protocolName" placeholder="请选择">
                 <el-option label="MQTT" value="MQTT"></el-option>
                 <el-option label="CoAP" value="CoAP"></el-option>
-                <el-option label="WebSocket" value="WebSocket"></el-option>
+                <el-option label="TCP" value="TCP"></el-option>
+                <el-option label="HTTP" value="HTTP"></el-option>
                 <el-option label="LwM2M" value="LwM2M"></el-option>
               </el-select>
             </el-form-item>
@@ -128,7 +129,7 @@ const state = reactive({
     ruleChainId: "",
     id: "",
     owner: "",
-    protocolName: "",
+    protocolName: "Default",
     description: "",
     name: "",
     photoUrl: "",

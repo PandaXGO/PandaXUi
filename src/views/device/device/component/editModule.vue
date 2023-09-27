@@ -11,7 +11,7 @@
           label-width="80px"
       >
         <el-form-item label="设备编码" prop="name">
-          <el-input v-model="state.ruleForm.name" placeholder="以字母数字命名例如 iot2233c, 如果是摄像头设备填写国标设备ID" />
+          <el-input v-model="state.ruleForm.name" placeholder="以字母数字命名例如 iot2233c" />
         </el-form-item>
         <el-form-item label="设备别名" prop="alias">
           <el-input v-model="state.ruleForm.alias" placeholder="请输入设备别名, 中文名称" />

@@ -90,14 +90,7 @@ const tableData = [
     stream: '上行',
     platform: '订阅',
     device: '发布',
-    describe: "网关子设备连接上线",
-  },{
-    group: '网关子设备',
-    topic: "v1/gateway/disconnect",
-    stream: '上行',
-    platform: '订阅',
-    device: '发布',
-    describe: "网关子设备连接下线",
+    describe: "网关子设备连接上、下线（上线online,下线offline）",
   },{
     group: '设备命令',
     topic: "v1/devices/me/rpc/request/$request_id",

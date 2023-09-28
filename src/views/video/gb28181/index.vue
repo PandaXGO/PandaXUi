@@ -158,7 +158,7 @@ const showChannels = (row) => {
 const viewZb = (row:any) => {
   state.isShowZbDialog = true
   state.currentChannel = row
-  playUrl.value =  MEDIA_API_URL.replace(/^http/, 'ws') + "/jessica/" + state.currentChannel.LivePublisher.StreamPath
+  playUrl.value =  MEDIA_API_URL.replace(/^http/, 'ws') + "/jessica/" + state.currentDeviceOptions.ID + "/" + state.currentChannel.DeviceID
 }
 
 const controlPtz = (direction:string) => {

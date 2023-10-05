@@ -237,9 +237,10 @@ const onOpenCmd = () => {
   })
 }
 
-const openDeviceCmdDetail = (row: object) => {
+const openDeviceCmdDetail = (row: any) => {
   state.isShowCmdDetailDialog = true
-  state.cmdDetail = row
+  state.cmdDetail.cmdContent = JSON.stringify(JSON.parse(row.cmdContent),null, " ")
+  state.cmdDetail.responseContent = JSON.stringify(JSON.parse(row.responseContent),null, " ")
 }
 
 const onSelectCmd = (cmd:any) => {

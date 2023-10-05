@@ -13,7 +13,7 @@
         <ProductTopic :rowData="state.rowData"></ProductTopic>
       </el-tab-pane>
       <el-tab-pane v-if="state.rowData.deviceType !== 'monitor'" label="物模型" name="model">
-        <ProductModel :rowData="state.rowData"></ProductModel>
+        <ProductModel v-if="state.activeName === 'model'" :rowData="state.rowData"></ProductModel>
       </el-tab-pane>
       <el-tab-pane v-if="state.rowData.deviceType !== 'monitor'" label="固件管理" name="ota">
         <ProductOta v-if="state.activeName === 'ota'" :rowData="state.rowData"></ProductOta>

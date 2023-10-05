@@ -21,7 +21,11 @@
         <el-table-column type="selection" width="55" align="center"/>
         <el-table-column label="固件名称" align="center" prop="name"/>
         <el-table-column label="固件版本" align="center" prop="version"/>
-        <el-table-column label="固件地址" align="center" prop="url"/>
+        <el-table-column label="固件地址" align="center" prop="url">
+          <template #default="scope">
+           <a :href="baseURL + '/upload/get/' + scope.row.url" download>{{baseURL + '/upload/get/' + scope.row.url}}</a>
+          </template>
+        </el-table-column>
         <el-table-column label="最新固件" align="center" prop="isLatest">
           <template #default="scope">
             <el-tag
@@ -156,7 +160,7 @@ const state = reactive({
     pid: ""  //产品Id
   },
   isShowDialog: false,
-  upUrl: baseURL + '/upload/up/oss',
+  upUrl: baseURL + '/upload/up',
   headers: {'X-TOKEN': `${Session.get('token')}`},
   ruleForm: {
     id: "",
@@ -209,7 +213,7 @@ const onOpenModule = (row: any) => {
 
 const handleUplaodSuccess = (res: any, file: any) => {
   if (res.code == 200) {
-    state.ruleForm.url = res.data
+    state.ruleForm.url = res.data.fileName
   } else {
     ElMessage.error(`文件上传失败,请检查后端服务`);
   }

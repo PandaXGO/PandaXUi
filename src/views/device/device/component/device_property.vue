@@ -70,7 +70,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="isShowDialog = false">取 消</el-button>
-          <el-button type="primary" @click="onDown">确 认</el-button>
+          <el-button type="primary" @click="onDown" >确 认</el-button>
         </span>
       </template>
     </el-dialog>

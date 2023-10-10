@@ -43,7 +43,8 @@ service.interceptors.response.use(
 			}else if (res.code === 400) {
 				ElMessage.error(res.msg)
 			}
-			return Promise.reject(service.interceptors.response);
+			return response.data;
+			//return Promise.reject(service.interceptors.response);
 		} else {
 			return response.data;
 		}

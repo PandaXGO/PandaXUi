@@ -105,6 +105,12 @@
     </el-dialog>
     <el-dialog v-model="state.isShowDialog" width="769px" title="命令下发" center draggable>
       <el-form :model="state.cmdForm" label-width="120px">
+        <el-form-item label="下发模式" prop="mode">
+          <el-select v-model="state.cmdForm.mode" placeholder="请选择模式" >
+            <el-option label="单向" value="single"/>
+            <el-option label="双向" value="double"/>
+          </el-select>
+        </el-form-item>
         <el-form-item label="选择命令" prop="cmdName">
           <el-select v-model="state.cmdForm.cmdName" placeholder="请选择命令" >
             <el-option
@@ -190,6 +196,7 @@ const state = reactive({
   },
   cmdForm: {
     deviceId: "",
+    mode: "single",
     cmdName: "",
     cmdContent: {},
   },
@@ -252,11 +259,12 @@ const onSubmit = () => {
   state.cmdForm.deviceId = props.rowData.id
   state.cmdForm.cmdContent = JSON.stringify(state.cmdForm.cmdContent, null, "")
   addCmd(state.cmdForm).then((res:any) => {
-    if (res.code === 200){
+    console.log(res)
+    state.loading = false;
+    if (res.code == 200){
       ElMessage.success("新增成功");
       handleQuery()
     }
-    state.loading = false;
   });
 };
 

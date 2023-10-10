@@ -257,6 +257,7 @@ const onSelectCmd = (cmd:any) => {
 const onSubmit = () => {
   state.loading = true;
   state.cmdForm.deviceId = props.rowData.id
+  state.cmdForm.cmdContent = {...state.cmdForm.cmdContent,deviceNum: props.rowData.name}
   state.cmdForm.cmdContent = JSON.stringify(state.cmdForm.cmdContent, null, "")
   addCmd(state.cmdForm).then((res:any) => {
     console.log(res)

@@ -102,7 +102,7 @@
                   </div>
                   <div class="ft-body">
                     <div class="ft-body-image" >
-                      <el-image :src="getImage(data)" :preview-src-list="[getImage(data)]" :initial-index="0" :zoom-rate="1.2" fit="fill"></el-image>
+                      <el-image  style="height: 100%" :src="getImage(data)" :preview-src-list="[getImage(data)]" :initial-index="0" :zoom-rate="1.2" fit="fill"></el-image>
                     </div>
                     <div class="ft-body-item">
                       <div class="item-mb">设备分组： {{data.deviceGroup.name}}</div>

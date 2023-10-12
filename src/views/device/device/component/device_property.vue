@@ -74,7 +74,7 @@
         </span>
       </template>
     </el-dialog>
-    <el-dialog v-model="isShowHistoryDialog" width="769px" title="历史数据" center draggable>
+    <el-dialog v-model="isShowHistoryDialog" width="800px" title="历史数据" center draggable>
       <el-card shadow="always">
         <el-form :model="historyForm" label-width="80px" :inline="true">
           <el-form-item label="日期选择">
@@ -105,7 +105,7 @@
           </el-tab-pane>
           <el-tab-pane label="列表" name="table">
             <el-table :data="devicePropertyHistoryOptions" style="width: 100%;height: 300px">
-              <el-table-column :prop="currentProperty.key" :label="currentProperty.name" />
+              <el-table-column :prop="currentProperty.key.toLowerCase()" :label="currentProperty.name" />
               <el-table-column prop="ts" label="时间"  >
                 <template #default="scope">
                   {{ dateStrFormat(scope.row.ts) }}
@@ -173,6 +173,7 @@ const handleQuery = () => {
 const showHistory = (row:any) => {
   isShowHistoryDialog.value = true
   currentProperty.value = row
+  console.log(currentProperty.value.name.toLowerCase())
   historyForm.value.key = row.key
   timeValue.value = [startTime, new Date()]
   nextTick(()=>{
@@ -214,9 +215,8 @@ const getEchart = () => {
   }
  let data = [];
   devicePropertyHistoryOptions.value.forEach((item:any)=>{
-    data.push([+new Date(item.ts), item[currentProperty.value.key]])
+    data.push([+new Date(item.ts), item[currentProperty.value.key.toLowerCase()]])
   })
-  console.log(data)
   const option = {
     tooltip: {
       trigger: 'axis',

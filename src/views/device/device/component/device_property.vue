@@ -40,7 +40,7 @@
               </div>
             </template>
             <div style="margin-bottom: 10px;font-weight: bold;font-size: 20px">
-              {{status.value ? status.value : "遥测未上报"}} {{( status.value  && (status.type ==='int64'|| status.type ==='float64')) ? status.define.unit: ''}}
+              {{  (status.value === null || status.value === undefined || status.value === "") ? "遥测未上报" : status.value }} {{( status.value  && (status.type ==='int64'|| status.type ==='float64')) ? status.define.unit: ''}}
             </div>
             <div>
               {{ status.time ? dateStrFormat(status.time) : '' }}

@@ -19,7 +19,7 @@
       <el-tag type="primary">{{rowData.protocolName}}</el-tag>
     </el-descriptions-item>
     <el-descriptions-item label="规则链库" align="center">
-      Root Rule Chain
+      {{rowData.ruleName}}
     </el-descriptions-item>
     <el-descriptions-item label="创建时间" align="center">
       {{ dateStrFormat(rowData.createTime) }}
@@ -43,10 +43,11 @@ const props = defineProps({
 })
 const baseURL = import.meta.env.VITE_API_URL
 
-
 const getImage = (row:any) => {
   return row.photoUrl ? baseURL + '/upload/get/'+ row.photoUrl : row.deviceType ==='direct' ? monitorImg : row.deviceType ==='gatewayS' ? gatewayDImg : gatewayImg
 }
+
+
 </script>
 
 <style scoped>

@@ -108,7 +108,7 @@
                     <div class="ft-body-item">
                         <div class="item-mb">所属分类： {{data.productCategory.name}}</div>
                         <div class="item-mb">设备类型： {{data.deviceType ==='direct' ? '直连设备': data.deviceType ==='gateway' ? '网关设备': '网关子设备'}}</div>
-                        <div class="item-mb">规则链库： Root Rule Chain</div>
+                        <div class="item-mb">规则链库： {{state.ruleOptions.find(obj => obj.id === data.ruleChainId).ruleName}}</div>
                         <div class="item-mb">创建时间： {{ dateStrFormat(data.createTime) }}</div>
                     </div>
                   </div>
@@ -194,6 +194,7 @@ import View from "./component/view.vue";
 import gatewayImg from '@/assets/gateway.png'
 import gatewayDImg from '@/assets/gateway_d.png'
 import monitorImg from '@/assets/monitor.png'
+import {listChainLabel} from "@/api/rule/rulechain";
 
 const { proxy } = getCurrentInstance() as any;
 const editModuleRef = ref();
@@ -220,6 +221,7 @@ const state = reactive({
     children: "children",
     label: "name",
   },
+  ruleOptions: [],
   // statusOptions字典数据
   statusOptions: [],
   // 查询参数
@@ -263,6 +265,14 @@ const getTreeselect = async () => {
   });
 };
 
+const getRuleChain = () => {
+  listChainLabel({}).then((response:any) => {
+    if (response.code === 200){
+      state.ruleOptions = response.data;
+    }
+  });
+};
+
 const handleCurrentChange = (val:number) => {
   state.queryParams.pageNum = val
   handleQuery()
@@ -284,6 +294,7 @@ const onOpenEditModule = (row: object) => {
 };
 // 查看产品
 const onViewProduct = (row: object) => {
+  row.ruleName = state.ruleOptions.find(obj => obj.id === row.ruleChainId).ruleName
   viewRef.value.openDrawer(row);
 }
 
@@ -355,6 +366,7 @@ onMounted(() => {
   // 查询岗位信息
   handleQuery();
   getTreeselect();
+  getRuleChain();
   proxy.getDicts("sys_normal_disable").then((response: any) => {
     state.statusOptions = response.data;
   });

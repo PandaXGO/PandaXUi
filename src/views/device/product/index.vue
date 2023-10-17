@@ -108,7 +108,7 @@
                     <div class="ft-body-item">
                         <div class="item-mb">所属分类： {{data.productCategory.name}}</div>
                         <div class="item-mb">设备类型： {{data.deviceType ==='direct' ? '直连设备': data.deviceType ==='gateway' ? '网关设备': '网关子设备'}}</div>
-                        <div class="item-mb">规则链库： {{state.ruleOptions.find(obj => obj.id === data.ruleChainId).ruleName}}</div>
+                        <div class="item-mb">规则链库： {{ getRuleName(data.ruleChainId)}}</div>
                         <div class="item-mb">创建时间： {{ dateStrFormat(data.createTime) }}</div>
                     </div>
                   </div>
@@ -145,7 +145,7 @@
                           </el-button>
                         </div>
                         <div>
-                          <el-button text type="primary" v-auth="'device:product:delete'" @click="onTabelRowDel(data)">
+                          <el-button v-if="data.default !=='1'" text type="primary" v-auth="'device:product:delete'" @click="onTabelRowDel(data)">
                             <SvgIcon name="elementDelete" />删除
                           </el-button>
                         </div>
@@ -273,6 +273,14 @@ const getRuleChain = () => {
   });
 };
 
+const getRuleName = (id) => {
+  const find = state.ruleOptions.find(obj => obj.id === id);
+  if (find) {
+    return find.ruleName
+  }
+  return "未识别"
+}
+
 const handleCurrentChange = (val:number) => {
   state.queryParams.pageNum = val
   handleQuery()
@@ -294,7 +302,7 @@ const onOpenEditModule = (row: object) => {
 };
 // 查看产品
 const onViewProduct = (row: object) => {
-  row.ruleName = state.ruleOptions.find(obj => obj.id === row.ruleChainId).ruleName
+  row.ruleName = getRuleName(row.ruleChainId)
   viewRef.value.openDrawer(row);
 }
 

@@ -10,7 +10,7 @@
             <template #header>
               <div style="display: flex;justify-content: space-between;">
                 <div style="font-size: large">{{status.name}}</div>
-                <div v-if="status.define.rw === 'w' || status.define.rw === 'rw'">
+                <div v-if="status.define && (status.define.rw === 'w' || status.define.rw === 'rw')">
                   <el-tooltip effect="dark" content="属性下发" placement="top">
                     <el-button type="primary" circle size="small" @click="downAttributes(status)"><SvgIcon name="elementBottom"/></el-button>
                   </el-tooltip>

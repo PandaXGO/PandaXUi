@@ -97,7 +97,7 @@
                 </el-button>
               </div>
               <div>
-                <el-button text type="primary" v-auth="'device:group:delete'" @click="onTabelRowDel(scope.row)">
+                <el-button v-if="scope.row.default !=='1'" text type="primary" v-auth="'device:group:delete'" @click="onTabelRowDel(scope.row)">
                   <SvgIcon name="elementDelete"/>
                   删除
                 </el-button>

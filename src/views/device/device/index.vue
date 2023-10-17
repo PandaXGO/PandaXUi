@@ -107,7 +107,7 @@
                     <div class="ft-body-item">
                       <div class="item-mb">设备分组： {{data.deviceGroup.name}}</div>
                       <div class="item-mb">设备类型： {{data.deviceType ==='direct' ? '直连设备': data.deviceType ==='gateway' ? '网关设备': '网关子设备'}}</div>
-                      <div class="item-mb">所属产品： {{data.product.name}}</div>
+                      <div class="item-mb">所属产品： {{data.product.name || "未分配"}}</div>
                       <div class="item-mb">创建时间： {{ dateStrFormat(data.createTime) }}</div>
                     </div>
                   </div>

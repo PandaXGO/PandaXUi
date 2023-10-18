@@ -210,7 +210,6 @@ const state = reactive({
 // 查询列表
 const handleQuery = () => {
   state.loading = true;
-  console.log("timeValue.value",timeValue.value)
   if (timeValue.value !== null && timeValue.value.length>0){
     state.queryParams.startTime = formatDate(timeValue.value[0],"YYYY-mm-dd HH:MM:SS")
     state.queryParams.endTime = formatDate(timeValue.value[1],"YYYY-mm-dd HH:MM:SS")

@@ -17,7 +17,7 @@
                 </div>
               </div>
             </template>
-            <div style="margin-bottom: 10px;font-weight: bold;font-size: 20px">{{status.value ? status.value : status.define.default_value}}</div>
+            <div style="margin-bottom: 10px;font-weight: bold;font-size: 20px">{{status.value ? status.value : status.define ? status.define.default_value : ""}}</div>
             <div>
               {{ dateStrFormat(status.time) }}
             </div>
@@ -40,10 +40,10 @@
               </div>
             </template>
             <div style="margin-bottom: 10px;font-weight: bold;font-size: 20px">
-              {{  (status.value === null || status.value === undefined || status.value === "") ? "遥测未上报" : status.value }} {{( status.value  && (status.type ==='int64'|| status.type ==='float64')) ? status.define.unit: ''}}
+              {{  (status.value === null || status.value === undefined || status.value === "") ? "遥测未上报" : status.value }} {{( status.value  && (status.type ==='int64'|| status.type ==='float64')) ? status.define ? status.define.unit : '' : ''}}
             </div>
             <div>
-              {{ status.time ? dateStrFormat(status.time) : '' }}
+              {{ (status.time === null || status.value === undefined || status.value === "") ? "": status.time ? dateStrFormat(status.time) : '' }}
             </div>
           </el-card>
           <el-empty v-else description="请去产品中设置遥测" style="margin-left: 40%;"/>

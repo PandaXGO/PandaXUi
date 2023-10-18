@@ -2,14 +2,14 @@
 	<div class="layout-navbars-breadcrumb-user-news">
 		<div class="head-box">
 			<div class="head-box-title">{{ $t('message.user.newTitle') }}</div>
-			<div class="head-box-btn" v-if="newsList.length > 0" @click="onAllReadClick">{{ $t('message.user.newBtn') }}</div>
+<!--			<div class="head-box-btn" v-if="newsList.length > 0" @click="onAllReadClick">{{ $t('message.user.newBtn') }}</div>-->
 		</div>
 		<div class="content-box">
 			<template v-if="newsList.length > 0">
 				<div class="content-box-item" v-for="(v, k) in newsList" :key="k">
-					<div>{{ v.title }}</div>
+					<div>{{ v.type }} - {{ v.level ==='CRITICAL'? "危险": v.level ==='MAJOR' ? '重要': v.level ==='MINOR' ? '次要': v.level ==='WARNING' ? "警告": "不确定" }}</div>
 
-					<div class="content-box-time">发布时间：{{ dateStrFormat(v.createTime) }}</div>
+					<div class="content-box-time">告警时间：{{ dateStrFormat(v.time) }}</div>
 				</div>
 			</template>
 			<el-empty :description="$t('message.user.newDesc')" v-else></el-empty>
@@ -22,18 +22,27 @@
 import { reactive, toRefs,onMounted, } from 'vue';
 import {listNotice,} from "@/api/system/notice";
 import {useRouter} from "vue-router";
+import {listAlarm} from "@/api/device/device_alarm";
 export default {
 	name: 'layoutBreadcrumbUserNews',
 	setup() {
 		const router = useRouter();
 		const state = reactive({
+      queryParams: {
+        // 页码
+        pageNum: 1,
+        // 每页大小
+        pageSize: 5,
+        state: "0",
+      },
 			newsList: [],
 		});
 		const handleQuery = () => {
-			listNotice({pageNum: 1,pageSize: 3}).then((response) => {
-						state.newsList = response.data.data;
-					}
-			);
+      listAlarm(state.queryParams).then((response:any) => {
+        if (response.code === 200) {
+          state.newsList = response.data.data;
+        }
+      });
 		};
 		// 全部已读点击
 		const onAllReadClick = () => {
@@ -41,7 +50,7 @@ export default {
 		};
 		// 前往通知中心点击
 		const onGoToGiteeClick = () => {
-			router.push("/tool/notice")
+			router.push("/tool/alarm")
 		};
 		onMounted(() => {
 			handleQuery()

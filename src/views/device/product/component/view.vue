@@ -13,7 +13,7 @@
         <ProductTopic :rowData="state.rowData"></ProductTopic>
       </el-tab-pane>
       <el-tab-pane v-if="state.rowData.deviceType !== 'monitor'" label="物模型" name="model">
-        <ProductModel v-if="state.activeName === 'model'" :rowData="state.rowData"></ProductModel>
+        <ProductTsl v-if="state.activeName === 'model'" :rowData="state.rowData"></ProductTsl>
       </el-tab-pane>
       <el-tab-pane v-if="state.rowData.deviceType !== 'monitor'" label="固件管理" name="ota">
         <ProductOta v-if="state.activeName === 'ota'" :rowData="state.rowData"></ProductOta>
@@ -28,8 +28,7 @@ import {reactive} from "vue";
 import ProductInfo from "./product_info.vue"
 import ProductTopic from "./product_topic.vue"
 import ProductOta from "./product_ota.vue"
-import ProductDevice from "./product_device.vue"
-import ProductModel from "./product_model.vue"
+import ProductTsl from "./product_tsl.vue"
 
 const state = reactive({
   isShowDrawer: false,

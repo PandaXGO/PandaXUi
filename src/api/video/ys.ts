@@ -1,5 +1,37 @@
 import request from '@/utils/request';
 
+export function listDeviceKey(query : any) {
+    return request({
+        url: '/video/ys/list',
+        method: 'get',
+        params: query
+    })
+}
+
+export function createDeviceKey(data : any) {
+    return request({
+        url: '/video/ys',
+        method: 'post',
+        data: data
+    })
+}
+
+export function putDeviceKey(data : any) {
+    return request({
+        url: '/video/ys',
+        method: 'put',
+        data: data
+    })
+}
+
+export function deleteDeviceKey(id : string) {
+    return request({
+        url: '/video/ys/'+id,
+        method: 'delete',
+    })
+}
+
+
 export function listDeviceList(query : any) {
     return request({
         url: '/video/ys/device/list',

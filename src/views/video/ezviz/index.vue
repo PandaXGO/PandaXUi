@@ -102,9 +102,9 @@
             </div>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="录像回放" name="hf">
+<!--        <el-tab-pane label="录像回放" name="hf">
           录像功能开发中。。。
-        </el-tab-pane>
+        </el-tab-pane>-->
       </el-tabs>
     </div>
     <template #footer>

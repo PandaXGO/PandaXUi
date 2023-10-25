@@ -92,7 +92,6 @@ const liveStyle = computed(()=> {
 })
 
 const handleGbNodeClick = (data) => {
-  console.log(data)
   if (data.Channels && data.Channels.length>0){
     data.Channels.forEach((currentChannel)=>{
       state.videoUrl.push(MEDIA_API_URL.replace(/^http/, 'ws') + "/jessica/" + currentChannel.LivePublisher.StreamPath)

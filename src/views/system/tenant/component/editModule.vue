@@ -27,7 +27,7 @@
             <template #footer>
         <span class="dialog-footer">
           <el-button @click="onCancel">取 消</el-button>
-          <el-button type="primary" @click="onSubmit">编 辑</el-button>
+          <el-button type="primary" @click="onSubmit">保 存</el-button>
         </span>
             </template>
         </el-dialog>

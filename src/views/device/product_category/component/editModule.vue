@@ -78,7 +78,7 @@
         <span class="dialog-footer">
           <el-button @click="onCancel">取 消</el-button>
           <el-button type="primary" @click="onSubmit" :loading="state.loading"
-          >编 辑</el-button
+          >保 存</el-button
           >
         </span>
       </template>

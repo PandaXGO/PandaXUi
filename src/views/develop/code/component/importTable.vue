@@ -125,7 +125,7 @@ export default {
      handleQuery();
     };
     // 关闭弹窗
-    const closeDialog = (row?: object) => {     
+    const closeDialog = (row?: object) => {
       proxy.mittBus.emit("onEditTableModule", row);
       state.tables = []
       state.isShowDialog = false;
@@ -144,10 +144,10 @@ export default {
     }
 
     // 取消
-    const onCancel = () => {      
-      closeDialog();       
+    const onCancel = () => {
+      state.isShowDialog = false;
     };
-    
+
     // 保存
     const onSubmit = () => {
       state.btnLoading = true;

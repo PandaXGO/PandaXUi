@@ -231,7 +231,7 @@ const beforeUplaodUpload = (rawFile) => {
 // 取消
 const onCancel = () => {
   state.isShowDialog = false
-  handleQuery()
+  //handleQuery()
 };
 const onTabelRowDel = (row: any) => {
   const ids = row.id

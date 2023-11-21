@@ -200,7 +200,7 @@ const closeDialog = (row?: object) => {
 };
 // 取消
 const onCancel = () => {
-  closeDialog();
+  state.isShowDialog = false;
 };
 
 const handleUplaodSuccess = (res: any, file: any) => {

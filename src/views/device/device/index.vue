@@ -123,8 +123,8 @@
                         style="margin-right: 5px"
                         :width="60"
                         inline-prompt
-                        active-value="0"
-                        inactive-value="1"
+                        active-value="1"
+                        inactive-value="0"
                         active-text="正常"
                         inactive-text="禁用"
                         @click="handleStatusChange(data)"
@@ -350,10 +350,10 @@ const handleNodeClick = (data: any) => {
 
 // 状态修改
 const handleStatusChange = (row: any) => {
-  let text = row.status == "0" ? "取消要禁用" : "使用" ;
+  let text = row.status == "0" ? "禁用" : "启用" ;
   ElMessageBox({
     title: "警告",
-    message: '确认要"' + text + '""' + row.ruleName + '"吗?',
+    message: '确认要"' + text + '""' + row.name + '"吗?',
     showCancelButton: true,
     confirmButtonText: "确定",
     cancelButtonText: "取消",

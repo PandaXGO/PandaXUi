@@ -146,7 +146,7 @@ const closeDialog = (row?: object) => {
 };
 // 取消
 const onCancel = () => {
-  closeDialog();
+  state.isShowDialog = false;
 };
 
 // 保存

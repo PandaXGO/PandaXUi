@@ -283,7 +283,7 @@ const closeDialog = (row?: object) => {
 };
 // 取消
 const onCancel = () => {
-  closeDialog();
+  state.isShowDialog = false;
 };
 /** 查询组织下拉树结构 */
 const getTreeselect = async () => {

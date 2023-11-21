@@ -111,7 +111,7 @@ const state = reactive({
   ruleRules: {
     name: [
       { required: true, message: "设备名称不能为空", trigger: "blur" },
-      { pattern: /^[a-zA-Z0-9]*$/, message: '标识格式不正确,支持英文、数字的组合,首位字符不能是数字', trigger: 'blur' }
+      { pattern: /^[a-zA-Z][a-zA-Z0-9]*$/, message: '标识格式不正确,支持英文、数字的组合,首位字符不能是数字', trigger: 'blur' }
     ],
     alias: [
       { required: true, message: "设备中文名不能为空", trigger: "blur" },
@@ -147,7 +147,7 @@ const closeDialog = (row?: object) => {
 };
 // 取消
 const onCancel = () => {
-  closeDialog();
+  state.isShowDialog = false;
 };
 // 获取所有在线的产品
 const geyProductAll = () => {

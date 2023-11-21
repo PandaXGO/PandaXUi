@@ -328,7 +328,7 @@ const onOpenModule = (row: any) => {
 // 取消
 const onCancel = () => {
   state.isShowCommandDialog = false
-  handleQuery()
+  //handleQuery()
 };
 const onTabelRowDel = (row: any) => {
   const ids = row.id

@@ -76,7 +76,7 @@
               <div class="flex-warp-item" v-for="(v, k) in state.devicePanel.deviceCountType" :key="k">
                 <div class="flex-warp-item-box" style="font-size: 16px">
                   <i class="iconfont icon-yangan" :style="{ color: state.colors[k] }"></i>
-                  <span class="pl5" >{{ v.deviceType === 'deviceType' ? '直连设备': v.deviceType === 'gatewayS' ? '网关子设备': '网关设备' }}</span>
+                  <span class="pl5" >{{ v.deviceType === 'direct' ? '直连设备': v.deviceType === 'gatewayS' ? '网关子设备': '网关设备' }}</span>
                   <div class="mt10"><strong>{{ v.deviceTotal }}</strong> 个</div>
                 </div>
               </div>

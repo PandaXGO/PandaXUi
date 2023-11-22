@@ -12,7 +12,7 @@
                     {{noticeTypeFormat(state.content)}}
                 </el-descriptions-item>
                 <el-descriptions-item width="100" label="通知内容">
-                  <Editor v-model:get-html="state.content.content" :disable="true"></Editor>
+                  <Editor v-model:get-html="state.content.content" :disable="state.disable"></Editor>
                 </el-descriptions-item>
             </el-descriptions>
         </el-dialog>
@@ -27,6 +27,7 @@ const { proxy } = getCurrentInstance() as any;
 const state = reactive({
   noticeTypeOptions: [],
   conOpen:false,
+  disable: true,
   content: {},
 });
 const openDialog = (row: any) => {

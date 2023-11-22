@@ -146,7 +146,8 @@ const state = reactive({
 const openDialog = (row: any) => {
   state.ruleForm = JSON.parse(JSON.stringify(row));
   if (state.ruleForm.jobContent) {
-    state.contentForm = JSON.parse(state.ruleForm.jobContent);
+    console.log(state.ruleForm.jobContent)
+    state.contentForm = state.ruleForm.jobContent;
   }
   state.isShowDialog = true;
   state.loading = false;

@@ -96,7 +96,7 @@
             :show-overflow-tooltip="true"
         />
         <el-table-column
-            label="执行状态"
+            label="任务状态"
             align="center"
             prop="status"
         >
@@ -178,8 +178,8 @@
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="执行状态：">
-              <div v-if="state.modelForm.status == 0">正常</div>
+            <el-form-item label="任务状态：">
+              <div v-if="state.modelForm.status == 0">成功</div>
               <div v-else-if="state.modelForm.status == 1">失败</div>
             </el-form-item>
           </el-col>
@@ -187,7 +187,7 @@
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button @click="state.open === false">关 闭</el-button>
+          <el-button @click="state.open = false">关 闭</el-button>
         </div>
       </template>
     </el-dialog>
@@ -299,7 +299,7 @@ const handleClean = () => {
 };
 // 多选框选中数据
 const handleSelectionChange = (selection: any) => {
-  state.ids = selection.map((item: any) => item.logId);
+  state.ids = selection.map((item: any) => item.id);
   state.single = selection.length != 1;
   state.multiple = !selection.length;
 };
@@ -327,7 +327,7 @@ const handleView = (row: any) => {
 // 页面加载时调用
 onMounted(() => {
   handleQuery();
-  proxy.getDicts("sys_normal_disable").then((response: any) => {
+  proxy.getDicts("sys_common_status").then((response: any) => {
     state.statusOptions = response.data;
   });
 });

@@ -11,7 +11,7 @@
         <el-form-item label="告警类型" prop="type">
           <el-input
               v-model="state.queryParams.type"
-              placeholder="请输入设备名称"
+              placeholder="请输入告警类型"
               clearable
               @keyup.enter.native="handleQuery"
           />
@@ -47,10 +47,10 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleQuery">
-            <SvgIcon name="elementSearch" />搜索</el-button>
+            <SvgIcon name="elementSearch" />搜 索</el-button>
           <el-button @click="resetQuery">
             <SvgIcon name="elementRefresh" />
-            重置
+            重 置
           </el-button>
         </el-form-item>
       </el-form>
@@ -224,9 +224,12 @@ const handleQuery = () => {
 };
 
 const resetQuery = () => {
+  timeValue.value = []
   state.queryParams.type = "";
   state.queryParams.state = "";
   state.queryParams.level = "";
+  state.queryParams.startTime = "";
+  state.queryParams.endTime = "";
   handleQuery();
 };
 

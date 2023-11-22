@@ -241,7 +241,7 @@ const onTabelRowDel = (row: any) => {
 
 // 多选框选中数据
 const handleSelectionChange = (selection: any) => {
-  state.ids = selection.map((item: any) => item.jobId);
+  state.ids = selection.map((item: any) => item.id);
   state.single = selection.length != 1;
   state.multiple = !selection.length;
 };
@@ -302,12 +302,6 @@ const handleRun = (row: any) => {
           })
         }
       })
-      .then(() => {
-        ElMessage({
-          message: text + "执行成功",
-          type: 'success',
-        });
-      });
 };
 // 页面加载时
 onMounted(() => {

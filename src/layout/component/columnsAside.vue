@@ -298,11 +298,11 @@ export default {
       left: 50%;
       top: 2px;
       height: 60px;
-      width: 65px;
+      width: 100%;
       transform: translateX(-50%);
       z-index: 0;
       transition: 0.3s ease-in-out;
-      border-radius: 5px;
+      border-radius: 10px;
     }
     .columns-card {
       @extend .columns-round;

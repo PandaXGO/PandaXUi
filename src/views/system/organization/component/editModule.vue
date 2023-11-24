@@ -205,16 +205,20 @@ const onSubmit = () => {
     if (valid) {
       state.loading = true;
       if (state.ruleForm.organizationId != undefined && state.ruleForm.organizationId != 0) {
-        updateOrganization(state.ruleForm).then((response) => {
-          ElMessage.success("修改成功");
+        updateOrganization(state.ruleForm).then((res:any) => {
+          if (res.code == 200) {
+            ElMessage.success("修改成功");
+            closeDialog(state.ruleForm); // 关闭弹窗
+          }
           state.loading = false;
-          closeDialog(state.ruleForm); // 关闭弹窗
         });
       } else {
-        addOrganization(state.ruleForm).then((response) => {
-          ElMessage.success("新增成功");
+        addOrganization(state.ruleForm).then((res:any) => {
+          if (res.code == 200) {
+            ElMessage.success("新增成功");
+            closeDialog(state.ruleForm); // 关闭弹窗
+          }
           state.loading = false;
-          closeDialog(state.ruleForm); // 关闭弹窗
         });
       }
     }

@@ -424,16 +424,20 @@ export default {
           }
           state.loading = true;
           if (state.ruleForm.menuId != undefined && state.ruleForm.menuId != 0) {
-            updateMenu(state.ruleForm).then((response) => {
-              ElMessage.success("修改成功");
+            updateMenu(state.ruleForm).then((res:any) => {
+              if (res.code == 200) {
+                ElMessage.success("修改成功");
+                closeDialog(); // 关闭弹窗
+              }
               state.loading = false;
-              closeDialog(); // 关闭弹窗
             });
           } else {
-            addMenu(state.ruleForm).then((response) => {
-              ElMessage.success("新增成功");
+            addMenu(state.ruleForm).then((res:any) => {
+              if (res.code == 200) {
+                ElMessage.success("新增成功");
+                closeDialog(); // 关闭弹窗
+              }
               state.loading = false;
-              closeDialog(); // 关闭弹窗
             });
           }
         }

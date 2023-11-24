@@ -117,16 +117,20 @@ const onSubmit = () => {
     if (valid) {
       state.loading = true
       if (state.ruleForm.id != undefined && state.ruleForm.id != 0) {
-        updateApi(state.ruleForm).then((response) => {
-          ElMessage.success("修改成功");
-          state.loading = false
-          closeDialog(state.ruleForm); // 关闭弹窗
+        updateApi(state.ruleForm).then((res:any) => {
+          if (res.code == 200) {
+            ElMessage.success("修改成功");
+            closeDialog(state.ruleForm); // 关闭弹窗
+          }
+          state.loading = false;
         });
       } else {
-        addApi(state.ruleForm).then((response) => {
-          ElMessage.success("新增成功");
-          state.loading = false
-          closeDialog(state.ruleForm); // 关闭弹窗
+        addApi(state.ruleForm).then((res:any) => {
+          if (res.code == 200) {
+            ElMessage.success("新增成功");
+            closeDialog(state.ruleForm); // 关闭弹窗
+          }
+          state.loading = false;
         });
       }
     }

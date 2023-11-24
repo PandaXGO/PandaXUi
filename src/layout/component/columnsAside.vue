@@ -246,7 +246,7 @@ export default {
     li {
       color: var(--bg-columnsMenuBarColor);
       width: 100%;
-      height: 50px;
+      height: 60px;
       text-align: center;
       display: flex;
       cursor: pointer;
@@ -261,7 +261,7 @@ export default {
       }
       .columns-horizontal {
         display: flex;
-        height: 50px;
+        height: 60px;
         width: 100%;
         align-items: center;
         padding: 0 5px;
@@ -297,7 +297,7 @@ export default {
       position: absolute;
       left: 50%;
       top: 2px;
-      height: 44px;
+      height: 60px;
       width: 65px;
       transform: translateX(-50%);
       z-index: 0;
@@ -307,7 +307,7 @@ export default {
     .columns-card {
       @extend .columns-round;
       top: 0;
-      height: 50px;
+      height: 65px;
       width: 100%;
       border-radius: 0;
     }

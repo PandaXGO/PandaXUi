@@ -723,20 +723,24 @@ const submitForm = () => {
       if (state.roleForm != null && state.roleForm.roleId != undefined) {
         state.roleForm.menuIds = getMenuAllCheckedKeys();
         state.roleForm.apiIds = getApiAllCheckedKeys();
-        updateRole(state.roleForm).then(() => {
-          ElMessage.success("修改成功");
-          state.bunLoading = true;
-          state.open = false;
-          getList();
+        updateRole(state.roleForm).then((res:any) => {
+          if (res.code == 200) {
+            ElMessage.success("修改成功");
+            state.open = false;
+            getList();
+          }
+          state.bunLoading = false;
         });
       } else {
         state.roleForm.menuIds = getMenuAllCheckedKeys();
         state.roleForm.apiIds = getApiAllCheckedKeys();
-        addRole(state.roleForm).then(() => {
-          ElMessage.success("新增成功");
+        addRole(state.roleForm).then((res:any) => {
+          if (res.code == 200) {
+            ElMessage.success("新增成功");
+            state.open = false;
+            getList();
+          }
           state.bunLoading = true;
-          state.open = false;
-          getList();
         });
       }
     }

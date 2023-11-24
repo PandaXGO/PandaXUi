@@ -13,7 +13,6 @@
 </template>
 
 <script setup lang="ts" name="wngEditor">
-// https://www.wangeditor.com/v5/for-frame.html#vue3
 import '@wangeditor/editor/dist/css/style.css';
 import { reactive, shallowRef, watch, onBeforeUnmount } from 'vue';
 import { IDomEditor } from '@wangeditor/editor';
@@ -60,9 +59,16 @@ const state = reactive({
   editorVal: props.getHtml,
 });
 
+const setEditDisable = () => {
+  const editor = editorRef.value;
+  if (editor == null) return;
+  props.disable ? editor.disable() : editor.enable();
+}
+
 // 编辑器回调函数
 const handleCreated = (editor: IDomEditor) => {
   editorRef.value = editor;
+  setEditDisable()
 };
 // 编辑器内容改变时
 const handleChange = (editor: IDomEditor) => {
@@ -75,19 +81,7 @@ onBeforeUnmount(() => {
   if (editor == null) return;
   editor.destroy();
 });
-// 监听是否禁用改变
-// https://gitee.com/lyt-top/vue-next-admin/issues/I4LM7I
-watch(
-    () => props.disable,
-    (bool) => {
-      const editor = editorRef.value;
-      if (editor == null) return;
-      bool ? editor.disable() : editor.enable();
-    },
-    {
-      deep: true,
-    }
-);
+
 // 监听双向绑定值改变，用于回显
 watch(
     () => props.getHtml,

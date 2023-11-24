@@ -174,6 +174,7 @@ const onSignIn = async () => {
     state.isPassingFour = false;
     state.loading.signIn = false;
     state.loginForm.captcha = "";
+    state.loading.signIn = false
     getCaptcha();
     return;
   }

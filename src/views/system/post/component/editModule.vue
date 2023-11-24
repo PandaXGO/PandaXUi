@@ -143,16 +143,20 @@ const onSubmit = () => {
     if (valid) {
       state.loading = true;
       if (state.ruleForm.postId != undefined && state.ruleForm.postId != 0) {
-        updatePost(state.ruleForm).then((response) => {
-          ElMessage.success("修改成功");
+        updatePost(state.ruleForm).then((res:any) => {
+          if (res.code == 200) {
+            ElMessage.success("修改成功");
+            closeDialog(state.ruleForm); // 关闭弹窗
+          }
           state.loading = false;
-          closeDialog(state.ruleForm); // 关闭弹窗
         });
       } else {
-        addPost(state.ruleForm).then((response) => {
-          ElMessage.success("新增成功");
+        addPost(state.ruleForm).then((res:any) => {
+          if (res.code == 200) {
+            ElMessage.success("新增成功");
+            closeDialog(state.ruleForm); // 关闭弹窗
+          }
           state.loading = false;
-          closeDialog(state.ruleForm); // 关闭弹窗
         });
       }
     }

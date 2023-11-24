@@ -304,16 +304,20 @@ const onSubmit = () => {
       state.ruleForm.roleIds = state.ruleForm.roleIds.join(',')
       state.loading = true;
       if (state.ruleForm.userId != undefined) {
-        updateUser(state.ruleForm).then((response) => {
-          ElMessage.success("修改成功");
+        updateUser(state.ruleForm).then((res:any) => {
+          if (res.code == 200) {
+            ElMessage.success("修改成功");
+            closeDialog(); // 关闭弹窗
+          }
           state.loading = false;
-          closeDialog(); // 关闭弹窗
         });
       } else {
-        addUser(state.ruleForm).then((response) => {
-          ElMessage.success("新增成功");
+        addUser(state.ruleForm).then((res:any) => {
+          if (res.code == 200) {
+            ElMessage.success("新增成功");
+            closeDialog(); // 关闭弹窗
+          }
           state.loading = false;
-          closeDialog(); // 关闭弹窗
         });
       }
     }

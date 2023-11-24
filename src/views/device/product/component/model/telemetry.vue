@@ -291,7 +291,7 @@ const setEnumValue = (index: number) => {
 // 取消
 const onCancel = () => {
   state.isShowDialog = false
-  //handleQuery()
+  handleQuery()
 };
 const onTabelRowDel = (row: any) => {
   const ids = row.id
@@ -319,16 +319,20 @@ const onSubmit = () => {
       state.ruleForm.pid = props.rowData.id
       state.ruleForm.define = getDefine()
       if (state.ruleForm.id != undefined && state.ruleForm.id != "") {
-        updateTemplate(state.ruleForm).then((response) => {
-          ElMessage.success("修改成功");
+        updateTemplate(state.ruleForm).then((res:any) => {
+          if (res.code == 200) {
+            ElMessage.success("修改成功");
+            onCancel(); // 关闭弹窗
+          }
           state.loading = false;
-          onCancel(); // 关闭弹窗
         });
       } else {
-        addTemplate(state.ruleForm).then((response) => {
-          ElMessage.success("新增成功");
+        addTemplate(state.ruleForm).then((res:any) => {
+          if (res.code == 200) {
+            ElMessage.success("新增成功");
+            onCancel(); // 关闭弹窗
+          }
           state.loading = false;
-          onCancel(); // 关闭弹窗
         });
       }
     }

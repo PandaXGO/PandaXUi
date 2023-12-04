@@ -740,7 +740,7 @@ const submitForm = () => {
             state.open = false;
             getList();
           }
-          state.bunLoading = true;
+          state.bunLoading = false;
         });
       }
     }

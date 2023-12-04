@@ -169,6 +169,7 @@ const onSignIn = async () => {
   let loginRespon;
   try {
     loginRespon = await signIn(state.loginForm);
+    state.loading.signIn = false
   } catch (e) {
     dragRef.value.reset();
     state.isPassingFour = false;

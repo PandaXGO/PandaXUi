@@ -181,6 +181,7 @@ const geyProductAll = () => {
 
 
 const renderMarks = () => {
+  state.markers = []
   state.tableData.forEach((item:any) => {
     if (item.ext) {
       state.markers.push({

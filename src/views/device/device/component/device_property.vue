@@ -5,6 +5,7 @@
     </div>
     <el-tabs v-model="activeName" :tab-position="tabPosition" type="border-card" style="height: 700px" @tab-change="changTab">
       <el-tab-pane label="属性" name="attributes">
+        <el-scrollbar height="600px">
         <div style="display: flex;flex-wrap: wrap;">
           <el-card v-if="deviceStatusOptions.length > 0" v-for="status in deviceStatusOptions" style="width: 300px;margin: 10px;">
             <template #header>
@@ -24,9 +25,10 @@
           </el-card>
           <el-empty v-else description="请去产品中设置属性" style="margin-left: 40%;"/>
         </div>
-
+        </el-scrollbar>
       </el-tab-pane>
       <el-tab-pane label="遥测" name="telemetry">
+        <el-scrollbar height="600px">
         <div style="display: flex;flex-wrap: wrap;">
           <el-card v-if="deviceStatusOptions.length > 0" v-for="status in deviceStatusOptions" style="width: 300px;margin: 10px;">
             <template #header>
@@ -48,6 +50,7 @@
           </el-card>
           <el-empty v-else description="请去产品中设置遥测" style="margin-left: 40%;"/>
         </div>
+        </el-scrollbar>
       </el-tab-pane>
     </el-tabs>
     <el-dialog v-model="isShowDialog" width="769px" title="属性下发" center draggable>

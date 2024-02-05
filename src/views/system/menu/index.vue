@@ -53,7 +53,7 @@
           <div>
             <el-button type="primary"
                        plain
-                       v-auth="'system:organization:add'"
+                       v-auth="'system:menu:add'"
                        @click="onOpenAddMenu">
               <SvgIcon name="elementPlus"/>
               新增

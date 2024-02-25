@@ -17,14 +17,14 @@
 
 ## 🏭在线体验
 
-演示地址：http://101.35.247.125:7789/  帐号：admin 密码：123456  
-组态大屏：http://101.35.247.125:7790/  
-规则引擎：http://101.35.247.125:7791/
+演示地址：http://www.pandax.vip:7789/  帐号：admin 密码：123456  
+组态大屏：http://www.pandax.vip:7790/  
+规则引擎：http://www.pandax.vip:7791/
 
 ---
 系统在线文档
 ---
-* 文档地址 ：http://101.35.247.125
+* 文档地址 ：http://www.pandax.vip
 
 **> 未来会补充文档和视频，方便友友们使用！**
 
@@ -76,8 +76,8 @@
 - <span class="tag done-tag">✔</span> **`设备管理`** - _设备的管理_
 
 ## 🛠 以后可能会有什么NB功能？
-- <span class="tag wip-tag">开发中</span> **`3D组态`** - _根据2d组态自动生成3D组态_
-- <span class="tag wip-tag">开发中</span> **`数字孪生编辑器`** - _web直接构建数字孪生模型_
+- <span class="tag wip-tag">开发中</span> **`多协议接入`** - _多行业协议接入_
+- <span class="tag wip-tag">开发中</span> **`3D组态数字孪生编辑器`** - _web直接构建3D数字孪生场景_
 
 ---
 前端工程结构

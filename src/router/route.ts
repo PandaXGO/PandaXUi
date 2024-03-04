@@ -29,38 +29,6 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 		},
 	},
 	{
-		path: '/rule/edit',
-		name: 'rule_edit',
-		meta: {
-			title: '规则链编辑',
-		},
-		component: () => import('@/views/rule/chain/component/edit.vue'),
-	},
-	{
-		path: '/rule/view',
-		name: 'rule_view',
-		meta: {
-			title: '规则链预览',
-		},
-		component: () => import('@/views/rule/chain/component/view.vue'),
-	},
-	{
-		path: '/screen/view',
-		name: 'screen_view',
-		meta: {
-			title: '组态预览',
-		},
-		component: () => import('@/views/visual/screen/component/view.vue'),
-	},
-	{
-		path: '/screen/edit',
-		name: 'screen_edit',
-		meta: {
-			title: '组态编辑',
-		},
-		component: () => import('@/views/visual/screen/component/edit.vue'),
-	},
-	{
 		path: '/404',
 		name: 'notFound',
 		component: () => import('@/views/error/404.vue'),

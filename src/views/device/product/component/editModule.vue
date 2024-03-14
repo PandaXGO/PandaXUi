@@ -103,7 +103,6 @@ import { updateProduct, addProduct } from "@/api/device/product";
 import { ElMessage } from "element-plus";
 import {Session} from "@/utils/storage";
 import {listProductCategoryLabel} from "@/api/device/product_category";
-import {listChainLabel} from "@/api/rule/rulechain";
 
 const props = defineProps({
   title: {
@@ -186,11 +185,11 @@ const getTreeselect = () => {
 };
 
 const getRuleChain = () => {
-  listChainLabel({}).then((response:any) => {
-    if (response.code === 200){
-      state.ruleOptions = response.data;
-    }
-  });
+  // listChainLabel({}).then((response:any) => {
+  //   if (response.code === 200){
+  //     state.ruleOptions = response.data;
+  //   }
+  // });
 };
 
 // 关闭弹窗

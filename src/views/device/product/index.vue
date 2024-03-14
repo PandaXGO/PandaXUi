@@ -194,7 +194,6 @@ import View from "./component/view.vue";
 import gatewayImg from '@/assets/gateway.png'
 import gatewayDImg from '@/assets/gateway_d.png'
 import monitorImg from '@/assets/monitor.png'
-import {listChainLabel} from "@/api/rule/rulechain";
 
 const { proxy } = getCurrentInstance() as any;
 const editModuleRef = ref();
@@ -266,11 +265,11 @@ const getTreeselect = async () => {
 };
 
 const getRuleChain = () => {
-  listChainLabel({}).then((response:any) => {
-    if (response.code === 200){
-      state.ruleOptions = response.data;
-    }
-  });
+  // listChainLabel({}).then((response:any) => {
+  //   if (response.code === 200){
+  //     state.ruleOptions = response.data;
+  //   }
+  // });
 };
 
 const getRuleName = (id) => {

@@ -351,9 +351,13 @@ const onTabelRowDel = (row: any) => {
     cancelButtonText: "取消",
     type: "warning",
   }).then(function () {
-    return delResEmails(mailIds).then(() => {
-      handleQuery();
-      ElMessage.success("删除成功");
+    return delResEmails(mailIds).then((res:any) => {
+      if (res.code === 200){
+        handleQuery();
+        ElMessage.success("删除成功");
+      }else {
+        ElMessage.error("删除失败");
+      }
     });
   });
 };

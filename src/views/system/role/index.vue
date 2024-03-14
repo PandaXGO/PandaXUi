@@ -674,9 +674,13 @@ const handleDelete = (row: any) => {
       .then(function () {
         return delRole(roleIds);
       })
-      .then(() => {
-        getList();
-        ElMessage.success("删除成功");
+      .then((res:any) => {
+        if (res.code === 200){
+          getList();
+          ElMessage.success("删除成功");
+        }else {
+          ElMessage.error("删除失败");
+        }
       });
 };
 /** 导出按钮操作 */

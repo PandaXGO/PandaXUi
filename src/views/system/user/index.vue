@@ -377,9 +377,13 @@ const handleDelete = (row: any) => {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
   }).then(function () {
-    return delUser(userIds).then(() => {
-      getList();
-      ElMessage.success("删除成功");
+    return delUser(userIds).then((res:any) => {
+      if (res.code === 200){
+        getList();
+        ElMessage.success("删除成功");
+      }else {
+        ElMessage.error("删除失败");
+      }
     });
   });
 };

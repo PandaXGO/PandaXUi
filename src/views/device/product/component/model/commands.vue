@@ -340,9 +340,13 @@ const onTabelRowDel = (row: any) => {
     cancelButtonText: "取消",
     type: "warning",
   }).then(function () {
-    return delTemplate(ids).then(() => {
-      handleQuery();
-      ElMessage.success("删除成功");
+    return delTemplate(ids).then((res:any) => {
+      if (res.code === 200){
+        handleQuery();
+        ElMessage.success("删除成功");
+      }else {
+        ElMessage.error("删除失败");
+      }
     });
   });
 };

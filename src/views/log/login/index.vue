@@ -205,9 +205,13 @@
         cancelButtonText: "取消",
         type: "warning",
       }).then(function () {
-        return delLoginInfo(infoIds).then(() => {
-          handleQuery();
-          ElMessage.success("删除成功");
+        return delLoginInfo(infoIds).then((res:any) => {
+          if (res.code === 200){
+            handleQuery();
+            ElMessage.success("删除成功");
+          }else {
+            ElMessage.error("删除失败");
+          }
         });
       });
     };

@@ -179,9 +179,13 @@ const onTabelRowDel = (row: any) => {
     cancelButtonText: "取消",
     type: "warning",
   }).then(function () {
-    return delDeviceGroup(row.id).then(() => {
-      handleQuery();
-      ElMessage.success("删除成功");
+    return delDeviceGroup(row.id).then((res:any) => {
+      if (res.code === 200){
+        handleQuery();
+        ElMessage.success("删除成功");
+      }else {
+        ElMessage.error("删除失败");
+      }
     });
   });
 };
